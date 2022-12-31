@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Console
+namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli
 {
     /// <summary>
     /// DependencyInjection extensions for the infrastructure.console library.

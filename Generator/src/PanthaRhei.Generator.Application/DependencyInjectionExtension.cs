@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application
 {
@@ -14,7 +17,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
-            return services;
+            return services.AddDomainLayer()
+                .AddInfrastructureLayer()
+                .AddEntityFrameworkLayer();
         }
     }
 }

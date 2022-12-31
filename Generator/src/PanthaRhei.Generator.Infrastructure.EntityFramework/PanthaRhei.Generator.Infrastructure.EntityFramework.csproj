@@ -2,13 +2,20 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<AssemblyName>LiquidVisions.PanthaRhei.Generator.Application</AssemblyName>
-		<RootNamespace>LiquidVisions.PanthaRhei.Generator.Application</RootNamespace>
+		<AssemblyName>LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework</AssemblyName>
+		<RootNamespace>LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework</RootNamespace>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 	</PropertyGroup>
-
 	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,10 +25,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj" />
-	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj" />
-	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj" />
 	</ItemGroup>
+
 </Project>

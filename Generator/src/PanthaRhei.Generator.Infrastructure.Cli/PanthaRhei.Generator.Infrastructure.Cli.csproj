@@ -3,9 +3,10 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net7.0</TargetFramework>
-		<AssemblyName>LiquidVisions.PanthaRhei.Generator.Infrastructure.Console</AssemblyName>
-		<RootNamespace>LiquidVisions.PanthaRhei.Generator.Infrastructure.Console</RootNamespace>
+		<AssemblyName>LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli</AssemblyName>
+		<RootNamespace>LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli</RootNamespace>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<ToolCommandName>flux</ToolCommandName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -21,8 +22,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj" />
 		<ProjectReference Include="..\PanthaRhei.Generator.Application\PanthaRhei.Generator.Application.csproj" />
-		<ProjectReference Include="..\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>
