@@ -1,4 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Runtime.Loader;
+using System;
+using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
+using LiquidVisions.PanthaRhei.Generator.Domain.Models;
+using LiquidVisions.PanthaRhei.Generator.Domain.UseCases;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain
 {
@@ -14,7 +20,25 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddDomainLayer(this IServiceCollection services)
         {
+            var container = new DependencyInjectionContainer(services);
+
+            services.AddSingleton<IDependencyManager>(container)
+                .AddSingleton<IDependencyResolver>(container)
+                .AddSingleton(new Parameters())
+                .AddTransient<ICodeGeneratorBuilder, CodeGeneratorBuilder>()
+                .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
+                .AddInitializers();
+
             return services;
+        }
+
+        private static IServiceCollection AddInitializers(this IServiceCollection services)
+        {
+            return services.AddTransient<IAssemblyContext, ExpanderPluginLoadContext>()
+                .AddTransient<IAssemblyManager, AssemblyManager>()
+                .AddTransient<IAssemblyContext, ExpanderPluginLoadContext>()
+                .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
+                .AddTransient<IObjectActivator, ObjectActivator>();
         }
     }
 }

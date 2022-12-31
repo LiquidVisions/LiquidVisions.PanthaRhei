@@ -3,11 +3,11 @@
     /// <summary>
     /// Specifies the contract for the runtime application service.
     /// </summary>
-    public interface IGeneratorService
+    public interface ICodeGeneratorService
     {
         /// <summary>
-        /// Handles the runtime request.
+        /// Executes the code generation request.
         /// </summary>
-        void Handle();
+        void Execute();
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Dependencies
 {
     /// <summary>
     /// The <see cref="IServiceCollection">dependency container</see>.
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         public void AddSingleton<T>(T singletonObject)
             where T : class
         {
-            serviceCollection.AddSingleton<T>(singletonObject);
+            serviceCollection.AddSingleton(singletonObject);
         }
 
         /// <inheritdoc/>

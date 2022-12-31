@@ -17,6 +17,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
+            services.AddTransient<ICodeGeneratorService, CodeGeneratorService>();
+
             return services.AddDomainLayer()
                 .AddInfrastructureLayer()
                 .AddEntityFrameworkLayer();

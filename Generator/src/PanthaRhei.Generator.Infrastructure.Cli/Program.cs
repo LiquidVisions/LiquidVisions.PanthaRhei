@@ -4,10 +4,17 @@ using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 
 var cmd = new CommandLineApplication();
+cmd.HelpOption();
+
+var rootOption = cmd.Option(
+    "--root",
+    "Full path to the project root.",
+    CommandOptionType.SingleValue);
 
 var runModeOption = cmd.Option<GenerationModes>(
     "--mode",
@@ -25,16 +32,19 @@ cmd.OnExecute(() =>
         .AddConsole()
         .AddDomainLayer()
         .AddApplicationLayer()
+        .AddEntityFrameworkLayer()
         .AddInfrastructureLayer()
         .BuildServiceProvider();
 
-    GeneratorParameters parameters = provider.GetService<GeneratorParameters>();
+    Parameters parameters = provider.GetService<Parameters>();
+    parameters.Root = rootOption.Value();
     parameters.Clean = cleanModeOption.HasValue();
     parameters.GenerationMode = runModeOption.ParsedValue == GenerationModes.None
         ? GenerationModes.Default
         : runModeOption.ParsedValue;
 
-    provider.GetService<IGeneratorService>().Handle();
+    provider.GetService<ICodeGeneratorService>()
+        .Execute();
 });
 
 return cmd.Execute(args);

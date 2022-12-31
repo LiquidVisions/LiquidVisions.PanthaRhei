@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "flux-Default": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --clean --mode \"Default\""
+    },
+    "flux-Deploy": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --model --mode \"Deploy\""
+    },
+    "flux-Migrate": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --mode \"Migrate\""
+    },
+    "flux-Extend": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --mode \"Default, Extend\""
+    }
+  }
+}

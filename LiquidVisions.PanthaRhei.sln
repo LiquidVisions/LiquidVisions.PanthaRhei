@@ -31,13 +31,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Expander.CleanAr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Expander.CleanArchitecture.Tests", "Expanders\tests\PanthaRhei.Expander.CleanArchitecture.Tests\PanthaRhei.Expander.CleanArchitecture.Tests.csproj", "{A64516E9-1E13-46E5-ADA2-2E696ABE38E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanthaRhei.Generator.Infrastructure.EntityFramework", "Generator\src\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj", "{7D057B69-9EA0-44E2-A1E6-3700F8EC61A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Generator.Infrastructure.EntityFramework", "Generator\src\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj", "{7D057B69-9EA0-44E2-A1E6-3700F8EC61A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanthaRhei.Generator.Infrastructure.EntityFramework.Tests", "Generator\tests\PanthaRhei.Generator.Infrastructure.EntityFramework.Tests\PanthaRhei.Generator.Infrastructure.EntityFramework.Tests.csproj", "{6AB34BBF-4021-4BA4-A454-428AC292859D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Generator.Infrastructure.EntityFramework.Tests", "Generator\tests\PanthaRhei.Generator.Infrastructure.EntityFramework.Tests\PanthaRhei.Generator.Infrastructure.EntityFramework.Tests.csproj", "{6AB34BBF-4021-4BA4-A454-428AC292859D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Generator.Infrastructure.Cli", "Generator\src\PanthaRhei.Generator.Infrastructure.Cli\PanthaRhei.Generator.Infrastructure.Cli.csproj", "{E5787530-414C-4321-9133-07C3781736EC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Generator.Infrastructure.Cli.Tests", "Generator\tests\PanthaRhei.Generator.Infrastructure.Cli.Tests\PanthaRhei.Generator.Infrastructure.Cli.Tests.csproj", "{6E8C1D2F-69AA-47C9-93DC-C56936D7B318}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{576D9DD3-0AEA-4649-BB67-094EF44B4D33}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

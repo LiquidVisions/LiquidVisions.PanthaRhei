@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Dependencies
 {
     /// <summary>
     /// Specifies an interface for an agnostic Dependency registrations.
     /// </summary>
-    internal interface IDependencyManager
+    public interface IDependencyManager
     {
         /// <summary>
         /// Adds a singleton service of the type specified in TService with an instance specified

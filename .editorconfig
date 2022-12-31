@@ -12,10 +12,14 @@ dotnet_diagnostic.SA1633.severity = none
 dotnet_diagnostic.SA1311.severity = none
 dotnet_diagnostic.S3267.severity=silent
 
-[*Tests.cs]
-
 # SA1600: Elements should be documented
 dotnet_diagnostic.SA1600.severity = none
 
 # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CS1591.severity = none
+
+# SA1000: The keyword 'new' should be followed by a space.
+dotnet_diagnostic.SA1000.severity = none
+
+# S1450: 
+dotnet_diagnostic.S1450.severity = none

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
 {
@@ -10,16 +11,21 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         /// <summary>
         /// Gets or sets the id of the <seealso cref="App"/>.
         /// </summary>
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the Name of the <seealso cref="App"/>.
         /// </summary>
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the fullname of the <seealso cref="App"/>.
         /// </summary>
-        public string FullName { get; set; }
+        public virtual string FullName { get; set; }
+
+        /// <summary>
+        /// Gets or sets a collection of <seealso cref="Expander" /> that are applicable for the <seealso cref="App"/>.
+        /// </summary>
+        public virtual IEnumerable<Expander> Expanders { get; set; }
     }
 }
