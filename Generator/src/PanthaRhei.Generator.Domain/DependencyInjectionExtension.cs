@@ -2,6 +2,9 @@
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain
 {
+    /// <summary>
+    /// DependencyInjection extensions for the domain library.
+    /// </summary>
     public static class DependencyInjectionExtension
     {
         /// <summary>

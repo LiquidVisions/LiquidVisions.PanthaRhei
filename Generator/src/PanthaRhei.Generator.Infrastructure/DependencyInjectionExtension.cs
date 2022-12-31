@@ -2,6 +2,9 @@
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
 {
+    /// <summary>
+    /// DependencyInjection extensions for the infrastructure library.
+    /// </summary>
     public static class DependencyInjectionExtension
     {
         /// <summary>

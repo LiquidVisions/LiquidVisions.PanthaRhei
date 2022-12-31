@@ -2,6 +2,9 @@
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Console
 {
+    /// <summary>
+    /// DependencyInjection extensions for the infrastructure.console library.
+    /// </summary>
     public static class DependencyInjectionExtension
     {
         /// <summary>
