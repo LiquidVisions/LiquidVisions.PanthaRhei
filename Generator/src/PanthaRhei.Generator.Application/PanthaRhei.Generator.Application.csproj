@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<AssemblyName>LiquidVisions.PanthaRhei.Generator.Application</AssemblyName>
+		<RootNamespace>LiquidVisions.PanthaRhei.Generator.Application</RootNamespace>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
+
+</Project>

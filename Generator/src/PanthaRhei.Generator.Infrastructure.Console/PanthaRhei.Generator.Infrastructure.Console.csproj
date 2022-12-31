@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+	  <TargetFramework>net7.0</TargetFramework>
+	  <AssemblyName>LiquidVisions.PanthaRhei.Generator.Infrastructure.Console</AssemblyName>
+	  <RootNamespace>LiquidVisions.PanthaRhei.Generator.Infrastructure.Console</RootNamespace>
+	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+
+</Project>
