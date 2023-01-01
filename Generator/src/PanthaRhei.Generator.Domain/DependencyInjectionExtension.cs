@@ -1,5 +1,4 @@
-﻿using System.Runtime.Loader;
-using System;
+﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
@@ -11,6 +10,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     /// <summary>
     /// DependencyInjection extensions for the domain library.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjectionExtension
     {
         /// <summary>

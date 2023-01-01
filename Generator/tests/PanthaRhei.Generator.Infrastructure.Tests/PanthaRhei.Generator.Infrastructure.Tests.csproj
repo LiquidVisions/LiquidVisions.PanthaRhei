@@ -28,4 +28,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj" />
+	</ItemGroup>
 </Project>

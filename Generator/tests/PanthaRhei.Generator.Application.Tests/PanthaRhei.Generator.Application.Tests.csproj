@@ -28,4 +28,9 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\PanthaRhei.Generator.Application\PanthaRhei.Generator.Application.csproj" />
+	  <ProjectReference Include="..\PanthaRhei.Generator.Tests\PanthaRhei.Generator.Tests.csproj" />
+	</ItemGroup>
 </Project>

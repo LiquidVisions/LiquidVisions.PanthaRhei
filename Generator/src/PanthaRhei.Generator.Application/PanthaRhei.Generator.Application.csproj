@@ -26,4 +26,7 @@
 	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj" />
 	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Generator.Application.Tests" />
+	</ItemGroup>
 </Project>

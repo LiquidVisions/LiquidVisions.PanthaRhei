@@ -8,8 +8,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.UseCases
     /// Represents an error while merging Plugin Xml.
     /// </summary>
     [Serializable]
+    [ExcludeFromCodeCoverage]
     public class CodeGenerationException : Exception
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeGenerationException"/> class.
+        /// </summary>
+        public CodeGenerationException()
+        {
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeGenerationException"/> class.
         /// </summary>

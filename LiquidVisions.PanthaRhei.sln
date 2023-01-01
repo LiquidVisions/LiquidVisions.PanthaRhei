@@ -42,7 +42,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{576D9DD3-0AEA-4649-BB67-094EF44B4D33}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		testsettings.runsettings = testsettings.runsettings
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Generator.Tests", "Generator\tests\PanthaRhei.Generator.Tests\PanthaRhei.Generator.Tests.csproj", "{3ACB1BC3-EF1A-48C0-B429-572F9914B3B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +101,10 @@ Global
 		{6E8C1D2F-69AA-47C9-93DC-C56936D7B318}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E8C1D2F-69AA-47C9-93DC-C56936D7B318}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E8C1D2F-69AA-47C9-93DC-C56936D7B318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACB1BC3-EF1A-48C0-B429-572F9914B3B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACB1BC3-EF1A-48C0-B429-572F9914B3B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACB1BC3-EF1A-48C0-B429-572F9914B3B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACB1BC3-EF1A-48C0-B429-572F9914B3B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +126,7 @@ Global
 		{6AB34BBF-4021-4BA4-A454-428AC292859D} = {D6368549-88AF-4DDC-A4CD-2E2F28C8BBDA}
 		{E5787530-414C-4321-9133-07C3781736EC} = {FD292EB6-2CFB-496E-A4C5-B5CBCA394EA8}
 		{6E8C1D2F-69AA-47C9-93DC-C56936D7B318} = {D6368549-88AF-4DDC-A4CD-2E2F28C8BBDA}
+		{3ACB1BC3-EF1A-48C0-B429-572F9914B3B6} = {D6368549-88AF-4DDC-A4CD-2E2F28C8BBDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7BD53AE9-D348-4066-B8A6-4A7B0683F706}

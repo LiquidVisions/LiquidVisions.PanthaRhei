@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
@@ -6,6 +7,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
     /// <summary>
     /// Represents an implementation of <seealso cref="DbContext"/>.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal class Context : DbContext
     {
         /// <summary>
@@ -47,7 +49,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly)
+                .HasServiceTier("Basic");
         }
     }
 }

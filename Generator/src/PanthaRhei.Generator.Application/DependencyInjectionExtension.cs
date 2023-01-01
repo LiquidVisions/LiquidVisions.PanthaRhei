@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
     /// <summary>
     /// DependencyInjection extensions for the application library.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjectionExtension
     {
         /// <summary>

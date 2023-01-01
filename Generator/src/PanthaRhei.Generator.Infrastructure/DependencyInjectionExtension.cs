@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.IO;
@@ -10,6 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
     /// <summary>
     /// DependencyInjection extensions for the infrastructure library.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjectionExtension
     {
         /// <summary>

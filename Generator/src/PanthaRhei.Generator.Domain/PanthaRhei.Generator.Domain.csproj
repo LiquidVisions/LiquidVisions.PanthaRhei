@@ -20,4 +20,9 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Generator.Domain.Tests" />
+		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Generator.Tests" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
+	</ItemGroup>
 </Project>

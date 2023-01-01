@@ -5,7 +5,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Initializers
     /// <summary>
     /// Specifies a contract of an object that loads expanders as a plugin.
     /// </summary>
-    public interface IExpanderPluginLoader
+    internal interface IExpanderPluginLoader
     {
         /// <summary>
         /// Executes the loading command.

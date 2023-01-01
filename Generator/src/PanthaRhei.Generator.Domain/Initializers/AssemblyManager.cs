@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Initializers
@@ -6,6 +7,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Initializers
     /// <summary>
     /// Implements an assembly manager.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class AssemblyManager : IAssemblyManager
     {
         /// <inheritdoc/>

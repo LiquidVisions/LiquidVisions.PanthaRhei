@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
+﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
     /// <summary>
     /// DependencyInjection extensions for the infrastructure.console library.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjectionExtension
     {
         /// <summary>
@@ -21,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
             services.AddScoped<DbContext, Context>();
             services.AddDbContext<Context>(options =>
             {
-                options.UseSqlServer(); // TODO: Inject connectionstring here.
+                options.UseSqlServer("Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=4cZ#Lsojpc75;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"); // TODO: Inject connectionstring here.
                 options.UseLazyLoadingProxies();
 #if DEBUG
                 options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));

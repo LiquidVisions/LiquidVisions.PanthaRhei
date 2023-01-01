@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Logging;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 {
@@ -11,6 +12,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         /// Get a fully configured <seealso cref="ILoggerFactory"/>.
         /// </summary>
         /// <returns><seealso cref="ILoggerFactory"/></returns>
+        [ExcludeFromCodeCoverage]
         internal static ILoggerFactory GetLoggerFactory()
         {
             return LoggerFactory.Create(builder =>

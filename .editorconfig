@@ -21,5 +21,9 @@ dotnet_diagnostic.CS1591.severity = none
 # SA1000: The keyword 'new' should be followed by a space.
 dotnet_diagnostic.SA1000.severity = none
 
-# S1450: 
 dotnet_diagnostic.S1450.severity = none
+
+
+[**/Migrations/**.cs]
+generated_code = true
+dotnet_diagnostic.CS8981.severity = none
