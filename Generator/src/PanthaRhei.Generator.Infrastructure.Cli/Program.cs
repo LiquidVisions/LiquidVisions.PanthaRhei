@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System;
 using LiquidVisions.PanthaRhei.Generator.Application;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
@@ -14,6 +15,11 @@ cmd.HelpOption();
 var rootOption = cmd.Option(
     "--root",
     "Full path to the project root.",
+    CommandOptionType.SingleValue);
+
+var appOption = cmd.Option(
+    "--app",
+    "The id of the app.",
     CommandOptionType.SingleValue);
 
 var runModeOption = cmd.Option<GenerationModes>(
@@ -37,6 +43,7 @@ cmd.OnExecute(() =>
         .BuildServiceProvider();
 
     Parameters parameters = provider.GetService<Parameters>();
+    parameters.AppId = Guid.Parse(appOption.Value());
     parameters.Root = rootOption.Value();
     parameters.Clean = cleanModeOption.HasValue();
     parameters.GenerationMode = runModeOption.ParsedValue == GenerationModes.None

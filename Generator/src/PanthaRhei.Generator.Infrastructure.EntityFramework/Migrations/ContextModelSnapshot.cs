@@ -21,6 +21,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.HasServiceTierSql(modelBuilder, "'Basic'");
 
             modelBuilder.Entity("AppExpander", b =>
                 {
@@ -67,9 +68,40 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TemplateFolder")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Expander");
+                });
+
+            modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Handler", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ExpanderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupportedGenerationModes")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpanderId");
+
+                    b.ToTable("Handler");
                 });
 
             modelBuilder.Entity("AppExpander", b =>
@@ -85,6 +117,20 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                         .HasForeignKey("ExpandersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Handler", b =>
+                {
+                    b.HasOne("LiquidVisions.PanthaRhei.Generator.Domain.Models.Expander", "Expander")
+                        .WithMany("Handlers")
+                        .HasForeignKey("ExpanderId");
+
+                    b.Navigation("Expander");
+                });
+
+            modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Expander", b =>
+                {
+                    b.Navigation("Handlers");
                 });
 #pragma warning restore 612, 618
         }

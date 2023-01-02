@@ -1,0 +1,25 @@
+using {{using}}.Client.ViewModels;
+using {{using}}.Application.Mappers;
+using {{using}}.Domain.Entities;
+
+namespace {{name_space}}.Mappers
+{
+    public class {{entity.name}}ModelMapper : IMapper<{{entity.name}}, {{entity.name}}ViewModel>
+    {
+        public void Map({{entity.name}} source, {{entity.name}}ViewModel target)
+        {
+            {{~for field in entity.fields | array.sort 'order'~}}
+            target.{{field.name}} = source.{{field.name}};
+            {{~end~}}
+        }
+
+        public {{entity.name}}ViewModel Map({{entity.name}} source)
+        {
+            {{~'\t' + '\t' + '\t' + entity.name}}ViewModel target = new();
+
+            Map(source, target);
+
+            return target;
+        }
+    }
+}

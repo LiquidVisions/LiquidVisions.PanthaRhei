@@ -1,0 +1,38 @@
+{{-
+name = entity.name
+if action_type == "Get"
+    name = entity.pluralized_name
+end
+
+model_type = "Command"
+if action_type == "Get" || action_type == "GetById"
+    model_type = "Query"
+end
+
+class_name = action_type + name + "Boundary"
+model_name = action_type + name + model_type
+if action_type == "GetById"
+    class_name = "Get" + name + "ById" + "Boundary"
+    model_name = "Get" + name + "ById" + model_type
+end
+
+-}}
+using System.Threading.Tasks;
+using {{using}}.Application.Interactors;
+using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
+
+namespace {{name_space}}.{{entity.pluralized_name}}
+{
+    internal class {{class_name}} : IBoundary<{{model_name}}>
+    {
+        private readonly IInteractor<{{model_name}}> interactor;
+
+        public {{class_name}}(IInteractor<{{model_name}}> interactor)
+        {
+            this.interactor = interactor;
+        }
+
+        public async Task Execute({{model_name}} requestModel, IPresenter presenter) =>
+            presenter.Response = await interactor.ExecuteUseCase(requestModel);
+    }
+}

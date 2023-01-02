@@ -22,5 +22,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         /// Gets or sets a collection of <seealso cref="App" /> that are applicable for the <seealso cref="Expander"/>.
         /// </summary>
         public virtual List<App> Apps { get; set; }
+        public virtual string TemplateFolder { get; set; }
+        public virtual List<Handler> Handlers { get; set; }
+        public virtual int Order { get; set; }
     }
 }

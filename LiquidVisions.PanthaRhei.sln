@@ -27,9 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5C418A04-F5C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{76C38811-807A-471C-B67C-EC675A66B585}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Expander.CleanArchitecture", "Expanders\src\PanthaRhei.Expander.CleanArchitecture\PanthaRhei.Expander.CleanArchitecture.csproj", "{52FF65B4-2321-4992-AAF0-A8A753CC1DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Expanders.CleanArchitecture", "Expanders\src\PanthaRhei.Expanders.CleanArchitecture\PanthaRhei.Expanders.CleanArchitecture.csproj", "{52FF65B4-2321-4992-AAF0-A8A753CC1DBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Expander.CleanArchitecture.Tests", "Expanders\tests\PanthaRhei.Expander.CleanArchitecture.Tests\PanthaRhei.Expander.CleanArchitecture.Tests.csproj", "{A64516E9-1E13-46E5-ADA2-2E696ABE38E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Expanders.CleanArchitecture.Tests", "Expanders\tests\PanthaRhei.Expanders.CleanArchitecture.Tests\PanthaRhei.Expanders.CleanArchitecture.Tests.csproj", "{A64516E9-1E13-46E5-ADA2-2E696ABE38E9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanthaRhei.Generator.Infrastructure.EntityFramework", "Generator\src\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj", "{7D057B69-9EA0-44E2-A1E6-3700F8EC61A6}"
 EndProject

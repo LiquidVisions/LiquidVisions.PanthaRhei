@@ -1,0 +1,29 @@
+{{-
+model_name = action+entity.name+"Command";
+-}}
+using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
+using {{using}}.Domain.Entities;
+
+namespace {{name_space}}.Mappers.{{entity.pluralized_name}}
+{
+    internal class {{model_name}}To{{entity.name}}Mapper : IMapper<{{model_name}}, {{entity.name}}>
+    {
+        public void Map({{model_name}} source, {{entity.name}} target)
+        {
+            {{~for field in entity.fields  | array.sort 'order'~}}
+            {{~if field.name != "Id"~}}
+            target.{{field.name}} = source.{{field.name}};
+            {{~end~}}
+            {{~end~}}
+        }
+
+        public {{entity.name}} Map({{model_name}} source)
+        {
+            {{entity.name}} target = new();
+
+            Map(source, target);
+
+            return target;
+        }
+    }
+}

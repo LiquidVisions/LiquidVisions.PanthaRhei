@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using {{using}}.Domain.Entities;
+using RestSharp;
+using RestSharp.Serializers.Json;
+
+namespace {{using}}.Client
+{
+    public class {{endpoint.for_entity.name}}Client : IClient<{{endpoint.for_entity.name}}>
+    {
+        public async Task<IEnumerable<{{endpoint.for_entity.name}}>> GetAll()
+        {
+            #region ns-custom-get
+            throw new NotImplementedException();
+            #endregion ns-custom-get
+        }
+
+        public {{endpoint.for_entity.name}} GetById(Guid id)
+        {
+            #region ns-custom-getbyid
+            throw new NotImplementedException();
+            #endregion ns-custom-getbyid
+        }
+    }
+}

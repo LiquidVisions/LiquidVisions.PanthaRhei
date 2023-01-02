@@ -1,7 +1,7 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
-using LiquidVisions.PanthaRhei.Generator.Domain.UseCases;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application
 {
@@ -12,6 +12,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
     {
         private readonly ICodeGeneratorBuilder builder;
         private readonly ILogger logger;
+        private readonly ILogger exceptionLogger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeGeneratorService"/> class.
@@ -21,6 +22,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         {
             builder = dependencyResolver.Get<ICodeGeneratorBuilder>();
             logger = dependencyResolver.Get<ILogger>();
+            exceptionLogger = dependencyResolver
+                .Get<ILogManager>()
+                .GetExceptionLogger();
         }
 
         /// <inheritdoc/>
@@ -38,8 +42,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
             }
             catch(Exception ex)
             {
-                logger.Fatal(ex, $"An unexpected error has occured with the following message: {ex.Message}.");
+                exceptionLogger.Fatal(ex, $"An unexpected error has occured with the following message: {ex.Message}.");
             }
+
+            logger.Info("Successfully completed the code generation process.");
         }
     }
 }

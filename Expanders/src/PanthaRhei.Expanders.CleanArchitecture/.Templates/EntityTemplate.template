@@ -1,0 +1,63 @@
+{{-
+func GetDefaultValue
+begin
+    if ($0.data_type | object.kind == 'NSString')
+    begin
+        ret '"' + $0.default_value + '"'
+    end
+    
+    ret $0.default_value
+
+end
+func GetFieldAccessType
+begin
+    
+    if($0.is_abstract)
+    begin
+        ret "abstract";
+    else
+    begin
+        if(!$0.is_abstract && $1.inherits_from != 'IEntity')
+        begin
+            ret "override";
+        end
+    end
+    
+    ret "virtual"
+end
+-}}
+using System;
+using System.Collections.Generic;
+{{~if entity.is_abstract~}}
+using System.Text.Json.Serialization;
+{{~end~}}
+#region ns-custom-namespaces
+#endregion ns-custom-namespaces
+
+namespace {{name_space}}.Entities
+{
+    {{~if entity.is_enum~}}
+    public enum {{entity.name}}
+    {
+        {{~for field in entity.fields | array.sort 'order'~}}
+        {{field.name}} = {{field.default_value}},
+        {{~end~}}
+    }
+    {{~else~}}
+    {{~if entity.is_abstract~}}
+    [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+    {{~for der in derived_types~}}
+    [JsonDerivedType(typeof({{der.name}}), typeDiscriminator: nameof({{der.name}}))]
+    {{~end~}}{{~end~}}
+    {{render_entity_class_signature entity}}
+    {
+        {{render_properties entity~}}
+        
+        #region ns-custom-properties
+        #endregion ns-custom-properties
+
+        #region ns-custom-methods
+        #endregion ns-custom-methods
+    }
+    {{~end~}}
+}

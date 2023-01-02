@@ -1,0 +1,67 @@
+{{-
+name = "Update" + entity.name;
+class_name = name + "Interactor";
+-}}
+using System;
+using System.Threading.Tasks;
+using {{name_space}}.Gateways;
+using {{name_space}}.Mappers;
+using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
+using {{name_space}}.Validators;
+using {{using}}.Domain.Entities;
+
+namespace {{name_space}}.Interactors.{{entity.pluralized_name}}
+{
+    internal class {{class_name}} : IInteractor<{{name}}Command>
+    {
+        private readonly IValidator<{{name}}Command> validator;
+        private readonly IMapper<{{name}}Command, {{entity.name}}> mapper;
+        private readonly IUpdateGateway<{{entity.name}}> repository;
+        private readonly IGetByIdGateway<{{entity.name}}> getRepository;
+
+        public {{class_name}}(
+            IValidator<{{name}}Command> validator,
+            IMapper<{{name}}Command, {{entity.name}}> mapper,
+            IUpdateGateway<{{entity.name}}> repository,
+            IGetByIdGateway<{{entity.name}}> getRepository)
+        {
+            this.validator = validator;
+            this.mapper = mapper;
+            this.repository = repository;
+            this.getRepository = getRepository;
+        }
+
+        public async Task<Response> ExecuteUseCase({{name}}Command requestModel)
+        {
+            Response response = validator.Validate(requestModel);
+            if (response.IsValid)
+            {
+                try
+                {
+                    {{entity.name}} entity = getRepository.GetById(requestModel.Id);
+                    if (entity == null)
+                    {
+                        response.AddError(ErrorCodes.NotFound, $"Resource {nameof({{entity.name}})} with id {requestModel.Id} not found.");
+                        return response;
+                    }
+
+                    mapper.Map(requestModel, entity);
+                    response.SetParameter(entity);
+
+                    int repositoryResult = await repository.Update(entity);
+                    if (repositoryResult != 1)
+                    {
+                        response.AddError(ErrorCodes.InternalServerError, $"Failed to create {nameof({{entity.name}})}.");
+                        return response;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    response.AddError(ErrorCodes.InternalServerError, exception.Message);
+                }
+            }
+
+            return response;
+        }
+    }
+}

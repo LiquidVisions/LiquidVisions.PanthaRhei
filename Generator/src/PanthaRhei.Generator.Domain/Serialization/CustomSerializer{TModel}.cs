@@ -1,0 +1,58 @@
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Serialization
+{
+    /// <summary>
+    /// Handles serialization and deserialization for <typeparamref name="TModel"/>.
+    /// </summary>
+    /// <typeparam name="TModel">The model.</typeparam>
+    [ExcludeFromCodeCoverage]
+    internal sealed class CustomSerializer<TModel> : IDeserializer<TModel>, ISerializer<TModel>
+        where TModel : new()
+    {
+        private readonly XmlSerializer serializer = new(typeof(TModel));
+
+        /// <inheritdoc/>
+        public TModel Deserialize(XDocument xml)
+        {
+            TModel result = (TModel)serializer.Deserialize(xml.Root.CreateReader());
+
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public TModel Deserialize(string path)
+        {
+            TModel model = Deserialize(Load(path));
+
+            return model;
+        }
+
+        /// <inheritdoc/>
+        public XDocument Load(string path)
+        {
+            XDocument xml = XDocument.Load(path);
+
+            return xml;
+        }
+
+        /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
+        public void Serialize(string path, TModel model)
+        {
+            using TextWriter writer = new StreamWriter(path);
+            serializer.Serialize(writer, model);
+        }
+
+        /// <inheritdoc/>
+        public string SerializeToString(TModel model)
+        {
+            using StringWriter textWriter = new();
+            serializer.Serialize(textWriter, model);
+            return textWriter.ToString();
+        }
+    }
+}

@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
-using LiquidVisions.PanthaRhei.Generator.Domain.UseCases;
+using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain
@@ -26,6 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
                 .AddSingleton<IDependencyResolver>(container)
                 .AddSingleton(new Parameters())
                 .AddTransient<ICodeGeneratorBuilder, CodeGeneratorBuilder>()
+                .AddTransient<ICodeGenerator, CodeGenerator>()
                 .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
                 .AddInitializers();
 
@@ -38,6 +40,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
                 .AddTransient<IAssemblyManager, AssemblyManager>()
                 .AddTransient<IAssemblyContext, ExpanderPluginLoadContext>()
                 .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
+                .AddTransient<ISerializer<Harvest>, CustomSerializer<Harvest>>()
+                .AddTransient<IDeserializer<Harvest>, CustomSerializer<Harvest>>()
                 .AddTransient<IObjectActivator, ObjectActivator>();
         }
     }

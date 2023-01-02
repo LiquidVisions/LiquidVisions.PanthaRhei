@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
@@ -23,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repo
         /// <inheritdoc/>
         public App GetById(Guid appId)
         {
-            App app = context.Apps.Find(appId);
+            App app = context.Apps.Single(x => x.Id == appId);
 
             return app;
         }

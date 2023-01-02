@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
@@ -14,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Initializers
     /// </summary>
     internal class ExpanderPluginLoader : IExpanderPluginLoader
     {
-        private readonly string searchPattern = "*.Expander.*.dll";
+        private readonly string searchPattern = "*.Expanders.*.dll";
         private readonly Parameters parameters;
         private readonly IDirectoryService directoryService;
         private readonly IAssemblyContext assemblyContext;
@@ -73,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Initializers
                         .Single(x => x.GetInterfaces().Contains(typeof(IExpanderDependencyManager)));
 
                     IExpanderDependencyManager expanderDependencyManager = (IExpanderDependencyManager)activator
-                        .CreateInstance(bootstrapperType, expander, dependencyManager, logger, assemblyManager);
+                        .CreateInstance(bootstrapperType, expander, dependencyManager);
 
                     expanderDependencyManager.Register();
                 }

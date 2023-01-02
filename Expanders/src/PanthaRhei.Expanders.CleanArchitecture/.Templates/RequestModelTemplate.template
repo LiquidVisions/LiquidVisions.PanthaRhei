@@ -1,0 +1,61 @@
+{{-
+model_type = "Command"
+if action == "Get" || action == "GetById"
+    model_type = "Query"
+end
+
+class_name = action + entity.name + model_type
+if(action == "Get")
+    class_name = "Get" + entity.pluralized_name + model_type
+else if action == "GetById"
+    class_name = "Get" + entity.name + "ById" + model_type
+end
+-}}
+{{-
+func get_prop(field)
+    result = "public " + field.data_type.return_type;
+
+    if(!field.data_type.required && field.data_type.return_type != 'string')
+        result = result + "?";
+    end
+
+    result = result + " " + field.name + " { get; set; }";
+
+    ret result;
+end
+-}}
+
+using System;
+using System.Collections.Generic;
+using {{ns}}.Domain.Entities;
+
+namespace {{name_space}}
+{
+    public class {{class_name}} : RequestModel
+
+    {{- if action == "Create" }}
+    {
+        {{~for field in entity.fields | array.sort 'order'~}}
+            {{~if !field.is_key~}}
+        {{get_prop field}}
+            {{~end~}}
+        {{~end~}}
+    }{{- end }}
+    {{- if action == "Get" }}
+    {
+    }{{- end }}
+    {{- if action == "Delete" || action == "GetById" }}
+    {
+        {{~for field in entity.fields | array.sort 'order'~}}
+            {{~if field.is_key~}}
+            {{get_prop field}}
+            {{~end~}}
+        {{~end~}}
+    }{{- end }}
+    {{- if action == "Update" }}
+    {
+        {{~for field in entity.fields | array.sort 'order'~}}
+        {{get_prop field}}
+        {{~end~}}
+    }{{- end }}
+}

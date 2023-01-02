@@ -1,0 +1,34 @@
+
+        private static IServiceCollection Add{{entity.name}}(this IServiceCollection services)
+        {
+            // CREATE {{entity.name | string.upcase}}
+            services.AddTransient<IInteractor<Create{{entity.name}}Command>, Create{{entity.name}}Interactor>();
+            services.AddTransient<IBoundary<Create{{entity.name}}Command>, Create{{entity.name}}Boundary>();
+            services.AddTransient<IValidator<Create{{entity.name}}Command>, Create{{entity.name}}Validator>();
+
+            // GET {{entity.pluralized_name | string.upcase}}
+            services.AddTransient<IInteractor<Get{{entity.pluralized_name}}Query>, Get{{entity.pluralized_name}}Interactor>();
+            services.AddTransient<IBoundary<Get{{entity.pluralized_name}}Query>, Get{{entity.pluralized_name}}Boundary>();
+            services.AddTransient<IValidator<Get{{entity.pluralized_name}}Query>, Get{{entity.pluralized_name}}Validator>();
+
+            // GET {{entity.name | string.upcase}}
+            services.AddTransient<IInteractor<Get{{entity.name}}ByIdQuery>, Get{{entity.name}}Interactor>();
+            services.AddTransient<IBoundary<Get{{entity.name}}ByIdQuery>, Get{{entity.name}}ByIdBoundary>();
+            services.AddTransient<IValidator<Get{{entity.name}}ByIdQuery>, Get{{entity.name}}ByIdValidator>();
+
+            // DELETE {{entity.name | string.upcase}}
+            services.AddTransient<IInteractor<Delete{{entity.name}}Command>, Delete{{entity.name}}Interactor>();
+            services.AddTransient<IBoundary<Delete{{entity.name}}Command>, Delete{{entity.name}}Boundary>();
+            services.AddTransient<IValidator<Delete{{entity.name}}Command>, Delete{{entity.name}}Validator>();
+
+            // UPDATE {{entity.name | string.upcase}}
+            services.AddTransient<IInteractor<Update{{entity.name}}Command>, Update{{entity.name}}Interactor>();
+            services.AddTransient<IBoundary<Update{{entity.name}}Command>, Update{{entity.name}}Boundary>();
+            services.AddTransient<IValidator<Update{{entity.name}}Command>, Update{{entity.name}}Validator>();
+
+            // MAPPERS
+            services.AddTransient<IMapper<Create{{entity.name}}Command, {{entity.name}}>, Create{{entity.name}}CommandTo{{entity.name}}Mapper>();
+            services.AddTransient<IMapper<Update{{entity.name}}Command, {{entity.name}}>, Update{{entity.name}}CommandTo{{entity.name}}Mapper>();
+
+            return services;
+        }

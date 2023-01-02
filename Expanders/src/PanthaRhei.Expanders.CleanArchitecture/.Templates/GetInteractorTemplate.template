@@ -1,0 +1,50 @@
+{{-
+name = "Get" + entity.pluralized_name;
+class_name = name + "Interactor";
+-}}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using {{using}}.Application.Gateways;
+using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
+using {{using}}.Application.Validators;
+using {{using}}.Domain.Entities;
+
+namespace {{name_space}}.Interactors.{{entity.pluralized_name}}
+{
+    internal class {{class_name}} : IInteractor<{{name}}Query>
+    {
+        private readonly IValidator<{{name}}Query> validator;
+        private readonly IGetGateway<{{entity.name}}> repository;
+
+        public {{class_name}}(
+            IValidator<{{name}}Query> validator,
+            IGetGateway<{{entity.name}}> repository)
+        {
+            this.validator = validator;
+            this.repository = repository;
+        }
+
+        public Task<Response> ExecuteUseCase({{name}}Query model)
+        {
+            return Task.Run(() =>
+            {
+                Response response = validator
+                    .Validate(model);
+
+                if (response.IsValid)
+                {
+                    #region ns-custom-query
+                    var queryResult = repository
+                        .Get()
+                        .ToList();
+                    #endregion ns-custom-query
+                    response.SetParameter(queryResult);
+                }
+
+                return response;
+            });
+        }
+    }
+}

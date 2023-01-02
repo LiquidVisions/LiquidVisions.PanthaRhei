@@ -1,0 +1,61 @@
+using {{entity_name_space}};
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace {{name_space}}.Configuration
+{
+    public class {{entity.name}}Configuration : IEntityTypeConfiguration<{{entity.name}}>
+    {
+        public void Configure(EntityTypeBuilder<{{entity.name}}> builder)
+        {
+            {{~if keys.size > 0~}}
+            builder.HasKey(x => new { x.{{keys | array.join", x."}} });
+            {{~end~}}
+            {{~if indexes.size > 0~}}
+            
+            builder.HasIndex(x => new { x.{{indexes | array.join ", x."}} });
+            {{~end~}}
+            
+            {{~for field in entity.fields | array.sort 'order'~}}
+            {{~if field.data_type | object.kind != 'NSComplex' && field.keyword != 'abstract'~}}
+            builder.Property(x => x.{{ field.name }})
+                {{~if field.data_type | object.kind == 'NSString'~}}
+                .HasMaxLength({{field.data_type.size}})
+                {{~end~}}
+                .IsRequired({{field.data_type.required}});
+            
+            {{~end~}}
+            {{~if field.data_type | object.kind != 'NSComplex' && field.keyword == 'abstract'~}}
+            builder.Ignore(x => x.{{field.name}});
+
+            {{~end~}}
+            {{~end~}}
+            {{~for r in entity.relations-}}
+            {{-if r.cardinality == "WithOne"~}}
+            builder.HasOne(x => x.{{r.foreign_key.name}})
+            {{~else~}}
+            builder.HasMany(x => x.{{r.foreign_key.name}})
+            {{~end~}}
+            {{~if r.foreign_key_cardinality == "WithOne"~}}
+                .WithOne(x => x.{{r.foreign_entity_key.name}})
+            {{~if r.foreign_key_cardinality == "WithOne" && r.cardinality == "WithOne"~}}
+                .HasForeignKey<{{r.foreign_entity.name}}>("{{r.foreign_entity.name}}Id")
+            {{~end~}}
+                .OnDelete(DeleteBehavior.Cascade);
+                {{~else~}}
+                .WithMany(x => x.{{r.foreign_entity_key.name}});
+                {{~end~}}
+
+            {{~end~}}
+            {{~if discriminators.size > 0~}}
+            builder.HasDiscriminator<string>("data_type")
+            {{~for dis in discriminators~}}
+                .HasValue<{{dis.name}}>("{{dis.name}}"){{if discriminators | array.last == dis}};{{end}}
+            {{~end~}}
+            {{~end~}}
+
+            #region ns-custom-configuration
+            #endregion ns-custom-configuration
+        }
+    }
+}

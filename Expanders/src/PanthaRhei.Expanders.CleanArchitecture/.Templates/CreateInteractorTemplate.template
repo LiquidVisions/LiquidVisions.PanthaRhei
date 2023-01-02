@@ -1,0 +1,59 @@
+{{-
+name = "Create" + entity.name;
+class_name = name + "Interactor";
+-}}
+using System;
+using System.Threading.Tasks;
+using {{name_space}}.Gateways;
+using {{name_space}}.Mappers;
+using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
+using {{name_space}}.Validators;
+using {{using}}.Domain.Entities;
+
+namespace {{name_space}}.Interactors.{{entity.pluralized_name}}
+{
+    internal class {{class_name}} : IInteractor<{{name}}Command>
+    {
+        private readonly IValidator<{{name}}Command> validator;
+        private readonly IMapper<{{name}}Command, {{entity.name}}> mapper;
+        private readonly ICreateGateway<{{entity.name}}> repository;
+
+        public {{class_name}}(
+            IValidator<{{name}}Command> validator,
+            IMapper<{{name}}Command, {{entity.name}}> mapper,
+            ICreateGateway<{{entity.name}}> gateway)
+        {
+            this.validator = validator;
+            this.mapper = mapper;
+            repository = gateway;
+        }
+
+        public async Task<Response> ExecuteUseCase({{name}}Command requestModel)
+        {
+            Response result = validator.Validate(requestModel);
+            if (result.IsValid)
+            {
+                try
+                {
+                    {{entity.name}} entity = mapper.Map(requestModel);
+                    entity.Id = Guid.NewGuid();
+
+                    result.SetParameter(entity);
+
+                    int repositoryResult = await repository.Create(entity);
+                    if (repositoryResult != 1)
+                    {
+                        result.AddError(ErrorCodes.InternalServerError, $"Failed to create {nameof({{entity.name}})}.");
+                        return result;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    result.AddError(ErrorCodes.InternalServerError, exception.Message);
+                }
+            }
+
+            return result;
+        }
+    }
+}

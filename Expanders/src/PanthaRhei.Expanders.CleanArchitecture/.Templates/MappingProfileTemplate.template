@@ -1,0 +1,20 @@
+using AutoMapper;
+using {{entity_name_space}};
+
+namespace {{name_space}}
+{
+    public class {{name}} : Profile
+    {
+        public {{name}}()
+        {
+            {{~for mapping in mappings~}}
+            CreateMap<{{mapping.source_object}}, {{mapping.target_object}}>()
+            {{~for field in mapping.field_mappings~}}
+                .ForMember(target => target.{{field.target_field}}, x => x.MapFrom(source => source.{{field.source_field}}))
+            {{~end~}}
+                .ReverseMap();
+            
+            {{~end~}}
+        }
+    }
+}

@@ -1,0 +1,59 @@
+{{-
+name = "Get" + entity.name;
+class_name = name + "Interactor";
+-}}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using {{using}}.Application.Gateways;
+using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
+using {{using}}.Application.Validators;
+using {{using}}.Domain.Entities;
+
+namespace {{name_space}}.Interactors.{{entity.pluralized_name}}
+{
+    internal class {{class_name}} : IInteractor<{{name}}ByIdQuery>
+    {
+        private readonly IValidator<{{name}}ByIdQuery> validator;
+        private readonly IGetByIdGateway<{{entity.name}}> repository;
+
+        public {{class_name}}(
+            IValidator<{{name}}ByIdQuery> validator,
+            IGetByIdGateway<{{entity.name}}> repository)
+        {
+            this.validator = validator;
+            this.repository = repository;
+        }
+
+        public Task<Response> ExecuteUseCase({{name}}ByIdQuery model)
+        {
+            return Task.Run(() =>
+            {
+                Response response = validator
+                    .Validate(model);
+
+                if (response.IsValid)
+                {
+                    try
+                    {
+                        {{entity.name}} entity = repository.GetById(model.Id);
+                        if (entity == null)
+                        {
+                            response.AddError(ErrorCodes.NotFound, $"{{entity.name}} ({model.Id}) not found.");
+                            return response;
+                        }
+
+                        response.SetParameter(entity);
+                    }
+                    catch (Exception exception)
+                    {
+                        response.AddError(ErrorCodes.InternalServerError, exception.Message);
+                    }
+                }
+
+                return response;
+            });
+        }
+    }
+}

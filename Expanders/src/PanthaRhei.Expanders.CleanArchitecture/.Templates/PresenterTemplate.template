@@ -1,0 +1,68 @@
+{{-
+name = entity.name;
+if(action == "Get")
+    name = entity.pluralized_name;
+end
+-}}
+{{-if action == "Delete"-}}
+using {{using}}.Application;
+{{~else~}}
+using {{using}}.Client.ViewModels;
+using {{using}}.Application;
+using {{using}}.Application.Mappers;
+using {{using}}.Domain.Entities;
+{{end~}}
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+
+namespace {{name_space}}.{{entity.pluralized_name}}
+{
+    public interface I{{action}}{{name}}Presenter : IIResultPresenter {}
+
+    public class {{action}}{{name}}Presenter : I{{action}}{{name}}Presenter
+    {
+        {{~if action != "Delete"~}}
+        private readonly IMapper<{{entity.name}}, {{entity.name}}ViewModel> mapper;
+
+        public {{action}}{{name}}Presenter(IMapper<{{entity.name}}, {{entity.name}}ViewModel> mapper)
+        {
+            this.mapper = mapper;
+        }{{~end}}
+
+        public Response Response { get; set; }
+
+        {{~if action == "Delete"~}}
+        public IResult GetResult(HttpRequest request = null) => Response.IsValid ? 
+            Results.Ok() : 
+            Response.ToWebApiResult(request);
+        {{~else~}}
+        public IResult GetResult(HttpRequest request = null)
+        {
+            {{~if action == "Get" || action == "GetById"~}}
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve,
+                WriteIndented = true,
+                PropertyNameCaseInsensitive= false,
+            };
+            {{~end~}}
+
+            return Response.IsValid ?
+                {{~if(action == "Create")~}}
+                Results.Created($"/{{entity.pluralized_name | string.downcase}}/{mapper.Map(Response.GetParameter<{{entity.name}}>()).Id}", mapper.Map(Response.GetParameter<{{entity.name}}>())) :
+                {{~else if(action == "Get")~}}
+                Results.Json(Response.GetParameter<List<{{entity.name}}>>().Select(x => mapper.Map(x)), options, "application/json", 200) :
+                {{~else if(action == "Update")~}}
+                Results.Ok(mapper.Map(Response.GetParameter<{{entity.name}}>())) :
+                {{~else if(action == "GetById" || action == "Update")~}}
+                Results.Json(mapper.Map(Response.GetParameter<{{entity.name}}>()), options, "application/json", 200) :
+                {{~else if action == "Delete"~}}
+                Results.Ok() :
+                {{~end~}}
+                Response.ToWebApiResult(request);
+        }
+        {{~end~}}
+    }
+}

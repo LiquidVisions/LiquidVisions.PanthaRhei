@@ -1,0 +1,16 @@
+using System;
+using System.Collections.Generic;
+using {{ns}}.Domain.Entities;
+
+namespace {{name_space}}.ViewModels
+{
+    public class {{entity.name}}ViewModel : ViewModel
+    {
+        {{~for field in entity.fields | array.sort 'order'~}}
+        public {{field.data_type.return_type}} {{-if !field.data_type.required && field.data_type.return_type != 'string'}}?{{end}} {{field.name}} { get; set; }
+        {{~end~}}
+
+        #region ns-custom-properties
+        #endregion ns-custom-properties
+    }
+}

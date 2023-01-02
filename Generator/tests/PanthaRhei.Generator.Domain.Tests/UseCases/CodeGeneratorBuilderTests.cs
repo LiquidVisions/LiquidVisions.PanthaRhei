@@ -1,6 +1,6 @@
 ﻿using System;
+using LiquidVisions.PanthaRhei.Generator.Domain.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
-using LiquidVisions.PanthaRhei.Generator.Domain.UseCases;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;

@@ -1,0 +1,61 @@
+{{-
+name = "Delete" + entity.name;
+class_name = name + "Interactor";
+-}}
+using System;
+using System.Threading.Tasks;
+using {{name_space}}.Gateways;
+using {{name_space}}.Mappers;
+using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
+using {{name_space}}.Validators;
+using {{using}}.Domain.Entities;
+
+namespace {{name_space}}.Interactors.{{entity.pluralized_name}}
+{
+    internal class {{class_name}} : IInteractor<{{name}}Command>
+    {
+        private readonly IValidator<{{name}}Command> validator;
+        private readonly IDeleteGateway<{{entity.name}}> repository;
+        private readonly IGetByIdGateway<{{entity.name}}> getByIdRepository;
+
+        public {{class_name}}(
+            IValidator<{{name}}Command> validator,
+            IDeleteGateway<{{entity.name}}> repository,
+            IGetByIdGateway<{{entity.name}}> getByIdRepository)
+        {
+            this.validator = validator;
+            this.repository = repository;
+            this.getByIdRepository = getByIdRepository;
+        }
+
+        public async Task<Response> ExecuteUseCase({{name}}Command requestModel)
+        {
+            Response response = validator.Validate(requestModel);
+            if (response.IsValid)
+            {
+                try
+                {
+                    {{entity.name}} entity = getByIdRepository.GetById(requestModel.Id);
+                    if (entity == null)
+                    {
+                        response.AddError(ErrorCodes.NotFound, $"{{entity.name}} resource ({requestModel.Id}) not found.");
+                        return response;
+                    }
+
+                    bool deleted = await repository.Delete(entity);
+                    response.SetParameter(entity);
+                    if (!deleted)
+                    {
+                        response.AddError(ErrorCodes.InternalServerError, $"Failed to delete entity id {requestModel.Id}");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    response.AddError(ErrorCodes.InternalServerError, exception.Message);
+                }
+            }
+
+            return response;
+        }
+    }
+}

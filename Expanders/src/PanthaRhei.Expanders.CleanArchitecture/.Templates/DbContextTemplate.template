@@ -1,0 +1,41 @@
+﻿{{if entities.size > 0}}using {{name_space_entities}};{{end}}
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
+namespace {{ name_space }}
+{
+    public class Context : DbContext
+    {
+        public Context() { }
+        public Context(DbContextOptions options)
+            : base(options) { }
+
+        public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => {
+            builder.AddConsole();
+        });
+
+        {{~for entity in entities~}}
+        {{~if entity.is_data_element~}}
+        public DbSet<{{ entity.name }}> {{ entity.pluralized_name }} { get; set; }
+        
+        {{~end~}}
+        {{~end~}}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder
+                    .UseLoggerFactory(loggerFactory)
+                    .EnableSensitiveDataLogging()
+                    .UseSqlServer(@"{{connection_string}}");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        }
+    }
+}
