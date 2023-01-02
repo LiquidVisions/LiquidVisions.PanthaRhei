@@ -1,5 +1,4 @@
-﻿using System;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
@@ -13,9 +12,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// <summary>
         /// Initializes a new instance of the <see cref="ScaffoldTemplateHandler "/> class.
         /// </summary>
+        /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        public ScaffoldTemplateHandler(IDependencyResolver dependencyResolver)
-            : base(dependencyResolver)
+        public ScaffoldTemplateHandler(CleanArchitectureExpander expander, IDependencyResolver dependencyResolver)
+            : base(expander, dependencyResolver)
         {
         }
 
@@ -25,18 +25,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// <inheritdoc/>
         public override void Execute()
         {
-            Scaffold(Resources.TemplateShortName, App.Name, Expander.Model.Name);
+            Scaffold(Resources.TemplateShortName, App.Name, App.FullName);
 
-            foreach (Component component in Expander.Model.Components)
-            {
-                if (component.Packages != null)
+            Model.Expander.Components
+                ?.ForEach(component => component.Packages
+                ?.ForEach(package =>
                 {
-                    foreach (Package package in component.Packages)
-                    {
-                        PackageReference(string.Empty, package.Name, package.Version);
-                    }
-                }
-            }
+                    string project = $"{App.FullName}.{component.Name}";
+                    ApplyNugetPackages(project, package.Name, package.Version);
+                }));
         }
     }
 }

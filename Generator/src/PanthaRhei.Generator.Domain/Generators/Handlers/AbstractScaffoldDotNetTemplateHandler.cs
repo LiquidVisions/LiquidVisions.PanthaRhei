@@ -15,9 +15,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractScaffoldDotNetTemplateHandler{TExpander}"/> class.
         /// </summary>
+        /// <param name="expander"><typeparamref name="TExpander"/>.</param>
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        protected AbstractScaffoldDotNetTemplateHandler(IDependencyResolver dependencyResolver)
-            : base(dependencyResolver)
+        protected AbstractScaffoldDotNetTemplateHandler(TExpander expander, IDependencyResolver dependencyResolver)
+            : base(expander, dependencyResolver)
         {
             commandLine = dependencyResolver.Get<ICommandLine>();
         }
@@ -47,7 +48,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
         /// </summary>
         /// <param name="pathToTargetLibrary">The source project.</param>
         /// <param name="pathToCurrentLibrary">The project reference that will be added.</param>
-        public virtual void AddProjectReference(string pathToTargetLibrary, string pathToCurrentLibrary)
+        public virtual void ApplyProjectReferences(string pathToTargetLibrary, string pathToCurrentLibrary)
         {
             Logger.Info($"Create library reference to {pathToTargetLibrary} with reference to {pathToCurrentLibrary}");
 
@@ -60,7 +61,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
         /// <param name="project">The source project.</param>
         /// <param name="packageName">The name of the package.</param>
         /// <param name="version">The version of the package.</param>
-        public virtual void PackageReference(string project, string packageName, string version)
+        public virtual void ApplyNugetPackages(string project, string packageName, string version)
         {
             Logger.Info($"Adding nuget package {packageName} to {project}");
 

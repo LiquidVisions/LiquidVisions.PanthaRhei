@@ -41,6 +41,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         /// <summary>
         /// Gets or sets a collecion of <seealso cref="Component">Handlers</seealso> that are applicable for the <seealso cref="Expander"/>.
         /// </summary>
-        public List<Component> Components { get; set; }
+        public virtual List<Component> Components { get; set; }
     }
 }

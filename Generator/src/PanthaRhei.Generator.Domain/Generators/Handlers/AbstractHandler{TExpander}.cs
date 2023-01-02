@@ -15,23 +15,30 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
         where TExpander : class, IExpander
     {
         private readonly App app;
+        private readonly Handler handler;
         private readonly Parameters parameters;
         private readonly IDirectoryService directoryService;
         private readonly IFileService fileService;
         private readonly ILogger logger;
+        private readonly TExpander expander;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractHandler{TExpander}"/> class.
         /// </summary>
+        /// <param name="expander"><typeparamref name="TExpander"/>.</param>
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        protected AbstractHandler(IDependencyResolver dependencyResolver)
+        protected AbstractHandler(TExpander expander, IDependencyResolver dependencyResolver)
         {
-            parameters = dependencyResolver.Get<Parameters>();
-            app = dependencyResolver.Get<App>();
-            fileService = dependencyResolver.Get<IFileService>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
-            logger = dependencyResolver.Get<ILogger>();
-            Expander = dependencyResolver.Get<TExpander>();
+            this.expander = expander;
+
+            this.parameters = dependencyResolver.Get<Parameters>();
+            this.app = dependencyResolver.Get<App>();
+            this.fileService = dependencyResolver.Get<IFileService>();
+            this.directoryService = dependencyResolver.Get<IDirectoryService>();
+            this.logger = dependencyResolver.Get<ILogger>();
+
+            handler = expander.Model.Handlers
+                .Single(x => x.Name == this.Name);
         }
 
         /// <inheritdoc/>
@@ -52,8 +59,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
         /// </summary>
         public IFileService FileService => fileService;
 
+        /// <summary>
+        /// Gets the model of the <seealso cref="Handler"/>.
+        /// </summary>
+        public Handler Model => handler;
+
         /// <inheritdoc/>
-        public TExpander Expander { get; }
+        public TExpander Expander => expander;
 
         /// <inheritdoc/>
         public virtual bool CanExecute => Expander.Model
@@ -66,8 +78,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
         /// Gets the <seealso cref="ILogger"/>.
         /// </summary>
         public ILogger Logger => logger;
-
-        public Handler Model => throw new System.NotImplementedException();
 
         /// <summary>
         /// Gets the <seealso cref="App"/>.

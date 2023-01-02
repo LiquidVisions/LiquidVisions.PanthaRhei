@@ -31,6 +31,26 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         /// </summary>
         public DbSet<App> Apps { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <seealso cref="DbSet{Expander}"/>.
+        /// </summary>
+        public DbSet<Expander> Expanders { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <seealso cref="DbSet{Component}"/>.
+        /// </summary>
+        public DbSet<Component> Components { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <seealso cref="DbSet{Handler}"/>.
+        /// </summary>
+        public DbSet<Handler> Handlers { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <seealso cref="DbSet{Package}"/>.
+        /// </summary>
+        public DbSet<Package> Packages { get; set; }
+
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

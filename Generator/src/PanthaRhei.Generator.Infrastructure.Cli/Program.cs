@@ -10,6 +10,7 @@ using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 
 var cmd = new CommandLineApplication();
+
 cmd.HelpOption();
 
 var rootOption = cmd.Option(
