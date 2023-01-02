@@ -1,4 +1,4 @@
-﻿using NS.Api.Endpoints;
+﻿using NS.Api.Infrastructure.Endpoints;
 using NS.Application;
 using NS.Domain;
 using NS.Infrastructure.EntityFramework;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NS.Api
+namespace NS.Infrastructure.Api
 {
     internal static class DependencyInjectionBootstrapper
     {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using NS.Client.ViewModels;
 using NS.Application;
 using Microsoft.AspNetCore.Http;
 
-namespace NS.Api.Presenters
+namespace NS.Infrastructure.Api.Presenters
 {
     internal static class PresenterExtensions
     {

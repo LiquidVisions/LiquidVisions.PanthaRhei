@@ -11,8 +11,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Models
 
         public ParameterTests()
         {
-            model = new();
-            model.Root = root;
+            model = new()
+            {
+                Root = root,
+            };
         }
 
         [Fact]

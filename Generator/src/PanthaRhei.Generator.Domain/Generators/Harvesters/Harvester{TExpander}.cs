@@ -15,7 +15,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Harvesters
     public abstract class Harvester<TExpander> : IHarvester<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly App app;
         private readonly IFileService fileService;
         private readonly IDirectoryService directoryService;
         private readonly ISerializer<Harvest> serializer;
@@ -28,7 +27,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Harvesters
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
         protected Harvester(IDependencyResolver dependencyResolver)
         {
-            app = dependencyResolver.Get<App>();
             fileService = dependencyResolver.Get<IFileService>();
             directoryService = dependencyResolver.Get<IDirectoryService>();
             serializer = dependencyResolver.Get<ISerializer<Harvest>>();
@@ -69,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Harvesters
         protected virtual void DeserializeHarvestModelToFile(Harvest harvest, string sourceFile)
         {
             string fullPath = System.IO.Path.Combine(parameters.HarvestFolder, Expander.Model.Name, $"{fileService.GetFileNameWithoutExtension(sourceFile)}.{Extension}");
-            if (FileService.Exists(fullPath) && !harvest.Items.Any() || harvest.Items.Any())
+            if ((FileService.Exists(fullPath) && !harvest.Items.Any()) || harvest.Items.Any())
             {
                 string directory = fileService.GetDirectory(fullPath);
                 if (!directoryService.Exists(directory))

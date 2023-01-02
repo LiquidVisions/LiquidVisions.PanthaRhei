@@ -56,9 +56,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
         public virtual Expander Model { get; }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="HandlerBase{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandler{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="HandlerBase{TExpander}"/>.</returns>
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandler{TExpander}"/>.</returns>
         public virtual IEnumerable<IHandler<TExpander>> GetHandlers()
         {
             IEnumerable<IHandler<TExpander>> handlers = dependencyResolver.GetAll<IHandler<TExpander>>();
@@ -117,7 +117,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
 
             foreach (IHandler<TExpander> handler in GetHandlers()
                 .Where(x => x.CanExecute)
-                .OrderBy(x => x.Order))
+                .OrderBy(x => x.Model.Order))
             {
                 handler.Execute();
             }

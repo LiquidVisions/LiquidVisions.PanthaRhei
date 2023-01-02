@@ -1,4 +1,5 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
 {
@@ -14,10 +15,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
         /// </summary>
         string Name { get; }
 
-        /// <summary>
-        /// Gets the execution order of the <see cref="IHandler{TExpander}"/>.
-        /// </summary>
-        int Order { get; }
+        Handler Model { get; }
 
         /// <summary>
         /// Gets the Expander that is of type <typeparamref name="TExpander"/>.

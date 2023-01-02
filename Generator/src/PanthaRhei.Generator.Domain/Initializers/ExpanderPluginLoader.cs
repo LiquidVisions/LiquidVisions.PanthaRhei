@@ -22,7 +22,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Initializers
         private readonly ILogger logger;
         private readonly IObjectActivator activator;
         private readonly IDependencyManager dependencyManager;
-        private readonly IAssemblyManager assemblyManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpanderPluginLoader"/> class.
@@ -36,7 +35,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Initializers
             logger = dependencyResolver.Get<ILogger>();
             activator = dependencyResolver.Get<IObjectActivator>();
             dependencyManager = dependencyResolver.Get<IDependencyManager>();
-            assemblyManager = dependencyResolver.Get<IAssemblyManager>();
         }
 
         /// <inheritdoc/>

@@ -49,8 +49,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
                 .Setup(x => x.Get<IDirectoryService>())
                 .Returns(IDirectoryService.Object);
 
-            Parameters = new();
-            Parameters.Root = @"C:\Some\Root\Folder";
+            Parameters = new()
+            {
+                Root = @"C:\Some\Root\Folder",
+            };
             IDependencyResolver
                 .Setup(x => x.Get<Parameters>())
                 .Returns(Parameters);

@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
     /// <summary>
     /// A model representing an application.
     /// </summary>
-    public class App : IEntity
+    public class App
     {
         /// <summary>
         /// Gets or sets the id of the <seealso cref="App"/>.

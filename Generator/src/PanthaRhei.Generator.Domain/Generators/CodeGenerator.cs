@@ -16,14 +16,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
         private readonly IDependencyResolver dependencyResolver;
         private readonly Parameters parameters;
         private readonly IDirectoryService directory;
-        private readonly ILogger logger;
 
         public CodeGenerator(IDependencyResolver dependencyResolver)
         {
             this.dependencyResolver = dependencyResolver;
             this.parameters = dependencyResolver.Get<Parameters>();
             this.directory = dependencyResolver.Get<IDirectoryService>();
-            this.logger = dependencyResolver.Get<ILogger>();
         }
 
         /// <inheritdoc/>
@@ -31,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
         {
             IEnumerable<IExpander> expanders = dependencyResolver.GetAll<IExpander>();
 
-            foreach(IExpander expander in expanders.OrderBy(x => x.Model.Order))
+            foreach (IExpander expander in expanders.OrderBy(x => x.Model.Order))
             {
                 expander.Harvest();
 
@@ -46,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
 
         private void Clean()
         {
-            if(parameters.Clean)
+            if (parameters.Clean)
             {
                 directory.Delete(parameters.OutputFolder);
             }
