@@ -4,6 +4,7 @@ using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230102190604_AddedEntityFieldDataTypeandOptions")]
+    partial class AddedEntityFieldDataTypeandOptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,6 +221,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                     b.Property<Guid>("EntityId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsCollection")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -283,31 +289,31 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8c9ebfa5-0f87-4d24-86f8-77abaa30a17d"),
+                            Id = new Guid("a16a56cf-caf2-4e69-80e2-ddfd212b8289"),
                             Key = "EntityType",
                             Value = "class"
                         },
                         new
                         {
-                            Id = new Guid("8ff18d06-1d6d-425a-8180-1403399f74c1"),
+                            Id = new Guid("82a06781-d12f-42df-aa71-067d73cba845"),
                             Key = "EntityType",
                             Value = "interface"
                         },
                         new
                         {
-                            Id = new Guid("cebc1a0d-be52-4be2-a818-765a6791c8d8"),
+                            Id = new Guid("24bac302-3aca-466d-b0a5-d0e830dff8f1"),
                             Key = "EntityType",
                             Value = "enum"
                         },
                         new
                         {
-                            Id = new Guid("6d836ad2-6478-4fe7-ac2f-fe3726b68759"),
+                            Id = new Guid("044f563e-a622-40e7-954e-cb2777a6fa86"),
                             Key = "Keyword",
                             Value = "abstract"
                         },
                         new
                         {
-                            Id = new Guid("aea9e3e7-39ce-4468-8e0d-c0137425316c"),
+                            Id = new Guid("79749511-18d3-4f14-b573-1c0fc20238a4"),
                             Key = "Keyword",
                             Value = "override"
                         });
@@ -392,7 +398,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Field", b =>
                 {
                     b.HasOne("LiquidVisions.PanthaRhei.Generator.Domain.Models.DataType", "DataType")
-                        .WithMany("Fields")
+                        .WithMany()
                         .HasForeignKey("DataTypeName");
 
                     b.HasOne("LiquidVisions.PanthaRhei.Generator.Domain.Models.Entity", "Entity")
@@ -427,11 +433,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Component", b =>
                 {
                     b.Navigation("Packages");
-                });
-
-            modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.DataType", b =>
-                {
-                    b.Navigation("Fields");
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Entity", b =>
