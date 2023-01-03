@@ -4,6 +4,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
+using LiquidVisions.PanthaRhei.Generator.Domain.Templates;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain
@@ -29,7 +30,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
                 .AddTransient<ICodeGeneratorBuilder, CodeGeneratorBuilder>()
                 .AddTransient<ICodeGenerator, CodeGenerator>()
                 .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
-                .AddInitializers();
+                .AddInitializers()
+                .AddTemplateServices();
+
+            return services;
+        }
+
+        private static IServiceCollection AddTemplateServices(this IServiceCollection services)
+        {
+            services.AddTransient<ITemplateService, ScribanTemplateService>()
+                .AddTransient<ITemplateLoader, TemplateLoader>();
 
             return services;
         }

@@ -11,14 +11,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// <summary>
         /// Initializes a new instance of the <see cref="CleanArchitectureExpander"/> class.
         /// </summary>
-        public CleanArchitectureExpander()
-            : base()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CleanArchitectureExpander"/> class.
-        /// </summary>
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
         public CleanArchitectureExpander(IDependencyResolver dependencyResolver)
             : base(dependencyResolver)

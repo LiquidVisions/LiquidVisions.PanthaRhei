@@ -2,11 +2,9 @@
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Configuration
 {
-
     [ExcludeFromCodeCoverage]
     internal class FieldConfiguration : IEntityTypeConfiguration<Field>
     {
@@ -20,9 +18,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
             builder.Property(x => x.Name)
                 .HasMaxLength(128)
                 .IsRequired(true);
-
-            builder.Property(x => x.DataType)
-                .HasColumnName(nameof(DataType));
 
             builder.HasOne(x => x.DataType)
                 .WithMany(x => x.Fields)

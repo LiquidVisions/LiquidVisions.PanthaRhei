@@ -58,7 +58,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         /// </summary>
         public string OutputFolder
         {
-            get => Path.Combine(Root, outputFolder);
+            get => Path.Combine(Root, outputFolder, AppId.ToString());
             set => outputFolder = value;
         }
     }

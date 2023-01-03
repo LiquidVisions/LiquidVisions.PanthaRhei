@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
 {
-
     public class Field
     {
         public virtual Guid Id { get; set; }
