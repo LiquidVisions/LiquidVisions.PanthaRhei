@@ -1,8 +1,11 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+﻿using System;
+using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using Scriban;
+using Scriban.Runtime;
+using Scriban.Syntax;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Templates
 {
@@ -31,9 +34,17 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Templates
         /// <inheritdoc/>
         public string Render(string fullTemplatePath, object model)
         {
-            string context = templateLoader.Load(fullTemplatePath);
-            Template scribanTemplate = Template.Parse(context);
-            string result = scribanTemplate.Render(model);
+            ScriptObject scriptObject = new();
+            scriptObject.Import(model);
+            scriptObject.Import(new SqlScriptObject());
+
+            string template = templateLoader.Load(fullTemplatePath);
+            Template scribanTemplate = Template.Parse(template);
+
+            TemplateContext context = new();
+            context.PushGlobal(scriptObject);
+            string result = scribanTemplate.Render(context);
+            context.PopGlobal();
 
             return result;
         }

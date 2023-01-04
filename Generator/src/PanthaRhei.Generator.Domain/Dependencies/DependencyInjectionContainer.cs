@@ -64,5 +64,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Dependencies
 
             return provider.GetRequiredService<T>();
         }
+
+        public void AddSingleton(Type serviceType, Type implementationType)
+        {
+            serviceCollection.AddSingleton(serviceType, implementationType);
+        }
     }
 }

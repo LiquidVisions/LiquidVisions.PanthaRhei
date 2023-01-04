@@ -27,5 +27,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         /// Gets or sets a collection of <seealso cref="Expander" /> that are applicable for the <seealso cref="App"/>.
         /// </summary>
         public virtual List<Expander> Expanders { get; set; }
+
+        /// <summary>
+        /// Gets or sets a collection of <seealso cref="Entity" /> that are applicable for the <seealso cref="App"/>.
+        /// </summary>
+        public virtual List<Entity> Entities { get; set; }
     }
 }

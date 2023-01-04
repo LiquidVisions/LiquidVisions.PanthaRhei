@@ -17,6 +17,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Dependencies
             where TService : class;
 
         /// <summary>
+        /// Adds a singleton service of the type specified in serviceType with an implementation.
+        /// </summary>
+        /// <param name="serviceType">The service type.</param>
+        /// <param name="implementationType">The implementation type.</param>
+        void AddSingleton(Type serviceType, Type implementationType);
+
+        /// <summary>
         /// Adds a scoped service of the type specified in serviceType with an implementation.
         /// </summary>
         /// <param name="serviceType">The service type.</param>

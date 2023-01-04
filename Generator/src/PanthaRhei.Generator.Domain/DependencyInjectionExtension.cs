@@ -30,6 +30,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
                 .AddTransient<ICodeGeneratorBuilder, CodeGeneratorBuilder>()
                 .AddTransient<ICodeGenerator, CodeGenerator>()
                 .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
+                .AddTransient<IPluralizer, CustomPluralizer>()
                 .AddInitializers()
                 .AddTemplateServices();
 

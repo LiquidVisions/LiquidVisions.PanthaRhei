@@ -32,6 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
             });
 
             services.AddTransient<IAppRepository, AppRepository>();
+            services.AddTransient<IDataTypeRepository, DataTypeRepository>();
 
             return services;
         }
