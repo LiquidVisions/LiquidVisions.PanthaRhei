@@ -223,20 +223,20 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EntityFramework.
+        /// </summary>
+        public static string EntityFramework {
+            get {
+                return ResourceManager.GetString("EntityFramework", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EntityTemplate.
         /// </summary>
         public static string EntityTemplate {
             get {
                 return ResourceManager.GetString("EntityTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Infrastructure.
-        /// </summary>
-        public static string Infrastructure {
-            get {
-                return ResourceManager.GetString("Infrastructure", resourceCulture);
             }
         }
         

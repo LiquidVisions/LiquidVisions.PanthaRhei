@@ -36,6 +36,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers
             appInitializer.DeleteAll();
             packagesUseCase.DeleteAll();
             handlerInitializer.DeleteAll();
+            componentInitializer.DeleteAll();
             expanderInitializer.DeleteAll();
             dataTypesUseCase.DeleteAll();
             fieldsUseCase.DeleteAll();
@@ -44,7 +45,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers
             // reinitialize
             App app = appInitializer.Initialize();
             expanderInitializer.Initialize(app);
-            componentInitializer.Initialize(app.Expanders);
+            var components = componentInitializer.Initialize(app.Expanders);
+            packagesUseCase.Initialize(components);
         }
     }
 }

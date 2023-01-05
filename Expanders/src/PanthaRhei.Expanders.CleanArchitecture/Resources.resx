@@ -171,11 +171,11 @@
   <data name="EntityDatabaseConfigurationTemplate" xml:space="preserve">
     <value>EntityDatabaseConfigurationTemplate</value>
   </data>
+  <data name="EntityFramework" xml:space="preserve">
+    <value>EntityFramework</value>
+  </data>
   <data name="EntityTemplate" xml:space="preserve">
     <value>EntityTemplate</value>
-  </data>
-  <data name="Infrastructure" xml:space="preserve">
-    <value>Infrastructure</value>
   </data>
   <data name="InfrastructureConfigurationFolder" xml:space="preserve">
     <value>Configuration</value>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
@@ -23,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
             this.fileService = dependencyResolver.Get<IFileService>();
         }
 
-        public void Initialize(IEnumerable<Expander> expanders)
+        public IEnumerable<Component> Initialize(IEnumerable<Expander> expanders)
         {
             foreach (Expander expander in expanders)
             {
@@ -36,16 +37,18 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
                         foreach (string file in files)
                         {
                             string fileName = fileService.GetFileNameWithoutExtension(file);
-                            string componentName = fileName.Split('.')[1];
+                            string componentName = fileName.Split('.').Last();
 
                             Component component = new()
                             {
                                 Id = Guid.NewGuid(),
                                 Name = componentName,
-                                Ent
+                                Expander = expander,
                             };
 
                             repository.Create(component);
+
+                            yield return component;
                         }
                     }
                 }

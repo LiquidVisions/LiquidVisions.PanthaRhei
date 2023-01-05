@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
 
             builder.Property(x => x.Name)
                 .IsRequired(true)
-                .HasMaxLength(32);
+                .HasMaxLength(256);
 
             builder.HasOne(x => x.Component)
                 .WithMany(x => x.Packages)

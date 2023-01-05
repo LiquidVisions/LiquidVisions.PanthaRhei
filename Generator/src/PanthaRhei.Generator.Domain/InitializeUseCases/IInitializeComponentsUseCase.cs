@@ -7,6 +7,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
     {
         void DeleteAll();
 
-        void Initialize(IEnumerable<Expander> expanders);
+        IEnumerable<Component> Initialize(IEnumerable<Expander> expanders);
     }
 }

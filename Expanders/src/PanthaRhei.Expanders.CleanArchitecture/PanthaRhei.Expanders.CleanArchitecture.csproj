@@ -51,9 +51,4 @@
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include=".Templates\CleanArchitecture\src\NAME.Application\bin\Debug\net6.0\" />
-	  <Folder Include=".Templates\CleanArchitecture\src\NAME.Domain\bin\Debug\net6.0\" />
-	</ItemGroup>
 </Project>
