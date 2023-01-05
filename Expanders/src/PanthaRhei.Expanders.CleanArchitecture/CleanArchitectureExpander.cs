@@ -11,13 +11,19 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// <summary>
         /// Initializes a new instance of the <see cref="CleanArchitectureExpander"/> class.
         /// </summary>
+        public CleanArchitectureExpander()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CleanArchitectureExpander"/> class.
+        /// </summary>
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
         public CleanArchitectureExpander(IDependencyResolver dependencyResolver)
             : base(dependencyResolver)
         {
         }
 
-        public override string Name => typeof(CleanArchitectureExpander).Name
-            .Replace("Expander", string.Empty);
+        protected override int GetOrder() => 1;
     }
 }

@@ -43,7 +43,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
         }
 
         /// <inheritdoc/>
-        public abstract string Name { get; }
+        public virtual string Name => typeof(TExpander).Name
+            .Replace("Expander", string.Empty);
 
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.
@@ -54,6 +55,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
         /// Gets the Model of the <seealso cref="AbstractExpander{TExpander}" /> as a <seealso cref="Expand"/>.
         /// </summary>
         public virtual Expander Model { get; }
+
+        public virtual int Order => Model == null ? GetOrder() : Model.Order;
+
+        protected abstract int GetOrder();
 
         /// <summary>
         /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandler{TExpander}"/>.

@@ -16,18 +16,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
             builder.Property(x => x.Name)
                 .IsRequired(true)
                 .HasMaxLength(32);
-
-            builder.HasData(new[]
-            {
-                new DataType { Name = "string" },
-                new DataType { Name = "int" },
-                new DataType { Name = "decimal" },
-                new DataType { Name = "bool" },
-                new DataType { Name = "Guid" },
-                new DataType { Name = "DateTime" },
-                new DataType { Name = "Entity" },
-                new DataType { Name = "List" },
-            });
         }
     }
 }

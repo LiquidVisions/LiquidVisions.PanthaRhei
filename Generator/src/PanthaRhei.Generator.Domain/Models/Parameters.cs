@@ -25,6 +25,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         public virtual bool Clean { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets a value indicating whether the output needs to be cleaned.
+        /// </summary>
+        public virtual bool ReSeed { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets a value indicating the RunMode value.
         /// </summary>
         [ExcludeFromCodeCoverage]

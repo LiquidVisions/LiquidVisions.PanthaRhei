@@ -4,6 +4,7 @@ using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230105175709_RemovedVersionFromComponent")]
+    partial class RemovedVersionFromComponent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,31 +287,31 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                     b.HasData(
                         new
                         {
-                            Id = new Guid("50e03285-3663-4f0e-ad6e-19fbd30edbe2"),
+                            Id = new Guid("bc647b63-35ee-4527-867c-2114ab41cd8d"),
                             Key = "EntityType",
                             Value = "class"
                         },
                         new
                         {
-                            Id = new Guid("b3971f10-f3bd-448f-ad44-91c7d7db647f"),
+                            Id = new Guid("60cbbc7a-4bf5-41be-aeda-e9bbfa2f2764"),
                             Key = "EntityType",
                             Value = "interface"
                         },
                         new
                         {
-                            Id = new Guid("58132b56-77f7-443a-8137-ce05255136d4"),
+                            Id = new Guid("20c2975d-f693-4280-ba1f-fc60727c6911"),
                             Key = "EntityType",
                             Value = "enum"
                         },
                         new
                         {
-                            Id = new Guid("1745e4d1-62e1-4d29-8762-1c75df2c2aec"),
+                            Id = new Guid("931b2845-6d46-4ac0-8316-99c90511ad85"),
                             Key = "Keyword",
                             Value = "abstract"
                         },
                         new
                         {
-                            Id = new Guid("90127df5-74b7-4d6d-9605-cdcc2348eb27"),
+                            Id = new Guid("a8945343-f1a0-465f-b201-5cac4a2ce64c"),
                             Key = "Keyword",
                             Value = "override"
                         });
@@ -385,11 +388,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Component", b =>
                 {
-                    b.HasOne("LiquidVisions.PanthaRhei.Generator.Domain.Models.Expander", "Expander")
+                    b.HasOne("LiquidVisions.PanthaRhei.Generator.Domain.Models.Expander", null)
                         .WithMany("Components")
                         .HasForeignKey("ExpanderId");
-
-                    b.Navigation("Expander");
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Entity", b =>

@@ -15,6 +15,11 @@
     "flux-Extend": {
       "commandName": "Project",
       "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --mode \"Default, Extend\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+    },
+    "flux-ReSeed": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --reseed --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
     }
+
   }
 }

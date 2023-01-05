@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
     /// </summary>
     internal class CodeGeneratorBuilder : ICodeGeneratorBuilder
     {
-        private readonly IAppRepository appContext;
+        private readonly IGenericRepository<App> appRepository;
         private readonly Parameters parameters;
         private readonly IExpanderPluginLoader pluginLoader;
         private readonly IDependencyManager dependencyManager;
@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
         public CodeGeneratorBuilder(IDependencyResolver dependencyResolver)
         {
-            appContext = dependencyResolver.Get<IAppRepository>();
+            appRepository = dependencyResolver.Get<IGenericRepository<App>>();
             parameters = dependencyResolver.Get<Parameters>();
             pluginLoader = dependencyResolver.Get<IExpanderPluginLoader>();
             dependencyManager = dependencyResolver.Get<IDependencyManager>();
@@ -32,13 +32,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
         /// <inheritdoc/>
         public ICodeGenerator Build()
         {
-            App app = appContext.GetById(parameters.AppId);
+            App app = appRepository.GetById(parameters.AppId);
             if (app == null)
             {
                 throw new CodeGenerationException($"No application model available with the provided Id {parameters.AppId}.");
             }
 
-            pluginLoader.Load(app);
+            pluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
             dependencyManager.AddSingleton(app);
             dependencyManager.Build();
 

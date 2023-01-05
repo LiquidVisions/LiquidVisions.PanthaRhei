@@ -58,6 +58,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.IO
         }
 
         /// <inheritdoc/>
+        public string GetDirectyName(string path)
+        {
+            return new DirectoryInfo(path).Name;
+        }
+
+        /// <inheritdoc/>
         public void Copy(string source, string target)
         {
             var directory = new DirectoryInfo(source);

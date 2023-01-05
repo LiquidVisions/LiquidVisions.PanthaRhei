@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Initializers
             fakes.IDirectoryService.Setup(x => x.GetFiles(System.IO.Path.Combine(fakes.Parameters.ExpandersFolder, expanderName), searchPattern, System.IO.SearchOption.TopDirectoryOnly)).Returns(Array.Empty<string>());
 
             // act
-            void Action() => expanderPluginLoader.Load(app);
+            void Action() => expanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
 
             // assert
             InitializationException ex = Assert.Throws<InitializationException>(Action);
@@ -58,7 +58,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Initializers
             fakes.IAssemblyContext.Setup(x => x.Load(pluginAssembly)).Throws<Exception>();
 
             // act
-            void Action() => expanderPluginLoader.Load(app);
+            void Action() => expanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
 
             // assert
             InitializationException ex = Assert.Throws<InitializationException>(Action);
@@ -80,7 +80,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Initializers
                 .Returns(fakes.IExpanderDependencyManager.Object);
 
             // act
-            expanderPluginLoader.Load(app);
+            expanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
 
             // assert
             fakes.IObjectActivator.Verify(x => x.CreateInstance(fakes.IExpanderDependencyManager.Object.GetType(), app.Expanders.First(), fakes.IDependencyManager.Object, fakes.ILogger.Object, fakes.IAssemblyManager.Object), Times.Once);

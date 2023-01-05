@@ -21,13 +21,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         public virtual string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the Version of the <see cref="Component"/>.
-        /// </summary>
-        public virtual string Version { get; set; }
-
-        /// <summary>
         /// Gets or sets the <seealso cref="Package">Packages</seealso> of the <see cref="Component"/>.
         /// </summary>
-        public virtual List<Package> Packages { get; set; }
+        public virtual List<Package> Packages { get; set; } = new List<Package>();
+
+        public virtual Expander Expander { get; set; }
     }
 }

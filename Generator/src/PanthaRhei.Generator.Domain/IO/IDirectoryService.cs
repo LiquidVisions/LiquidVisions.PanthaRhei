@@ -62,5 +62,12 @@
         /// <param name="source">The source folder.</param>
         /// <param name="target">the target destination.</param>
         void Copy(string source, string target);
+
+        /// <summary>
+        /// Gets the namme of the directory.
+        /// </summary>
+        /// <param name="path">The full path of the directory.</param>
+        /// <returns>The name of the directory.</returns>
+        string GetDirectyName(string path);
     }
 }

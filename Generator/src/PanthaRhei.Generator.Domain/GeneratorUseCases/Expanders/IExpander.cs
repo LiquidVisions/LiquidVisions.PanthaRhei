@@ -13,6 +13,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
         public string Name { get; }
 
         /// <summary>
+        /// Gets the Order in which the <seealso cref="IExpander"/> should be executed.
+        /// </summary>
+        int Order { get; }
+
+        /// <summary>
         /// Gets the <seealso cref="Expand">Model</seealso>.
         /// </summary>
         Expander Model { get; }

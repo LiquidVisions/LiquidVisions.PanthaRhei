@@ -33,6 +33,11 @@ var cleanModeOption = cmd.Option<bool>(
     "Deletes and discards all previous runs",
     CommandOptionType.SingleOrNoValue);
 
+var reseed = cmd.Option<bool>(
+    "--reseed",
+    "Reinitialze current model based",
+    CommandOptionType.SingleOrNoValue);
+
 cmd.OnExecute(() =>
 {
     var provider = new ServiceCollection()
@@ -44,15 +49,27 @@ cmd.OnExecute(() =>
         .BuildServiceProvider();
 
     Parameters parameters = provider.GetService<Parameters>();
-    parameters.AppId = Guid.Parse(appOption.Value());
+    parameters.ReSeed = reseed.HasValue();
     parameters.Root = rootOption.Value();
     parameters.Clean = cleanModeOption.HasValue();
     parameters.GenerationMode = runModeOption.ParsedValue == GenerationModes.None
         ? GenerationModes.Default
         : runModeOption.ParsedValue;
 
-    provider.GetService<ICodeGeneratorService>()
-        .Execute();
+    if(parameters.ReSeed)
+    {
+        provider.GetService<IReSeederService>()
+            .Execute();
+
+        return;
+    }
+
+    if (appOption.HasValue())
+    {
+        parameters.AppId = Guid.Parse(appOption.Value());
+        provider.GetService<ICodeGeneratorService>()
+            .Execute();
+    }
 });
 
 return cmd.Execute(args);

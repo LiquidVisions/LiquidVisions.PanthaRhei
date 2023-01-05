@@ -48,7 +48,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.UseCases
 
             // assert
             fakes.IDependencyManager.Verify(x => x.AddSingleton(app), Times.Once);
-            fakes.IExpanderPluginLoader.Verify(x => x.Load(app), Times.Once);
+            fakes.IExpanderPluginLoader.Verify(x => x.LoadAllRegisteredPluginsAndBootstrap(app), Times.Once);
             fakes.IDependencyManager.Verify(x => x.Build(), Times.Once);
         }
     }

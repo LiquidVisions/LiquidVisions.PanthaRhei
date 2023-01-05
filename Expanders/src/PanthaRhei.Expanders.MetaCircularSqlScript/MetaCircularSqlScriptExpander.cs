@@ -5,12 +5,19 @@ namespace LiquidVisions.PanthaRhei.Expanders.MetaCircularSqlScript
 {
     public class MetaCircularSqlScriptExpander : AbstractExpander<MetaCircularSqlScriptExpander>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MetaCircularSqlScriptExpander"/> class.
+        /// </summary>
+
+        public MetaCircularSqlScriptExpander()
+        {
+        }
+
         public MetaCircularSqlScriptExpander(IDependencyResolver dependencyResolver)
             : base(dependencyResolver)
         {
         }
 
-        public override string Name => typeof(MetaCircularSqlScriptExpander)
-            .Name.Replace("Expander", string.Empty);
+        protected override int GetOrder() => 3;
     }
 }

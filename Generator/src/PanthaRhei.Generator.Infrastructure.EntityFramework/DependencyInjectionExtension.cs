@@ -1,5 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,8 +33,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 #endif
             });
 
-            services.AddTransient<IAppRepository, AppRepository>();
-            services.AddTransient<IDataTypeRepository, DataTypeRepository>();
+            services.AddTransient<IGenericRepository<App>, GenericRepository<App>>()
+                .AddTransient<IGenericRepository<DataType>, GenericRepository<DataType>>()
+                .AddTransient<IGenericRepository<Expander>, GenericRepository<Expander>>()
+                .AddTransient<IGenericRepository<Handler>, GenericRepository<Handler>>()
+                .AddTransient<IGenericRepository<Component>, GenericRepository<Component>>()
+                .AddTransient<IGenericRepository<Package>, GenericRepository<Package>>()
+                .AddTransient<IGenericRepository<Field>, GenericRepository<Field>>()
+                .AddTransient<IGenericRepository<Entity>, GenericRepository<Entity>>()
+                .AddTransient<IGenericRepository<Entity>, GenericRepository<Entity>>();
 
             return services;
         }

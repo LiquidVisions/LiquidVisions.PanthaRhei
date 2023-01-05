@@ -81,7 +81,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
             IAppRepository = new();
             IDependencyResolver
-            .Setup(x => x.Get<IAppRepository>())
+            .Setup(x => x.Get<IGenericRepository<App>>())
             .Returns(IAppRepository.Object);
 
             IExpanderPluginLoader = new();
@@ -114,7 +114,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         internal Mock<IAssemblyManager> IAssemblyManager { get; }
 
-        internal Mock<IAppRepository> IAppRepository { get; }
+        internal Mock<IGenericRepository<App>> IAppRepository { get; }
 
         internal Mock<IExpanderPluginLoader> IExpanderPluginLoader { get; }
     }

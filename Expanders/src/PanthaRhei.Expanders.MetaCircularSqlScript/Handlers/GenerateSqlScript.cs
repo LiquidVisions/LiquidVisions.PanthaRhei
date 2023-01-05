@@ -14,16 +14,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.MetaCircularSqlScript.Handlers
     {
         private readonly ITemplateService templateService;
         private readonly IFileService fileService;
-        private readonly IDataTypeRepository dataTypeRepository;
-        private readonly ICustomTemplateScript customScript;
+        private readonly IGenericRepository<DataType> dataTypeRepository;
 
         public GenerateSqlScript(MetaCircularSqlScriptExpander expander, IDependencyResolver dependencyResolver)
             : base(expander, dependencyResolver)
         {
             templateService = dependencyResolver.Get<ITemplateService>();
             fileService = dependencyResolver.Get<IFileService>();
-            dataTypeRepository = dependencyResolver.Get<IDataTypeRepository>();
-            //customScript = dependencyResolver.Get<SqlSCriptObject>();
+            dataTypeRepository = dependencyResolver.Get<IGenericRepository<DataType>>();
         }
 
         public override void Execute()

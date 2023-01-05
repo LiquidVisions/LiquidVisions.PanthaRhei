@@ -30,13 +30,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Preprocessors
         {
             string templatePath = Path.Combine(Parameters.ExpandersFolder, Expander.Model.Name, Expander.Model.TemplateFolder);
 
-            string[] dotnetTemplateDirectories = DirectoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
-            foreach (string dotnetTemplateDirectory in dotnetTemplateDirectories)
+            if (DirectoryService.Exists(templatePath))
             {
-                string path = DirectoryService.GetNameOfParentDirectory(dotnetTemplateDirectory);
+                string[] dotnetTemplateDirectories = DirectoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
+                foreach (string dotnetTemplateDirectory in dotnetTemplateDirectories)
+                {
+                    string path = DirectoryService.GetNameOfParentDirectory(dotnetTemplateDirectory);
 
-                Logger.Info($"Installing template from location {path}");
-                CommandLine.Start($"dotnet new install {path} --force");
+                    Logger.Info($"Installing template from location {path}");
+                    CommandLine.Start($"dotnet new install {path} --force");
+                }
             }
         }
     }

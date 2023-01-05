@@ -23,15 +23,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
             builder.Property(x => x.Value)
                 .HasMaxLength(64)
                 .IsRequired(true);
-
-            builder.HasData(new[]
-            {
-                new Option { Id = Guid.NewGuid(), Key = "EntityType", Value = "class" },
-                new Option { Id = Guid.NewGuid(), Key = "EntityType", Value = "interface" },
-                new Option { Id = Guid.NewGuid(), Key = "EntityType", Value = "enum" },
-                new Option { Id = Guid.NewGuid(), Key = "Keyword", Value = "abstract" },
-                new Option { Id = Guid.NewGuid(), Key = "Keyword", Value = "override" },
-            });
         }
     }
 }

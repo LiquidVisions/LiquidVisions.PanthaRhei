@@ -11,5 +11,6 @@ INSERT DataTypes {{get_all_fields data_types[0] }}
 SELECT '{{d.name}}' {{if !for.last}}UNION ALL{{end}}
 {{~end~}}
 
+INSERT INTO Options {{get_all_fields apps.}}
 
 ROLLBACK
