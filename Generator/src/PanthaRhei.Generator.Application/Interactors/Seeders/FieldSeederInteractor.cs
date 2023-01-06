@@ -10,22 +10,22 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
     internal class FieldSeederInteractor : ISeederInteractor<App>
     {
-        private readonly IGenericRepository<Field> repository;
+        private readonly IGenericGateway<Field> gateway;
 
         public FieldSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            repository = dependencyFactory.Get<IGenericRepository<Field>>();
+            gateway = dependencyFactory.Get<IGenericGateway<Field>>();
         }
 
         public int SeedOrder => 6;
 
         public int ResetOrder => 6;
 
-        public void Reset() => repository.DeleteAll();
+        public void Reset() => gateway.DeleteAll();
 
         public void Seed(App app)
         {
-            IEnumerable<Type> allEntities = repository.ContextType.GetProperties()
+            IEnumerable<Type> allEntities = gateway.ContextType.GetProperties()
                 .Where(x => x.PropertyType.Name == "DbSet`1")
                 .Select(x => x.PropertyType.GetGenericArguments().First());
 
@@ -52,7 +52,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                     Entity entity = app.Entities.Single(x => x.Name == entityType.Name);
                     entity.Fields.Add(field);
 
-                    repository.Create(field);
+                    gateway.Create(field);
                 }
             }
         }

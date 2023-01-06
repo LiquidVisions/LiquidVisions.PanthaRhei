@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
             // arrange
             Guid id = Guid.NewGuid();
             fakes.Parameters.AppId = id;
-            fakes.IAppRepository.Setup(x => x.GetById(id)).Returns((App)null);
+            fakes.IAppGateway.Setup(x => x.GetById(id)).Returns((App)null);
 
             // act
             void Action() => interactor.Build();
@@ -40,7 +40,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
             Guid id = Guid.NewGuid();
             fakes.Parameters.AppId = id;
             App app = new();
-            fakes.IAppRepository.Setup(x => x.GetById(id)).Returns(app);
+            fakes.IAppGateway.Setup(x => x.GetById(id)).Returns(app);
             fakes.IDependencyManagerInteractor.Setup(x => x.Build()).Returns(fakes.IDependencyFactoryInteractor.Object);
 
             // act

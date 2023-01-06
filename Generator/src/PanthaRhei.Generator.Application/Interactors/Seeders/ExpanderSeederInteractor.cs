@@ -13,13 +13,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
     {
         private readonly IExpanderPluginLoaderInteractor pluginLoader;
         private readonly Parameters parameters;
-        private readonly IGenericRepository<Expander> expanderRepository;
+        private readonly IGenericGateway<Expander> expanderRepository;
 
         public ExpanderSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
             parameters = dependencyFactory.Get<Parameters>();
-            expanderRepository = dependencyFactory.Get<IGenericRepository<Expander>>();
+            expanderRepository = dependencyFactory.Get<IGenericGateway<Expander>>();
         }
 
         public int SeedOrder => 2;

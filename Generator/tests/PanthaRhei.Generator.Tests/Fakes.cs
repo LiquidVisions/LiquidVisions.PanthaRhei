@@ -87,10 +87,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
             .Setup(x => x.Get<IAssemblyManagerInteractor>())
             .Returns(IAssemblyManagerInteractor.Object);
 
-            IAppRepository = new();
+            IAppGateway = new();
             IDependencyFactoryInteractor
-            .Setup(x => x.Get<IGenericRepository<App>>())
-            .Returns(IAppRepository.Object);
+            .Setup(x => x.Get<IGenericGateway<App>>())
+            .Returns(IAppGateway.Object);
 
             IExpanderPluginLoaderInteractor = new();
             IDependencyFactoryInteractor
@@ -124,7 +124,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         internal Mock<IAssemblyManagerInteractor> IAssemblyManagerInteractor { get; }
 
-        internal Mock<IGenericRepository<App>> IAppRepository { get; }
+        internal Mock<IGenericGateway<App>> IAppGateway { get; }
 
         internal Mock<IExpanderPluginLoaderInteractor> IExpanderPluginLoaderInteractor { get; }
     }

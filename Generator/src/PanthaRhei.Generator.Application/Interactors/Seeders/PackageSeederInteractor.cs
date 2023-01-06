@@ -12,13 +12,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
     public class PackageSeederInteractor : ISeederInteractor<App>
     {
-        private readonly IGenericRepository<Package> repository;
+        private readonly IGenericGateway<Package> gateway;
         private readonly IDirectory directoryService;
         private readonly Parameters parameters;
 
         public PackageSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            repository = dependencyFactory.Get<IGenericRepository<Package>>();
+            gateway = dependencyFactory.Get<IGenericGateway<Package>>();
             directoryService = dependencyFactory.Get<IDirectory>();
             parameters = dependencyFactory.Get<Parameters>();
         }
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         public int ResetOrder => 2;
 
-        public void Reset() => repository.DeleteAll();
+        public void Reset() => gateway.DeleteAll();
 
         public void Seed(App app)
         {
@@ -67,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
             component.Packages.Add(package);
 
-            repository.Create(package);
+            gateway.Create(package);
         }
     }
 }

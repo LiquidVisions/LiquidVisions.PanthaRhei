@@ -32,13 +32,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 #endif
             });
 
-            services.AddTransient<IGenericRepository<App>, GenericRepository<App>>()
-                .AddTransient<IGenericRepository<Expander>, GenericRepository<Expander>>()
-                .AddTransient<IGenericRepository<Component>, GenericRepository<Component>>()
-                .AddTransient<IGenericRepository<Package>, GenericRepository<Package>>()
-                .AddTransient<IGenericRepository<Field>, GenericRepository<Field>>()
-                .AddTransient<IGenericRepository<Entity>, GenericRepository<Entity>>()
-                .AddTransient<IGenericRepository<Entity>, GenericRepository<Entity>>();
+            services.AddTransient<IGenericGateway<App>, GenericRepository<App>>()
+                .AddTransient<IGenericGateway<Expander>, GenericRepository<Expander>>()
+                .AddTransient<IGenericGateway<Component>, GenericRepository<Component>>()
+                .AddTransient<IGenericGateway<Package>, GenericRepository<Package>>()
+                .AddTransient<IGenericGateway<Field>, GenericRepository<Field>>()
+                .AddTransient<IGenericGateway<Entity>, GenericRepository<Entity>>()
+                .AddTransient<IGenericGateway<Entity>, GenericRepository<Entity>>();
 
             return services;
         }

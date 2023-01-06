@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Gateways
 {
-    public interface IGenericRepository<TEntity>
+    public interface IGenericGateway<TEntity>
         where TEntity : class
     {
         Type ContextType { get; }

@@ -7,12 +7,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
     internal class AppSeederInteractor : ISeederInteractor<App>
     {
-        private readonly IGenericRepository<App> repository;
+        private readonly IGenericGateway<App> gateway;
         private readonly Parameters parameters;
 
         public AppSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            repository = dependencyFactory.Get<IGenericRepository<App>>();
+            gateway = dependencyFactory.Get<IGenericGateway<App>>();
             parameters = dependencyFactory.Get<Parameters>();
         }
 
@@ -26,9 +26,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
             app.Name = "PanthaRhei.Generated";
             app.FullName = "LiquidVisions.PanthaRhei.Generated";
 
-            repository.Create(app);
+            gateway.Create(app);
         }
 
-        public void Reset() => repository.DeleteAll();
+        public void Reset() => gateway.DeleteAll();
     }
 }
