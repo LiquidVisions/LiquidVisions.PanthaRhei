@@ -1,6 +1,6 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application

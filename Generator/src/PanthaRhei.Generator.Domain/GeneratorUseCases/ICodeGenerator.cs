@@ -1,4 +1,4 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
+﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases
 {
     /// <summary>
     /// Represents a contract for an object that executes a code generation process.

@@ -1,6 +1,6 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders
 {
     /// <summary>
     /// Specifies the interface of an expander.

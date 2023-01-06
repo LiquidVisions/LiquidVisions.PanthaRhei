@@ -1,6 +1,6 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.PostProcessors
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.PostProcessors
 {
     /// <summary>
     /// Represents a handler that executes post processing actions.

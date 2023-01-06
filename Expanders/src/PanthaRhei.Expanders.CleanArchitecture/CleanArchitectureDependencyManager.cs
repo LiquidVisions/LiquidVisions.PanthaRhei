@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture

@@ -1,7 +1,7 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
 {
     /// <summary>
     /// Specifies the interface of an expander handler.

@@ -18,14 +18,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
             builder.Property(x => x.Name)
                 .HasMaxLength(128)
                 .IsRequired(true);
-
-            builder.HasOne(x => x.DataType)
-                .WithMany(x => x.Fields)
-                .IsRequired();
-
-            builder.HasMany(x => x.Options)
-                .WithMany(x => x.Fields)
-                .UsingEntity("FieldOptions");
         }
     }
 }

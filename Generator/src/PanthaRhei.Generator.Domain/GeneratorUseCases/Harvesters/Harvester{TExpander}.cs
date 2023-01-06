@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Harvesters
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Harvesters
 {
     /// <summary>
     /// An abstract implementation of the <see cref="IHarvester{TExpander}"/>.
@@ -67,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Harvesters
         protected virtual void DeserializeHarvestModelToFile(Harvest harvest, string sourceFile)
         {
             string fullPath = System.IO.Path.Combine(parameters.HarvestFolder, Expander.Model.Name, $"{fileService.GetFileNameWithoutExtension(sourceFile)}.{Extension}");
-            if ((FileService.Exists(fullPath) && !harvest.Items.Any()) || harvest.Items.Any())
+            if (FileService.Exists(fullPath) && !harvest.Items.Any() || harvest.Items.Any())
             {
                 string directory = fileService.GetDirectory(fullPath);
                 if (!directoryService.Exists(directory))

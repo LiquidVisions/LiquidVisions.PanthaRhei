@@ -5,9 +5,8 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using LiquidVisions.PanthaRhei.Expanders.MetaCircularSqlScript;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Expanders.MetaCircular.Handlers

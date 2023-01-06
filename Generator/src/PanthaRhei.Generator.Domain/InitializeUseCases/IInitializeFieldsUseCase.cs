@@ -1,4 +1,4 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers
+﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
     internal interface IInitializeFieldsUseCase
     {

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases
 {
     /// <summary>
     /// Represents an error while merging Plugin Xml.

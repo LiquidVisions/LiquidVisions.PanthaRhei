@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
     public class InitializeHandlerUseCase : IInitializeHandlerUseCase
     {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
 
         public InitializeHandlerUseCase(IDependencyResolver dependencyResolver)
         {
-            this.repository = dependencyResolver.Get<IGenericRepository<Handler>>();
+            repository = dependencyResolver.Get<IGenericRepository<Handler>>();
         }
 
         public void DeleteAll()
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
 
         public void Initialize()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

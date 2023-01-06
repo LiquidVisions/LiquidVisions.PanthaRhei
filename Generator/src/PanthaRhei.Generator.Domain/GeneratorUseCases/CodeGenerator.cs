@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases
 {
     /// <summary>
     /// Implements the contract <seealso cref="ICodeGenerator"/>.
@@ -20,8 +19,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
         public CodeGenerator(IDependencyResolver dependencyResolver)
         {
             this.dependencyResolver = dependencyResolver;
-            this.parameters = dependencyResolver.Get<Parameters>();
-            this.directory = dependencyResolver.Get<IDirectoryService>();
+            parameters = dependencyResolver.Get<Parameters>();
+            directory = dependencyResolver.Get<IDirectoryService>();
         }
 
         /// <inheritdoc/>

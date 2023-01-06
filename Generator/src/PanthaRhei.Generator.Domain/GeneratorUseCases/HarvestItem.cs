@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases
 {
     /// <summary>
     /// Represents the model for an instance with detailed <see cref="Harvest"/> information from a harvested file.

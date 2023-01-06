@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Expanders.MetaCircularSqlScript
+namespace LiquidVisions.PanthaRhei.Expanders.MetaCircular
 {
     /// <summary>
     /// Represents an implementation of <seealso cref="IExpanderDependencyManager"/> that allows dependency registration as part of a <seealso cref="MetaCircularExpander"/>.

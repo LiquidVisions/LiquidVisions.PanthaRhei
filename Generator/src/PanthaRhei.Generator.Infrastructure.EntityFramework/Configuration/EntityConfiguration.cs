@@ -22,10 +22,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
             builder.HasMany(x => x.Fields)
                 .WithOne(x => x.Entity)
                 .IsRequired(true);
-
-            builder.HasMany(x => x.Options)
-                .WithMany(x => x.Entities)
-                .UsingEntity("EntityOptions");
         }
     }
 }

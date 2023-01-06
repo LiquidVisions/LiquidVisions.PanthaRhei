@@ -1,11 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases;
-using LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
 using LiquidVisions.PanthaRhei.Generator.Domain.Templates;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,7 +43,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
             services.AddTransient<IModelInitializerUseCase, ModelInitializerUseCase>()
                 .AddTransient<IInitializeAppUseCase, InitializeAppUseCase>()
                 .AddTransient<IInitializeExpandersUseCase, InitializeExpandersUseCase>()
-                .AddTransient<IInitializeDataTypesUseCase, InitializeDataTypesUseCase>()
                 .AddTransient<IInitializeEntitiesUseCase, InitializeEntitiesUseCase>()
                 .AddTransient<IInitializePackagesUseCase, InitializePackagesUseCase>()
                 .AddTransient<IInitializeFieldsUseCase, InitializeFieldsUseCase>()

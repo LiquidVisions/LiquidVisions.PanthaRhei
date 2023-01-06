@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.PostProcessors
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.PostProcessors
 {
     /// <summary>
     /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpander"/>.

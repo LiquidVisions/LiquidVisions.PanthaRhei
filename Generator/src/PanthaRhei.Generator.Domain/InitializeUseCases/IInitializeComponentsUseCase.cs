@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
     internal interface IInitializeComponentsUseCase
     {

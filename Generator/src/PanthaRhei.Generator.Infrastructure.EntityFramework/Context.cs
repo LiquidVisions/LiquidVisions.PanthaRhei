@@ -61,15 +61,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         /// </summary>
         public DbSet<Field> Fields { get; set; }
 
-        /// <summary>
-        /// Gets or sets the <seealso cref="DbSet{Option}"/>.
-        /// </summary>
-        public DbSet<Option> Options { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <seealso cref="DbSet{DataType}"/>.
-        /// </summary>
-        public DbSet<DataType> DataTypes { get; set; }
 
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

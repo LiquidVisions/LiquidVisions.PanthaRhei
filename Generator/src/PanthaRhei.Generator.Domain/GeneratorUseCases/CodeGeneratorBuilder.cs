@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases
 {
     /// <summary>
     /// Implements the contract <seealso cref="ICodeGeneratorBuilder"/>.

@@ -1,8 +1,8 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Rejuvenator
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Rejuvenator
 {
     /// <summary>
     /// An abstract implementation of the <see cref="IRejuvenator{TExpander}"/>.

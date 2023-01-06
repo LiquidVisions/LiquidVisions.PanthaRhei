@@ -10,7 +10,5 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         public virtual string Name { get; set; }
 
         public virtual List<Field> Fields { get; set; }
-
-        public virtual List<Option> Options { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
     public interface IModelInitializerUseCase
     {

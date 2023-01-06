@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.PostProcessors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Preprocessors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Rejuvenator;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Harvesters;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.PostProcessors;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Preprocessors;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Rejuvenator;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders
 {
     /// <summary>
     /// An abstract implementation of the <see cref="IExpander"/>.
@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
             logger = this.dependencyResolver.Get<ILogger>();
             Model = dependencyResolver.Get<App>()
                 .Expanders
-                .Single(x => x.Name == this.Name);
+                .Single(x => x.Name == Name);
         }
 
         /// <inheritdoc/>

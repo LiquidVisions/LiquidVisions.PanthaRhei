@@ -1,7 +1,7 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.PostProcessors
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.PostProcessors
 {
     /// <summary>
     /// An abstract implementation of the <see cref="Processor{TExpander}"/>.

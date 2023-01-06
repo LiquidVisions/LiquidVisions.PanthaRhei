@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
     internal class InitializeFieldsUseCase : IInitializeFieldsUseCase
     {
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers
 
         public void Initialize()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

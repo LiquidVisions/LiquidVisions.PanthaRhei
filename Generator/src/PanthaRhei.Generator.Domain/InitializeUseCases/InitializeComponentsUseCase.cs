@@ -7,7 +7,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
     internal class InitializeComponentsUseCase : IInitializeComponentsUseCase
     {
@@ -18,10 +18,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
 
         public InitializeComponentsUseCase(IDependencyResolver dependencyResolver)
         {
-            this.repository = dependencyResolver.Get<IGenericRepository<Component>>();
-            this.parameters = dependencyResolver.Get<Parameters>();
-            this.directoryService = dependencyResolver.Get<IDirectoryService>();
-            this.fileService = dependencyResolver.Get<IFileService>();
+            repository = dependencyResolver.Get<IGenericRepository<Component>>();
+            parameters = dependencyResolver.Get<Parameters>();
+            directoryService = dependencyResolver.Get<IDirectoryService>();
+            fileService = dependencyResolver.Get<IFileService>();
         }
 
         public IEnumerable<Component> Initialize(IEnumerable<Expander> expanders)

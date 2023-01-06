@@ -1,7 +1,7 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
 {
     /// <summary>
     /// Abstract class for dotnet cli commands.

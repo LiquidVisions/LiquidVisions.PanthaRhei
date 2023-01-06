@@ -36,7 +36,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Templates
         {
             ScriptObject scriptObject = new();
             scriptObject.Import(model);
-            scriptObject.Import(new SqlScriptObject());
 
             string template = templateLoader.Load(fullTemplatePath);
             Template scribanTemplate = Template.Parse(template);

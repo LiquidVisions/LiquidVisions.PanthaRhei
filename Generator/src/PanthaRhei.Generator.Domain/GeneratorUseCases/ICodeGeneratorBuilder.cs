@@ -1,4 +1,4 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators
+﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases
 {
     /// <summary>
     /// Represents a contract of an object that is able to build a <see cref="ICodeGenerator"/>.

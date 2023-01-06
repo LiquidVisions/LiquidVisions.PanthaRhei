@@ -1,5 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application
 {

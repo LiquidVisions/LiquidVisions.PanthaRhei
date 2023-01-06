@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Preprocessors
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Preprocessors
 {
     /// <summary>
     /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpander"/>.

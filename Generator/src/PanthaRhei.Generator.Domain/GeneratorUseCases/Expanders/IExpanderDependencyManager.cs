@@ -1,4 +1,4 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
+﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders
 {
     /// <summary>
     /// Specifies a contract for an object that allows dependency registration as part of a <seealso cref="IExpander"/>.

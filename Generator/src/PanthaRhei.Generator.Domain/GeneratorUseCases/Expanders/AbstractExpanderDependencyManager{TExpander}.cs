@@ -3,16 +3,16 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.PostProcessors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Preprocessors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Rejuvenator;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Harvesters;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.PostProcessors;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Preprocessors;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Rejuvenator;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders
 {
     /// <summary>
     /// Represents an abstract implementation of <seealso cref="IExpanderDependencyManager"/> that allows dependency registration as part of a <seealso cref="IExpander"/>.

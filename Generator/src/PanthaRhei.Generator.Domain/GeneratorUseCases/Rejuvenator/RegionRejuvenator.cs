@@ -1,11 +1,12 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Rejuvenator
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Rejuvenator
 {
     /// <summary>
     /// An abstract implementation of the <see cref="IRejuvenator{TExpander}"/>.

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
 {
     /// <summary>
     /// Abstract implementation of <seealso cref="IHandler{TExpander}"/>.
@@ -31,14 +31,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers
         {
             this.expander = expander;
 
-            this.parameters = dependencyResolver.Get<Parameters>();
-            this.app = dependencyResolver.Get<App>();
-            this.fileService = dependencyResolver.Get<IFileService>();
-            this.directoryService = dependencyResolver.Get<IDirectoryService>();
-            this.logger = dependencyResolver.Get<ILogger>();
+            parameters = dependencyResolver.Get<Parameters>();
+            app = dependencyResolver.Get<App>();
+            fileService = dependencyResolver.Get<IFileService>();
+            directoryService = dependencyResolver.Get<IDirectoryService>();
+            logger = dependencyResolver.Get<ILogger>();
 
             handler = expander.Model.Handlers
-                .Single(x => x.Name == this.Name);
+                .Single(x => x.Name == Name);
         }
 
         /// <inheritdoc/>

@@ -1,6 +1,6 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Generators.Harvesters
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Harvesters
 {
     /// <summary>
     /// Specifies an interface that executes Harvesters.

@@ -1,7 +1,7 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Expanders.MetaCircularSqlScript
+namespace LiquidVisions.PanthaRhei.Expanders.MetaCircular
 {
     public class MetaCircularExpander : AbstractExpander<MetaCircularExpander>
     {

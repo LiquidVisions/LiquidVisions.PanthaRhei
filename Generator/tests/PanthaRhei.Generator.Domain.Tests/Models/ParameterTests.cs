@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Models

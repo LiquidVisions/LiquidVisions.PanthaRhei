@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
     internal class InitializeExpandersUseCase : IInitializeExpandersUseCase
     {
@@ -16,9 +16,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers
 
         public InitializeExpandersUseCase(IDependencyResolver dependencyResolver)
         {
-            this.pluginLoader = dependencyResolver.Get<IExpanderPluginLoader>();
-            this.parameters = dependencyResolver.Get<Parameters>();
-            this.expanderRepository = dependencyResolver.Get<IGenericRepository<Expander>>();
+            pluginLoader = dependencyResolver.Get<IExpanderPluginLoader>();
+            parameters = dependencyResolver.Get<Parameters>();
+            expanderRepository = dependencyResolver.Get<IGenericRepository<Expander>>();
         }
 
         public void Initialize(App app)

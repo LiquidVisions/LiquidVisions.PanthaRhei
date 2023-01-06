@@ -1,9 +1,7 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases;
-using LiquidVisions.PanthaRhei.Generator.Domain.ModelInitializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
     public class ModelInitializerUseCase : IModelInitializerUseCase
     {
@@ -33,20 +31,23 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.DataInitializers
         public void Initialize()
         {
             // clean things up.
-            appInitializer.DeleteAll();
-            packagesUseCase.DeleteAll();
-            handlerInitializer.DeleteAll();
-            componentInitializer.DeleteAll();
-            expanderInitializer.DeleteAll();
-            dataTypesUseCase.DeleteAll();
-            fieldsUseCase.DeleteAll();
-            entitiesUseCase.DeleteAll();
+            //appInitializer.DeleteAll();
+            //packagesUseCase.DeleteAll();
+            //handlerInitializer.DeleteAll();
+            //componentInitializer.DeleteAll();
+            //expanderInitializer.DeleteAll();
+            //dataTypesUseCase.DeleteAll();
+            //fieldsUseCase.DeleteAll();
+            //entitiesUseCase.DeleteAll();
 
-            // reinitialize
-            App app = appInitializer.Initialize();
-            expanderInitializer.Initialize(app);
-            var components = componentInitializer.Initialize(app.Expanders);
-            packagesUseCase.Initialize(components);
+            //// reinitialize
+            //App app = appInitializer.Initialize();
+            //expanderInitializer.Initialize(app);
+            //var components = componentInitializer.Initialize(app.Expanders);
+            //packagesUseCase.Initialize(components);
+
+            dataTypesUseCase.Initialize();
+            //entitiesUseCase.Initialize();
         }
     }
 }

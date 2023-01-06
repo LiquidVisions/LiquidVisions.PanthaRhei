@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
+namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases
 {
     /// <summary>
     /// Represents a model that contains the information needed tot persist the Harvested infomration.

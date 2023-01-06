@@ -1,5 +1,5 @@
 ﻿using System;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;

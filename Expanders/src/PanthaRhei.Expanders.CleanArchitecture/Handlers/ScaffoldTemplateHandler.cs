@@ -1,5 +1,5 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Generators.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
