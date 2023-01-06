@@ -4,6 +4,7 @@ using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230106085540_AddedAppEntitiesRelation")]
+    partial class AddedAppEntitiesRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,28 +96,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                     b.Property<Guid>("AppId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Behaviour")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
-
-                    b.Property<string>("Modifier")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasDefaultValue("public");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)")
-                        .HasDefaultValue("class");
 
                     b.HasKey("Id");
 
@@ -149,45 +134,20 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Behaviour")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
-
                     b.Property<Guid>("EntityId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("GetModifier")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsCollection")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Modifier")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasDefaultValue("public");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<Guid?>("ReferenceId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ReturnType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SetModifier")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EntityId");
-
-                    b.HasIndex("ReferenceId");
 
                     b.ToTable("Fields");
                 });
@@ -289,13 +249,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LiquidVisions.PanthaRhei.Generator.Domain.Models.Entity", "Reference")
-                        .WithMany("ReferencedIn")
-                        .HasForeignKey("ReferenceId");
-
                     b.Navigation("Entity");
-
-                    b.Navigation("Reference");
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Handler", b =>
@@ -329,8 +283,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Entity", b =>
                 {
                     b.Navigation("Fields");
-
-                    b.Navigation("ReferencedIn");
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Generator.Domain.Models.Expander", b =>

@@ -11,7 +11,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
         private readonly IInitializeHandlerUseCase handlerInitializer;
         private readonly IInitializePackagesUseCase packagesUseCase;
 
-        private readonly IInitializeDataTypesUseCase dataTypesUseCase;
         private readonly IInitializeFieldsUseCase fieldsUseCase;
         private readonly IInitializeEntitiesUseCase entitiesUseCase;
 
@@ -23,7 +22,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
             componentInitializer = dependencyResolver.Get<IInitializeComponentsUseCase>();
             handlerInitializer = dependencyResolver.Get<IInitializeHandlerUseCase>();
             packagesUseCase = dependencyResolver.Get<IInitializePackagesUseCase>();
-            dataTypesUseCase = dependencyResolver.Get<IInitializeDataTypesUseCase>();
             fieldsUseCase = dependencyResolver.Get<IInitializeFieldsUseCase>();
             entitiesUseCase = dependencyResolver.Get<IInitializeEntitiesUseCase>();
         }
@@ -31,23 +29,23 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
         public void Initialize()
         {
             // clean things up.
-            //appInitializer.DeleteAll();
-            //packagesUseCase.DeleteAll();
-            //handlerInitializer.DeleteAll();
-            //componentInitializer.DeleteAll();
-            //expanderInitializer.DeleteAll();
-            //dataTypesUseCase.DeleteAll();
-            //fieldsUseCase.DeleteAll();
-            //entitiesUseCase.DeleteAll();
+            appInitializer.DeleteAll();
+            packagesUseCase.DeleteAll();
+            handlerInitializer.DeleteAll();
+            componentInitializer.DeleteAll();
+            expanderInitializer.DeleteAll();
+            fieldsUseCase.DeleteAll();
+            entitiesUseCase.DeleteAll();
 
-            //// reinitialize
-            //App app = appInitializer.Initialize();
-            //expanderInitializer.Initialize(app);
-            //var components = componentInitializer.Initialize(app.Expanders);
-            //packagesUseCase.Initialize(components);
+            // reinitialize
+            App app = appInitializer.Initialize();
+            expanderInitializer.Initialize(app);
+            handlerInitializer.Initialize(app);
+            var components = componentInitializer.Initialize(app.Expanders);
+            packagesUseCase.Initialize(components);
 
-            dataTypesUseCase.Initialize();
-            //entitiesUseCase.Initialize();
+            entitiesUseCase.Initialize(app);
+            fieldsUseCase.Initialize(app);
         }
     }
 }

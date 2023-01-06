@@ -12,6 +12,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
         {
             builder.HasKey(x => new { x.Id });
 
+            builder.Ignore(x => x.Test1);
+            builder.Ignore(x => x.test2);
+            builder.Ignore(x => x.Mode);
+
             builder.Property(x => x.Id)
                 .IsRequired(true);
 
@@ -19,9 +23,27 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
                 .HasMaxLength(128)
                 .IsRequired(true);
 
+            builder.Property(x => x.Type)
+                .HasMaxLength(16)
+                .IsRequired(true)
+                .HasDefaultValue("class");
+
+            builder.Property(x => x.Behaviour)
+                .HasMaxLength(16)
+                .IsRequired(false);
+
+            builder.Property(x => x.Modifier)
+                .HasMaxLength(128)
+                .IsRequired(true)
+                .HasDefaultValue("public");
+
             builder.HasMany(x => x.Fields)
                 .WithOne(x => x.Entity)
                 .IsRequired(true);
+
+            builder.HasOne(x => x.App)
+                .WithMany(x => x.Entities)
+                .IsRequired();
         }
     }
 }

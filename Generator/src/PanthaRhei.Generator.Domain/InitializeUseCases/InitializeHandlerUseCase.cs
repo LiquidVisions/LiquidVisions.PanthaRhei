@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
@@ -22,9 +24,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
             }
         }
 
-        public void Initialize()
+        public void Initialize(App app)
         {
-            throw new NotImplementedException();
+            foreach (Expander expander in app.Expanders)
+            {
+                AssemblyName expanderAssembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Single(x => x.Name.Contains(expander.Name));
+            }
         }
     }
 }

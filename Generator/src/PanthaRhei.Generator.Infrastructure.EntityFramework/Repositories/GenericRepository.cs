@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repo
         {
             this.context = context;
         }
+
+        public Type ContextType => context.GetType();
 
         public bool Create(TEntity entity)
         {
