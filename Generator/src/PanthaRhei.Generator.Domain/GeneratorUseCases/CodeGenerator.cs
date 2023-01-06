@@ -46,7 +46,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases
             if (parameters.Clean)
             {
                 directory.Delete(parameters.OutputFolder);
-                directory.Create(parameters.OutputFolder);
             }
         }
     }

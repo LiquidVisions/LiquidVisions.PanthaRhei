@@ -49,6 +49,7 @@ cmd.OnExecute(() =>
         .BuildServiceProvider();
 
     Parameters parameters = provider.GetService<Parameters>();
+    parameters.AppId = Guid.Parse(appOption.Value());
     parameters.ReSeed = reseed.HasValue();
     parameters.Root = rootOption.Value();
     parameters.Clean = cleanModeOption.HasValue();
@@ -66,7 +67,6 @@ cmd.OnExecute(() =>
 
     if (appOption.HasValue())
     {
-        parameters.AppId = Guid.Parse(appOption.Value());
         provider.GetService<ICodeGeneratorService>()
             .Execute();
     }

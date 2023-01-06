@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+﻿using System.IO;
+using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
@@ -29,13 +30,13 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         {
             Scaffold(Resources.TemplateShortName, App.Name, App.FullName);
 
-            Expander.Model.Components
-                ?.ForEach(component => component.Packages
-                ?.ForEach(package =>
-                {
-                    string project = $"{App.FullName}.{component.Name}";
-                    ApplyNugetPackages(project, package.Name, package.Version);
-                }));
+            //Expander.Model.Components
+            //    ?.ForEach(component => component.Packages
+            //    ?.ForEach(package =>
+            //    {
+            //        string project = Path.Combine(Parameters.OutputFolder, App.FullName, "src", $"{App.Name}.{component.Name}", $"{App.Name}.{component.Name}.csproj");
+            //        ApplyNugetPackages(project, package.Name, package.Version);
+            //    }));
         }
     }
 }

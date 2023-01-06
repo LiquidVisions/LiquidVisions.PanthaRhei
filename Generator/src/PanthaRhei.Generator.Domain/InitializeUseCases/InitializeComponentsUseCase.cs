@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
                         foreach (string file in files)
                         {
                             string fileName = fileService.GetFileNameWithoutExtension(file);
-                            string componentName = fileName.Split('.').Last();
+                            string componentName = fileName.Replace("NAME.", string.Empty);
 
                             Component component = new()
                             {

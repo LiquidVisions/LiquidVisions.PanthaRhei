@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+﻿using System.IO;
+using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
@@ -36,11 +37,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
         /// <param name="ns">The namespace that is used in the end result.</param>
         public virtual void Scaffold(string commandParameters, string name, string ns)
         {
-            Logger.Info($"Creating directory {Parameters.OutputFolder}");
-            CommandLine.Start($"mkdir {Parameters.OutputFolder}");
+            string outputFolder = Path.Combine(Parameters.OutputFolder, ns);
 
-            Logger.Info($"Creating {name} @ {Parameters.OutputFolder}");
-            CommandLine.Start($"dotnet new {commandParameters} --NAME {name} --ns {ns}", Parameters.OutputFolder);
+            Logger.Info($"Creating directory {outputFolder}");
+            CommandLine.Start($"mkdir {outputFolder}");
+
+            Logger.Info($"Creating {name} @ {outputFolder}");
+            CommandLine.Start($"dotnet new {commandParameters} --NAME {name} --ns {ns}", outputFolder);
         }
 
         /// <summary>
