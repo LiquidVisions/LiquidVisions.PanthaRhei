@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
@@ -19,8 +20,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
-            return services.AddTransient<ICodeGeneratorService, CodeGeneratorService>()
-                .AddTransient<IReSeederService, ReSeederService>();
+            return services.AddTransient<ICodeGeneratorBoundary, CodeGeneratorServiceBoundary>()
+                .AddTransient<ISeedingBoundary, SeedingBoundary>();
         }
     }
 }

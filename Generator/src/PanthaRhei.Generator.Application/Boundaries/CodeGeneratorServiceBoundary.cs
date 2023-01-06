@@ -3,22 +3,22 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
-namespace LiquidVisions.PanthaRhei.Generator.Application
+namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
 {
     /// <summary>
-    /// An implemented type of the contract <seealso cref="ICodeGeneratorService"/>.
+    /// An implemented type of the contract <seealso cref="ICodeGeneratorBoundary"/>.
     /// </summary>
-    internal class CodeGeneratorService : ICodeGeneratorService
+    internal class CodeGeneratorServiceBoundary : ICodeGeneratorBoundary
     {
         private readonly ICodeGeneratorBuilderInteractor builder;
         private readonly ILogger logger;
         private readonly ILogger exceptionLogger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeGeneratorService"/> class.
+        /// Initializes a new instance of the <see cref="CodeGeneratorServiceBoundary"/> class.
         /// </summary>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
-        public CodeGeneratorService(IDependencyFactoryInteractor dependencyFactory)
+        public CodeGeneratorServiceBoundary(IDependencyFactoryInteractor dependencyFactory)
         {
             builder = dependencyFactory.Get<ICodeGeneratorBuilderInteractor>();
             logger = dependencyFactory.Get<ILogger>();

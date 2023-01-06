@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
 using LiquidVisions.PanthaRhei.Generator.Application;
+using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure;
@@ -59,7 +60,7 @@ cmd.OnExecute(() =>
 
     if (parameters.ReSeed)
     {
-        provider.GetService<IReSeederService>()
+        provider.GetService<ISeedingBoundary>()
             .Execute();
 
         return;
@@ -67,7 +68,7 @@ cmd.OnExecute(() =>
 
     if (appOption.HasValue())
     {
-        provider.GetService<ICodeGeneratorService>()
+        provider.GetService<ICodeGeneratorBoundary>()
             .Execute();
     }
 });

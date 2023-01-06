@@ -4,13 +4,13 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Application
+namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
 {
-    internal class ReSeederService : IReSeederService
+    internal class SeedingBoundary : ISeedingBoundary
     {
         private readonly IEnumerable<ISeeder<App>> seeders;
 
-        public ReSeederService(IDependencyFactoryInteractor dependencyFactory)
+        public SeedingBoundary(IDependencyFactoryInteractor dependencyFactory)
         {
             seeders = dependencyFactory.GetAll<ISeeder<App>>();
         }

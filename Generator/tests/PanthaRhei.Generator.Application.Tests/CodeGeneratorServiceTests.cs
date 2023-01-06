@@ -1,4 +1,5 @@
 ﻿using System;
+using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
@@ -9,11 +10,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
     public class CodeGeneratorServiceTests
     {
         private readonly Fakes fakes = new();
-        private readonly CodeGeneratorService service;
+        private readonly CodeGeneratorServiceBoundary service;
 
         public CodeGeneratorServiceTests()
         {
-            service = new CodeGeneratorService(fakes.IDependencyResolver.Object);
+            service = new CodeGeneratorServiceBoundary(fakes.IDependencyResolver.Object);
         }
 
         [Fact]

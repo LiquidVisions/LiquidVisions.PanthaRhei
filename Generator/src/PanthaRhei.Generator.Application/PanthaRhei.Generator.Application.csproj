@@ -29,4 +29,7 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Generator.Application.Tests" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Interactors\" />
+	</ItemGroup>
 </Project>
