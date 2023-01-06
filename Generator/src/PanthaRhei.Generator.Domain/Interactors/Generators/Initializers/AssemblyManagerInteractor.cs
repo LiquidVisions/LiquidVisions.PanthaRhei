@@ -2,13 +2,13 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Initializers
 {
     /// <summary>
     /// Implements an assembly manager.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class AssemblyManager : IAssemblyManager
+    internal class AssemblyManagerInteractor : IAssemblyManagerInteractor
     {
         /// <inheritdoc/>
         public Assembly GetAssembly(Type type)

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
 {
     /// <summary>
     /// Implements the contract <seealso cref="ICodeGeneratorInteractor"/>.

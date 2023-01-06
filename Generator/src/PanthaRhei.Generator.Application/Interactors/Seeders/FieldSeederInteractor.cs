@@ -6,13 +6,13 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-    internal class FieldSeeder : ISeeder<App>
+    internal class FieldSeederInteractor : ISeederInteractor<App>
     {
         private readonly IGenericRepository<Field> repository;
 
-        public FieldSeeder(IDependencyFactoryInteractor dependencyFactory)
+        public FieldSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             repository = dependencyFactory.Get<IGenericRepository<Field>>();
         }

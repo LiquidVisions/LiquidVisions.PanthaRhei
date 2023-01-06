@@ -1,20 +1,21 @@
 ﻿using System;
 using System.IO;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-    internal class ComponentSeeder : ISeeder<App>
+    internal class ComponentSeederInteractor : ISeederInteractor<App>
     {
         private readonly IGenericRepository<Component> repository;
         private readonly Parameters parameters;
         private readonly IDirectory directoryService;
         private readonly IFile fileService;
 
-        public ComponentSeeder(IDependencyFactoryInteractor dependencyFactory)
+        public ComponentSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             repository = dependencyFactory.Get<IGenericRepository<Component>>();
             parameters = dependencyFactory.Get<Parameters>();

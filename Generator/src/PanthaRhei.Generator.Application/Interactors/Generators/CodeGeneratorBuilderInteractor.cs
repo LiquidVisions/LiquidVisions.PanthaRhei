@@ -1,30 +1,31 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+﻿using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
+using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
 {
     /// <summary>
     /// Implements the contract <seealso cref="ICodeGeneratorBuilderInteractor"/>.
     /// </summary>
-    internal class CodeGeneratorBuilder : ICodeGeneratorBuilderInteractor
+    internal class CodeGeneratorBuilderInteractor : ICodeGeneratorBuilderInteractor
     {
         private readonly IGenericRepository<App> appRepository;
         private readonly Parameters parameters;
-        private readonly IExpanderPluginLoader pluginLoader;
+        private readonly IExpanderPluginLoaderInteractor pluginLoader;
         private readonly IDependencyManagerInteractor dependencyManager;
         private readonly IDependencyFactoryInteractor dependencyFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeGeneratorBuilder"/> class.
+        /// Initializes a new instance of the <see cref="CodeGeneratorBuilderInteractor"/> class.
         /// </summary>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public CodeGeneratorBuilder(IDependencyFactoryInteractor dependencyFactory)
+        public CodeGeneratorBuilderInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             appRepository = dependencyFactory.Get<IGenericRepository<App>>();
             parameters = dependencyFactory.Get<Parameters>();
-            pluginLoader = dependencyFactory.Get<IExpanderPluginLoader>();
+            pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
             dependencyManager = dependencyFactory.Get<IDependencyManagerInteractor>();
             this.dependencyFactory = dependencyFactory;
         }

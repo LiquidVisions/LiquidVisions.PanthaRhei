@@ -20,7 +20,6 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj" />
 	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj" />
@@ -28,8 +27,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Generator.Application.Tests" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Interactors\" />
+		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Generator.Tests" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization
     /// </summary>
     /// <typeparam name="TModel">The model.</typeparam>
     [ExcludeFromCodeCoverage]
-    internal sealed class CustomSerializer<TModel> : IDeserializer<TModel>, ISerializer<TModel>
+    internal sealed class SerializerInteractor<TModel> : IDeserializerInteractor<TModel>, ISerializerInteractor<TModel>
         where TModel : new()
     {
         private readonly XmlSerializer serializer = new(typeof(TModel));

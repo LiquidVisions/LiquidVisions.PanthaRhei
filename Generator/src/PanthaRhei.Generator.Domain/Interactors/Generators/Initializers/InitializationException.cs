@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Initializers
 {
     /// <summary>
     /// Represents an error while merging Plugin Xml.

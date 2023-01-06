@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
     {
         private readonly IFile file;
         private readonly IDirectory directory;
-        private readonly ISerializer<Harvest> serializer;
+        private readonly ISerializerInteractor<Harvest> serializer;
         private readonly TExpander expander;
         private readonly Parameters parameters;
 
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         {
             file = dependencyFactory.Get<IFile>();
             directory = dependencyFactory.Get<IDirectory>();
-            serializer = dependencyFactory.Get<ISerializer<Harvest>>();
+            serializer = dependencyFactory.Get<ISerializerInteractor<Harvest>>();
             expander = dependencyFactory.Get<TExpander>();
             parameters = dependencyFactory.Get<Parameters>();
         }

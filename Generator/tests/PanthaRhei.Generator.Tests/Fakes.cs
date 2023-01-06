@@ -1,10 +1,11 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain;
+﻿using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using Moq;
@@ -15,108 +16,116 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
     {
         public Fakes()
         {
-            IDependencyResolver = new();
+            IDependencyFactoryInteractor = new();
 
             ILogger = new();
-            IDependencyResolver
+            IDependencyFactoryInteractor
                 .Setup(x => x.Get<ILogger>())
                 .Returns(ILogger.Object);
-
-            ICodeGenerator = new();
-            IDependencyResolver
+            ILogManager = new();
+            ILogManager.Setup(x => x.GetExceptionLogger())
+                .Returns(ILogger.Object);
+            IDependencyFactoryInteractor
+                .Setup(x => x.Get<ILogManager>())
+                .Returns(ILogManager.Object);
+            
+            ICodeGeneratorInteractor = new();
+            IDependencyFactoryInteractor
                 .Setup(x => x.Get<ICodeGeneratorInteractor>())
-                .Returns(ICodeGenerator.Object);
+                .Returns(ICodeGeneratorInteractor.Object);
 
-            IDependencyManager = new();
-            IDependencyResolver
+            IDependencyManagerInteractor = new();
+            IDependencyFactoryInteractor
                 .Setup(x => x.Get<IDependencyManagerInteractor>())
-                .Returns(IDependencyManager.Object);
+                .Returns(IDependencyManagerInteractor.Object);
 
-            ICodeGeneratorBuilder = new();
-            ICodeGeneratorBuilder
+            ICodeGeneratorBuilderInteractor = new();
+            ICodeGeneratorBuilderInteractor
                 .Setup(x => x.Build())
-                .Returns(ICodeGenerator.Object);
-            IDependencyResolver
+                .Returns(ICodeGeneratorInteractor.Object);
+            IDependencyFactoryInteractor
                 .Setup(x => x.Get<ICodeGeneratorBuilderInteractor>())
-                .Returns(ICodeGeneratorBuilder.Object);
+                .Returns(ICodeGeneratorBuilderInteractor.Object);
 
-            IFileService = new();
-            IDependencyResolver
+            IFile = new();
+            IDependencyFactoryInteractor
                 .Setup(x => x.Get<IFile>())
-                .Returns(IFileService.Object);
+                .Returns(IFile.Object);
 
-            IDirectoryService = new();
-            IDependencyResolver
+            IDirectory = new();
+            IDependencyFactoryInteractor
                 .Setup(x => x.Get<IDirectory>())
-                .Returns(IDirectoryService.Object);
+                .Returns(IDirectory.Object);
 
             Parameters = new()
             {
                 Root = @"C:\Some\Root\Folder",
             };
-            IDependencyResolver
+            IDependencyFactoryInteractor
                 .Setup(x => x.Get<Parameters>())
                 .Returns(Parameters);
 
-            IAssemblyContext = new();
-            IDependencyResolver
-                .Setup(x => x.Get<IAssemblyContext>())
-                .Returns(IAssemblyContext.Object);
+            IAssemblyContextInteractor = new();
+            IDependencyFactoryInteractor
+                .Setup(x => x.Get<IAssemblyContextInteractor>())
+                .Returns(IAssemblyContextInteractor.Object);
 
-            IObjectActivator = new();
-            IDependencyResolver
-                .Setup(x => x.Get<IObjectActivator>())
-                .Returns(IObjectActivator.Object);
+            IObjectActivatorInteractor = new();
+            IDependencyFactoryInteractor
+                .Setup(x => x.Get<IObjectActivatorInteractor>())
+                .Returns(IObjectActivatorInteractor.Object);
 
-            IDependencyManager = new();
-            IDependencyResolver
+            IDependencyManagerInteractor = new();
+            IDependencyFactoryInteractor
                 .Setup(x => x.Get<IDependencyManagerInteractor>())
-                .Returns(IDependencyManager.Object);
+                .Returns(IDependencyManagerInteractor.Object);
 
-            IExpanderDependencyManager = new();
+            IExpanderDependencyManagerInteractor = new();
 
-            IAssemblyManager = new();
-            IDependencyResolver
-            .Setup(x => x.Get<IAssemblyManager>())
-            .Returns(IAssemblyManager.Object);
+            IAssemblyManagerInteractor = new();
+            IDependencyFactoryInteractor
+            .Setup(x => x.Get<IAssemblyManagerInteractor>())
+            .Returns(IAssemblyManagerInteractor.Object);
 
             IAppRepository = new();
-            IDependencyResolver
+            IDependencyFactoryInteractor
             .Setup(x => x.Get<IGenericRepository<App>>())
             .Returns(IAppRepository.Object);
 
-            IExpanderPluginLoader = new();
-            IDependencyResolver
-            .Setup(x => x.Get<IExpanderPluginLoader>())
-            .Returns(IExpanderPluginLoader.Object);
+            IExpanderPluginLoaderInteractor = new();
+            IDependencyFactoryInteractor
+            .Setup(x => x.Get<IExpanderPluginLoaderInteractor>())
+            .Returns(IExpanderPluginLoaderInteractor.Object);
         }
 
-        public Mock<IDependencyFactoryInteractor> IDependencyResolver { get; }
+        public Mock<IDependencyFactoryInteractor> IDependencyFactoryInteractor { get; }
 
-        public Mock<IDependencyManagerInteractor> IDependencyManager { get; }
+        public Mock<IDependencyManagerInteractor> IDependencyManagerInteractor { get; }
 
-        public Mock<ICodeGeneratorBuilderInteractor> ICodeGeneratorBuilder { get; }
+        public Mock<ICodeGeneratorBuilderInteractor> ICodeGeneratorBuilderInteractor { get; }
 
         public Mock<ILogger> ILogger { get; }
 
-        public Mock<ICodeGeneratorInteractor> ICodeGenerator { get; }
+        public Mock<ILogManager> ILogManager { get; }
 
-        public Mock<IFile> IFileService { get; }
+        public Mock<ICodeGeneratorInteractor> ICodeGeneratorInteractor { get; }
 
-        public Mock<IDirectory> IDirectoryService { get; }
+        public Mock<IFile> IFile { get; }
+
+        public Mock<IDirectory> IDirectory { get; }
 
         public Parameters Parameters { get; }
 
-        public Mock<IExpanderDependencyManagerInteractor> IExpanderDependencyManager { get; }
+        public Mock<IExpanderDependencyManagerInteractor> IExpanderDependencyManagerInteractor { get; }
 
-        internal Mock<IAssemblyContext> IAssemblyContext { get; }
+        internal Mock<IAssemblyContextInteractor> IAssemblyContextInteractor { get; }
 
-        internal Mock<IObjectActivator> IObjectActivator { get; }
+        internal Mock<IObjectActivatorInteractor> IObjectActivatorInteractor { get; }
 
-        internal Mock<IAssemblyManager> IAssemblyManager { get; }
+        internal Mock<IAssemblyManagerInteractor> IAssemblyManagerInteractor { get; }
 
         internal Mock<IGenericRepository<App>> IAppRepository { get; }
 
-        internal Mock<IExpanderPluginLoader> IExpanderPluginLoader { get; }
+        internal Mock<IExpanderPluginLoaderInteractor> IExpanderPluginLoaderInteractor { get; }
     }
 }

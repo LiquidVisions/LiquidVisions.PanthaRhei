@@ -2,12 +2,12 @@
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers
 {
     /// <summary>
     /// Specifies a contract of an object that loads expanders as a plugin.
     /// </summary>
-    public interface IExpanderPluginLoader
+    public interface IExpanderPluginLoaderInteractor
     {
         /// <summary>
         /// Executes the loading command.

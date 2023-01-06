@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers
 {
     /// <summary>
     /// Represents an interface that is able to activate objects using Reflection.
     /// </summary>
-    internal interface IObjectActivator
+    internal interface IObjectActivatorInteractor
     {
         /// <summary>
         /// Creates an instance of a type.

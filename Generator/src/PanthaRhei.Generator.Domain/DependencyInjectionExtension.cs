@@ -1,11 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,31 +23,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         {
             var container = new DependencyManagerInteractor(services);
 
-            services.AddSingleton<IDependencyManagerInteractor>(container)
+            return services.AddSingleton<IDependencyManagerInteractor>(container)
                 .AddSingleton<IDependencyFactoryInteractor>(container)
                 .AddSingleton(new Parameters())
-                .AddTransient<ICodeGeneratorBuilderInteractor, CodeGeneratorBuilder>()
-                .AddTransient<ICodeGeneratorInteractor, CodeGeneratorInteractor>()
-                .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
                 .AddTransient<IPluralizer, CustomPluralizer>()
                 .AddSingleton<IProjectAgentInteractor, ProjectAgent>()
                 .AddInitializers()
-                .AddTemplateServices()
-                .AddModelInitializers();
-
-            return services;
-        }
-
-        private static IServiceCollection AddModelInitializers(this IServiceCollection services)
-        {
-            services.AddTransient<ISeeder<App>, AppSeeder>()
-                .AddTransient<ISeeder<App>, ExpanderSeeder>()
-                .AddTransient<ISeeder<App>, EntitySeeder>()
-                .AddTransient<ISeeder<App>, PackageSeeder>()
-                .AddTransient<ISeeder<App>, FieldSeeder>()
-                .AddTransient<ISeeder<App>, ComponentSeeder>();
-
-            return services;
+                .AddTemplateServices();
         }
 
         private static IServiceCollection AddTemplateServices(this IServiceCollection services)
@@ -64,13 +42,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
 
         private static IServiceCollection AddInitializers(this IServiceCollection services)
         {
-            return services.AddTransient<IAssemblyContext, ExpanderPluginLoadContext>()
-                .AddTransient<IAssemblyManager, AssemblyManager>()
-                .AddTransient<IAssemblyContext, ExpanderPluginLoadContext>()
-                .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
-                .AddTransient<ISerializer<Harvest>, CustomSerializer<Harvest>>()
-                .AddTransient<IDeserializer<Harvest>, CustomSerializer<Harvest>>()
-                .AddTransient<IObjectActivator, ObjectActivator>();
+            return services
+                .AddTransient<ISerializerInteractor<Harvest>, SerializerInteractor<Harvest>>()
+                .AddTransient<IDeserializerInteractor<Harvest>, SerializerInteractor<Harvest>>();
         }
     }
 }

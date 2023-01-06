@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers
 {
     /// <summary>
     /// Specifies an interface for an Assembly loader context.
     /// </summary>
-    internal interface IAssemblyContext
+    internal interface IAssemblyContextInteractor
     {
         /// <summary>
         /// Loads and returns an <see cref="Assembly"/>.

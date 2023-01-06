@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
 {
     internal class SeedingBoundary : ISeedingBoundary
     {
-        private readonly IEnumerable<ISeeder<App>> seeders;
+        private readonly IEnumerable<ISeederInteractor<App>> seeders;
 
         public SeedingBoundary(IDependencyFactoryInteractor dependencyFactory)
         {
-            seeders = dependencyFactory.GetAll<ISeeder<App>>();
+            seeders = dependencyFactory.GetAll<ISeederInteractor<App>>();
         }
 
         public void Execute()

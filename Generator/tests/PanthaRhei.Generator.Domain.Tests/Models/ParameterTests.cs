@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Models
@@ -31,11 +32,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Models
         public void OutputFolder_DefaultValue_ShouldBeEqual()
         {
             // arrange
+            model.AppId = Guid.NewGuid();
+
             // act
             string result = model.OutputFolder;
 
             // assert
-            Assert.Equal(result, Path.Combine(root, "Output"));
+            Assert.Equal(result, Path.Combine(root, "Output", model.AppId.ToString()));
         }
 
         [Fact]
@@ -69,12 +72,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Models
             // arrange
             string customvalue = "Custom";
             model.OutputFolder = customvalue;
+            model.AppId = Guid.NewGuid();
 
             // act
             string result = model.OutputFolder;
 
             // assert
-            Assert.Equal(result, Path.Combine(root, customvalue));
+            Assert.Equal(result, Path.Combine(root, customvalue, model.AppId.ToString()));
         }
 
         [Fact]

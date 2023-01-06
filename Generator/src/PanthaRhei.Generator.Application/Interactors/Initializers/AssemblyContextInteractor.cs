@@ -3,13 +3,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers
 {
     /// <summary>
     /// Loads the Expander plugins from a given location.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    internal class ExpanderPluginLoadContext : AssemblyLoadContext, IAssemblyContext
+    internal class AssemblyContextInteractor : AssemblyLoadContext, IAssemblyContextInteractor
     {
         private AssemblyDependencyResolver resolver;
 

@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
         where TExpander : class, IExpanderInteractor
     {
         private readonly IDirectory directoryService;
-        private readonly IDeserializer<Harvest> deserializer;
+        private readonly IDeserializerInteractor<Harvest> deserializer;
         private readonly IWriter writer;
         private readonly string folder;
         private readonly Parameters parameters;
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
             parameters = dependencyFactory.Get<Parameters>();
 
             directoryService = dependencyFactory.Get<IDirectory>();
-            deserializer = dependencyFactory.Get<IDeserializer<Harvest>>();
+            deserializer = dependencyFactory.Get<IDeserializerInteractor<Harvest>>();
             writer = dependencyFactory.Get<IWriter>();
             folder = Path.Combine(parameters.HarvestFolder, Expander.Model.Name);
         }

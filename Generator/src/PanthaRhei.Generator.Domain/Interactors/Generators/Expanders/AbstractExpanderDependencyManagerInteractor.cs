@@ -6,10 +6,10 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Preprocessors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuvenator;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         private readonly Expander expander;
         private readonly IDependencyManagerInteractor dependencyManager;
         private readonly ILogger logger;
-        private readonly IAssemblyManager assemblyManager;
+        private readonly IAssemblyManagerInteractor assemblyManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpanderDependencyManagerInteractor{TExpander}"/> class.
@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
 
             this.expander = expander;
             logger = dependencyFactory.Get<ILogger>();
-            assemblyManager = dependencyFactory.Get<IAssemblyManager>();
+            assemblyManager = dependencyFactory.Get<IAssemblyManagerInteractor>();
         }
 
         /// <summary>

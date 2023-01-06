@@ -31,6 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\PanthaRhei.Generator.Application\PanthaRhei.Generator.Application.csproj" />
 	  <ProjectReference Include="..\..\src\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>

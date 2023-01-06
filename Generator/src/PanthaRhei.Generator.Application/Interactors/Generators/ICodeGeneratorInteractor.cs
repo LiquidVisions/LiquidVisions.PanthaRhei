@@ -1,4 +1,4 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
+﻿namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
 {
     /// <summary>
     /// Represents a contract for an object that executes a code generation process.

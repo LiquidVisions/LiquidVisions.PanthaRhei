@@ -3,38 +3,40 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers
 {
     /// <summary>
-    /// An implementation of <seealso cref="IExpanderPluginLoader"/>.
+    /// An implementation of <seealso cref="IExpanderPluginLoaderInteractor"/>.
     /// </summary>
-    internal class ExpanderPluginLoader : IExpanderPluginLoader
+    internal class ExpanderPluginLoaderInteractor : IExpanderPluginLoaderInteractor
     {
         private readonly string searchPattern = "*.Expanders.*.dll";
         private readonly Parameters parameters;
         private readonly IDirectory directoryService;
-        private readonly IAssemblyContext assemblyContext;
+        private readonly IAssemblyContextInteractor assemblyContext;
         private readonly ILogger logger;
-        private readonly IObjectActivator activator;
+        private readonly IObjectActivatorInteractor activator;
         private readonly IDependencyManagerInteractor dependencyManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExpanderPluginLoader"/> class.
+        /// Initializes a new instance of the <see cref="ExpanderPluginLoaderInteractor"/> class.
         /// </summary>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public ExpanderPluginLoader(IDependencyFactoryInteractor dependencyFactory)
+        public ExpanderPluginLoaderInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             parameters = dependencyFactory.Get<Parameters>();
             directoryService = dependencyFactory.Get<IDirectory>();
-            assemblyContext = dependencyFactory.Get<IAssemblyContext>();
+            assemblyContext = dependencyFactory.Get<IAssemblyContextInteractor>();
             logger = dependencyFactory.Get<ILogger>();
-            activator = dependencyFactory.Get<IObjectActivator>();
+            activator = dependencyFactory.Get<IObjectActivatorInteractor>();
             dependencyManager = dependencyFactory.Get<IDependencyManagerInteractor>();
         }
 

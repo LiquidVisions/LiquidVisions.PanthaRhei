@@ -1,20 +1,20 @@
 ﻿using System;
+using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.UseCases
+namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
 {
     public class CodeGeneratorBuilderTests
     {
-        private readonly CodeGeneratorBuilder builder;
+        private readonly CodeGeneratorBuilderInteractor interactor;
         private readonly Fakes fakes = new();
 
         public CodeGeneratorBuilderTests()
         {
-            builder = new CodeGeneratorBuilder(fakes.IDependencyResolver.Object);
+            interactor = new CodeGeneratorBuilderInteractor(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.UseCases
             fakes.IAppRepository.Setup(x => x.GetById(id)).Returns((App)null);
 
             // act
-            void Action() => builder.Build();
+            void Action() => interactor.Build();
 
             // assert
             CodeGenerationException exception = Assert.Throws<CodeGenerationException>(Action);
@@ -41,15 +41,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.UseCases
             fakes.Parameters.AppId = id;
             App app = new();
             fakes.IAppRepository.Setup(x => x.GetById(id)).Returns(app);
-            fakes.IDependencyManager.Setup(x => x.Build()).Returns(fakes.IDependencyResolver.Object);
+            fakes.IDependencyManagerInteractor.Setup(x => x.Build()).Returns(fakes.IDependencyFactoryInteractor.Object);
 
             // act
-            builder.Build();
+            interactor.Build();
 
             // assert
-            fakes.IDependencyManager.Verify(x => x.AddSingleton(app), Times.Once);
-            fakes.IExpanderPluginLoader.Verify(x => x.LoadAllRegisteredPluginsAndBootstrap(app), Times.Once);
-            fakes.IDependencyManager.Verify(x => x.Build(), Times.Once);
+            fakes.IDependencyManagerInteractor.Verify(x => x.AddSingleton(app), Times.Once);
+            fakes.IExpanderPluginLoaderInteractor.Verify(x => x.LoadAllRegisteredPluginsAndBootstrap(app), Times.Once);
+            fakes.IDependencyManagerInteractor.Verify(x => x.Build(), Times.Once);
         }
     }
 }

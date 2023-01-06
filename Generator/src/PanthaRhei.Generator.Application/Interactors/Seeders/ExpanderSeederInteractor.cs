@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-    internal class ExpanderSeeder : ISeeder<App>
+    internal class ExpanderSeederInteractor : ISeederInteractor<App>
     {
-        private readonly IExpanderPluginLoader pluginLoader;
+        private readonly IExpanderPluginLoaderInteractor pluginLoader;
         private readonly Parameters parameters;
         private readonly IGenericRepository<Expander> expanderRepository;
 
-        public ExpanderSeeder(IDependencyFactoryInteractor dependencyFactory)
+        public ExpanderSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            pluginLoader = dependencyFactory.Get<IExpanderPluginLoader>();
+            pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
             parameters = dependencyFactory.Get<Parameters>();
             expanderRepository = dependencyFactory.Get<IGenericRepository<Expander>>();
         }

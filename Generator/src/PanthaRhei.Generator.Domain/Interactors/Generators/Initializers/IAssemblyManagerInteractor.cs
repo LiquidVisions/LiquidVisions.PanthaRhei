@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Reflection;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Initializers
 {
     /// <summary>
     /// Specifies an assembly manager.
     /// </summary>
-    internal interface IAssemblyManager
+    internal interface IAssemblyManagerInteractor
     {
         /// <summary>
         /// Gets the <seealso cref="Assembly"/> of the given <seealso cref="Type"/>.

@@ -4,7 +4,7 @@
     /// A generic object that serializes the <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">The subjected model.</typeparam>
-    public interface ISerializer<in TModel>
+    internal interface ISerializerInteractor<in TModel>
         where TModel : new()
     {
         /// <summary>

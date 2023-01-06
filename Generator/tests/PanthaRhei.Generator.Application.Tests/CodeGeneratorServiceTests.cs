@@ -1,6 +1,6 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
 
         public CodeGeneratorServiceTests()
         {
-            service = new CodeGeneratorServiceBoundary(fakes.IDependencyResolver.Object);
+            service = new CodeGeneratorServiceBoundary(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -25,8 +25,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
             service.Execute();
 
             // assert
-            fakes.ICodeGeneratorBuilder.Verify(x => x.Build(), Times.Once);
-            fakes.ICodeGenerator.Verify(x => x.Execute(), Times.Once);
+            fakes.ICodeGeneratorBuilderInteractor.Verify(x => x.Build(), Times.Once);
+            fakes.ICodeGeneratorInteractor.Verify(x => x.Execute(), Times.Once);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
             // arrange
             string exceptionMessage = "Dit is an exception message";
             CodeGenerationException exception = new(exceptionMessage);
-            fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
+            fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
 
             // act
             service.Execute();
@@ -50,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
             // arrange
             string exceptionMessage = "Dit is an exception message";
             InvalidOperationException exception = new(exceptionMessage);
-            fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
+            fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
 
             // act
             service.Execute();
