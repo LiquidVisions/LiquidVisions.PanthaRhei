@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
             foreach (Type entityType in allEntities)
             {
                 IEnumerable<PropertyInfo> allProperties = entityType.GetProperties();
-
+                int order = 1;
                 foreach (PropertyInfo prop in allProperties)
                 {
                     Field field = new()
@@ -44,6 +44,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
                         GetModifier = GetModifier(prop.GetMethod),
                         SetModifier = GetModifier(prop.SetMethod),
                         Behaviour = GetBehaviour(prop),
+                        Order = order++,
                     };
 
                     SetReturnType(prop, app, field);

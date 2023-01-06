@@ -23,6 +23,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
                 .HasMaxLength(16)
                 .IsRequired(false);
 
+            builder.Property(x => x.Order)
+                .IsRequired(true)
+                .HasDefaultValue(0);
+
             builder.Property(x => x.Modifier)
                 .HasMaxLength(128)
                 .IsRequired(true)

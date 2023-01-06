@@ -22,8 +22,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
         public void Seed(App app)
         {
             app.Id = parameters.AppId;
-            app.Name = "PanthaRhei";
-            app.FullName = "LiquidVisions.PanthaRhei";
+            app.Name = "PanthaRhei.Generated";
+            app.FullName = "LiquidVisions.PanthaRhei.Generated";
 
             repository.Create(app);
         }

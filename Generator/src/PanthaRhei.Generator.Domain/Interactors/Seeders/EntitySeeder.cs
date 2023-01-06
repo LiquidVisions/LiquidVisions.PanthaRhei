@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
                 {
                     Id = Guid.NewGuid(),
                     Name = type.Name,
-                    Callsite = type.Namespace,
+                    Callsite = $"{app.FullName}.Domain.Entities",
                     Type = GetType(type),
                     Modifier = GetModifier(type),
                     Behaviour = GetBehaviour(type),

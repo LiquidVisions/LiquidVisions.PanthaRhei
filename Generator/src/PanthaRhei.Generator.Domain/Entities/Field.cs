@@ -20,6 +20,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
 
         public virtual string Behaviour { get; set; }
 
+        public virtual int Order { get; set; }
+
         public virtual Entity Reference { get; set; }
 
         public virtual Entity Entity { get; set; }

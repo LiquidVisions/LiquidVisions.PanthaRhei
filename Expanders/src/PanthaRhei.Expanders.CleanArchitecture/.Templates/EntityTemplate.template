@@ -41,7 +41,7 @@ namespace {{entity.callsite}}
 {
 	{{GetClassSignature entity}}
 	{
-		{{~for field in entity.fields~}}
+		{{~for field in entity.fields | array.sort 'order'~}}
 		{{GetPropertySignature field}}
 		{{~end~}}
 	}
