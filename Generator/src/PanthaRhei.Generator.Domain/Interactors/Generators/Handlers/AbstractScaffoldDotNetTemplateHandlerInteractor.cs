@@ -7,21 +7,21 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
     /// <summary>
     /// Abstract class for dotnet cli commands.
     /// </summary>
-    /// <typeparam name="TExpander">The <see cref="IExpander"/> that the handler belongs to.</typeparam>
-    public abstract class AbstractScaffoldDotNetTemplateHandler<TExpander> : AbstractHandler<TExpander>
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander">The <see cref="IExpanderInteractor"/> that the handler belongs to.</typeparam>
+    public abstract class AbstractScaffoldDotNetTemplateHandlerInteractor<TExpander> : AbstractHandlerInteractor<TExpander>
+        where TExpander : class, IExpanderInteractor
     {
         private readonly ICommandLine commandLine;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AbstractScaffoldDotNetTemplateHandler{TExpander}"/> class.
+        /// Initializes a new instance of the <see cref="AbstractScaffoldDotNetTemplateHandlerInteractor{TExpander}"/> class.
         /// </summary>
         /// <param name="expander"><typeparamref name="TExpander"/>.</param>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        protected AbstractScaffoldDotNetTemplateHandler(TExpander expander, IDependencyResolver dependencyResolver)
-            : base(expander, dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        protected AbstractScaffoldDotNetTemplateHandlerInteractor(TExpander expander, IDependencyFactoryInteractor dependencyFactory)
+            : base(expander, dependencyFactory)
         {
-            commandLine = dependencyResolver.Get<ICommandLine>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
         }
 
         /// <summary>

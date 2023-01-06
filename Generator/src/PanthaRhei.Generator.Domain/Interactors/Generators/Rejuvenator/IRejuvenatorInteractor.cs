@@ -6,9 +6,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
     /// <summary>
     /// Represents an interface that executes rejuvenators.
     /// </summary>
-    /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
-    public interface IRejuvenator<out TExpander> : IExecutionManager
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
+    public interface IRejuvenatorInteractor<out TExpander> : IExecutionManager
+        where TExpander : class, IExpanderInteractor
     {
         /// <summary>
         /// Gets the <seealso cref="App"/>.

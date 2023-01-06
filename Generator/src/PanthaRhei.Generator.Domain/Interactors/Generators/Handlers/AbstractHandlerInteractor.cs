@@ -7,11 +7,11 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers
 {
     /// <summary>
-    /// Abstract implementation of <seealso cref="IHandler{TExpander}"/>.
+    /// Abstract implementation of <seealso cref="IHandlerInteractor{TExpander}"/>.
     /// </summary>
-    /// <typeparam name="TExpander">An instance of <see cref="IHandler{TExpander}"/>.</typeparam>
-    public abstract class AbstractHandler<TExpander> : IHandler<TExpander>
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander">An instance of <see cref="IHandlerInteractor{TExpander}"/>.</typeparam>
+    public abstract class AbstractHandlerInteractor<TExpander> : IHandlerInteractor<TExpander>
+        where TExpander : class, IExpanderInteractor
     {
         private readonly App app;
         private readonly Parameters parameters;
@@ -22,20 +22,20 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
         private readonly IProjectAgentInteractor projectAgent;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AbstractHandler{TExpander}"/> class.
+        /// Initializes a new instance of the <see cref="AbstractHandlerInteractor{TExpander}"/> class.
         /// </summary>
         /// <param name="expander"><typeparamref name="TExpander"/>.</param>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        protected AbstractHandler(TExpander expander, IDependencyResolver dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        protected AbstractHandlerInteractor(TExpander expander, IDependencyFactoryInteractor dependencyFactory)
         {
             this.expander = expander;
 
-            parameters = dependencyResolver.Get<Parameters>();
-            app = dependencyResolver.Get<App>();
-            fileService = dependencyResolver.Get<IFile>();
-            directoryService = dependencyResolver.Get<IDirectory>();
-            logger = dependencyResolver.Get<ILogger>();
-            projectAgent = dependencyResolver.Get<IProjectAgentInteractor>();
+            parameters = dependencyFactory.Get<Parameters>();
+            app = dependencyFactory.Get<App>();
+            fileService = dependencyFactory.Get<IFile>();
+            directoryService = dependencyFactory.Get<IDirectory>();
+            logger = dependencyFactory.Get<ILogger>();
+            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
         }
 
         public virtual IProjectAgentInteractor ProjectAgent => projectAgent;

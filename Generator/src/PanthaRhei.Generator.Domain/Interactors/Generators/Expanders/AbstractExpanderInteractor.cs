@@ -12,14 +12,14 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders
 {
     /// <summary>
-    /// An abstract implementation of the <see cref="IExpander"/>.
+    /// An abstract implementation of the <see cref="IExpanderInteractor"/>.
     /// </summary>
-    /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
-    public abstract class AbstractExpander<TExpander> : IExpander
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
+    public abstract class AbstractExpander<TExpander> : IExpanderInteractor
+        where TExpander : class, IExpanderInteractor
     {
         private readonly ILogger logger;
-        private readonly IDependencyResolver dependencyResolver;
+        private readonly IDependencyFactoryInteractor dependencyFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpander{TExpander}"/> class.
@@ -31,13 +31,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpander{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        protected AbstractExpander(IDependencyResolver dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        protected AbstractExpander(IDependencyFactoryInteractor dependencyFactory)
         {
-            this.dependencyResolver = dependencyResolver;
+            this.dependencyFactory = dependencyFactory;
 
-            logger = this.dependencyResolver.Get<ILogger>();
-            Model = dependencyResolver.Get<App>()
+            logger = this.dependencyFactory.Get<ILogger>();
+            Model = dependencyFactory.Get<App>()
                 .Expanders
                 .Single(x => x.Name == Name);
         }
@@ -61,56 +61,56 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         protected abstract int GetOrder();
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandler{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandlerInteractor{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandler{TExpander}"/>.</returns>
-        public virtual IEnumerable<IHandler<TExpander>> GetHandlers()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandlerInteractor{TExpander}"/>.</returns>
+        public virtual IEnumerable<IHandlerInteractor<TExpander>> GetHandlers()
         {
-            IEnumerable<IHandler<TExpander>> handlers = dependencyResolver.GetAll<IHandler<TExpander>>();
+            IEnumerable<IHandlerInteractor<TExpander>> handlers = dependencyFactory.GetAll<IHandlerInteractor<TExpander>>();
 
             return handlers;
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvester{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvesterInteractor{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvester{TExpander}"/>.</returns>
-        public virtual IEnumerable<IHarvester<TExpander>> GetHarvesters()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvesterInteractor{TExpander}"/>.</returns>
+        public virtual IEnumerable<IHarvesterInteractor<TExpander>> GetHarvesters()
         {
-            IEnumerable<IHarvester<TExpander>> harvesters = dependencyResolver.GetAll<IHarvester<TExpander>>();
+            IEnumerable<IHarvesterInteractor<TExpander>> harvesters = dependencyFactory.GetAll<IHarvesterInteractor<TExpander>>();
 
             return harvesters;
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessor{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessorInteractor{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessor{TExpander}"/>.</returns>
-        public virtual IEnumerable<IPostProcessor<TExpander>> GetPostProcessor()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessorInteractor{TExpander}"/>.</returns>
+        public virtual IEnumerable<IPostProcessorInteractor<TExpander>> GetPostProcessor()
         {
-            IEnumerable<IPostProcessor<TExpander>> postProcessors = dependencyResolver.GetAll<IPostProcessor<TExpander>>();
+            IEnumerable<IPostProcessorInteractor<TExpander>> postProcessors = dependencyFactory.GetAll<IPostProcessorInteractor<TExpander>>();
 
             return postProcessors;
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessor{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessorInteractor{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessor{TExpander}"/>.</returns>
-        public virtual IEnumerable<IPreProcessor<TExpander>> GetPreProcessor()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessorInteractor{TExpander}"/>.</returns>
+        public virtual IEnumerable<IPreProcessorInteractor<TExpander>> GetPreProcessor()
         {
-            IEnumerable<IPreProcessor<TExpander>> preProcessors = dependencyResolver.GetAll<IPreProcessor<TExpander>>();
+            IEnumerable<IPreProcessorInteractor<TExpander>> preProcessors = dependencyFactory.GetAll<IPreProcessorInteractor<TExpander>>();
 
             return preProcessors;
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenator{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenatorInteractor{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenator{TExpander}"/>.</returns>
-        public virtual IEnumerable<IRejuvenator<TExpander>> GetRejuvenators()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenatorInteractor{TExpander}"/>.</returns>
+        public virtual IEnumerable<IRejuvenatorInteractor<TExpander>> GetRejuvenators()
         {
-            IEnumerable<IRejuvenator<TExpander>> rejuvenators = dependencyResolver.GetAll<IRejuvenator<TExpander>>();
+            IEnumerable<IRejuvenatorInteractor<TExpander>> rejuvenators = dependencyFactory.GetAll<IRejuvenatorInteractor<TExpander>>();
 
             return rejuvenators;
         }
@@ -120,7 +120,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         {
             Logger.Trace($"Expanding expander {Name}");
 
-            foreach (IHandler<TExpander> handler in GetHandlers()
+            foreach (IHandlerInteractor<TExpander> handler in GetHandlers()
                 .Where(x => x.CanExecute)
                 .OrderBy(x => x.Order))
             {
@@ -133,7 +133,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         {
             Logger.Trace($"Harvesting expander {Name} for expander {typeof(TExpander).Name}");
 
-            IEnumerable<IHarvester<TExpander>> selectedHarvestHandlers = GetHarvesters();
+            IEnumerable<IHarvesterInteractor<TExpander>> selectedHarvestHandlers = GetHarvesters();
             foreach (var handler in selectedHarvestHandlers.Where(x => x.CanExecute))
             {
                 handler.Execute();

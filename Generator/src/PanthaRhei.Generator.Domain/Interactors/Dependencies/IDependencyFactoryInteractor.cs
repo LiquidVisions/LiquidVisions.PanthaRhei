@@ -5,7 +5,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies
     /// <summary>
     /// Specifies an interface for an object that is able to resolve inversed dependencies.
     /// </summary>
-    public interface IDependencyResolver
+    public interface IDependencyFactoryInteractor
     {
         /// <summary>
         /// Gets a collection of the services.

@@ -12,9 +12,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
     {
         private readonly IGenericRepository<Field> repository;
 
-        public FieldSeeder(IDependencyResolver dependencyResolver)
+        public FieldSeeder(IDependencyFactoryInteractor dependencyFactory)
         {
-            repository = dependencyResolver.Get<IGenericRepository<Field>>();
+            repository = dependencyFactory.Get<IGenericRepository<Field>>();
         }
 
         public int SeedOrder => 6;

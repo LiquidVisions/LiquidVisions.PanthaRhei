@@ -19,13 +19,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates
         /// <summary>
         /// Initializes a new instance of the <see cref="ScribanTemplateService"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/>.</param>
-        public ScribanTemplateService(IDependencyResolver dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
+        public ScribanTemplateService(IDependencyFactoryInteractor dependencyFactory)
         {
-            logger = dependencyResolver.Get<ILogger>();
-            templateLoader = dependencyResolver.Get<ITemplateLoader>();
-            fileService = dependencyResolver.Get<IFile>();
-            directoryService = dependencyResolver.Get<IDirectory>();
+            logger = dependencyFactory.Get<ILogger>();
+            templateLoader = dependencyFactory.Get<ITemplateLoader>();
+            fileService = dependencyFactory.Get<IFile>();
+            directoryService = dependencyFactory.Get<IDirectory>();
         }
 
         /// <inheritdoc/>

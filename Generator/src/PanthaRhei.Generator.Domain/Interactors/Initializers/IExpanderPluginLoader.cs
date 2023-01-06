@@ -19,6 +19,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
         /// Executes the loading command.
         /// </summary>
         /// <param name="path">Path to the expander folder.</param>
-        List<IExpander> ShallowLoadAllExpanders(string path);
+        List<IExpanderInteractor> ShallowLoadAllExpanders(string path);
     }
 }

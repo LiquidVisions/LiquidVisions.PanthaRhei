@@ -13,9 +13,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     /// <summary>
     /// Represents a handler that executes post processing actions.
     /// </summary>
-    /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
+    /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
     public interface IProcessor<out TExpander> : IProcessor
-        where TExpander : class, IExpander
+        where TExpander : class, IExpanderInteractor
     {
         /// <summary>
         /// Gets the <seealso cref="App"/>.

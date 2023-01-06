@@ -3,6 +3,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
@@ -24,13 +25,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddDomainLayer(this IServiceCollection services)
         {
-            var container = new DependencyInjectionContainer(services);
+            var container = new DependencyManagerInteractor(services);
 
-            services.AddSingleton<IDependencyManager>(container)
-                .AddSingleton<IDependencyResolver>(container)
+            services.AddSingleton<IDependencyManagerInteractor>(container)
+                .AddSingleton<IDependencyFactoryInteractor>(container)
                 .AddSingleton(new Parameters())
-                .AddTransient<ICodeGeneratorBuilder, CodeGeneratorBuilder>()
-                .AddTransient<ICodeGenerator, CodeGenerator>()
+                .AddTransient<ICodeGeneratorBuilderInteractor, CodeGeneratorBuilder>()
+                .AddTransient<ICodeGeneratorInteractor, CodeGeneratorInteractor>()
                 .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
                 .AddTransient<IPluralizer, CustomPluralizer>()
                 .AddSingleton<IProjectAgentInteractor, ProjectAgent>()

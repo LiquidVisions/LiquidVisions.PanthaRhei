@@ -10,9 +10,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
     {
         private readonly IEnumerable<ISeeder<App>> seeders;
 
-        public ReSeederService(IDependencyResolver dependencyResolver)
+        public ReSeederService(IDependencyFactoryInteractor dependencyFactory)
         {
-            seeders = dependencyResolver.GetAll<ISeeder<App>>();
+            seeders = dependencyFactory.GetAll<ISeeder<App>>();
         }
 
         public void Execute()

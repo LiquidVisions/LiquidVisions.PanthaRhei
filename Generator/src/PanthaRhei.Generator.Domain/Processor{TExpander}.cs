@@ -9,9 +9,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     /// <summary>
     /// An abstract implementation of the <see cref="IProcessor"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
+    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
     public abstract class Processor<TExpander> : IProcessor<TExpander>
-        where TExpander : class, IExpander
+        where TExpander : class, IExpanderInteractor
     {
         private readonly App app;
         private readonly ICommandLine commandLine;
@@ -23,15 +23,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// <summary>
         /// Initializes a new instance of the <see cref="Processor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        protected Processor(IDependencyResolver dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        protected Processor(IDependencyFactoryInteractor dependencyFactory)
         {
-            app = dependencyResolver.Get<App>();
-            commandLine = dependencyResolver.Get<ICommandLine>();
-            directoryService = dependencyResolver.Get<IDirectory>();
-            logger = dependencyResolver.Get<ILogger>();
-            parameters = dependencyResolver.Get<Parameters>();
-            expander = dependencyResolver.Get<TExpander>();
+            app = dependencyFactory.Get<App>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
+            directoryService = dependencyFactory.Get<IDirectory>();
+            logger = dependencyFactory.Get<ILogger>();
+            parameters = dependencyFactory.Get<Parameters>();
+            expander = dependencyFactory.Get<TExpander>();
         }
 
         /// <inheritdoc/>

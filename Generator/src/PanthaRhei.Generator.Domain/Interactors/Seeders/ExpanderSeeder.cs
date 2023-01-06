@@ -14,11 +14,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
         private readonly Parameters parameters;
         private readonly IGenericRepository<Expander> expanderRepository;
 
-        public ExpanderSeeder(IDependencyResolver dependencyResolver)
+        public ExpanderSeeder(IDependencyFactoryInteractor dependencyFactory)
         {
-            pluginLoader = dependencyResolver.Get<IExpanderPluginLoader>();
-            parameters = dependencyResolver.Get<Parameters>();
-            expanderRepository = dependencyResolver.Get<IGenericRepository<Expander>>();
+            pluginLoader = dependencyFactory.Get<IExpanderPluginLoader>();
+            parameters = dependencyFactory.Get<Parameters>();
+            expanderRepository = dependencyFactory.Get<IGenericRepository<Expander>>();
         }
 
         public int SeedOrder => 2;
@@ -27,8 +27,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
 
         public void Seed(App app)
         {
-            List<IExpander> expanders = pluginLoader.ShallowLoadAllExpanders(parameters.ExpandersFolder);
-            foreach (IExpander exp in expanders)
+            List<IExpanderInteractor> expanders = pluginLoader.ShallowLoadAllExpanders(parameters.ExpandersFolder);
+            foreach (IExpanderInteractor exp in expanders)
             {
                 Expander expander = new()
                 {

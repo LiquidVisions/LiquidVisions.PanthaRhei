@@ -14,12 +14,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
         private readonly IDirectory directoryService;
         private readonly IFile fileService;
 
-        public ComponentSeeder(IDependencyResolver dependencyResolver)
+        public ComponentSeeder(IDependencyFactoryInteractor dependencyFactory)
         {
-            repository = dependencyResolver.Get<IGenericRepository<Component>>();
-            parameters = dependencyResolver.Get<Parameters>();
-            directoryService = dependencyResolver.Get<IDirectory>();
-            fileService = dependencyResolver.Get<IFile>();
+            repository = dependencyFactory.Get<IGenericRepository<Component>>();
+            parameters = dependencyFactory.Get<Parameters>();
+            directoryService = dependencyFactory.Get<IDirectory>();
+            fileService = dependencyFactory.Get<IFile>();
         }
 
         public int SeedOrder => 3;

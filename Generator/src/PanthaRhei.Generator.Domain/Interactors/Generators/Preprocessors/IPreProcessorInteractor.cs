@@ -5,9 +5,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Prepr
     /// <summary>
     /// Represents a handler that executes post processing actions.
     /// </summary>
-    /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
-    public interface IPreProcessor<out TExpander> : IProcessor<TExpander>
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
+    public interface IPreProcessorInteractor<out TExpander> : IProcessor<TExpander>
+        where TExpander : class, IExpanderInteractor
     {
     }
 }

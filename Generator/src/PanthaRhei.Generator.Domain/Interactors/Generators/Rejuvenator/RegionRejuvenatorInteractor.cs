@@ -2,17 +2,18 @@
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuvenator
 {
     /// <summary>
-    /// An abstract implementation of the <see cref="IRejuvenator{TExpander}"/>.
+    /// An abstract implementation of the <see cref="IRejuvenatorInteractor{TExpander}"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
-    public sealed class RegionRejuvenator<TExpander> : Rejuvenator<TExpander>
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
+    internal sealed class RegionRejuvenatorInteractor<TExpander> : RejuvenatorInteractor<TExpander>
+        where TExpander : class, IExpanderInteractor
     {
         private readonly IDirectory directoryService;
         private readonly IDeserializer<Harvest> deserializer;
@@ -21,17 +22,17 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
         private readonly Parameters parameters;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RegionRejuvenator{TExpander}"/> class.
+        /// Initializes a new instance of the <see cref="RegionRejuvenatorInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        public RegionRejuvenator(IDependencyResolver dependencyResolver)
-            : base(dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        public RegionRejuvenatorInteractor(IDependencyFactoryInteractor dependencyFactory)
+            : base(dependencyFactory)
         {
-            parameters = dependencyResolver.Get<Parameters>();
+            parameters = dependencyFactory.Get<Parameters>();
 
-            directoryService = dependencyResolver.Get<IDirectory>();
-            deserializer = dependencyResolver.Get<IDeserializer<Harvest>>();
-            writer = dependencyResolver.Get<IWriter>();
+            directoryService = dependencyFactory.Get<IDirectory>();
+            deserializer = dependencyFactory.Get<IDeserializer<Harvest>>();
+            writer = dependencyFactory.Get<IWriter>();
             folder = Path.Combine(parameters.HarvestFolder, Expander.Model.Name);
         }
 

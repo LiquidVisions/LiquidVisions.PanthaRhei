@@ -7,27 +7,27 @@ using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
 {
     /// <summary>
-    /// Implements the contract <seealso cref="ICodeGenerator"/>.
+    /// Implements the contract <seealso cref="ICodeGeneratorInteractor"/>.
     /// </summary>
-    internal sealed class CodeGenerator : ICodeGenerator
+    internal sealed class CodeGeneratorInteractor : ICodeGeneratorInteractor
     {
-        private readonly IDependencyResolver dependencyResolver;
+        private readonly IDependencyFactoryInteractor dependencyFactory;
         private readonly Parameters parameters;
         private readonly IDirectory directory;
 
-        public CodeGenerator(IDependencyResolver dependencyResolver)
+        public CodeGeneratorInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            this.dependencyResolver = dependencyResolver;
-            parameters = dependencyResolver.Get<Parameters>();
-            directory = dependencyResolver.Get<IDirectory>();
+            this.dependencyFactory = dependencyFactory;
+            parameters = dependencyFactory.Get<Parameters>();
+            directory = dependencyFactory.Get<IDirectory>();
         }
 
         /// <inheritdoc/>
         public void Execute()
         {
-            IEnumerable<IExpander> expanders = dependencyResolver.GetAll<IExpander>();
+            IEnumerable<IExpanderInteractor> expanders = dependencyFactory.GetAll<IExpanderInteractor>();
 
-            foreach (IExpander expander in expanders.OrderBy(x => x.Model.Order))
+            foreach (IExpanderInteractor expander in expanders.OrderBy(x => x.Model.Order))
             {
                 expander.Harvest();
 

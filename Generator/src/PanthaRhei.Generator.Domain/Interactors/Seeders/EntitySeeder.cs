@@ -11,9 +11,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
     {
         private readonly IGenericRepository<Entity> repository;
 
-        public EntitySeeder(IDependencyResolver dependencyResolver)
+        public EntitySeeder(IDependencyFactoryInteractor dependencyFactory)
         {
-            repository = dependencyResolver.Get<IGenericRepository<Entity>>();
+            repository = dependencyFactory.Get<IGenericRepository<Entity>>();
         }
 
         public int SeedOrder => 5;

@@ -5,18 +5,18 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Preprocessors
 {
     /// <summary>
-    /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpander"/>.
+    /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpanderInteractor"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A specific type of <see cref="IExpander"/>.</typeparam>
-    public sealed class InstallDotNetTemplate<TExpander> : PreProcessor<TExpander>
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander">A specific type of <see cref="IExpanderInteractor"/>.</typeparam>
+    internal sealed class InstallDotNetTemplateInteractor<TExpander> : PreProcessorInteractor<TExpander>
+        where TExpander : class, IExpanderInteractor
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InstallDotNetTemplate{TExpander}"/> class.
+        /// Initializes a new instance of the <see cref="InstallDotNetTemplateInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        public InstallDotNetTemplate(IDependencyResolver dependencyResolver)
-            : base(dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        public InstallDotNetTemplateInteractor(IDependencyFactoryInteractor dependencyFactory)
+            : base(dependencyFactory)
         {
         }
 
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Prepr
         public override bool CanExecute => Parameters.Clean;
 
         /// <summary>
-        /// Installs the dotnet templates that are part of the <see cref="IExpander"/>.
+        /// Installs the dotnet templates that are part of the <see cref="IExpanderInteractor"/>.
         /// </summary>
         public override void Execute()
         {

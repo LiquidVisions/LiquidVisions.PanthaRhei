@@ -7,29 +7,29 @@ using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters
 {
     /// <summary>
-    /// An abstract implementation of the <see cref="IHarvester{TExpander}"/>.
+    /// An abstract implementation of the <see cref="IHarvesterInteractor{TExpander}"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
-    public abstract class Harvester<TExpander> : IHarvester<TExpander>
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
+    public abstract class HarvesterInteractor<TExpander> : IHarvesterInteractor<TExpander>
+        where TExpander : class, IExpanderInteractor
     {
-        private readonly IFile fileService;
-        private readonly IDirectory directoryService;
+        private readonly IFile file;
+        private readonly IDirectory directory;
         private readonly ISerializer<Harvest> serializer;
         private readonly TExpander expander;
         private readonly Parameters parameters;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Harvester{TExpander}"/> class.
+        /// Initializes a new instance of the <see cref="HarvesterInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        protected Harvester(IDependencyResolver dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        protected HarvesterInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            fileService = dependencyResolver.Get<IFile>();
-            directoryService = dependencyResolver.Get<IDirectory>();
-            serializer = dependencyResolver.Get<ISerializer<Harvest>>();
-            expander = dependencyResolver.Get<TExpander>();
-            parameters = dependencyResolver.Get<Parameters>();
+            file = dependencyFactory.Get<IFile>();
+            directory = dependencyFactory.Get<IDirectory>();
+            serializer = dependencyFactory.Get<ISerializer<Harvest>>();
+            expander = dependencyFactory.Get<TExpander>();
+            parameters = dependencyFactory.Get<Parameters>();
         }
 
         /// <inheritdoc/>
@@ -41,12 +41,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         /// <summary>
         /// Gets the <seealso cref="IFile"/>.
         /// </summary>
-        protected IFile FileService => fileService;
+        protected IFile File => file;
 
         /// <summary>
         /// Gets the <seealso cref="IDirectory"/>.
         /// </summary>
-        protected IDirectory DirectoryService => directoryService;
+        protected IDirectory Directory => directory;
 
         /// <summary>
         /// Gets the extension of the harvest file.
@@ -62,15 +62,18 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         /// </summary>
         /// <param name="harvest"><seealso cref="Harvest"/></param>
         /// <param name="sourceFile">The full path to the source location.</param>
-        protected virtual void DeserializeHarvestModelToFile(Harvest harvest, string sourceFile)
+        internal virtual void DeserializeHarvestModelToFile(Harvest harvest, string sourceFile)
         {
-            string fullPath = System.IO.Path.Combine(parameters.HarvestFolder, Expander.Model.Name, $"{fileService.GetFileNameWithoutExtension(sourceFile)}.{Extension}");
-            if (FileService.Exists(fullPath) && !harvest.Items.Any() || harvest.Items.Any())
+            string fullPath = System.IO.Path.Combine(parameters.HarvestFolder, Expander.Model.Name, $"{file.GetFileNameWithoutExtension(sourceFile)}.{Extension}");
+
+            bool serialize = File.Exists(fullPath) && !harvest.Items.Any();
+            serialize |= harvest.Items.Any();
+            if (serialize)
             {
-                string directory = fileService.GetDirectory(fullPath);
-                if (!directoryService.Exists(directory))
+                string dir = file.GetDirectory(fullPath);
+                if (!this.directory.Exists(dir))
                 {
-                    directoryService.Create(directory);
+                    this.directory.Create(dir);
                 }
 
                 serializer.Serialize(fullPath, harvest);

@@ -7,33 +7,33 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors
 {
     /// <summary>
-    /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpander"/>.
+    /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpanderInteractor"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A specific type of <see cref="IExpander"/>.</typeparam>
-    public sealed class UnInstallDotNetTemplate<TExpander> : PostProcessor<TExpander>
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander">A specific type of <see cref="IExpanderInteractor"/>.</typeparam>
+    internal sealed class UnInstallDotNetTemplateInteractor<TExpander> : PostProcessorInteractor<TExpander>
+        where TExpander : class, IExpanderInteractor
     {
         private readonly ICommandLine commandLine;
         private readonly IDirectory directoryService;
         private readonly ILogger logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnInstallDotNetTemplate{TExpander}"/> class.
+        /// Initializes a new instance of the <see cref="UnInstallDotNetTemplateInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        public UnInstallDotNetTemplate(IDependencyResolver dependencyResolver)
-            : base(dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        public UnInstallDotNetTemplateInteractor(IDependencyFactoryInteractor dependencyFactory)
+            : base(dependencyFactory)
         {
-            commandLine = dependencyResolver.Get<ICommandLine>();
-            directoryService = dependencyResolver.Get<IDirectory>();
-            logger = dependencyResolver.Get<ILogger>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
+            directoryService = dependencyFactory.Get<IDirectory>();
+            logger = dependencyFactory.Get<ILogger>();
         }
 
         /// <inheritdoc/>
         public override bool CanExecute => Parameters.Clean;
 
         /// <summary>
-        /// Installs the dotnet templates that are part of the <see cref="IExpander"/>.
+        /// Installs the dotnet templates that are part of the <see cref="IExpanderInteractor"/>.
         /// </summary>
         public override void Execute()
         {

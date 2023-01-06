@@ -6,15 +6,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
     /// <summary>
     /// Generates the solution and projects using the dotnet cli command liquidvisions-ca.
     /// </summary>
-    public class ScaffoldTemplateHandler : AbstractScaffoldDotNetTemplateHandler<CleanArchitectureExpander>
+    public class ScaffoldTemplateHandler : AbstractScaffoldDotNetTemplateHandlerInteractor<CleanArchitectureExpander>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ScaffoldTemplateHandler "/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        public ScaffoldTemplateHandler(CleanArchitectureExpander expander, IDependencyResolver dependencyResolver)
-            : base(expander, dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        public ScaffoldTemplateHandler(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
+            : base(expander, dependencyFactory)
         {
         }
 

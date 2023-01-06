@@ -24,12 +24,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
             ICodeGenerator = new();
             IDependencyResolver
-                .Setup(x => x.Get<ICodeGenerator>())
+                .Setup(x => x.Get<ICodeGeneratorInteractor>())
                 .Returns(ICodeGenerator.Object);
 
             IDependencyManager = new();
             IDependencyResolver
-                .Setup(x => x.Get<IDependencyManager>())
+                .Setup(x => x.Get<IDependencyManagerInteractor>())
                 .Returns(IDependencyManager.Object);
 
             ICodeGeneratorBuilder = new();
@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
                 .Setup(x => x.Build())
                 .Returns(ICodeGenerator.Object);
             IDependencyResolver
-                .Setup(x => x.Get<ICodeGeneratorBuilder>())
+                .Setup(x => x.Get<ICodeGeneratorBuilderInteractor>())
                 .Returns(ICodeGeneratorBuilder.Object);
 
             IFileService = new();
@@ -70,7 +70,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
             IDependencyManager = new();
             IDependencyResolver
-                .Setup(x => x.Get<IDependencyManager>())
+                .Setup(x => x.Get<IDependencyManagerInteractor>())
                 .Returns(IDependencyManager.Object);
 
             IExpanderDependencyManager = new();
@@ -91,15 +91,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
             .Returns(IExpanderPluginLoader.Object);
         }
 
-        public Mock<IDependencyResolver> IDependencyResolver { get; }
+        public Mock<IDependencyFactoryInteractor> IDependencyResolver { get; }
 
-        public Mock<IDependencyManager> IDependencyManager { get; }
+        public Mock<IDependencyManagerInteractor> IDependencyManager { get; }
 
-        public Mock<ICodeGeneratorBuilder> ICodeGeneratorBuilder { get; }
+        public Mock<ICodeGeneratorBuilderInteractor> ICodeGeneratorBuilder { get; }
 
         public Mock<ILogger> ILogger { get; }
 
-        public Mock<ICodeGenerator> ICodeGenerator { get; }
+        public Mock<ICodeGeneratorInteractor> ICodeGenerator { get; }
 
         public Mock<IFile> IFileService { get; }
 
@@ -107,7 +107,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         public Parameters Parameters { get; }
 
-        public Mock<IExpanderDependencyManager> IExpanderDependencyManager { get; }
+        public Mock<IExpanderDependencyManagerInteractor> IExpanderDependencyManager { get; }
 
         internal Mock<IAssemblyContext> IAssemblyContext { get; }
 

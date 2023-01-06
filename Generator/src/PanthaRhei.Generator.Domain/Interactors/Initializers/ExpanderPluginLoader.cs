@@ -22,20 +22,20 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
         private readonly IAssemblyContext assemblyContext;
         private readonly ILogger logger;
         private readonly IObjectActivator activator;
-        private readonly IDependencyManager dependencyManager;
+        private readonly IDependencyManagerInteractor dependencyManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpanderPluginLoader"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        public ExpanderPluginLoader(IDependencyResolver dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        public ExpanderPluginLoader(IDependencyFactoryInteractor dependencyFactory)
         {
-            parameters = dependencyResolver.Get<Parameters>();
-            directoryService = dependencyResolver.Get<IDirectory>();
-            assemblyContext = dependencyResolver.Get<IAssemblyContext>();
-            logger = dependencyResolver.Get<ILogger>();
-            activator = dependencyResolver.Get<IObjectActivator>();
-            dependencyManager = dependencyResolver.Get<IDependencyManager>();
+            parameters = dependencyFactory.Get<Parameters>();
+            directoryService = dependencyFactory.Get<IDirectory>();
+            assemblyContext = dependencyFactory.Get<IAssemblyContext>();
+            logger = dependencyFactory.Get<ILogger>();
+            activator = dependencyFactory.Get<IObjectActivator>();
+            dependencyManager = dependencyFactory.Get<IDependencyManagerInteractor>();
         }
 
         /// <inheritdoc/>
@@ -60,9 +60,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
             }
         }
 
-        public List<IExpander> ShallowLoadAllExpanders(string path)
+        public List<IExpanderInteractor> ShallowLoadAllExpanders(string path)
         {
-            List<IExpander> result = new();
+            List<IExpanderInteractor> result = new();
 
             string[] assemblyPaths = directoryService.GetFiles(path, searchPattern, SearchOption.AllDirectories);
             foreach (string assemblyPath in assemblyPaths)
@@ -70,9 +70,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
                 Assembly assembly = LoadPlugin(assemblyPath);
                 Type expanderType = assembly.GetExportedTypes()
                     .Where(x => x.IsClass && !x.IsAbstract)
-                    .Single(x => x.GetInterfaces().Contains(typeof(IExpander)));
+                    .Single(x => x.GetInterfaces().Contains(typeof(IExpanderInteractor)));
 
-                IExpander expander = (IExpander)activator.CreateInstance(expanderType);
+                IExpanderInteractor expander = (IExpanderInteractor)activator.CreateInstance(expanderType);
                 result.Add(expander);
             }
 
@@ -110,9 +110,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
         {
             Type bootstrapperType = assembly.GetExportedTypes()
                 .Where(x => x.IsClass && !x.IsAbstract)
-                .Single(x => x.GetInterfaces().Contains(typeof(IExpanderDependencyManager)));
+                .Single(x => x.GetInterfaces().Contains(typeof(IExpanderDependencyManagerInteractor)));
 
-            IExpanderDependencyManager expanderDependencyManager = (IExpanderDependencyManager)activator
+            IExpanderDependencyManagerInteractor expanderDependencyManager = (IExpanderDependencyManagerInteractor)activator
                 .CreateInstance(bootstrapperType, expander, dependencyManager);
 
             expanderDependencyManager.Register();

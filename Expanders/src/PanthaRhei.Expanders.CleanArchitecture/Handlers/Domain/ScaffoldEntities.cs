@@ -9,7 +9,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
     /// <summary>
     /// Generates the <seealso cref="Entity">Entities</seealso>.
     /// </summary>
-    public class ScaffoldEntities : AbstractHandler<CleanArchitectureExpander>
+    public class ScaffoldEntities : AbstractHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly ITemplateService templateService;
 
@@ -17,11 +17,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         /// Initializes a new instance of the <see cref="ScaffoldEntities"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/>.</param>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        public ScaffoldEntities(CleanArchitectureExpander expander, IDependencyResolver dependencyResolver)
-            : base(expander, dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        public ScaffoldEntities(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
+            : base(expander, dependencyFactory)
         {
-            this.templateService = dependencyResolver.Get<ITemplateService>();
+            this.templateService = dependencyFactory.Get<ITemplateService>();
         }
 
         public override int Order => 2;

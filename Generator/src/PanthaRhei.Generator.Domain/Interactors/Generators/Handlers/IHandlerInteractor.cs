@@ -5,12 +5,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
     /// <summary>
     /// Specifies the interface of an expander handler.
     /// </summary>
-    /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
-    public interface IHandler<out TExpander> : IExecutionManager
-        where TExpander : class, IExpander
+    /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
+    public interface IHandlerInteractor<out TExpander> : IExecutionManager
+        where TExpander : class, IExpanderInteractor
     {
         /// <summary>
-        /// Gets the name of the <see cref="IHandler{TExpander}"/>.
+        /// Gets the name of the <see cref="IHandlerInteractor{TExpander}"/>.
         /// </summary>
         string Name { get; }
 

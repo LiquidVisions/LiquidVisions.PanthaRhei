@@ -16,10 +16,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors
         private readonly App app;
         private readonly Parameters parameters;
 
-        public ProjectAgent(IDependencyResolver dependencyResolver)
+        public ProjectAgent(IDependencyFactoryInteractor dependencyFactory)
         {
-            app = dependencyResolver.Get<App>();
-            parameters = dependencyResolver.Get<Parameters>();
+            app = dependencyFactory.Get<App>();
+            parameters = dependencyFactory.Get<Parameters>();
         }
 
         public string GetComponentOutputFolder(Component component)

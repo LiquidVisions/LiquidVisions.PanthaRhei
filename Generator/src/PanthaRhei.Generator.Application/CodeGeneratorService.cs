@@ -10,19 +10,19 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
     /// </summary>
     internal class CodeGeneratorService : ICodeGeneratorService
     {
-        private readonly ICodeGeneratorBuilder builder;
+        private readonly ICodeGeneratorBuilderInteractor builder;
         private readonly ILogger logger;
         private readonly ILogger exceptionLogger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeGeneratorService"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/>.</param>
-        public CodeGeneratorService(IDependencyResolver dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
+        public CodeGeneratorService(IDependencyFactoryInteractor dependencyFactory)
         {
-            builder = dependencyResolver.Get<ICodeGeneratorBuilder>();
-            logger = dependencyResolver.Get<ILogger>();
-            exceptionLogger = dependencyResolver
+            builder = dependencyFactory.Get<ICodeGeneratorBuilderInteractor>();
+            logger = dependencyFactory.Get<ILogger>();
+            exceptionLogger = dependencyFactory
                 .Get<ILogManager>()
                 .GetExceptionLogger();
         }
@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         {
             try
             {
-                ICodeGenerator codeGenerator = builder.Build();
+                ICodeGeneratorInteractor codeGenerator = builder.Build();
 
                 codeGenerator.Execute();
             }

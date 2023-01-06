@@ -15,11 +15,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
         private readonly IDirectory directoryService;
         private readonly Parameters parameters;
 
-        public PackageSeeder(IDependencyResolver dependencyResolver)
+        public PackageSeeder(IDependencyFactoryInteractor dependencyFactory)
         {
-            repository = dependencyResolver.Get<IGenericRepository<Package>>();
-            directoryService = dependencyResolver.Get<IDirectory>();
-            parameters = dependencyResolver.Get<Parameters>();
+            repository = dependencyFactory.Get<IGenericRepository<Package>>();
+            directoryService = dependencyFactory.Get<IDirectory>();
+            parameters = dependencyFactory.Get<Parameters>();
         }
 
         public int SeedOrder => 4;

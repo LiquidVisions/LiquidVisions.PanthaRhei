@@ -9,10 +9,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
         private readonly IGenericRepository<App> repository;
         private readonly Parameters parameters;
 
-        public AppSeeder(IDependencyResolver dependencyResolver)
+        public AppSeeder(IDependencyFactoryInteractor dependencyFactory)
         {
-            repository = dependencyResolver.Get<IGenericRepository<App>>();
-            parameters = dependencyResolver.Get<Parameters>();
+            repository = dependencyFactory.Get<IGenericRepository<App>>();
+            parameters = dependencyFactory.Get<Parameters>();
         }
 
         public int SeedOrder => 1;

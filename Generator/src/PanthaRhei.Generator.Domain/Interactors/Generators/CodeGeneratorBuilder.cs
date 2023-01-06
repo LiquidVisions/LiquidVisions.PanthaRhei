@@ -6,31 +6,31 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
 {
     /// <summary>
-    /// Implements the contract <seealso cref="ICodeGeneratorBuilder"/>.
+    /// Implements the contract <seealso cref="ICodeGeneratorBuilderInteractor"/>.
     /// </summary>
-    internal class CodeGeneratorBuilder : ICodeGeneratorBuilder
+    internal class CodeGeneratorBuilder : ICodeGeneratorBuilderInteractor
     {
         private readonly IGenericRepository<App> appRepository;
         private readonly Parameters parameters;
         private readonly IExpanderPluginLoader pluginLoader;
-        private readonly IDependencyManager dependencyManager;
-        private readonly IDependencyResolver dependencyResolver;
+        private readonly IDependencyManagerInteractor dependencyManager;
+        private readonly IDependencyFactoryInteractor dependencyFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeGeneratorBuilder"/> class.
         /// </summary>
-        /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
-        public CodeGeneratorBuilder(IDependencyResolver dependencyResolver)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
+        public CodeGeneratorBuilder(IDependencyFactoryInteractor dependencyFactory)
         {
-            appRepository = dependencyResolver.Get<IGenericRepository<App>>();
-            parameters = dependencyResolver.Get<Parameters>();
-            pluginLoader = dependencyResolver.Get<IExpanderPluginLoader>();
-            dependencyManager = dependencyResolver.Get<IDependencyManager>();
-            this.dependencyResolver = dependencyResolver;
+            appRepository = dependencyFactory.Get<IGenericRepository<App>>();
+            parameters = dependencyFactory.Get<Parameters>();
+            pluginLoader = dependencyFactory.Get<IExpanderPluginLoader>();
+            dependencyManager = dependencyFactory.Get<IDependencyManagerInteractor>();
+            this.dependencyFactory = dependencyFactory;
         }
 
         /// <inheritdoc/>
-        public ICodeGenerator Build()
+        public ICodeGeneratorInteractor Build()
         {
             App app = appRepository.GetById(parameters.AppId);
             if (app == null)
@@ -42,7 +42,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
             dependencyManager.AddSingleton(app);
             dependencyManager.Build();
 
-            return dependencyResolver.Get<ICodeGenerator>();
+            return dependencyFactory.Get<ICodeGeneratorInteractor>();
         }
     }
 }

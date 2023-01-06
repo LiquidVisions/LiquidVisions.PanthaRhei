@@ -1,12 +1,12 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters
 {
     /// <summary>
     /// Represents the model for an instance with detailed <see cref="Harvest"/> information from a harvested file.
     /// </summary>
-    public class HarvestItem
+    internal class HarvestItem
     {
         /// <summary>
         /// Gets or sets the content of the object that needs to be harvested.
