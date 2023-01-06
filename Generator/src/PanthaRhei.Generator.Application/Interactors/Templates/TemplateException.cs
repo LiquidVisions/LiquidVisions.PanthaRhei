@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
 {
     /// <summary>
     /// Generic Exception for template rendering.

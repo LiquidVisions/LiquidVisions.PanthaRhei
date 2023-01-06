@@ -4,7 +4,9 @@ using LiquidVisions.PanthaRhei.Generator.Application.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application
@@ -26,8 +28,17 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
                 .AddTransient<ICodeGeneratorInteractor, CodeGeneratorInteractor>()
                 .AddTransient<IPluralizerInteractor, PluralizerInteractor>()
                 .AddInitializers()
-                .AddSeeders()
-                .AddBoundaries();
+                .AddSeedersInteractors()
+                .AddBoundaries()
+                .AddTemplateInteractors();
+        }
+
+        private static IServiceCollection AddTemplateInteractors(this IServiceCollection services)
+        {
+            services.AddTransient<ITemplateInteractor, ScribanTemplateInteractor>()
+                .AddTransient<ITemplateLoaderInteractor, TemplateLoaderInteractor>();
+
+            return services;
         }
 
         private static IServiceCollection AddInitializers(this IServiceCollection services)
@@ -45,7 +56,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
                 .AddTransient<ISeedingBoundary, SeedingBoundary>();
         }
 
-        private static IServiceCollection AddSeeders(this IServiceCollection services)
+        private static IServiceCollection AddSeedersInteractors(this IServiceCollection services)
         {
             services.AddTransient<ISeederInteractor<App>, AppSeederInteractor>()
                 .AddTransient<ISeederInteractor<App>, ExpanderSeederInteractor>()

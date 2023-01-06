@@ -1,29 +1,30 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using Scriban;
 using Scriban.Runtime;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
 {
     /// <summary>
-    /// <see cref="Template"/> implementation of <see cref="ITemplateService"/>.
+    /// <see cref="Template"/> implementation of <see cref="ITemplateInteractor"/>.
     /// </summary>
-    internal class ScribanTemplateService : ITemplateService
+    internal class ScribanTemplateInteractor : ITemplateInteractor
     {
         private readonly ILogger logger;
-        private readonly ITemplateLoader templateLoader;
+        private readonly ITemplateLoaderInteractor templateLoader;
         private readonly IFile fileService;
         private readonly IDirectory directoryService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ScribanTemplateService"/> class.
+        /// Initializes a new instance of the <see cref="ScribanTemplateInteractor"/> class.
         /// </summary>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
-        public ScribanTemplateService(IDependencyFactoryInteractor dependencyFactory)
+        public ScribanTemplateInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             logger = dependencyFactory.Get<ILogger>();
-            templateLoader = dependencyFactory.Get<ITemplateLoader>();
+            templateLoader = dependencyFactory.Get<ITemplateLoaderInteractor>();
             fileService = dependencyFactory.Get<IFile>();
             directoryService = dependencyFactory.Get<IDirectory>();
         }

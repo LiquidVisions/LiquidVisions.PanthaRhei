@@ -1,22 +1,23 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
 {
     /// <summary>
     /// Loads static templates.
     /// </summary>
-    internal class TemplateLoader : ITemplateLoader
+    internal class TemplateLoaderInteractor : ITemplateLoaderInteractor
     {
         private readonly IFile fileService;
         private readonly ILogger logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TemplateLoader"/> class.
+        /// Initializes a new instance of the <see cref="TemplateLoaderInteractor"/> class.
         /// </summary>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
-        public TemplateLoader(IDependencyFactoryInteractor dependencyFactory)
+        public TemplateLoaderInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             fileService = dependencyFactory.Get<IFile>();
             logger = dependencyFactory.Get<ILogger>();

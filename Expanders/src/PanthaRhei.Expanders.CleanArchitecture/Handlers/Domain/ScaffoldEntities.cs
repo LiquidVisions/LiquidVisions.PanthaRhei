@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
     /// </summary>
     public class ScaffoldEntities : AbstractHandlerInteractor<CleanArchitectureExpander>
     {
-        private readonly ITemplateService templateService;
+        private readonly ITemplateInteractor templateService;
         private readonly IProjectAgentInteractor projectInteractor;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         public ScaffoldEntities(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
             : base(expander, dependencyFactory)
         {
-            this.templateService = dependencyFactory.Get<ITemplateService>();
+            this.templateService = dependencyFactory.Get<ITemplateInteractor>();
             this.projectInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
         }
 

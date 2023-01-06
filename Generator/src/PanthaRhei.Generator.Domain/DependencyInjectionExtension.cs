@@ -25,16 +25,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
             return services.AddSingleton<IDependencyManagerInteractor>(container)
                 .AddSingleton<IDependencyFactoryInteractor>(container)
                 .AddSingleton(new Parameters())
-                .AddInitializers()
-                .AddTemplateServices();
-        }
-
-        private static IServiceCollection AddTemplateServices(this IServiceCollection services)
-        {
-            services.AddTransient<ITemplateService, ScribanTemplateService>()
-                .AddTransient<ITemplateLoader, TemplateLoader>();
-
-            return services;
+                .AddInitializers();
         }
 
         private static IServiceCollection AddInitializers(this IServiceCollection services)
