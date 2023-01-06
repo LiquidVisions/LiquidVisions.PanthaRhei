@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
-using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Tests;
-using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
 using Moq;
 using Xunit;
 

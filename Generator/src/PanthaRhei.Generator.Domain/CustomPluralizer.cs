@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     {
         private readonly Pluralizer pluralizer = new();
 
-        public string Pluralize(string input) 
+        public string Pluralize(string input)
             => pluralizer.Pluralize(input);
     }
 }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
@@ -37,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
         {
             // arrange
             string exceptionMessage = "Dit is an exception message";
-            CodeGenerationException exception = new (exceptionMessage);
+            CodeGenerationException exception = new(exceptionMessage);
             fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
 
             // act

@@ -1,11 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
-using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
-using LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
-using LiquidVisions.PanthaRhei.Generator.Domain.Templates;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain
@@ -42,14 +43,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
 
         private static IServiceCollection AddModelInitializers(this IServiceCollection services)
         {
-            services.AddTransient<IModelInitializerUseCase, ModelInitializerUseCase>()
-                .AddTransient<IInitializeAppUseCase, InitializeAppUseCase>()
-                .AddTransient<IInitializeExpandersUseCase, InitializeExpandersUseCase>()
-                .AddTransient<IInitializeEntitiesUseCase, InitializeEntitiesUseCase>()
-                .AddTransient<IInitializePackagesUseCase, InitializePackagesUseCase>()
-                .AddTransient<IInitializeFieldsUseCase, InitializeFieldsUseCase>()
-                .AddTransient<IInitializeComponentsUseCase, InitializeComponentsUseCase>()
-                .AddTransient<IInitializeComponentsUseCase, InitializeComponentsUseCase>();
+            services.AddTransient<ISeeder<App>, AppSeeder>()
+                .AddTransient<ISeeder<App>, ExpanderSeeder>()
+                .AddTransient<ISeeder<App>, EntitySeeder>()
+                .AddTransient<ISeeder<App>, PackageSeeder>()
+                .AddTransient<ISeeder<App>, FieldSeeder>()
+                .AddTransient<ISeeder<App>, ComponentSeeder>();
 
             return services;
         }

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain
 {

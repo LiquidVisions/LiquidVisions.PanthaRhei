@@ -2,9 +2,9 @@
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
-using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
-using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using Moq;

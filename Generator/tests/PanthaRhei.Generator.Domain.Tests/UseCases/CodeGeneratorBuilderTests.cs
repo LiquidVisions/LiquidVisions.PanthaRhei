@@ -1,6 +1,6 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.UseCases
     public class CodeGeneratorBuilderTests
     {
         private readonly CodeGeneratorBuilder builder;
-        private readonly Fakes fakes = new ();
+        private readonly Fakes fakes = new();
 
         public CodeGeneratorBuilderTests()
         {

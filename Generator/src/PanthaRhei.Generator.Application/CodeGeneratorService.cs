@@ -1,6 +1,6 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application
@@ -36,11 +36,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
 
                 codeGenerator.Execute();
             }
-            catch(CodeGenerationException ex)
+            catch (CodeGenerationException ex)
             {
                 logger.Fatal(ex, ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 exceptionLogger.Fatal(ex, $"An unexpected error has occured with the following message: {ex.Message}.");
             }

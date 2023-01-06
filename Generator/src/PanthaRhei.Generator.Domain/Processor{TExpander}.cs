@@ -1,6 +1,6 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 

@@ -57,7 +57,7 @@ cmd.OnExecute(() =>
         ? GenerationModes.Default
         : runModeOption.ParsedValue;
 
-    if(parameters.ReSeed)
+    if (parameters.ReSeed)
     {
         provider.GetService<IReSeederService>()
             .Execute();
