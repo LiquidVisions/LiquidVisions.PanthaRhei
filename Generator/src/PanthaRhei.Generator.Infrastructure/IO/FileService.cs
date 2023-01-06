@@ -8,10 +8,10 @@ using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.IO
 {
     /// <summary>
-    /// Implementation of <see cref="IFileService"/>.
+    /// Implementation of <see cref="IFile"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    internal class FileService : IFileService
+    internal class FileService : IFile
     {
         /// <inheritdoc/>
         public string GetDirectory(string path)

@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using Scriban;
@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates
     {
         private readonly ILogger logger;
         private readonly ITemplateLoader templateLoader;
-        private readonly IFileService fileService;
-        private readonly IDirectoryService directoryService;
+        private readonly IFile fileService;
+        private readonly IDirectory directoryService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScribanTemplateService"/> class.
@@ -24,8 +24,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates
         {
             logger = dependencyResolver.Get<ILogger>();
             templateLoader = dependencyResolver.Get<ITemplateLoader>();
-            fileService = dependencyResolver.Get<IFileService>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
+            fileService = dependencyResolver.Get<IFile>();
+            directoryService = dependencyResolver.Get<IDirectory>();
         }
 
         /// <inheritdoc/>

@@ -1,4 +1,4 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Serialization
+﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization
 {
     /// <summary>
     /// A generic object that serializes the <typeparamref name="TModel"/>.

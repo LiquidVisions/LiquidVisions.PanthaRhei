@@ -1,7 +1,7 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers;
@@ -42,12 +42,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
             IFileService = new();
             IDependencyResolver
-                .Setup(x => x.Get<IFileService>())
+                .Setup(x => x.Get<IFile>())
                 .Returns(IFileService.Object);
 
             IDirectoryService = new();
             IDependencyResolver
-                .Setup(x => x.Get<IDirectoryService>())
+                .Setup(x => x.Get<IDirectory>())
                 .Returns(IDirectoryService.Object);
 
             Parameters = new()
@@ -101,9 +101,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         public Mock<ICodeGenerator> ICodeGenerator { get; }
 
-        public Mock<IFileService> IFileService { get; }
+        public Mock<IFile> IFileService { get; }
 
-        public Mock<IDirectoryService> IDirectoryService { get; }
+        public Mock<IDirectory> IDirectoryService { get; }
 
         public Parameters Parameters { get; }
 

@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers

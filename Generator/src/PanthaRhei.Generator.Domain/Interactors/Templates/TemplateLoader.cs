@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
@@ -9,7 +9,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates
     /// </summary>
     internal class TemplateLoader : ITemplateLoader
     {
-        private readonly IFileService fileService;
+        private readonly IFile fileService;
         private readonly ILogger logger;
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/>.</param>
         public TemplateLoader(IDependencyResolver dependencyResolver)
         {
-            fileService = dependencyResolver.Get<IFileService>();
+            fileService = dependencyResolver.Get<IFile>();
             logger = dependencyResolver.Get<ILogger>();
         }
 

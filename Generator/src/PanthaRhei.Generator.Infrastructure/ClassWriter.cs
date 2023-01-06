@@ -12,16 +12,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
     /// </summary>
     internal class ClassWriter : IWriter
     {
-        private readonly IFileService fileService;
+        private readonly IFile fileService;
         private readonly ILogger logger;
         private List<string> lines;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClassWriter"/> class.
         /// </summary>
-        /// <param name="fileService"><seealso cref="IFileService"/></param>
+        /// <param name="fileService"><seealso cref="IFile"/></param>
         /// <param name="logger"><seealso cref="ILogger"/></param>
-        public ClassWriter(IFileService fileService, ILogger logger)
+        public ClassWriter(IFile fileService, ILogger logger)
         {
             this.fileService = fileService;
             this.logger = logger;

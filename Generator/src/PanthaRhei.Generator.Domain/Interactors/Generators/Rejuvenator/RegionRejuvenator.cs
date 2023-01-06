@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuvenator
 {
@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
     public sealed class RegionRejuvenator<TExpander> : Rejuvenator<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly IDirectoryService directoryService;
+        private readonly IDirectory directoryService;
         private readonly IDeserializer<Harvest> deserializer;
         private readonly IWriter writer;
         private readonly string folder;
@@ -29,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
         {
             parameters = dependencyResolver.Get<Parameters>();
 
-            directoryService = dependencyResolver.Get<IDirectoryService>();
+            directoryService = dependencyResolver.Get<IDirectory>();
             deserializer = dependencyResolver.Get<IDeserializer<Harvest>>();
             writer = dependencyResolver.Get<IWriter>();
             folder = Path.Combine(parameters.HarvestFolder, Expander.Model.Name);

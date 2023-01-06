@@ -5,7 +5,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.IO
     /// <summary>
     /// Mockable representation of functionality that are part of <see cref="System.IO.File"/> and <see cref="System.IO.FileInfo"/>.
     /// </summary>
-    public interface IFileService
+    public interface IFile
     {
         /// <summary>
         /// Gets the fullname of the of the directory of a file.

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
     {
         private readonly string searchPattern = "*.Expanders.*.dll";
         private readonly Parameters parameters;
-        private readonly IDirectoryService directoryService;
+        private readonly IDirectory directoryService;
         private readonly IAssemblyContext assemblyContext;
         private readonly ILogger logger;
         private readonly IObjectActivator activator;
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Initializers
         public ExpanderPluginLoader(IDependencyResolver dependencyResolver)
         {
             parameters = dependencyResolver.Get<Parameters>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
+            directoryService = dependencyResolver.Get<IDirectory>();
             assemblyContext = dependencyResolver.Get<IAssemblyContext>();
             logger = dependencyResolver.Get<ILogger>();
             activator = dependencyResolver.Get<IObjectActivator>();

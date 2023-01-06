@@ -1,5 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     {
         private readonly App app;
         private readonly ICommandLine commandLine;
-        private readonly IDirectoryService directoryService;
+        private readonly IDirectory directoryService;
         private readonly ILogger logger;
         private readonly Parameters parameters;
         private readonly TExpander expander;
@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         {
             app = dependencyResolver.Get<App>();
             commandLine = dependencyResolver.Get<ICommandLine>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
+            directoryService = dependencyResolver.Get<IDirectory>();
             logger = dependencyResolver.Get<ILogger>();
             parameters = dependencyResolver.Get<Parameters>();
             expander = dependencyResolver.Get<TExpander>();
@@ -49,9 +49,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         public ILogger Logger => logger;
 
         /// <summary>
-        /// Gets the <seealso cref="IDirectoryService"/>.
+        /// Gets the <seealso cref="IDirectory"/>.
         /// </summary>
-        public IDirectoryService DirectoryService => directoryService;
+        public IDirectory DirectoryService => directoryService;
 
         /// <summary>
         /// Gets the <seealso cref="ICommandLine"/>.

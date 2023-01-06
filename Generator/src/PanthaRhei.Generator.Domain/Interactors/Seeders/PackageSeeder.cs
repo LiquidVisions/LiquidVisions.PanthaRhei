@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
@@ -12,13 +12,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
     public class PackageSeeder : ISeeder<App>
     {
         private readonly IGenericRepository<Package> repository;
-        private readonly IDirectoryService directoryService;
+        private readonly IDirectory directoryService;
         private readonly Parameters parameters;
 
         public PackageSeeder(IDependencyResolver dependencyResolver)
         {
             repository = dependencyResolver.Get<IGenericRepository<Package>>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
+            directoryService = dependencyResolver.Get<IDirectory>();
             parameters = dependencyResolver.Get<Parameters>();
         }
 

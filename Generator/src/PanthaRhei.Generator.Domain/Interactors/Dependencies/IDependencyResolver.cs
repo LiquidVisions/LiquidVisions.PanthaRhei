@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Dependencies
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies
 {
     /// <summary>
     /// Specifies an interface for an object that is able to resolve inversed dependencies.

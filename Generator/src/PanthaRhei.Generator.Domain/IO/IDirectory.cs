@@ -3,7 +3,7 @@
     /// <summary>
     /// Mockable representation of functionality that are part of <see cref="System.IO.Directory"/> and <see cref="System.IO.DirectoryInfo"/>.
     /// </summary>
-    public interface IDirectoryService
+    public interface IDirectory
     {
         /// <summary>
         /// Determines whether the given path refers to an existing directory on disk.

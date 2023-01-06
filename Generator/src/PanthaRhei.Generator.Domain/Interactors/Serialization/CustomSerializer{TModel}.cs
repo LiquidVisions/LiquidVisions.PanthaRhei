@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Serialization
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization
 {
     /// <summary>
     /// Handles serialization and deserialization for <typeparamref name="TModel"/>.

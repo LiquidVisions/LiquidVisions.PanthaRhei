@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Dependencies
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies
 {
     /// <summary>
     /// Specifies an interface for an agnostic Dependency registrations.

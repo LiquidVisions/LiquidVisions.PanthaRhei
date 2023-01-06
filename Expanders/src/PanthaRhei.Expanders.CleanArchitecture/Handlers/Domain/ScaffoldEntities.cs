@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 

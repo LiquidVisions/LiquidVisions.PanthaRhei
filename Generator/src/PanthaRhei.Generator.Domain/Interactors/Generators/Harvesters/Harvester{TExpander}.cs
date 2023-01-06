@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters
 {
@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
     public abstract class Harvester<TExpander> : IHarvester<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly IFileService fileService;
-        private readonly IDirectoryService directoryService;
+        private readonly IFile fileService;
+        private readonly IDirectory directoryService;
         private readonly ISerializer<Harvest> serializer;
         private readonly TExpander expander;
         private readonly Parameters parameters;
@@ -25,8 +25,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         /// <param name="dependencyResolver"><seealso cref="IDependencyResolver"/></param>
         protected Harvester(IDependencyResolver dependencyResolver)
         {
-            fileService = dependencyResolver.Get<IFileService>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
+            fileService = dependencyResolver.Get<IFile>();
+            directoryService = dependencyResolver.Get<IDirectory>();
             serializer = dependencyResolver.Get<ISerializer<Harvest>>();
             expander = dependencyResolver.Get<TExpander>();
             parameters = dependencyResolver.Get<Parameters>();
@@ -39,14 +39,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         public TExpander Expander => expander;
 
         /// <summary>
-        /// Gets the <seealso cref="IFileService"/>.
+        /// Gets the <seealso cref="IFile"/>.
         /// </summary>
-        protected IFileService FileService => fileService;
+        protected IFile FileService => fileService;
 
         /// <summary>
-        /// Gets the <seealso cref="IDirectoryService"/>.
+        /// Gets the <seealso cref="IDirectory"/>.
         /// </summary>
-        protected IDirectoryService DirectoryService => directoryService;
+        protected IDirectory DirectoryService => directoryService;
 
         /// <summary>
         /// Gets the extension of the harvest file.

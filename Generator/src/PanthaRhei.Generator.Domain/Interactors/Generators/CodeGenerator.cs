@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
@@ -13,13 +13,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
     {
         private readonly IDependencyResolver dependencyResolver;
         private readonly Parameters parameters;
-        private readonly IDirectoryService directory;
+        private readonly IDirectory directory;
 
         public CodeGenerator(IDependencyResolver dependencyResolver)
         {
             this.dependencyResolver = dependencyResolver;
             parameters = dependencyResolver.Get<Parameters>();
-            directory = dependencyResolver.Get<IDirectoryService>();
+            directory = dependencyResolver.Get<IDirectory>();
         }
 
         /// <inheritdoc/>

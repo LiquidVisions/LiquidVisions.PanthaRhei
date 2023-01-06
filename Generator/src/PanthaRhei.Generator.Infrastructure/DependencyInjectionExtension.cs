@@ -22,8 +22,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
         {
             return services.AddLogging()
-                .AddSingleton<IFileService>(new FileService())
-                .AddSingleton<IDirectoryService>(new DirectoryService())
+                .AddSingleton<IFile>(new FileService())
+                .AddSingleton<IDirectory>(new DirectoryService())
                 .AddTransient<ICommandLine, CommandLine>()
                 .AddTransient<IWriter, ClassWriter>();
         }

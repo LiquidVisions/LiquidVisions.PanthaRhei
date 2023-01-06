@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
@@ -11,15 +11,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Seeders
     {
         private readonly IGenericRepository<Component> repository;
         private readonly Parameters parameters;
-        private readonly IDirectoryService directoryService;
-        private readonly IFileService fileService;
+        private readonly IDirectory directoryService;
+        private readonly IFile fileService;
 
         public ComponentSeeder(IDependencyResolver dependencyResolver)
         {
             repository = dependencyResolver.Get<IGenericRepository<Component>>();
             parameters = dependencyResolver.Get<Parameters>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
-            fileService = dependencyResolver.Get<IFileService>();
+            directoryService = dependencyResolver.Get<IDirectory>();
+            fileService = dependencyResolver.Get<IFile>();
         }
 
         public int SeedOrder => 3;

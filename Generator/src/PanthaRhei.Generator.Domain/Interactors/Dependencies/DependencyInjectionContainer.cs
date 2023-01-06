@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Dependencies
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies
 {
     /// <summary>
     /// The <see cref="IServiceCollection">dependency container</see>.

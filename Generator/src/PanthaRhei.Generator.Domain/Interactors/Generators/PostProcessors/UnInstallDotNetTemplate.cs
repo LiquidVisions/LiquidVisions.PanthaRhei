@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostP
         where TExpander : class, IExpander
     {
         private readonly ICommandLine commandLine;
-        private readonly IDirectoryService directoryService;
+        private readonly IDirectory directoryService;
         private readonly ILogger logger;
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostP
             : base(dependencyResolver)
         {
             commandLine = dependencyResolver.Get<ICommandLine>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
+            directoryService = dependencyResolver.Get<IDirectory>();
             logger = dependencyResolver.Get<ILogger>();
         }
 

@@ -1,5 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
@@ -15,8 +15,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
     {
         private readonly App app;
         private readonly Parameters parameters;
-        private readonly IDirectoryService directoryService;
-        private readonly IFileService fileService;
+        private readonly IDirectory directoryService;
+        private readonly IFile fileService;
         private readonly ILogger logger;
         private readonly TExpander expander;
         private readonly IProjectAgentInteractor projectAgent;
@@ -32,8 +32,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
 
             parameters = dependencyResolver.Get<Parameters>();
             app = dependencyResolver.Get<App>();
-            fileService = dependencyResolver.Get<IFileService>();
-            directoryService = dependencyResolver.Get<IDirectoryService>();
+            fileService = dependencyResolver.Get<IFile>();
+            directoryService = dependencyResolver.Get<IDirectory>();
             logger = dependencyResolver.Get<ILogger>();
             projectAgent = dependencyResolver.Get<IProjectAgentInteractor>();
         }
@@ -49,14 +49,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
         public Parameters Parameters => parameters;
 
         /// <summary>
-        /// Getst the <seealso cref="IDirectoryService"/>.
+        /// Getst the <seealso cref="IDirectory"/>.
         /// </summary>
-        public IDirectoryService DirectoryService => directoryService;
+        public IDirectory DirectoryService => directoryService;
 
         /// <summary>
-        /// Gets the <seealso cref="IFileService"/>.
+        /// Gets the <seealso cref="IFile"/>.
         /// </summary>
-        public IFileService FileService => fileService;
+        public IFile FileService => fileService;
 
         public abstract int Order { get; }
 

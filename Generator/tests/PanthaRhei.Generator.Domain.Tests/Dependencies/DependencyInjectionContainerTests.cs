@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;

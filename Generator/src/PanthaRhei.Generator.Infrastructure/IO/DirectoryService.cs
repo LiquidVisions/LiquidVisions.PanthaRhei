@@ -5,10 +5,10 @@ using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.IO
 {
     /// <summary>
-    /// An implementation of <see cref="IDirectoryService"/>.
+    /// An implementation of <see cref="IDirectory"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    internal class DirectoryService : IDirectoryService
+    internal class DirectoryService : IDirectory
     {
         /// <inheritdoc/>
         public void Create(string path)
