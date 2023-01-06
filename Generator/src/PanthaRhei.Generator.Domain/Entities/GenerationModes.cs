@@ -1,8 +1,12 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
+﻿using System;
+
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
 {
+
     /// <summary>
     /// Specifies the different options when generating.
     /// </summary>
+    [Flags]
     public enum GenerationModes
     {
         /// <summary>

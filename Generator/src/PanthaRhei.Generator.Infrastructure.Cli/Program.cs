@@ -2,7 +2,7 @@
 using System;
 using LiquidVisions.PanthaRhei.Generator.Application;
 using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;

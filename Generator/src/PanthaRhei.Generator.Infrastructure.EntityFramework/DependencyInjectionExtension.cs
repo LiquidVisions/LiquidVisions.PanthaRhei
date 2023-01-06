@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

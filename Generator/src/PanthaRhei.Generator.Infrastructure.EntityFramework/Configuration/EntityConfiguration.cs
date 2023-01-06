@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,15 +12,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
         {
             builder.HasKey(x => new { x.Id });
 
-            builder.Ignore(x => x.Test1);
-            builder.Ignore(x => x.test2);
-            builder.Ignore(x => x.Mode);
-
             builder.Property(x => x.Id)
                 .IsRequired(true);
 
             builder.Property(x => x.Name)
                 .HasMaxLength(128)
+                .IsRequired(true);
+
+            builder.Property(x => x.Callsite)
+                .HasMaxLength(2048)
                 .IsRequired(true);
 
             builder.Property(x => x.Type)

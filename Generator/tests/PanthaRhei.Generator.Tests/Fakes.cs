@@ -1,12 +1,12 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using Moq;
 
 namespace LiquidVisions.PanthaRhei.Generator.Tests

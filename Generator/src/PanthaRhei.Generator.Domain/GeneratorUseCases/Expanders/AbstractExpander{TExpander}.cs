@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.PostProcessors;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Preprocessors;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Rejuvenator;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders
 {

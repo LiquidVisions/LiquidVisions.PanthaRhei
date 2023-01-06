@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Initializers
 {

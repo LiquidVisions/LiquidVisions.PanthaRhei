@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Rejuvenator

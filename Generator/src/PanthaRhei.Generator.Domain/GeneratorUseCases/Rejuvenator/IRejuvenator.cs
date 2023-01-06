@@ -1,5 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Rejuvenator
 {

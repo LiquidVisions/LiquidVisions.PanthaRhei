@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
 {
     public class Component
     {

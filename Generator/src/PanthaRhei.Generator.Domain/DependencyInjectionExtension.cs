@@ -3,6 +3,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Serialization;
 using LiquidVisions.PanthaRhei.Generator.Domain.Templates;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
                 .AddTransient<ICodeGenerator, CodeGenerator>()
                 .AddTransient<IExpanderPluginLoader, ExpanderPluginLoader>()
                 .AddTransient<IPluralizer, CustomPluralizer>()
+                .AddSingleton<IProjectAgentInteractor, ProjectAgent>()
                 .AddInitializers()
                 .AddTemplateServices()
                 .AddModelInitializers();

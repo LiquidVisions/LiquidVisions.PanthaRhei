@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
 {
@@ -36,6 +36,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
                 {
                     Id = Guid.NewGuid(),
                     Name = type.Name,
+                    Callsite = type.Namespace,
                     Type = GetType(type),
                     Modifier = GetModifier(type),
                     Behaviour = GetBehaviour(type),

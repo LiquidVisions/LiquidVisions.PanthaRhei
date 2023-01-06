@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
 {
     public class Entity
     {
         public virtual Guid Id { get; set; }
 
         public virtual string Name { get; set; }
+
+        public virtual string Callsite { get; set; }
 
         public virtual string Type { get; set; }
 
@@ -20,11 +22,5 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         public virtual List<Field> Fields { get; set; } = new List<Field>();
 
         public virtual List<Field> ReferencedIn { get; set; } = new List<Field>();
-
-        public decimal Test1 { get; set; }
-
-        public bool test2 { get; set; }
-
-        public GenerationModes Mode { get; set; }
     }
 }

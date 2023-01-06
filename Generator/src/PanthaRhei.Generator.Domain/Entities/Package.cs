@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
 {
     public class Package
     {

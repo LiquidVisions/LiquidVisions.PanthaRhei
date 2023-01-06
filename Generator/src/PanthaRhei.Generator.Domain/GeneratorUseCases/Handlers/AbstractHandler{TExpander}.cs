@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
 {
@@ -20,6 +21,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
         private readonly IFileService fileService;
         private readonly ILogger logger;
         private readonly TExpander expander;
+        private readonly IProjectAgentInteractor projectAgent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractHandler{TExpander}"/> class.
@@ -35,7 +37,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
             fileService = dependencyResolver.Get<IFileService>();
             directoryService = dependencyResolver.Get<IDirectoryService>();
             logger = dependencyResolver.Get<ILogger>();
+            projectAgent = dependencyResolver.Get<IProjectAgentInteractor>();
         }
+
+        public virtual IProjectAgentInteractor ProjectAgent => projectAgent;
 
         /// <inheritdoc/>
         public virtual string Name => GetType().Name;

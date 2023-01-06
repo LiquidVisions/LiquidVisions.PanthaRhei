@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using LiquidVisions.PanthaRhei.Generator.Domain.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.PostProcessors;
@@ -10,7 +11,6 @@ using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Preprocessors;
 using LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Rejuvenator;
 using LiquidVisions.PanthaRhei.Generator.Domain.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders
 {

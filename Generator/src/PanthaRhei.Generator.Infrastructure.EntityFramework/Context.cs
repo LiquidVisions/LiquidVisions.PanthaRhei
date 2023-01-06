@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Generator.Domain.Models;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
