@@ -12,6 +12,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
     public class ScaffoldEntities : AbstractHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly ITemplateService templateService;
+        private readonly IProjectAgentInteractor projectInteractor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScaffoldEntities"/> class.
@@ -22,6 +23,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
             : base(expander, dependencyFactory)
         {
             this.templateService = dependencyFactory.Get<ITemplateService>();
+            this.projectInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
         }
 
         public override int Order => 2;
@@ -32,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         public override void Execute()
         {
             Component domain = Expander.Model.GetComponentByName(Resources.Domain);
-            string entitiesFolder = Path.Combine(ProjectAgent.GetComponentOutputFolder(domain), Resources.DomainEntityFolder);
+            string entitiesFolder = Path.Combine(projectInteractor.GetComponentOutputFolder(domain), Resources.DomainEntityFolder);
             DirectoryService.Create(entitiesFolder);
 
             foreach (var entity in App.Entities)

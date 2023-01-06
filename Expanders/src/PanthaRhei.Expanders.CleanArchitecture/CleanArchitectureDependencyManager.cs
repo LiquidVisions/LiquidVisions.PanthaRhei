@@ -20,5 +20,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
             : base(expander, dependencyManager)
         {
         }
+
+        public override void Register()
+        {
+            DependencyManager.AddTransient(typeof(IProjectAgentInteractor), typeof(ProjectAgentInteractor));
+            
+            base.Register();
+        }
     }
 }

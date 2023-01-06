@@ -7,7 +7,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Prepr
     /// An abstract implementation of the <see cref="PreProcessorInteractor{TExpander}"/>.
     /// </summary>
     /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
-    public abstract class PreProcessorInteractor<TExpander> : Processor<TExpander>, IPreProcessorInteractor<TExpander>
+    public abstract class PreProcessorInteractor<TExpander> : ProcessorInteractor<TExpander>, IPreProcessorInteractor<TExpander>
         where TExpander : class, IExpanderInteractor
     {
         /// <summary>

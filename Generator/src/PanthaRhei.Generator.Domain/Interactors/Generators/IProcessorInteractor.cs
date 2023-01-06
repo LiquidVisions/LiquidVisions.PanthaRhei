@@ -1,12 +1,12 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
 {
     /// <summary>
     /// Represents a handler that executes processing actions.
     /// </summary>
-    public interface IProcessor : IExecutionManager
+    public interface IProcessorInteractor : IExecutionManager
     {
     }
 
@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     /// Represents a handler that executes post processing actions.
     /// </summary>
     /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
-    public interface IProcessor<out TExpander> : IProcessor
+    public interface IProcessorInteractor<out TExpander> : IProcessorInteractor
         where TExpander : class, IExpanderInteractor
     {
         /// <summary>

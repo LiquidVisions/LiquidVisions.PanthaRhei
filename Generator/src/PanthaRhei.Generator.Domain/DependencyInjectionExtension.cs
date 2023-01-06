@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
@@ -27,7 +26,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
                 .AddSingleton<IDependencyFactoryInteractor>(container)
                 .AddSingleton(new Parameters())
                 .AddTransient<IPluralizer, CustomPluralizer>()
-                .AddSingleton<IProjectAgentInteractor, ProjectAgent>()
                 .AddInitializers()
                 .AddTemplateServices();
         }

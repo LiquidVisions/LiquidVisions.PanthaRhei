@@ -19,7 +19,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
         private readonly IFile fileService;
         private readonly ILogger logger;
         private readonly TExpander expander;
-        private readonly IProjectAgentInteractor projectAgent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractHandlerInteractor{TExpander}"/> class.
@@ -35,10 +34,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
             fileService = dependencyFactory.Get<IFile>();
             directoryService = dependencyFactory.Get<IDirectory>();
             logger = dependencyFactory.Get<ILogger>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
         }
-
-        public virtual IProjectAgentInteractor ProjectAgent => projectAgent;
 
         /// <inheritdoc/>
         public virtual string Name => GetType().Name;

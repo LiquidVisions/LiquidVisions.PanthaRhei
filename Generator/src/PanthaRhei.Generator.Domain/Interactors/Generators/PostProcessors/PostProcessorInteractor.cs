@@ -4,10 +4,10 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors
 {
     /// <summary>
-    /// An abstract implementation of the <see cref="Processor{TExpander}"/>.
+    /// An abstract implementation of the <see cref="ProcessorInteractor{TExpander}"/>.
     /// </summary>
     /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
-    internal abstract class PostProcessorInteractor<TExpander> : Processor<TExpander>, IPostProcessorInteractor<TExpander>
+    internal abstract class PostProcessorInteractor<TExpander> : ProcessorInteractor<TExpander>, IPostProcessorInteractor<TExpander>
         where TExpander : class, IExpanderInteractor
     {
         /// <summary>

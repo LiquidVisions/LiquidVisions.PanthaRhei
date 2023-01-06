@@ -4,13 +4,13 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
 {
     /// <summary>
-    /// An abstract implementation of the <see cref="IProcessor"/>.
+    /// An abstract implementation of the <see cref="IProcessorInteractor"/>.
     /// </summary>
     /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
-    public abstract class Processor<TExpander> : IProcessor<TExpander>
+    public abstract class ProcessorInteractor<TExpander> : IProcessorInteractor<TExpander>
         where TExpander : class, IExpanderInteractor
     {
         private readonly App app;
@@ -21,10 +21,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         private readonly TExpander expander;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Processor{TExpander}"/> class.
+        /// Initializes a new instance of the <see cref="ProcessorInteractor{TExpander}"/> class.
         /// </summary>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        protected Processor(IDependencyFactoryInteractor dependencyFactory)
+        protected ProcessorInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             app = dependencyFactory.Get<App>();
             commandLine = dependencyFactory.Get<ICommandLine>();
