@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors
 {
     /// <summary>
     /// Represents an object that executes cli commands.
     /// </summary>
-    public interface ICommandLine
+    public interface ICommandLineInteractor
     {
         /// <summary>
         /// Gets or sets a value indicating whether a cli window is created.

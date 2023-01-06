@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
         where TExpander : class, IExpanderInteractor
     {
         private readonly App app;
-        private readonly ICommandLine commandLine;
+        private readonly ICommandLineInteractor commandLine;
         private readonly IDirectory directoryService;
         private readonly ILogger logger;
         private readonly Parameters parameters;
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
         protected ProcessorInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             app = dependencyFactory.Get<App>();
-            commandLine = dependencyFactory.Get<ICommandLine>();
+            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
             directoryService = dependencyFactory.Get<IDirectory>();
             logger = dependencyFactory.Get<ILogger>();
             parameters = dependencyFactory.Get<Parameters>();
@@ -54,9 +54,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
         public IDirectory DirectoryService => directoryService;
 
         /// <summary>
-        /// Gets the <seealso cref="ICommandLine"/>.
+        /// Gets the <seealso cref="ICommandLineInteractor"/>.
         /// </summary>
-        public ICommandLine CommandLine => commandLine;
+        public ICommandLineInteractor CommandLine => commandLine;
 
         /// <summary>
         /// Gets the <seealso cref="Parameters"/>.

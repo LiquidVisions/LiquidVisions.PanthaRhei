@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
     /// <summary>
     /// A File writer helper.
     /// </summary>
-    internal class ClassWriter : IWriter
+    internal class ClassWriter : IWriterInteractor
     {
         private readonly IFile fileService;
         private readonly ILogger logger;

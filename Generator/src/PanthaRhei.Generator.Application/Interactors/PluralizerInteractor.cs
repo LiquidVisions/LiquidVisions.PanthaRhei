@@ -1,8 +1,8 @@
 ﻿using Pluralize.NET.Core;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors
 {
-    internal class CustomPluralizer : IPluralizer
+    internal class PluralizerInteractor : IPluralizerInteractor
     {
         private readonly Pluralizer pluralizer = new();
 

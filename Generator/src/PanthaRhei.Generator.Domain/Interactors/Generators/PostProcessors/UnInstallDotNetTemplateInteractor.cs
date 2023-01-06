@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostP
     internal sealed class UnInstallDotNetTemplateInteractor<TExpander> : PostProcessorInteractor<TExpander>
         where TExpander : class, IExpanderInteractor
     {
-        private readonly ICommandLine commandLine;
+        private readonly ICommandLineInteractor commandLine;
         private readonly IDirectory directoryService;
         private readonly ILogger logger;
 
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostP
         public UnInstallDotNetTemplateInteractor(IDependencyFactoryInteractor dependencyFactory)
             : base(dependencyFactory)
         {
-            commandLine = dependencyFactory.Get<ICommandLine>();
+            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
             directoryService = dependencyFactory.Get<IDirectory>();
             logger = dependencyFactory.Get<ILogger>();
         }

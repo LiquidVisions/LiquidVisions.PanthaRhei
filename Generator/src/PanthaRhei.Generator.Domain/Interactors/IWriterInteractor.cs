@@ -1,9 +1,9 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain
+﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors
 {
     /// <summary>
     /// Interface that represents a file writing class.
     /// </summary>
-    public interface IWriter
+    public interface IWriterInteractor
     {
         /// <summary>
         /// Loads an existing file.

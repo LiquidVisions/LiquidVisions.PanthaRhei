@@ -24,6 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         {
             return services.AddTransient<ICodeGeneratorBuilderInteractor, CodeGeneratorBuilderInteractor>()
                 .AddTransient<ICodeGeneratorInteractor, CodeGeneratorInteractor>()
+                .AddTransient<IPluralizerInteractor, PluralizerInteractor>()
                 .AddInitializers()
                 .AddSeeders()
                 .AddBoundaries();

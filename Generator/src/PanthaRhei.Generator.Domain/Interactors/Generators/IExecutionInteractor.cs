@@ -1,9 +1,9 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain
+﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
 {
     /// <summary>
     /// Specifice an interface for an object that needs to be able to execute commands.
     /// </summary>
-    public interface IExecutionManager
+    public interface IExecutionInteractor
     {
         /// <summary>
         /// Gets a value indicating whether the handler should be executed.

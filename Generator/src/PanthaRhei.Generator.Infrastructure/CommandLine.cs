@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
     /// Default object that executes cli commands.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class CommandLine : ICommandLine
+    public class CommandLine : ICommandLineInteractor
     {
         private readonly ILogger logger;
         private bool silent = false;

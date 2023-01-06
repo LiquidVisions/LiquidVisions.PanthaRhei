@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
     public abstract class AbstractScaffoldDotNetTemplateHandlerInteractor<TExpander> : AbstractHandlerInteractor<TExpander>
         where TExpander : class, IExpanderInteractor
     {
-        private readonly ICommandLine commandLine;
+        private readonly ICommandLineInteractor commandLine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractScaffoldDotNetTemplateHandlerInteractor{TExpander}"/> class.
@@ -21,13 +21,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
         protected AbstractScaffoldDotNetTemplateHandlerInteractor(TExpander expander, IDependencyFactoryInteractor dependencyFactory)
             : base(expander, dependencyFactory)
         {
-            commandLine = dependencyFactory.Get<ICommandLine>();
+            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
         }
 
         /// <summary>
-        /// Gets the <see cref="ICommandLine"/>.
+        /// Gets the <see cref="ICommandLineInteractor"/>.
         /// </summary>
-        protected ICommandLine CommandLine => commandLine;
+        protected ICommandLineInteractor CommandLine => commandLine;
 
         /// <summary>
         /// Creates a .csproj with the dotnet new command and and adds it to the solution.

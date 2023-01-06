@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
     /// <summary>
     /// Represents a handler that executes processing actions.
     /// </summary>
-    public interface IProcessorInteractor : IExecutionManager
+    public interface IProcessorInteractor : IExecutionInteractor
     {
     }
 

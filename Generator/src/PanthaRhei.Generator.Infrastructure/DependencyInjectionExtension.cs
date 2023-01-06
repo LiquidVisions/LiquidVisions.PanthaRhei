@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.IO;
@@ -24,8 +24,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
             return services.AddLogging()
                 .AddSingleton<IFile>(new FileService())
                 .AddSingleton<IDirectory>(new DirectoryService())
-                .AddTransient<ICommandLine, CommandLine>()
-                .AddTransient<IWriter, ClassWriter>();
+                .AddTransient<ICommandLineInteractor, CommandLine>()
+                .AddTransient<IWriterInteractor, ClassWriter>();
         }
 
         private static IServiceCollection AddLogging(this IServiceCollection services)
