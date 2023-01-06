@@ -122,7 +122,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders
 
             foreach (IHandler<TExpander> handler in GetHandlers()
                 .Where(x => x.CanExecute)
-                .OrderBy(x => x.Model.Order))
+                .OrderBy(x => x.Order))
             {
                 handler.Execute();
             }

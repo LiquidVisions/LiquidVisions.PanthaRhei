@@ -34,11 +34,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
         public virtual List<App> Apps { get; set; } = new List<App>();
 
         /// <summary>
-        /// Gets or sets a collecion of <seealso cref="Handler">Handlers</seealso> that are applicable for the <seealso cref="Expander"/>.
-        /// </summary>
-        public virtual List<Handler> Handlers { get; set; } = new List<Handler>();
-
-        /// <summary>
         /// Gets or sets a collecion of <seealso cref="Component">Handlers</seealso> that are applicable for the <seealso cref="Expander"/>.
         /// </summary>
         public virtual List<Component> Components { get; set; } = new List<Component>();

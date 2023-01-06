@@ -42,11 +42,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         public DbSet<Component> Components { get; set; }
 
         /// <summary>
-        /// Gets or sets the <seealso cref="DbSet{Handler}"/>.
-        /// </summary>
-        public DbSet<Handler> Handlers { get; set; }
-
-        /// <summary>
         /// Gets or sets the <seealso cref="DbSet{Package}"/>.
         /// </summary>
         public DbSet<Package> Packages { get; set; }

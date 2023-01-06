@@ -15,7 +15,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
         where TExpander : class, IExpander
     {
         private readonly App app;
-        private readonly Handler handler;
         private readonly Parameters parameters;
         private readonly IDirectoryService directoryService;
         private readonly IFileService fileService;
@@ -36,9 +35,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
             fileService = dependencyResolver.Get<IFileService>();
             directoryService = dependencyResolver.Get<IDirectoryService>();
             logger = dependencyResolver.Get<ILogger>();
-
-            handler = expander.Model.Handlers
-                .Single(x => x.Name == Name);
         }
 
         /// <inheritdoc/>
@@ -59,20 +55,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
         /// </summary>
         public IFileService FileService => fileService;
 
-        /// <summary>
-        /// Gets the model of the <seealso cref="Handler"/>.
-        /// </summary>
-        public Handler Model => handler;
+        public abstract int Order { get; }
 
         /// <inheritdoc/>
         public TExpander Expander => expander;
 
         /// <inheritdoc/>
-        public virtual bool CanExecute => Expander.Model
-            .Handlers
-            .Single(x => x.Name == Name)
-            .SupportedGenerationModes
-            .HasFlag(parameters.GenerationMode);
+        public abstract bool CanExecute { get; }
 
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.

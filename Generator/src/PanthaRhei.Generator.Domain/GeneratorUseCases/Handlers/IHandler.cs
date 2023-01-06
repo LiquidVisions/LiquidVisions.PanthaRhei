@@ -15,7 +15,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Handlers
         /// </summary>
         string Name { get; }
 
-        Handler Model { get; }
+        /// <summary>
+        /// Gets the order in whitch the handler should be executed.
+        /// </summary>
+        int Order { get; }
 
         /// <summary>
         /// Gets the Expander that is of type <typeparamref name="TExpander"/>.

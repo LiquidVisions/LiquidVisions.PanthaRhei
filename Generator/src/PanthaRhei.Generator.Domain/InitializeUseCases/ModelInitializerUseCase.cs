@@ -8,7 +8,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
         private readonly IInitializeAppUseCase appInitializer;
         private readonly IInitializeExpandersUseCase expanderInitializer;
         private readonly IInitializeComponentsUseCase componentInitializer;
-        private readonly IInitializeHandlerUseCase handlerInitializer;
         private readonly IInitializePackagesUseCase packagesUseCase;
 
         private readonly IInitializeFieldsUseCase fieldsUseCase;
@@ -20,7 +19,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
             appInitializer = dependencyResolver.Get<IInitializeAppUseCase>();
             expanderInitializer = dependencyResolver.Get<IInitializeExpandersUseCase>();
             componentInitializer = dependencyResolver.Get<IInitializeComponentsUseCase>();
-            handlerInitializer = dependencyResolver.Get<IInitializeHandlerUseCase>();
             packagesUseCase = dependencyResolver.Get<IInitializePackagesUseCase>();
             fieldsUseCase = dependencyResolver.Get<IInitializeFieldsUseCase>();
             entitiesUseCase = dependencyResolver.Get<IInitializeEntitiesUseCase>();
@@ -31,7 +29,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
             // clean things up.
             appInitializer.DeleteAll();
             packagesUseCase.DeleteAll();
-            handlerInitializer.DeleteAll();
             componentInitializer.DeleteAll();
             expanderInitializer.DeleteAll();
             fieldsUseCase.DeleteAll();
@@ -40,7 +37,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.InitializeUseCases
             // reinitialize
             App app = appInitializer.Initialize();
             expanderInitializer.Initialize(app);
-            handlerInitializer.Initialize(app);
             var components = componentInitializer.Initialize(app.Expanders);
             packagesUseCase.Initialize(components);
 

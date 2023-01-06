@@ -22,12 +22,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// <inheritdoc/>
         public override bool CanExecute => Parameters.Clean;
 
+        public override int Order => 1;
+
         /// <inheritdoc/>
         public override void Execute()
         {
             Scaffold(Resources.TemplateShortName, App.Name, App.FullName);
 
-            Model.Expander.Components
+            Expander.Model.Components
                 ?.ForEach(component => component.Packages
                 ?.ForEach(package =>
                 {

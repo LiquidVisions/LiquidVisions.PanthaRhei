@@ -46,7 +46,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
                 .AddTransient<IInitializeEntitiesUseCase, InitializeEntitiesUseCase>()
                 .AddTransient<IInitializePackagesUseCase, InitializePackagesUseCase>()
                 .AddTransient<IInitializeFieldsUseCase, InitializeFieldsUseCase>()
-                .AddTransient<IInitializeHandlerUseCase, InitializeHandlerUseCase>()
                 .AddTransient<IInitializeComponentsUseCase, InitializeComponentsUseCase>()
                 .AddTransient<IInitializeComponentsUseCase, InitializeComponentsUseCase>();
 

@@ -148,7 +148,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.GeneratorUseCases.Expanders
                 .GetExportedTypes()
                 .Where(x => x.IsClass && !x.IsAbstract)
                 .Where(x => x.GetInterfaces().Contains(typeof(IHandler<TExpander>)))
-                .Where(x => expander.Handlers.Any(h => h.Name == x.Name))
                 .ToList();
 
             if (!listOfHandlers.Any())
