@@ -22,5 +22,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
         public virtual List<Field> Fields { get; set; } = new List<Field>();
 
         public virtual List<Field> ReferencedIn { get; set; } = new List<Field>();
+
+        public virtual List<Relationship> Relations { get; set; } = new List<Relationship>();
+
+        public virtual List<Relationship> IsForeignEntityOf { get; set; } = new List<Relationship>();
+
     }
 }

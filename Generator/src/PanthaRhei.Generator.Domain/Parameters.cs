@@ -30,6 +30,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// </summary>
         public virtual bool ReSeed { get; set; } = false;
 
+        public virtual string ConnectionString { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating the RunMode value.
         /// </summary>

@@ -47,12 +47,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
         /// <summary>
         /// Getst the <seealso cref="IDirectory"/>.
         /// </summary>
-        public IDirectory DirectoryService => directoryService;
+        public IDirectory Directory => directoryService;
 
         /// <summary>
         /// Gets the <seealso cref="IFile"/>.
         /// </summary>
-        public IFile FileService => fileService;
+        public IFile File => fileService;
 
         public abstract int Order { get; }
 
@@ -60,7 +60,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handl
         public TExpander Expander => expander;
 
         /// <inheritdoc/>
-        public abstract bool CanExecute { get; }
+        public virtual bool CanExecute => Parameters.GenerationMode.HasFlag(GenerationModes.Default)
+            || Parameters.GenerationMode.HasFlag(GenerationModes.Extend);
 
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.

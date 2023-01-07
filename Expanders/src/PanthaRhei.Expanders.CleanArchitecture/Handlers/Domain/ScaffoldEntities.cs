@@ -35,18 +35,18 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         {
             Component domain = Expander.Model.GetComponentByName(Resources.Domain);
             string entitiesFolder = Path.Combine(projectInteractor.GetComponentOutputFolder(domain), Resources.DomainEntityFolder);
-            DirectoryService.Create(entitiesFolder);
+            Directory.Create(entitiesFolder);
 
             foreach (var entity in App.Entities)
             {
                 string result = templateService.Render(
-                    Path.Combine(Parameters.ExpandersFolder, Expander.Model.Name, Expander.Model.TemplateFolder, $"{Resources.EntityTemplate}.template"),
+                    Expander.Model.GetTemplateFolder(Parameters, Resources.EntityTemplate),
                     new
                     {
                         Entity = entity,
                     });
 
-                FileService.WriteAllText(System.IO.Path.Combine(entitiesFolder, $"{entity.Name}.cs"), result);
+                File.WriteAllText(Path.Combine(entitiesFolder, $"{entity.Name}.cs"), result);
             }
         }
     }

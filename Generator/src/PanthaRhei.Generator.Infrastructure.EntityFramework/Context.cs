@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
@@ -21,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         /// Initializes a new instance of the <see cref="Context"/> class.
         /// </summary>
         /// <param name="options"><seealso cref="DbContextOptions"/></param>
-        public Context(DbContextOptions options)
+        public Context(DbContextOptions<Context> options)
             : base(options)
         {
         }
@@ -56,6 +58,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         /// </summary>
         public DbSet<Field> Fields { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <seealso cref="DbSet{ConnectionStrings}"/>.
+        /// </summary>
+        public DbSet<ConnectionString> ConnectionStrings { get; set; }
 
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -32,5 +32,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
         /// Gets or sets a collection of <seealso cref="Entity" /> that are applicable for the <seealso cref="App"/>.
         /// </summary>
         public virtual List<Entity> Entities { get; set; } = new List<Entity>();
+
+        /// <summary>
+        /// Gets or sets a collection of <seealso cref="ConnectionString" /> that are applicable for the <seealso cref="App"/>.
+        /// </summary>
+        public virtual List<ConnectionString> ConnectionStrings { get; set; } = new List<ConnectionString>();
     }
 }

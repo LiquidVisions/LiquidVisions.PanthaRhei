@@ -19,6 +19,11 @@ var rootOption = cmd.Option(
     "Full path to the project root.",
     CommandOptionType.SingleValue);
 
+var dbOption = cmd.Option(
+    "--db",
+    "The connectionstring that will be used.",
+    CommandOptionType.SingleValue);
+
 var appOption = cmd.Option(
     "--app",
     "The id of the app.",
@@ -51,6 +56,7 @@ cmd.OnExecute(() =>
 
     Parameters parameters = provider.GetService<Parameters>();
     parameters.AppId = Guid.Parse(appOption.Value());
+    parameters.ConnectionString = dbOption.Value();
     parameters.ReSeed = reseed.HasValue();
     parameters.Root = rootOption.Value();
     parameters.Clean = cleanModeOption.HasValue();

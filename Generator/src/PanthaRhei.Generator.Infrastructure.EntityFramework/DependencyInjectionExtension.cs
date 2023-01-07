@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repositories;
@@ -21,10 +22,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddEntityFrameworkLayer(this IServiceCollection services)
         {
+            string connectionString = services.BuildServiceProvider().GetService<Parameters>().ConnectionString;
+
             services.AddScoped<DbContext, Context>();
             services.AddDbContext<Context>(options =>
             {
-                options.UseSqlServer("Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=4cZ#Lsojpc75;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"); // TODO: Inject connectionstring here.
+                options.UseSqlServer(connectionString);
                 options.UseLazyLoadingProxies();
 #if DEBUG
                 options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));

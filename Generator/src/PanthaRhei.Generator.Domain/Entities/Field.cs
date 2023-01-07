@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
 {
@@ -25,5 +26,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
         public virtual Entity Reference { get; set; }
 
         public virtual Entity Entity { get; set; }
+
+        public bool IsKey { get; set; }
+
+        public bool IsIndex { get; set; }
+
+        public virtual List<Relationship> RelationshipKeys { get; set; } = new List<Relationship>();
+
+        public virtual List<Relationship> IsForeignEntityKeyOf { get; set; } = new List<Relationship>();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repositories
@@ -9,13 +10,19 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repo
         where TEntity : class
     {
         private readonly Context context;
+        private readonly IDependencyFactoryInteractor dependencyFactory;
 
-        public GenericRepository(Context context)
+        public GenericRepository(IDependencyFactoryInteractor dependencyFactory)
         {
-            this.context = context;
+            this.context = dependencyFactory.Get<Context>();
+            this.dependencyFactory = dependencyFactory;
         }
 
         public Type ContextType => context.GetType();
+
+        public Type ConfigurationType => dependencyFactory
+            .Get<IEntityTypeConfiguration<TEntity>>()
+            .GetType();
 
         public bool Create(TEntity entity)
         {

@@ -25,6 +25,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         public void Seed(App app)
         {
+            throw new NotImplementedException("keys en indexes toevoegen via dbcontext");
+
             IEnumerable<Type> allEntities = gateway.ContextType.GetProperties()
                 .Where(x => x.PropertyType.Name == "DbSet`1")
                 .Select(x => x.PropertyType.GetGenericArguments().First());
@@ -44,6 +46,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                         GetModifier = GetModifier(prop.GetMethod),
                         SetModifier = GetModifier(prop.SetMethod),
                         Behaviour = GetBehaviour(prop),
+                        IsKey = true,
                         Order = order++,
                     };
 
@@ -59,7 +62,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         private static bool GetIsCollection(PropertyInfo property)
         {
-            return property.PropertyType.IsGenericType && property.PropertyType.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+            bool isCollection = property.PropertyType.IsGenericType;
+            isCollection &= property.PropertyType
+                .GetInterfaces()
+                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+
+            return isCollection;
         }
 
         private static void SetReturnType(PropertyInfo prop, App app, Field field)
