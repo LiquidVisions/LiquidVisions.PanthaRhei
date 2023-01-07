@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Configuration
 {
     [ExcludeFromCodeCoverage]
-    internal class ConnectionStringConfiguration : IEntityTypeConfiguration<ConnectionString>
+    public class ConnectionStringConfiguration : IEntityTypeConfiguration<ConnectionString>
     {
         public void Configure(EntityTypeBuilder<ConnectionString> builder)
         {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Configuration
 {
     [ExcludeFromCodeCoverage]
-    internal class AppConfiguration : IEntityTypeConfiguration<App>
+    public class AppConfiguration : IEntityTypeConfiguration<App>
     {
         public void Configure(EntityTypeBuilder<App> builder)
         {

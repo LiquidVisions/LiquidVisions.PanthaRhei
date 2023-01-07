@@ -8,8 +8,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Gateways
     {
         Type ContextType { get; }
 
-        Type ConfigurationType { get; }
-
         IEnumerable<TEntity> GetAll();
 
         TEntity GetById(object id);

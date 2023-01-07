@@ -4,17 +4,23 @@ using System.Linq;
 using System.Reflection;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
     internal class FieldSeederInteractor : ISeederInteractor<App>
     {
         private readonly IGenericGateway<Field> gateway;
+        private readonly IDependencyFactoryInteractor dependencyFactory;
 
         public FieldSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             gateway = dependencyFactory.Get<IGenericGateway<Field>>();
+            ;
+            this.dependencyFactory = dependencyFactory;
         }
 
         public int SeedOrder => 6;
@@ -25,14 +31,18 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         public void Seed(App app)
         {
-            throw new NotImplementedException("keys en indexes toevoegen via dbcontext");
-
             IEnumerable<Type> allEntities = gateway.ContextType.GetProperties()
                 .Where(x => x.PropertyType.Name == "DbSet`1")
                 .Select(x => x.PropertyType.GetGenericArguments().First());
 
+            // CODESMELL, I cannot resolve the ImodelConfiguration in constructor.
+            var modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
+
             foreach (Type entityType in allEntities)
             {
+                string[] keys = modelConfiguration.GetKeys(entityType);
+                string[] indexes = modelConfiguration.GetIndexes(entityType);
+
                 IEnumerable<PropertyInfo> allProperties = entityType.GetProperties();
                 int order = 1;
                 foreach (PropertyInfo prop in allProperties)
@@ -46,7 +56,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                         GetModifier = GetModifier(prop.GetMethod),
                         SetModifier = GetModifier(prop.SetMethod),
                         Behaviour = GetBehaviour(prop),
-                        IsKey = true,
+                        IsKey = keys.Any(x => x == prop.Name),
+                        IsIndex = indexes.Any(x => x == prop.Name),
                         Order = order++,
                     };
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Configuration
 {
     [ExcludeFromCodeCoverage]
-    internal class FieldConfiguration : IEntityTypeConfiguration<Field>
+    public class FieldConfiguration : IEntityTypeConfiguration<Field>
     {
         public void Configure(EntityTypeBuilder<Field> builder)
         {

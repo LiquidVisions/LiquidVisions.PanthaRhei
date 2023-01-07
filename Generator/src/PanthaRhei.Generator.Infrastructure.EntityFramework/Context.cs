@@ -3,6 +3,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 {
@@ -12,6 +13,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
     [ExcludeFromCodeCoverage]
     internal class Context : DbContext
     {
+        private readonly IDependencyManagerInteractor dependencyManager;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Context"/> class.
         /// </summary>
@@ -23,9 +26,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         /// Initializes a new instance of the <see cref="Context"/> class.
         /// </summary>
         /// <param name="options"><seealso cref="DbContextOptions"/></param>
-        public Context(DbContextOptions<Context> options)
+        public Context(DbContextOptions<Context> options, IDependencyFactoryInteractor factory)
             : base(options)
         {
+            dependencyManager = factory.Get<IDependencyManagerInteractor>();
         }
 
         /// <summary>
@@ -76,6 +80,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
             }
         }
 
+
+
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -83,6 +89,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly)
                 .HasServiceTier("Basic");
+
+            dependencyManager.AddSingleton(modelBuilder);
+            dependencyManager.Build();
         }
     }
 }

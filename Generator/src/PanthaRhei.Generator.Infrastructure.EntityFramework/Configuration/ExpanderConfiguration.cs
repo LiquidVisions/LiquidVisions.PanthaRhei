@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Configuration
 {
     [ExcludeFromCodeCoverage]
-    internal class ExpanderConfiguration : IEntityTypeConfiguration<Expander>
+    public class ExpanderConfiguration : IEntityTypeConfiguration<Expander>
     {
         public void Configure(EntityTypeBuilder<Expander> builder)
         {

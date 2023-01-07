@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
@@ -18,15 +19,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
             parameters = dependencyFactory.Get<Parameters>();
         }
 
-        public int SeedOrder => 1;
+        public int SeedOrder => 7;
 
-        public int ResetOrder => 1;
+        public int ResetOrder => 7;
 
         public void Seed(App app)
         {
-            throw new NotImplementedException();
         }
 
-        public void Reset() => throw new NotImplementedException();
+        public void Reset() => gateway.DeleteAll();
     }
 }
