@@ -9,9 +9,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
     public class ModelConfiguration : IModelConfiguration
     {
         private readonly ModelBuilder modelBuilder;
-        private Dictionary<Type, string[]> keys = new Dictionary<Type, string[]>();
-        private Dictionary<Type, string[]> indexes = new Dictionary<Type, string[]>();
-
+ 
         public ModelConfiguration(ModelBuilder modelBuilder)
         {
             this.modelBuilder = modelBuilder;
@@ -19,28 +17,18 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 
         public string[] GetIndexes(Type entityType)
         {
-            return modelBuilder.Entity(entityType).Metadata
-                .GetIndexes().Select(x => x.Name).ToArray();
+            return modelBuilder.Model.GetEntityTypes()
+                .Single(x => x.ClrType == entityType)
+                .GetIndexes().SelectMany(x => x.Properties.Select(p => p.Name))
+                .ToArray();
         }
 
         public string[] GetKeys(Type entityType)
         {
-            return modelBuilder.Entity(entityType).Metadata
-                .GetKeys().Select(x => x.GetName()).ToArray();
+            return modelBuilder.Model.GetEntityTypes()
+                .Single(x => x.ClrType == entityType)
+                .GetKeys().SelectMany(x => x.Properties.Select(p => p.Name))
+                .ToArray();
         }
-
-        private void Load(ModelBuilder modelBuilder)
-        {
-            //foreach (var entity in modelBuilder. .Entity(typeof(App)).Metadata.)
-            //{
-            //    keys.Add(entity.GetType(), entity.Met)
-            //}
-        }
-
-        //public string[] GetIndexes(Type entityType)
-        //    => indexes[entityType];
-
-        //public string[] GetKeys(Type entityType)
-        //    => keys[entityType];
     }
 }
