@@ -23,19 +23,23 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
 
             builder.HasOne(x => x.Entity)
                 .WithMany(x => x.Relations)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.Key)
                 .WithMany(x => x.RelationshipKeys)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.WithForeignEntity)
                 .WithMany(x => x.IsForeignEntityOf)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.WithForeignEntityKey)
                 .WithMany(x => x.IsForeignEntityKeyOf)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
