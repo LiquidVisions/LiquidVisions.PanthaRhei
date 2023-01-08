@@ -9,12 +9,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
     internal class ConnectionStringsSeederInteractor : ISeederInteractor<App>
     {
         private readonly IGenericGateway<ConnectionString> gateway;
-        private readonly Parameters parameters;
 
         public ConnectionStringsSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             gateway = dependencyFactory.Get<IGenericGateway<ConnectionString>>();
-            parameters = dependencyFactory.Get<Parameters>();
         }
 
         public int SeedOrder => 1;
@@ -27,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
             {
                 Id = Guid.NewGuid(),
                 Name = "DefaultConnectionString",
-                Definition = parameters.ConnectionString,
+                Definition = "Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=4cZ#Lsojpc75;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
             };
 
             app.ConnectionStrings.Add(connectionString);

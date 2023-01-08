@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors
 {
@@ -6,6 +8,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors
     {
         string[] GetIndexes(Type entityType);
 
-        public string[] GetKeys(Type entityType);
+        string[] GetKeys(Type entityType);
+        List<Dictionary<string, string>> GetRelationshipInfo(Entity entity);
     }
 }

@@ -43,7 +43,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
                 .AddTransient<IGenericGateway<Package>, GenericRepository<Package>>()
                 .AddTransient<IGenericGateway<Field>, GenericRepository<Field>>()
                 .AddTransient<IGenericGateway<Entity>, GenericRepository<Entity>>()
-                .AddTransient<IGenericGateway<Entity>, GenericRepository<Entity>>();
+                .AddTransient<IGenericGateway<ConnectionString>, GenericRepository<ConnectionString>>()
+                .AddTransient<IGenericGateway<Relationship>, GenericRepository<Relationship>>();
 
             return services;
         }

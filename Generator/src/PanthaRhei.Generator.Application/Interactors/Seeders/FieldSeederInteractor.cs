@@ -6,8 +6,6 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
@@ -18,8 +16,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         public FieldSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            gateway = dependencyFactory.Get<IGenericGateway<Field>>();
-            ;
+            this.gateway = dependencyFactory.Get<IGenericGateway<Field>>();
             this.dependencyFactory = dependencyFactory;
         }
 
