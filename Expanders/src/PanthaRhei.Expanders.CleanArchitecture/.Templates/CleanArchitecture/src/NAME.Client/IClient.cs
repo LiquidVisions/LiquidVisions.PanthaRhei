@@ -8,7 +8,7 @@ using NS.Domain;
 namespace NS.Client
 {
     public interface IClient<TEntity>
-        where TEntity : class, IEntity
+        where TEntity : class
     {
         Task<IEnumerable<TEntity>> GetAll();
 

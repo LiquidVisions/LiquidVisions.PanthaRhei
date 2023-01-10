@@ -6,28 +6,31 @@ end
 
 class_name = action + entity.name + model_type
 if(action == "Get")
-    class_name = "Get" + entity.pluralized_name + model_type
+    class_name = "Get" + entity.name | pluralize + model_type
 else if action == "GetById"
     class_name = "Get" + entity.name + "ById" + model_type
 end
 -}}
 {{-
 func get_prop(field)
-    result = "public " + field.return_type;
-
-    if(!field.required && field.return_type != 'string')
-        result = result + "?";
+    result = 'public '
+    if(field.is_collection)
+    begin
+        result += 'List<'
     end
-
+    result += field.return_type;
+    if(field.is_collection)
+    begin
+        result += '>'
+    end
     result = result + " " + field.name + " { get; set; }";
-
     ret result;
 end
 -}}
 
 using System;
 using System.Collections.Generic;
-using {{ns}}.Domain.Entities;
+using {{entity.callsite}};
 
 namespace {{name_space}}
 {

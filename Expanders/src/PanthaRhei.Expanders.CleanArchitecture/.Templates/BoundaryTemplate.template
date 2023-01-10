@@ -1,7 +1,7 @@
 {{-
 name = entity.name
 if action_type == "Get"
-    name = entity.pluralized_name
+    name = entity.name | pluralize
 end
 
 model_type = "Command"
@@ -18,10 +18,11 @@ end
 
 -}}
 using System.Threading.Tasks;
-using {{using}}.Application.Interactors;
-using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
+using {{component_fullname component 'Interactors'}};
+using {{component_fullname component 'Boundaries'}};
+using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
 
-namespace {{name_space}}.{{entity.pluralized_name}}
+namespace {{component_fullname component 'Boundaries' entity.name | pluralize}}
 {
     internal class {{class_name}} : IBoundary<{{model_name}}>
     {

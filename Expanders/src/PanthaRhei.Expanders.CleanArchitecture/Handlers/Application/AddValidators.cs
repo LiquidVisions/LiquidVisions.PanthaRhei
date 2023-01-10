@@ -37,9 +37,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             return new
             {
+                component,
                 Action = action,
-                NameSpace = component.GetComponentNamespace(App, RootFolderName),
-                Using = Expander.Model.Name,
                 Entity = entity,
             };
         }

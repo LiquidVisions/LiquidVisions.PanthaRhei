@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
         /// <inheritdoc/>
         public string Render(string fullTemplatePath, object model)
         {
-            ScriptObject scriptObject = new();
+            CustomScripts scriptObject = new();
             scriptObject.Import(model);
 
             string template = templateLoader.Load(fullTemplatePath);

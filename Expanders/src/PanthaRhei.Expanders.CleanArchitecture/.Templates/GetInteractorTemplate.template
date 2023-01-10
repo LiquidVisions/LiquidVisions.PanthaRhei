@@ -1,17 +1,18 @@
 {{-
-name = "Get" + entity.pluralized_name;
+name = "Get" + entity. name | pluralize;
 class_name = name + "Interactor";
 -}}
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using {{using}}.Application.Gateways;
-using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
-using {{using}}.Application.Validators;
-using {{using}}.Domain.Entities;
+using {{component_fullname component 'Gateways'}};
+using {{component_fullname component 'Mappers'}};
+using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname component 'Validators'}};
+using {{entity.callsite}};
 
-namespace {{name_space}}.Interactors.{{entity.pluralized_name}}
+namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
 {
     internal class {{class_name}} : IInteractor<{{name}}Query>
     {

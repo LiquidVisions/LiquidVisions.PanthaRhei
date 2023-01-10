@@ -39,12 +39,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         /// <inheritdoc/>
         protected override object GetTemplateParameters(Component component, Entity entity, string action)
         {
+            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
+
             return new
             {
+                clientComponent,
+                component,
                 Action = action,
-                NameSpace = component.GetComponentNamespace(App, RootFolderName),
                 Entity = entity,
-                Using = Expander.Model.Name,
             };
         }
 

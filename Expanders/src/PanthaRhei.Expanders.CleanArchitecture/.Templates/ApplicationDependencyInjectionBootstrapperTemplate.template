@@ -7,9 +7,9 @@
             services.AddTransient<IValidator<Create{{entity.name}}Command>, Create{{entity.name}}Validator>();
 
             // GET {{entity.pluralized_name | string.upcase}}
-            services.AddTransient<IInteractor<Get{{entity.pluralized_name}}Query>, Get{{entity.pluralized_name}}Interactor>();
-            services.AddTransient<IBoundary<Get{{entity.pluralized_name}}Query>, Get{{entity.pluralized_name}}Boundary>();
-            services.AddTransient<IValidator<Get{{entity.pluralized_name}}Query>, Get{{entity.pluralized_name}}Validator>();
+            services.AddTransient<IInteractor<Get{{entity.name | pluralize}}Query>, Get{{entity.name | pluralize}}Interactor>();
+            services.AddTransient<IBoundary<Get{{entity.name | pluralize}}Query>, Get{{entity.name | pluralize}}Boundary>();
+            services.AddTransient<IValidator<Get{{entity.name | pluralize}}Query>, Get{{entity.name | pluralize}}Validator>();
 
             // GET {{entity.name | string.upcase}}
             services.AddTransient<IInteractor<Get{{entity.name}}ByIdQuery>, Get{{entity.name}}Interactor>();

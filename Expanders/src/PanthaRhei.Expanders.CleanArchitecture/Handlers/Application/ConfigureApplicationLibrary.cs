@@ -35,6 +35,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         public override void Execute()
         {
             Component component = Expander.Model.GetComponentByName(Resources.Application);
+            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
             string path = Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
 
             writer.Load(path);
@@ -53,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
                 writer.AddNameSpace($"{ns}.Boundaries.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Interactors.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Mappers.{pluralizedName}");
-                writer.AddNameSpace($"{Expander.Model.Name}.Client.RequestModels.{pluralizedName}");
+                writer.AddNameSpace($"{clientComponent.GetComponentNamespace(App)}.RequestModels.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Validators.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Gateways");
             }

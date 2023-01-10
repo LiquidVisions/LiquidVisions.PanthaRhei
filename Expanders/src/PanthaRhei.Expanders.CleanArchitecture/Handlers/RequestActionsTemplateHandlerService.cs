@@ -90,10 +90,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// Gets the template parameters that are used to generate the file.
         /// </summary>
         /// <param name="component"><seealso cref="Component"/></param>
-        /// <param name="endpoint"><seealso cref="Entity"/></param>
+        /// <param name="entity"><seealso cref="Entity"/></param>
         /// <param name="action">The action that is applicable for the template.</param>
         /// <returns>an object with parameters.</returns>
-        protected abstract object GetTemplateParameters(Component component, Entity endpoint, string action);
+        protected abstract object GetTemplateParameters(Component component, Entity entity, string action);
 
         /// <summary>
         /// Gets the filename of the generated file file.

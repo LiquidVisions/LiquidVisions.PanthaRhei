@@ -4,13 +4,13 @@ class_name = name + "Interactor";
 -}}
 using System;
 using System.Threading.Tasks;
-using {{name_space}}.Gateways;
-using {{name_space}}.Mappers;
-using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
-using {{name_space}}.Validators;
-using {{using}}.Domain.Entities;
+using {{component_fullname component 'Gateways'}};
+using {{component_fullname component 'Mappers'}};
+using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname component 'Validators'}};
+using {{entity.callsite}};
 
-namespace {{name_space}}.Interactors.{{entity.pluralized_name}}
+namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
 {
     internal class {{class_name}} : IInteractor<{{name}}Command>
     {

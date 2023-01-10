@@ -31,15 +31,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
         /// <inheritdoc/>
         public override void Execute()
         {
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
-            string fullPathToComponentFolder = projectAgent.GetComponentOutputFolder(clientComponent);
+            Component component = Expander.Model.GetComponentByName(Resources.Client);
+            string fullPathToComponentFolder = projectAgent.GetComponentOutputFolder(component);
 
             foreach (Entity entity in App.Entities)
             {
                 var parameters = new
                 {
                     entity,
-                    Using = Expander.Model.Name,
+                    component,
                 };
 
                 string fullPathToTemplate = Expander.Model.GetTemplateFolder(Parameters, Resources.ClientTemplate);

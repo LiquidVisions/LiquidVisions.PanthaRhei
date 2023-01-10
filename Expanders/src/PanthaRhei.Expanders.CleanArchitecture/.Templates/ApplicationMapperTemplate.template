@@ -1,10 +1,10 @@
 {{-
 model_name = action+entity.name+"Command";
 -}}
-using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
-using {{using}}.Domain.Entities;
+using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
+using {{entity.callsite}};
 
-namespace {{name_space}}.Mappers.{{entity.pluralized_name}}
+namespace {{component_fullname component 'Mappers' entity.name | pluralize}}
 {
     internal class {{model_name}}To{{entity.name}}Mapper : IMapper<{{model_name}}, {{entity.name}}>
     {

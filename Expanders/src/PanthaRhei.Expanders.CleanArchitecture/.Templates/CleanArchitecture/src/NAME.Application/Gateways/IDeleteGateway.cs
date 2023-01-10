@@ -4,7 +4,7 @@ using NS.Domain;
 namespace NS.Application.Gateways
 {
     public interface IDeleteGateway<TEntity> : IGateway<TEntity>
-        where TEntity : IEntity
+        where TEntity : class
     {
         Task<bool> Delete(TEntity entity);
     }
