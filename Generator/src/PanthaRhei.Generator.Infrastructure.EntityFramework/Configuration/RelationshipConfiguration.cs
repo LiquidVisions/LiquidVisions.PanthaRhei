@@ -21,6 +21,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
                 .HasMaxLength(8)
                 .IsRequired(true);
 
+            builder.Property(x => x.Required)
+                .IsRequired(true);
+
             builder.HasOne(x => x.Entity)
                 .WithMany(x => x.Relations)
                 .IsRequired()

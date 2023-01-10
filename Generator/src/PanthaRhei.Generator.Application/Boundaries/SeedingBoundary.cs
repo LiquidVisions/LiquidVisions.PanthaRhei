@@ -8,15 +8,17 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
 {
     internal class SeedingBoundary : ISeedingBoundary
     {
-        private readonly IEnumerable<ISeederInteractor<App>> seeders;
+        private readonly IDependencyFactoryInteractor dependencyFactory;
 
         public SeedingBoundary(IDependencyFactoryInteractor dependencyFactory)
         {
-            seeders = dependencyFactory.GetAll<ISeederInteractor<App>>();
+            this.dependencyFactory = dependencyFactory;
         }
 
         public void Execute()
         {
+            var seeders = dependencyFactory.GetAll<ISeederInteractor<App>>();
+
             foreach (var seeder in seeders.OrderBy(x => x.ResetOrder))
             {
                 seeder.Reset();

@@ -37,10 +37,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
                 .IsRequired(true)
                 .HasDefaultValue("public");
 
-            builder.HasMany(x => x.Fields)
-                .WithOne(x => x.Entity)
-                .IsRequired(true);
-
             builder.HasOne(x => x.App)
                 .WithMany(x => x.Entities)
                 .IsRequired();

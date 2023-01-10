@@ -4,6 +4,7 @@ using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230110124226_AddedRequiredFieldToFieldEntity")]
+    partial class AddedRequiredFieldToFieldEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,17 +226,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
                     b.Property<Guid?>("ReferenceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Required")
-                        .HasColumnType("bit");
-
                     b.Property<string>("ReturnType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SetModifier")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Size")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -309,7 +306,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Migr
 
                     b.HasIndex("WithForeignEntityKeyId");
 
-                    b.ToTable("Relationships");
+                    b.ToTable("Relationship");
                 });
 
             modelBuilder.Entity("AppExpander", b =>

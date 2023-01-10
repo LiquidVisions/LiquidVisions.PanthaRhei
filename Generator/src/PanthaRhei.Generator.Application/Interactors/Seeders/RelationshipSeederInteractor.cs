@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
             foreach (Entity entity in app.Entities)
             {
-                List<Dictionary<string, string>> infos = modelConfiguration.GetRelationshipInfo(entity);
+                List<RelationshipDto> infos = modelConfiguration.GetRelationshipInfo(entity);
 
                 foreach (var info in infos)
                 {
@@ -45,22 +45,24 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                     entity.Relations.Add(relationship);
 
                     // Key
-                    relationship.Key = entity.Fields.Single(x => x.Name == info[nameof(Relationship.Key)]);
+                    relationship.Key = entity.Fields.Single(x => x.Name == info.Key);
                     relationship.Key.RelationshipKeys.Add(relationship);
 
                     // Cardinality
-                    relationship.Cardinality = info[nameof(Relationship.Cardinality)];
+                    relationship.Cardinality = info.Cardinality;
 
                     // WithForeignEntity
-                    relationship.WithForeignEntity = entity.App.Entities.Single(x => x.Name == info[nameof(Relationship.WithForeignEntity)]);
+                    relationship.WithForeignEntity = entity.App.Entities.Single(x => x.Name == info.WithForeignEntity);
                     relationship.WithForeignEntity.IsForeignEntityOf.Add(relationship);
 
                     // WithForeignEntityKey
-                    relationship.WithForeignEntityKey = relationship.WithForeignEntity.Fields.Single(x => x.Name == info[nameof(Relationship.WithForeignEntityKey)]);
+                    relationship.WithForeignEntityKey = relationship.WithForeignEntity.Fields.Single(x => x.Name == info.WithForeignEntityKey);
                     relationship.WithForeignEntityKey.IsForeignEntityKeyOf.Add(relationship);
 
                     // WithyCardinality
-                    relationship.WithyCardinality = info[nameof(Relationship.WithyCardinality)];
+                    relationship.WithyCardinality = info.WithyCardinality;
+
+                    relationship.Required = info.Required;
 
                     gateway.Create(relationship);
                 }

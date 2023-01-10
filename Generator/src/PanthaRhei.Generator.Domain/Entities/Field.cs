@@ -23,6 +23,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
 
         public virtual int Order { get; set; }
 
+        public virtual int? Size { get; set; }
+
+        public virtual bool Required { get; set; }
+
         public virtual Entity Reference { get; set; }
 
         public virtual Entity Entity { get; set; }

@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 {
-    public class ModelConfiguration : IModelConfiguration
+    internal class ModelConfiguration : IModelConfiguration
     {
-        private readonly ModelBuilder modelBuilder;
+        private readonly DbContext context;
 
-        public ModelConfiguration(ModelBuilder modelBuilder)
+        public ModelConfiguration(DbContext context)
         {
-            this.modelBuilder = modelBuilder;
+            this.context = context;
         }
 
         public string[] GetIndexes(Type entityType)
         {
-            return modelBuilder.Model.GetEntityTypes()
+            return context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType)
                 .GetIndexes().SelectMany(x => x.Properties.Select(p => p.Name))
                 .ToArray();
@@ -28,33 +28,68 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 
         public string[] GetKeys(Type entityType)
         {
-            return modelBuilder.Model.GetEntityTypes()
+            return context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType)
                 .GetKeys().SelectMany(x => x.Properties.Select(p => p.Name))
                 .ToArray();
         }
 
-        public List<Dictionary<string, string>> GetRelationshipInfo(Entity entity)
+        public int? GetSize(Type entityType, string propName)
         {
-            var mutableEntity = modelBuilder.Model.GetEntityTypes()
+            var entity = context.Model.GetEntityTypes()
+                .Single(x => x.ClrType == entityType);
+
+            IProperty prop = entity.FindProperty(propName);
+            if (prop != null)
+            {
+                return prop.GetMaxLength();
+            }
+
+            return null;
+        }
+
+        public bool GetIsRequired(Type entityType, string propName)
+        {
+            var entity = context.Model.GetEntityTypes()
+                    .Single(x => x.ClrType == entityType);
+
+            var prop = entity.FindProperty(propName);
+            if(prop != null)
+            {
+                return !prop.IsNullable;
+            }
+
+
+            var navigationProperty = entity.FindNavigation(propName);
+            if (navigationProperty != null)
+            {
+                return !navigationProperty.ForeignKey.IsRequired;
+            }
+
+            return false;
+        }
+
+        public List<RelationshipDto> GetRelationshipInfo(Entity entity)
+        {
+            var mutableEntity = context.Model.GetEntityTypes()
                 .Single(x => x.ClrType.Name == entity.Name);
 
-            List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
+            List<RelationshipDto> result = new();
 
-            foreach (var fk in mutableEntity.GetNavigations().Where(x => x.ForeignKey.DeclaringEntityType.ClrType.Name == mutableEntity.ClrType.Name))
+            var navigations = mutableEntity.GetNavigations().Where(x => x.ForeignKey.DeclaringEntityType.ClrType.Name == entity.Name).ToList();
+
+            foreach (var navigation in navigations)
             {
-                Dictionary<string, string> pairs = new()
+                result.Add(new RelationshipDto
                 {
-                    { nameof(Relationship.Entity), mutableEntity.ClrType.Name },
-                    { nameof(Relationship.Key), fk.Name },
-                    { nameof(Relationship.Cardinality), GetCardinality(fk.ClrType) },
-
-                    { nameof(Relationship.WithForeignEntity), fk.ForeignKey.DependentToPrincipal.ClrType.Name },
-                    { nameof(Relationship.WithForeignEntityKey), fk.ForeignKey.GetNavigation(false).PropertyInfo.Name },
-                    { nameof(Relationship.WithyCardinality), GetCardinality(fk.ForeignKey.GetNavigation(false).ClrType) },
-                };
-
-                result.Add(pairs);
+                    Entity = mutableEntity.ClrType.Name,
+                    Key = navigation.Name,
+                    Cardinality = GetCardinality(navigation.ClrType),
+                    WithForeignEntity = navigation.ForeignKey.DependentToPrincipal.ClrType.Name,
+                    WithForeignEntityKey = navigation.ForeignKey.GetNavigation(false).PropertyInfo.Name,
+                    WithyCardinality = GetCardinality(navigation.ForeignKey.GetNavigation(false).ClrType),
+                    Required = navigation.ForeignKey.IsRequired,
+                });
             }
 
             return result;

@@ -13,11 +13,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
     {
         private readonly IGenericGateway<Field> gateway;
         private readonly IDependencyFactoryInteractor dependencyFactory;
+        private readonly IModelConfiguration modelConfiguration;
 
         public FieldSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             this.gateway = dependencyFactory.Get<IGenericGateway<Field>>();
-            this.dependencyFactory = dependencyFactory;
+            modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
         }
 
         public int SeedOrder => 6;
@@ -32,18 +33,19 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                 .Where(x => x.PropertyType.Name == "DbSet`1")
                 .Select(x => x.PropertyType.GetGenericArguments().First());
 
-            // CODESMELL, I cannot resolve the ImodelConfiguration in constructor.
-            var modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
-
             foreach (Type entityType in allEntities)
             {
                 string[] keys = modelConfiguration.GetKeys(entityType);
                 string[] indexes = modelConfiguration.GetIndexes(entityType);
 
+
                 IEnumerable<PropertyInfo> allProperties = entityType.GetProperties();
                 int order = 1;
                 foreach (PropertyInfo prop in allProperties)
                 {
+                    int? size = modelConfiguration.GetSize(entityType, prop.Name);
+                    bool required = modelConfiguration.GetIsRequired(entityType, prop.Name);
+
                     Field field = new()
                     {
                         Id = Guid.NewGuid(),
@@ -56,6 +58,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                         IsKey = keys.Any(x => x == prop.Name),
                         IsIndex = indexes.Any(x => x == prop.Name),
                         Order = order++,
+                        Size = size,
+                        Required = required,
                     };
 
                     SetReturnType(prop, app, field);

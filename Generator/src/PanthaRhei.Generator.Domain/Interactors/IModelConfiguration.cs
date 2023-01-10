@@ -9,6 +9,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors
         string[] GetIndexes(Type entityType);
 
         string[] GetKeys(Type entityType);
-        List<Dictionary<string, string>> GetRelationshipInfo(Entity entity);
+
+        int? GetSize(Type entityType, string propName);
+
+        bool GetIsRequired(Type entityType, string propName);
+
+        List<RelationshipDto> GetRelationshipInfo(Entity entity);
     }
 }

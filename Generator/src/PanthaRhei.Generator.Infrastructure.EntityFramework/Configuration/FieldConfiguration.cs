@@ -27,6 +27,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
                 .IsRequired(true)
                 .HasDefaultValue(0);
 
+            builder.Property(x => x.Size)
+                .IsRequired(false);
+
+            builder.Property(x => x.Required)
+                .IsRequired(true);
+
             builder.Property(x => x.Modifier)
                 .HasMaxLength(128)
                 .IsRequired(true)
@@ -43,6 +49,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
             builder.HasOne(x => x.Reference)
                 .WithMany(x => x.ReferencedIn)
                 .IsRequired(false);
+
+            builder.HasOne(x => x.Entity)
+                .WithMany(x => x.Fields)
+                .IsRequired(true);
         }
     }
 }

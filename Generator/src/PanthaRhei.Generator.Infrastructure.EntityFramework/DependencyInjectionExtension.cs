@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 #endif
             });
 
-            services.AddSingleton<IModelConfiguration, ModelConfiguration>()
+            services.AddTransient<IModelConfiguration, ModelConfiguration>()
                 .AddTransient<IGenericGateway<App>, GenericRepository<App>>()
                 .AddTransient<IGenericGateway<Expander>, GenericRepository<Expander>>()
                 .AddTransient<IGenericGateway<Component>, GenericRepository<Component>>()
