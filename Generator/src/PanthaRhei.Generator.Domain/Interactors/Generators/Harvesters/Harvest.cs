@@ -5,7 +5,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
     /// <summary>
     /// Represents a model that contains the information needed tot persist the Harvested infomration.
     /// </summary>
-    internal class Harvest
+    public class Harvest
     {
         /// <summary>
         /// Gets or sets the path of the file that is the source of the Harvest.

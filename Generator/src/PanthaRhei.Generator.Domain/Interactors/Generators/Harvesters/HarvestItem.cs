@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
     /// <summary>
     /// Represents the model for an instance with detailed <see cref="Harvest"/> information from a harvested file.
     /// </summary>
-    internal class HarvestItem
+    public class HarvestItem
     {
         /// <summary>
         /// Gets or sets the content of the object that needs to be harvested.

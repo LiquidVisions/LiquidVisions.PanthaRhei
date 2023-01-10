@@ -10,16 +10,16 @@ using RestSharp.Serializers.Json;
 
 namespace {{using}}.Client
 {
-    public class {{endpoint.for_entity.name}}Client : IClient<{{endpoint.for_entity.name}}>
+    public class {{entity.name}}Client : IClient<{{entity.name}}>
     {
-        public async Task<IEnumerable<{{endpoint.for_entity.name}}>> GetAll()
+        public async Task<IEnumerable<{{entity.name}}>> GetAll()
         {
             #region ns-custom-get
             throw new NotImplementedException();
             #endregion ns-custom-get
         }
 
-        public {{endpoint.for_entity.name}} GetById(Guid id)
+        public {{entity.name}} GetById(Guid id)
         {
             #region ns-custom-getbyid
             throw new NotImplementedException();

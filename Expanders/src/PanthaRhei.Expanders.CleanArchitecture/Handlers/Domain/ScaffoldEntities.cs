@@ -34,18 +34,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         public override void Execute()
         {
             Component domain = Expander.Model.GetComponentByName(Resources.Domain);
+
             string entitiesFolder = Path.Combine(projectInteractor.GetComponentOutputFolder(domain), Resources.DomainEntityFolder);
             Directory.Create(entitiesFolder);
 
+            string templateFolder = Expander.Model.GetTemplateFolder(Parameters, Resources.EntityTemplate);
             foreach (var entity in App.Entities)
             {
-                string result = templateService.Render(
-                    Expander.Model.GetTemplateFolder(Parameters, Resources.EntityTemplate),
-                    new
-                    {
-                        Entity = entity,
-                    });
-
+                string result = templateService.Render(templateFolder, new { entity });
                 File.WriteAllText(Path.Combine(entitiesFolder, $"{entity.Name}.cs"), result);
             }
         }

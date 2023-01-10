@@ -17,41 +17,35 @@ namespace {{name_space}}.Configuration
             {{~end~}}
             
             {{~for field in entity.fields | array.sort 'order'~}}
-            {{~if field.data_type | object.kind != 'NSComplex' && field.keyword != 'abstract'~}}
+            {{~if field.reference_id == null~}}
             builder.Property(x => x.{{ field.name }})
-                {{~if field.data_type | object.kind == 'NSString'~}}
-                .HasMaxLength({{field.data_type.size}})
+                {{~if field.size != null~}}
+                .HasMaxLength({{field.size}})
                 {{~end~}}
-                .IsRequired({{field.data_type.required}});
+                .IsRequired({{field.required}});
             
             {{~end~}}
-            {{~if field.data_type | object.kind != 'NSComplex' && field.keyword == 'abstract'~}}
+            {{~if fieldbehaviour == 'abstract'~}}
             builder.Ignore(x => x.{{field.name}});
 
             {{~end~}}
             {{~end~}}
             {{~for r in entity.relations-}}
             {{-if r.cardinality == "WithOne"~}}
-            builder.HasOne(x => x.{{r.foreign_key.name}})
+            builder.HasOne(x => x.{{r.key.name}})
             {{~else~}}
-            builder.HasMany(x => x.{{r.foreign_key.name}})
+            builder.HasMany(x => x.{{r.key.name}})
             {{~end~}}
-            {{~if r.foreign_key_cardinality == "WithOne"~}}
-                .WithOne(x => x.{{r.foreign_entity_key.name}})
-            {{~if r.foreign_key_cardinality == "WithOne" && r.cardinality == "WithOne"~}}
-                .HasForeignKey<{{r.foreign_entity.name}}>("{{r.foreign_entity.name}}Id")
+            {{~if r.with_cardinality == "WithOne"~}}
+                .WithOne(x => x.{{r.with_foreign_entity.name}})
+            {{~if r.with_cardinality == "WithOne" && r.cardinality == "WithOne"~}}
+                .HasForeignKey<{{r.entity.name}}>("{{r.entity.name}}Id")
             {{~end~}}
                 .OnDelete(DeleteBehavior.Cascade);
                 {{~else~}}
-                .WithMany(x => x.{{r.foreign_entity_key.name}});
+                .WithMany(x => x.{{r.key.name}});
                 {{~end~}}
 
-            {{~end~}}
-            {{~if discriminators.size > 0~}}
-            builder.HasDiscriminator<string>("data_type")
-            {{~for dis in discriminators~}}
-                .HasValue<{{dis.name}}>("{{dis.name}}"){{if discriminators | array.last == dis}};{{end}}
-            {{~end~}}
             {{~end~}}
 
             #region ns-custom-configuration

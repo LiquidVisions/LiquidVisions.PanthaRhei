@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Conf
                 .HasMaxLength(8)
                 .IsRequired(true);
 
-            builder.Property(x => x.WithyCardinality)
+            builder.Property(x => x.WithCardinality)
                 .HasMaxLength(8)
                 .IsRequired(true);
 

@@ -13,9 +13,9 @@ end
 -}}
 {{-
 func get_prop(field)
-    result = "public " + field.data_type.return_type;
+    result = "public " + field.return_type;
 
-    if(!field.data_type.required && field.data_type.return_type != 'string')
+    if(!field.required && field.return_type != 'string')
         result = result + "?";
     end
 

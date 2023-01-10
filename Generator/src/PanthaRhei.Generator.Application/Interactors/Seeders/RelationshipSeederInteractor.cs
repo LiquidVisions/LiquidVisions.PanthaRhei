@@ -60,7 +60,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                     relationship.WithForeignEntityKey.IsForeignEntityKeyOf.Add(relationship);
 
                     // WithyCardinality
-                    relationship.WithyCardinality = info.WithyCardinality;
+                    relationship.WithCardinality = info.WithyCardinality;
 
                     relationship.Required = info.Required;
 
