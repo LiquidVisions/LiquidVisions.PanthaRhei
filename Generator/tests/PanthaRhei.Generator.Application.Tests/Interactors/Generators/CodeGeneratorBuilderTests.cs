@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
         {
             // arrange
             Guid id = Guid.NewGuid();
-            fakes.Parameters.Object.AppId = id;
+            fakes.Parameters.Setup(x => x.AppId).Returns(id);
             fakes.IAppGateway.Setup(x => x.GetById(id)).Returns((App)null);
 
             // act
@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
         {
             // arrange
             Guid id = Guid.NewGuid();
-            fakes.Parameters.Object.AppId = id;
+            fakes.Parameters.Setup(x => x.AppId).Returns(id);
             App app = new();
             fakes.IAppGateway.Setup(x => x.GetById(id)).Returns(app);
             fakes.IDependencyManagerInteractor.Setup(x => x.Build()).Returns(fakes.IDependencyFactoryInteractor.Object);

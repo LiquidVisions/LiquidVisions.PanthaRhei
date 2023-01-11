@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// <summary>
         /// Gets or sets the AppId parameter.
         /// </summary>
-        public Guid AppId { get; set; }
+        public virtual Guid AppId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the output needs to be cleaned.

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
@@ -34,8 +36,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                 string templatePath = Path.Combine(parameters.ExpandersFolder, expander.Name, expander.TemplateFolder);
                 if (directoryService.Exists(templatePath))
                 {
-                    string[] files = directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories);
-                    if (files != null && files.Length > 0)
+                    IEnumerable<string> files = directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)
+                        .Where(x => !string.IsNullOrEmpty(x));
+
+
+                    if (files != null && files.Any())
                     {
                         foreach (string file in files)
                         {
