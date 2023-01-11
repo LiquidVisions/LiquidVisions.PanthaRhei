@@ -59,7 +59,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
                 return !prop.IsNullable;
             }
 
-
             var navigationProperty = entity.FindNavigation(propName);
             if (navigationProperty != null)
             {
@@ -95,7 +94,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
             return result;
         }
 
-        public string GetCardinality(Type type)
+        private static string GetCardinality(Type type)
         {
             return type.IsGenericType && type.GetInterfaces()
                 .Any(x => x.GetGenericTypeDefinition() == typeof(IEnumerable<>))

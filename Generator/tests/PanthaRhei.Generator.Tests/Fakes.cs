@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
             IDependencyFactoryInteractor
                 .Setup(x => x.Get<ILogManager>())
                 .Returns(ILogManager.Object);
-            
+
             ICodeGeneratorInteractor = new();
             IDependencyFactoryInteractor
                 .Setup(x => x.Get<ICodeGeneratorInteractor>())

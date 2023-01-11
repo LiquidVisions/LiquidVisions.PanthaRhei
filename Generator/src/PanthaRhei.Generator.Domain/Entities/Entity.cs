@@ -26,6 +26,5 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
         public virtual List<Relationship> Relations { get; set; } = new List<Relationship>();
 
         public virtual List<Relationship> IsForeignEntityOf { get; set; } = new List<Relationship>();
-
     }
 }

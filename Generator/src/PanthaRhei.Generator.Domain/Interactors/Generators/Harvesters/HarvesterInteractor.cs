@@ -48,6 +48,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         /// </summary>
         protected IDirectory Directory => directory;
 
+        protected Parameters Parameters => parameters;
+
         /// <summary>
         /// Gets the extension of the harvest file.
         /// </summary>
@@ -62,7 +64,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         /// </summary>
         /// <param name="harvest"><seealso cref="Harvest"/></param>
         /// <param name="sourceFile">The full path to the source location.</param>
-        internal virtual void DeserializeHarvestModelToFile(Harvest harvest, string sourceFile)
+        protected virtual void DeserializeHarvestModelToFile(Harvest harvest, string sourceFile)
         {
             string fullPath = System.IO.Path.Combine(parameters.HarvestFolder, Expander.Model.Name, $"{file.GetFileNameWithoutExtension(sourceFile)}.{Extension}");
 

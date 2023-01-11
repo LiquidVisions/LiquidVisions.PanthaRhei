@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         public override void Execute()
         {
             Component component = Expander.Model.GetComponentByName(Resources.EntityFramework);
-            Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application); 
+            Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
             string path = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.RepositoryFolder);
             Directory.Create(path);
 

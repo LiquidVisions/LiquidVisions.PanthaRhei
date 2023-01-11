@@ -7,7 +7,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostP
     /// An abstract implementation of the <see cref="ProcessorInteractor{TExpander}"/>.
     /// </summary>
     /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
-    internal abstract class PostProcessorInteractor<TExpander> : ProcessorInteractor<TExpander>, IPostProcessorInteractor<TExpander>
+    public abstract class PostProcessorInteractor<TExpander> : ProcessorInteractor<TExpander>, IPostProcessorInteractor<TExpander>
         where TExpander : class, IExpanderInteractor
     {
         /// <summary>

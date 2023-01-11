@@ -65,7 +65,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
 
                 foreach (string action in RequestActions)
                 {
-
                     string fullPathToTemplate = Expander.Model.GetTemplateFolder(Parameters, GetTemplateName(action));
 
                     object parameters = GetTemplateParameters(component, endpoint, action);

@@ -9,6 +9,5 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
         {
             return expander.Components.Single(x => x.Name == name);
         }
-
     }
 }

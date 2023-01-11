@@ -29,7 +29,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
             {
                 seeder.Seed(app);
             }
-
         }
     }
 }

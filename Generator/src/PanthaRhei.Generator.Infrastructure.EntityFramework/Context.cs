@@ -74,15 +74,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // TODO: make this more secure...
                 optionsBuilder
                     .UseLoggerFactory(ContextExtensions.GetLoggerFactory())
                     .EnableSensitiveDataLogging()
                     .UseSqlServer(@"Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=4cZ#Lsojpc75;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
-
-
 
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)

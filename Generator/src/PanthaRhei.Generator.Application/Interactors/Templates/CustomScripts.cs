@@ -7,7 +7,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
 {
     public class CustomScripts : ScriptObject
     {
-        private static Pluralizer pluralizer = new();
+        private static readonly Pluralizer pluralizer = new();
 
         public static string Pluralize(string name)
             => pluralizer.Pluralize(name);

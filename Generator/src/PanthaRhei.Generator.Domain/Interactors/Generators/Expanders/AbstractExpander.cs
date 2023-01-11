@@ -58,8 +58,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
 
         public virtual int Order => Model == null ? GetOrder() : Model.Order;
 
-        protected abstract int GetOrder();
-
         /// <summary>
         /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandlerInteractor{TExpander}"/>.
         /// </summary>e
@@ -175,5 +173,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
                 handler.Execute();
             }
         }
+
+        /// <summary>
+        /// Gets the order of the expander.
+        /// </summary>
+        /// <returns>The order of the expander.</returns>
+        protected abstract int GetOrder();
     }
 }

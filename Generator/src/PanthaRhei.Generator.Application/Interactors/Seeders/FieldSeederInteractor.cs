@@ -12,7 +12,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
     internal class FieldSeederInteractor : ISeederInteractor<App>
     {
         private readonly IGenericGateway<Field> gateway;
-        private readonly IDependencyFactoryInteractor dependencyFactory;
         private readonly IModelConfiguration modelConfiguration;
 
         public FieldSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
@@ -37,7 +36,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
             {
                 string[] keys = modelConfiguration.GetKeys(entityType);
                 string[] indexes = modelConfiguration.GetIndexes(entityType);
-
 
                 IEnumerable<PropertyInfo> allProperties = entityType.GetProperties();
                 int order = 1;

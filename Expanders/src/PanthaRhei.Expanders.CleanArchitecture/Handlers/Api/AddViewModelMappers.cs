@@ -13,7 +13,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// </summary>
     public class AddViewModelMappers : AbstractHandlerInteractor<CleanArchitectureExpander>
     {
-        private readonly IWriterInteractor writer;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
 
@@ -25,7 +24,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         public AddViewModelMappers(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
             : base(expander, dependencyFactory)
         {
-            writer = dependencyFactory.Get<IWriterInteractor>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
         }

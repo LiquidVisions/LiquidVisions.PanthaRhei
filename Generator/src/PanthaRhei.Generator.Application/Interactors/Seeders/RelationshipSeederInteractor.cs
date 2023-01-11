@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
@@ -9,18 +8,15 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-
     internal class RelationshipSeederInteractor : ISeederInteractor<App>
     {
         private readonly IGenericGateway<Relationship> gateway;
-        private readonly Parameters parameters;
-        private readonly IDependencyFactoryInteractor dependencyFactory;
+        private readonly IModelConfiguration modelConfiguration;
 
         public RelationshipSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             gateway = dependencyFactory.Get<IGenericGateway<Relationship>>();
-            parameters = dependencyFactory.Get<Parameters>();
-            this.dependencyFactory = dependencyFactory;
+            modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
         }
 
         public int SeedOrder => 7;
@@ -29,19 +25,18 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         public void Seed(App app)
         {
-            // CODESMELL, I cannot resolve the ImodelConfiguration in constructor.
-            var modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
-
             foreach (Entity entity in app.Entities)
             {
                 List<RelationshipDto> infos = modelConfiguration.GetRelationshipInfo(entity);
 
                 foreach (var info in infos)
                 {
-                    Relationship relationship = new() { Id = Guid.NewGuid() };
+                    Relationship relationship = new()
+                    {
+                        Id = Guid.NewGuid(),
+                        Entity = entity,
+                    };
 
-                    // Entity
-                    relationship.Entity = entity;
                     entity.Relations.Add(relationship);
 
                     // Key

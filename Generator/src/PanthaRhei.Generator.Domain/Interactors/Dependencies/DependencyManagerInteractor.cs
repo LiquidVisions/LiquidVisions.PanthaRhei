@@ -28,13 +28,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies
         }
 
         /// <inheritdoc/>
-        public void AddSingleton<T>(T singletonObject)
-            where T : class
-        {
-            serviceCollection.AddSingleton(singletonObject);
-        }
-
-        /// <inheritdoc/>
         public IDependencyFactoryInteractor Build()
         {
             provider = serviceCollection.BuildServiceProvider();
@@ -64,6 +57,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies
             return provider.GetRequiredService<T>();
         }
 
+        /// <inheritdoc/>
+        public void AddSingleton<T>(T singletonObject)
+            where T : class => serviceCollection.AddSingleton(singletonObject);
+
+        /// <inheritdoc/>
         public void AddSingleton(Type serviceType, Type implementationType)
         {
             serviceCollection.AddSingleton(serviceType, implementationType);
