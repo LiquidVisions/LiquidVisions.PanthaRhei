@@ -41,12 +41,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// <summary>
         /// Gets or sets the root for the generator process.
         /// </summary>
-        public string Root { get; set; }
+        public virtual string Root { get; set; }
 
         /// <summary>
         /// Gets or sets the location of the folder where the <seealso cref="IExpanderInteractor">Expanders</seealso> are located.
         /// </summary>
-        public string ExpandersFolder
+        public virtual string ExpandersFolder
         {
             get => Path.Combine(Root, expanderFolder);
             set => expanderFolder = value;
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// <summary>
         /// Gets or sets the location of the folder where the code harvestings are located.
         /// </summary>
-        public string HarvestFolder
+        public virtual string HarvestFolder
         {
             get => Path.Combine(Root, harvestFolder);
             set => harvestFolder = value;
@@ -64,7 +64,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// <summary>
         /// Gets or sets the location where the generated code will be stored.
         /// </summary>
-        public string OutputFolder
+        public virtual string OutputFolder
         {
             get => Path.Combine(Root, outputFolder, AppId.ToString());
             set => outputFolder = value;

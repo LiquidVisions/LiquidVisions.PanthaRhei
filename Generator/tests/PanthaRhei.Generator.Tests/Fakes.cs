@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
+﻿using System;
+using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
@@ -57,13 +58,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
                 .Setup(x => x.Get<IDirectory>())
                 .Returns(IDirectory.Object);
 
-            Parameters = new()
-            {
-                Root = @"C:\Some\Root\Folder",
-            };
+            Parameters = new();
+            Parameters.Setup(x => x.Root).Returns(@"C:\\Some\\Root\\Folder\");
+            Parameters.Setup(x => x.OutputFolder).Returns(@"C:\\Some\\Root\\OutputFolder\");
+            Parameters.Setup(x => x.ExpandersFolder).Returns(@"C:\\Some\\Root\\Expanders\");
             IDependencyFactoryInteractor
                 .Setup(x => x.Get<Parameters>())
-                .Returns(Parameters);
+                .Returns(Parameters.Object);
 
             IAssemblyContextInteractor = new();
             IDependencyFactoryInteractor
@@ -114,7 +115,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         public Mock<IDirectory> IDirectory { get; }
 
-        public Parameters Parameters { get; }
+        public Mock<Parameters> Parameters { get; }
 
         public Mock<IExpanderDependencyManagerInteractor> IExpanderDependencyManagerInteractor { get; }
 
@@ -127,5 +128,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
         internal Mock<IGenericGateway<App>> IAppGateway { get; }
 
         internal Mock<IExpanderPluginLoaderInteractor> IExpanderPluginLoaderInteractor { get; }
+
+        private App GetModel()
+        {
+            return new App();
+        }
     }
 }

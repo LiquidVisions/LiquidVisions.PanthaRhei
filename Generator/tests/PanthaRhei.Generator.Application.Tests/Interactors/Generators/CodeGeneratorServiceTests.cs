@@ -5,7 +5,7 @@ using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
+namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Generators
 {
     public class CodeGeneratorServiceTests
     {

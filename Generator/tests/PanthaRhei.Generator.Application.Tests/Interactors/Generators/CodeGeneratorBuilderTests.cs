@@ -5,7 +5,7 @@ using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
+namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Generators
 {
     public class CodeGeneratorBuilderTests
     {
@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
         {
             // arrange
             Guid id = Guid.NewGuid();
-            fakes.Parameters.AppId = id;
+            fakes.Parameters.Object.AppId = id;
             fakes.IAppGateway.Setup(x => x.GetById(id)).Returns((App)null);
 
             // act
@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests
         {
             // arrange
             Guid id = Guid.NewGuid();
-            fakes.Parameters.AppId = id;
+            fakes.Parameters.Object.AppId = id;
             App app = new();
             fakes.IAppGateway.Setup(x => x.GetById(id)).Returns(app);
             fakes.IDependencyManagerInteractor.Setup(x => x.Build()).Returns(fakes.IDependencyFactoryInteractor.Object);
