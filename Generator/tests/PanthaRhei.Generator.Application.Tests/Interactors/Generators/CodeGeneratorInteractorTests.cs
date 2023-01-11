@@ -57,7 +57,21 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
             fakes.Parameters.Verify(x => x.Clean, Times.Once);
             fakes.Parameters.Verify(x => x.OutputFolder, Times.Exactly(times));
             fakes.IDirectory.Verify(x => x.Delete(fakes.Parameters.Object.OutputFolder), Times.Exactly(times));
+        }
 
+        [Fact]
+        public void Execute_HappyFlow_ShouldVerify()
+        {
+            // arrange
+            // act
+            interactor.Execute();
+
+            // assert
+            mockedIExpanderInteractor.Verify(x => x.Harvest(), Times.Once);
+            mockedIExpanderInteractor.Verify(x => x.PreProcess(), Times.Once);
+            mockedIExpanderInteractor.Verify(x => x.Expand(), Times.Once);
+            mockedIExpanderInteractor.Verify(x => x.Rejuvenate(), Times.Once);
+            mockedIExpanderInteractor.Verify(x => x.PostProcess(), Times.Once);
         }
     }
 }
