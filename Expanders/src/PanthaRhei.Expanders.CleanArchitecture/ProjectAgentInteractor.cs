@@ -18,12 +18,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 
         public string GetComponentOutputFolder(Component component)
         {
-            return Path.Combine(parameters.OutputFolder, app.FullName, "src", $"{app.Name}.{component.Name}");
+            return Path.Combine(parameters.OutputFolder, app.FullName, "src", $"{component.Name}");
         }
 
         public string GetComponentProjectFile(Component component)
         {
-            return Path.Combine(GetComponentOutputFolder(component), $"{app.Name}.{component.Name}.csproj");
+            return Path.Combine(GetComponentOutputFolder(component), $"{component.Name}.csproj");
         }
     }
 }

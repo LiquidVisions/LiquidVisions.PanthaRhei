@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using {{usings}}.Application.Gateways;
-using {{usings}}.Domain.Entities;
+using {{component_fullname application_component "Gateways"}};
+using {{entity.callsite}};
 using Microsoft.EntityFrameworkCore;
 
-namespace {{usings}}.Infrastructure.EntityFramework
+namespace {{component_fullname component}}
 {
     public class {{entity.name}}Repository : IGetGateway<{{entity.name}}>, IGetByIdGateway<{{entity.name}}>, ICreateGateway<{{entity.name}}>, IDeleteGateway<{{entity.name}}>, IUpdateGateway<{{entity.name}}>
     {

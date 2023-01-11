@@ -1,27 +1,27 @@
 using System;
-using {{using}}.Api.Mappers;
-using {{using}}.Api.Presenters.{{entity.pluralized_name}};
-using {{using}}.Client.ViewModels;
-using {{using}}.Application.Boundaries;
-using {{using}}.Application.Mappers;
-using {{using}}.Client.RequestModels.{{entity.pluralized_name}};
-using {{using}}.Domain.Entities;
+using {{component_fullname component 'Mappers'}};
+using {{component_fullname component 'Presenters' entity.name | pluralize}};
+using {{component_fullname client_component 'ViewModels'}};
+using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname application_component 'Boundaries'}};
+using {{component_fullname application_component 'Mappers'}};
+using {{entity.callsite}};
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace {{using}}.Api.Endpoints
+namespace {{component_fullname component 'Endpoints'}}
 {
     public static class {{entity.name}}Endpoints
     {
-        private static readonly string endpointTemplate = "/{{entity.pluralized_name | string.downcase}}";
+        private static readonly string endpointTemplate = "/{{entity.name | pluralize | string.downcase}}";
 
         public static IServiceCollection Add{{entity.name}}Elements(this IServiceCollection services)
         {
             services.AddTransient<IMapper<{{entity.name}}, {{entity.name}}ViewModel>, {{entity.name}}ModelMapper>();
             services.AddTransient<ICreate{{entity.name}}Presenter, Create{{entity.name}}Presenter>();
             services.AddTransient<IGetById{{entity.name}}Presenter, GetById{{entity.name}}Presenter>();
-            services.AddTransient<IGet{{entity.pluralized_name}}Presenter, Get{{entity.pluralized_name}}Presenter>();
+            services.AddTransient<IGet{{entity.name | pluralize}}Presenter, Get{{entity.name | pluralize}}Presenter>();
             services.AddTransient<IUpdate{{entity.name}}Presenter, Update{{entity.name}}Presenter>();
             services.AddTransient<IDelete{{entity.name}}Presenter, Delete{{entity.name}}Presenter>();
 
@@ -32,7 +32,7 @@ namespace {{using}}.Api.Endpoints
         {
             app.MapCreate{{entity.name}}()
                 .MapGet{{entity.name}}()
-                .MapGet{{entity.pluralized_name}}()
+                .MapGet{{entity.name | pluralize}}()
                 .MapUpdate{{entity.name}}()
                 .MapDelete{{entity.name}}();
         }
@@ -48,7 +48,7 @@ namespace {{using}}.Api.Endpoints
             builder.Produces(StatusCodes.Status201Created, typeof({{entity.name}}ViewModel));
             builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
             builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
-            builder.WithTags("{{entity.pluralized_name}}");
+            builder.WithTags("{{entity.name | pluralize}}");
 
             return app;
         }
@@ -64,23 +64,23 @@ namespace {{using}}.Api.Endpoints
             builder.Produces(StatusCodes.Status200OK, typeof({{entity.name}}ViewModel));
             builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
             builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
-            builder.WithTags("{{entity.pluralized_name}}");
+            builder.WithTags("{{entity.name | pluralize}}");
 
             return app;
         }
 
-        private static WebApplication MapGet{{entity.pluralized_name}}(this WebApplication app)
+        private static WebApplication MapGet{{entity.name | pluralize}}(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<Get{{entity.pluralized_name}}Query> boudary, IGet{{entity.pluralized_name}}Presenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<Get{{entity.name | pluralize}}Query> boudary, IGet{{entity.name | pluralize}}Presenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new Get{{entity.pluralized_name}}Query(), presenter);
+                await boudary.Execute(new Get{{entity.name | pluralize}}Query(), presenter);
                 return presenter.GetResult(request);
             });
 
             builder.Produces(StatusCodes.Status200OK, typeof({{entity.name}}ViewModel[]));
             builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
             builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
-            builder.WithTags("{{entity.pluralized_name}}");
+            builder.WithTags("{{entity.name | pluralize}}");
 
             return app;
         }
@@ -96,7 +96,7 @@ namespace {{using}}.Api.Endpoints
             builder.Produces(StatusCodes.Status200OK, typeof({{entity.name}}ViewModel));
             builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
             builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
-            builder.WithTags("{{entity.pluralized_name}}");
+            builder.WithTags("{{entity.name | pluralize}}");
 
             return app;
         }
@@ -113,7 +113,7 @@ namespace {{using}}.Api.Endpoints
             builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
             builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
             builder.Produces(StatusCodes.Status404NotFound, typeof(ErrorViewModel));
-            builder.WithTags("{{entity.pluralized_name}}");
+            builder.WithTags("{{entity.name | pluralize}}");
 
             return app;
         }

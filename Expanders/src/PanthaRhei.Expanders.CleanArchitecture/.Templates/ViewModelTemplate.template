@@ -1,13 +1,41 @@
+{{-
+func ToReturnType
+begin
+    result = '';
+    if($0.reference != null)
+    begin
+        if($0.is_collection)
+        begin
+            result += 'List<'
+        end
+
+        result += $0.return_type + 'ViewModel';
+        
+        if($0.is_collection)
+        begin
+            result += '>'
+        end
+
+        ret result;
+    end
+    result = $0.return_type;
+    if(!$0.required && $0.return_type != 'string' && (!$0.required && $0.reference_id != null))
+    begin
+        result += '?'
+    end
+
+    ret result;
+end
+-}}
 using System;
 using System.Collections.Generic;
-using {{entity.callsite}};
 
 namespace {{component_fullname component 'ViewModels'}}
 {
     public class {{entity.name}}ViewModel : ViewModel
     {
         {{~for field in entity.fields | array.sort 'order'~}}
-        public {{field.return_type}} {{-if !field.required && field.return_type != 'string' && (!field.required && field.reference_id != null)}}?{{end}} {{field.name}} { get; set; }
+        public {{ToReturnType field}} {{field.name}} { get; set; }
         {{~end~}}
 
         #region ns-custom-properties

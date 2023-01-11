@@ -30,8 +30,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         /// <inheritdoc/>
         public override void Execute()
         {
-            Component infrastructureComponent = Expander.Model.GetComponentByName(Resources.EntityFramework);
-            string path = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(infrastructureComponent), Resources.RepositoryFolder);
+            Component component = Expander.Model.GetComponentByName(Resources.EntityFramework);
+            Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application); 
+            string path = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.RepositoryFolder);
             Directory.Create(path);
 
             foreach (Entity entity in App.Entities)
@@ -39,13 +40,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
                 var parameters = new
                 {
                     entity,
-                    Usings = Expander.Model.Name,
+                    component,
+                    applicationComponent,
                 };
 
                 string fullPathToTemplate = Expander.Model.GetTemplateFolder(Parameters, Resources.RepositoryTemplate);
                 string result = templateService.Render(fullPathToTemplate, parameters);
 
-                string filePath = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(infrastructureComponent), $"{entity.Name}Repository.cs");
+                string filePath = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), $"{entity.Name}Repository.cs");
                 File.WriteAllText(filePath, result);
             }
         }

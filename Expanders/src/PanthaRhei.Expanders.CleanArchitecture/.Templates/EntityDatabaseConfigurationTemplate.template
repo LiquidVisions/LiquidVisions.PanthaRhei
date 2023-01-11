@@ -43,7 +43,7 @@ namespace {{name_space}}.Configuration
             {{~end~}}
                 .OnDelete(DeleteBehavior.Cascade);
                 {{~else~}}
-                .WithMany(x => x.{{r.key.name}});
+                .WithMany(x => x.{{r.entity.name | pluralize}});
                 {{~end~}}
 
             {{~end~}}

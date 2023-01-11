@@ -35,9 +35,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <inheritdoc/>
         public override void Execute()
         {
-            Component apiComponent = Expander.Model.GetComponentByName(Resources.Api);
+            Component component = Expander.Model.GetComponentByName(Resources.Api);
+            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
+            Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
 
-            string path = projectAgent.GetComponentOutputFolder(apiComponent);
+            string path = projectAgent.GetComponentOutputFolder(component);
             string viewModelsFolder = System.IO.Path.Combine(path, Resources.ViewModelMapperFolder);
             Directory.Create(viewModelsFolder);
 
@@ -47,9 +49,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             {
                 object parameters = new
                 {
-                    NameSpace = apiComponent.GetComponentNamespace(App, Resources.ViewModelMapperFolder),
                     Entity = entity,
-                    Using = Expander.Model.Name,
+                    component,
+                    clientComponent,
+                    applicationComponent,
                 };
 
                 string result = templateService.Render(fullPathToTemplate, parameters);

@@ -1,23 +1,24 @@
 {{-
 name = entity.name;
 if(action == "Get")
-    name = entity.pluralized_name;
+    name = entity.name | pluralize;
 end
 -}}
 {{-if action == "Delete"-}}
-using {{using}}.Application;
+using {{component_fullname application_component}};
 {{~else~}}
-using {{using}}.Client.ViewModels;
-using {{using}}.Application;
-using {{using}}.Application.Mappers;
-using {{using}}.Domain.Entities;
+using {{component_fullname client_component 'ViewModels'}};
+using {{component_fullname application_component}};
+using {{component_fullname application_component 'Mappers'}};
+using {{component_fullname component 'Presenters'}};
+using {{entity.callsite}};
 {{end~}}
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 
-namespace {{name_space}}.{{entity.pluralized_name}}
+namespace {{component_fullname component 'Presenters' entity.name | pluralize}}
 {
     public interface I{{action}}{{name}}Presenter : IIResultPresenter {}
 

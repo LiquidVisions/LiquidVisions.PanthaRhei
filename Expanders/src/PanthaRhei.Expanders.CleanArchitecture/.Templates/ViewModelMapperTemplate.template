@@ -1,15 +1,34 @@
-using {{using}}.Client.ViewModels;
-using {{using}}.Application.Mappers;
-using {{using}}.Domain.Entities;
+{{-
+func ToTarget
+begin
+    result = '';
+    if($0.reference != null)
+    begin
+        if($0.is_collection)
+        begin
+            result = 'source.' + $0.name + '.Select(x => new ' + $0.return_type + 'ModelMapper().Map(x)).ToList()'
+            ret result;
 
-namespace {{name_space}}.Mappers
+        end
+
+        ret 'new ' + $0.return_type + 'ModelMapper().Map(source.' + $0.name + ')'
+    end
+    ret 'source.' + $0.name;
+end
+-}}
+using {{component_fullname client_component 'ViewModels'}};
+using {{component_fullname application_component 'Mappers'}};
+using {{entity.callsite}};
+using System.Linq;
+
+namespace {{component_fullname component 'Mappers'}}
 {
     public class {{entity.name}}ModelMapper : IMapper<{{entity.name}}, {{entity.name}}ViewModel>
     {
         public void Map({{entity.name}} source, {{entity.name}}ViewModel target)
         {
             {{~for field in entity.fields | array.sort 'order'~}}
-            target.{{field.name}} = source.{{field.name}};
+            target.{{field.name}} = {{ToTarget field}};
             {{~end~}}
         }
 
