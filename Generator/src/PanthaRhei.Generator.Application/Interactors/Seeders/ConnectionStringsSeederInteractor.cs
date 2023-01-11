@@ -24,8 +24,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
             ConnectionString connectionString = new()
             {
                 Id = Guid.NewGuid(),
-                Name = "DefaultConnectionString",
-                Definition = "Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Prod;Persist Security Info=False;User ID=gerco.koks;Password=4cZ#Lsojpc75;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+                Name = Resources.ConnectionStringName,
+                Definition = Resources.ConnectionStringDefintion,
             };
 
             app.ConnectionStrings.Add(connectionString);

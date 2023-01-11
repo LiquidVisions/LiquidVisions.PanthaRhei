@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConnectionStringDefintion" xml:space="preserve">
+    <value>Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Prod;Persist Security Info=False;User ID=gerco.koks;Password=4cZ#Lsojpc75;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;</value>
+  </data>
+  <data name="ConnectionStringName" xml:space="preserve">
+    <value>DefaultConnectionString</value>
+  </data>
   <data name="MigrationsFolder" xml:space="preserve">
     <value>Migrations</value>
   </data>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
@@ -81,6 +83,38 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Initializers
             // assert
             fakes.IObjectActivatorInteractor.Verify(x => x.CreateInstance(fakes.IExpanderDependencyManagerInteractor.Object.GetType(), app.Expanders.First(), fakes.IDependencyManagerInteractor.Object), Times.Once);
             fakes.IExpanderDependencyManagerInteractor.Verify(x => x.Register(), Times.Once);
+        }
+
+        [Fact]
+        public void ShallowLoad_ShouldVerify()
+        {
+            // arrange
+            string path = "C:\\Some\\Fake\\";
+
+            Mock<IExpanderInteractor> mockedIExpanderInteractor = new();
+
+            mockedAssembly
+                .Setup(x => x.GetExportedTypes())
+                .Returns(new[] { mockedIExpanderInteractor.Object.GetType() });
+
+            fakes.IDirectory
+                .Setup(x => x.GetFiles(path, searchPattern, SearchOption.AllDirectories))
+                .Returns(new string[] { pluginAssembly });
+
+            fakes.IAssemblyContextInteractor
+                .Setup(x => x.Load(pluginAssembly))
+                .Returns(mockedAssembly.Object);
+
+            fakes.IObjectActivatorInteractor.Setup(x => x.CreateInstance(
+                fakes.IExpanderDependencyManagerInteractor.Object.GetType()))
+                .Returns(fakes.IExpanderDependencyManagerInteractor.Object);
+
+            // act
+            List<IExpanderInteractor> result = interactor.ShallowLoadAllExpanders(path);
+
+            // assert
+            fakes.IObjectActivatorInteractor.Verify(x => x.CreateInstance(It.IsAny<Type>()), Times.Once);
+            Assert.Single(result);
         }
     }
 }

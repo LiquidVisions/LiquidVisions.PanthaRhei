@@ -61,6 +61,24 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Prod;Persist Security Info=False;User ID=gerco.koks;Password=4cZ#Lsojpc75;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;.
+        /// </summary>
+        public static string ConnectionStringDefintion {
+            get {
+                return ResourceManager.GetString("ConnectionStringDefintion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DefaultConnectionString.
+        /// </summary>
+        public static string ConnectionStringName {
+            get {
+                return ResourceManager.GetString("ConnectionStringName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Migrations.
         /// </summary>
         public static string MigrationsFolder {

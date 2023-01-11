@@ -98,8 +98,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
         public void Execute_HappyFlow_ShouldVerify()
         {
             // arrange
-            Expander expander1 = new Expander { Name = "Expander1", TemplateFolder = ".Templates" };
-            Expander expander2 = new Expander { Name = "Expander2", TemplateFolder = ".Templates" };
+            Expander expander1 = new() { Name = "Expander1", TemplateFolder = ".Templates" };
+            Expander expander2 = new() { Name = "Expander2", TemplateFolder = ".Templates" };
             App app = new()
             {
                 Expanders = new List<Expander> { expander1, expander2, },

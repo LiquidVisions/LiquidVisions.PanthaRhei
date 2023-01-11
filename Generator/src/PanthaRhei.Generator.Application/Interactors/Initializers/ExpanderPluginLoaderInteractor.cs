@@ -70,9 +70,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializer
             foreach (string assemblyPath in assemblyPaths)
             {
                 Assembly assembly = LoadPlugin(assemblyPath);
+
                 Type expanderType = assembly.GetExportedTypes()
                     .Where(x => x.IsClass && !x.IsAbstract)
-                    .Single(x => x.GetInterfaces().Contains(typeof(IExpanderInteractor)));
+                    .Single(x => x.GetInterfaces()
+                    .Contains(typeof(IExpanderInteractor)));
 
                 IExpanderInteractor expander = (IExpanderInteractor)activator.CreateInstance(expanderType);
                 result.Add(expander);
@@ -112,7 +114,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializer
         {
             Type bootstrapperType = assembly.GetExportedTypes()
                 .Where(x => x.IsClass && !x.IsAbstract)
-                .Single(x => x.GetInterfaces().Contains(typeof(IExpanderDependencyManagerInteractor)));
+                .Single(x => x.GetInterfaces()
+                .Contains(typeof(IExpanderDependencyManagerInteractor)));
 
             IExpanderDependencyManagerInteractor expanderDependencyManager = (IExpanderDependencyManagerInteractor)activator
                 .CreateInstance(bootstrapperType, expander, dependencyManager);
