@@ -13,13 +13,17 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
     public class ConnectionStringSeederInteractorTests : AbstractTests
     {
         private readonly ConnectionStringsSeederInteractor interactor;
-        private readonly Mock<IGenericGateway<ConnectionString>> mockedIGenericGatewayForConnectionString = new Mock<IGenericGateway<ConnectionString>>();
+        private readonly Mock<ICreateGateway<ConnectionString>> mockedCreateGateway = new();
+        private readonly Mock<IDeleteGateway<ConnectionString>> mockedDeleteGateway = new();
 
         public ConnectionStringSeederInteractorTests()
         {
             Fakes.IDependencyFactoryInteractor
-                .Setup(x => x.Get<IGenericGateway<ConnectionString>>())
-                .Returns(mockedIGenericGatewayForConnectionString.Object);
+                .Setup(x => x.Get<ICreateGateway<ConnectionString>>())
+                .Returns(mockedCreateGateway.Object);
+            Fakes.IDependencyFactoryInteractor
+                .Setup(x => x.Get<IDeleteGateway<ConnectionString>>())
+                .Returns(mockedDeleteGateway.Object);
 
             interactor = new ConnectionStringsSeederInteractor(Fakes.IDependencyFactoryInteractor.Object);
         }
@@ -30,8 +34,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // arrange
             // act
             // assert
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IGenericGateway<ConnectionString>>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(1));
+            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<ConnectionString>>(), Times.Once);
+            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<ConnectionString>>(), Times.Once);
+            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
             Fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
@@ -61,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             interactor.Reset();
 
             // assert
-            mockedIGenericGatewayForConnectionString.Verify(x => x.DeleteAll(), Times.Once);
+            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
         [Fact]
@@ -75,7 +80,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             ConnectionString connectionString = app.ConnectionStrings.Single();
 
             // assert
-            mockedIGenericGatewayForConnectionString.Verify(x => x.Create(connectionString), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(connectionString), Times.Once);
             Assert.Equal(Resources.ConnectionStringName, connectionString.Name);
             Assert.Equal(Resources.ConnectionStringDefintion, connectionString.Definition);
             Assert.Equal(connectionString.App, app);

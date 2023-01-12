@@ -9,6 +9,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace LiquidVisions.PanthaRhei.Generator.Tests
@@ -88,11 +89,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
             .Setup(x => x.Get<IAssemblyManagerInteractor>())
             .Returns(IAssemblyManagerInteractor.Object);
 
-            IAppGateway = new();
-            IDependencyFactoryInteractor
-            .Setup(x => x.Get<IGenericGateway<App>>())
-            .Returns(IAppGateway.Object);
-
             IExpanderPluginLoaderInteractor = new();
             IDependencyFactoryInteractor
             .Setup(x => x.Get<IExpanderPluginLoaderInteractor>())
@@ -125,13 +121,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         internal Mock<IAssemblyManagerInteractor> IAssemblyManagerInteractor { get; }
 
-        internal Mock<IGenericGateway<App>> IAppGateway { get; }
-
         internal Mock<IExpanderPluginLoaderInteractor> IExpanderPluginLoaderInteractor { get; }
-
-        private App GetModel()
-        {
-            return new App();
-        }
     }
 }

@@ -11,12 +11,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
     internal class FieldSeederInteractor : ISeederInteractor<App>
     {
-        private readonly IGenericGateway<Field> gateway;
+        private readonly ICreateGateway<Field> createGateway;
+        private readonly IDeleteGateway<Field> deleteGateway;
+        private readonly IEntitiesToSeedGateway entitySeedGateway;
         private readonly IModelConfiguration modelConfiguration;
 
         public FieldSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            this.gateway = dependencyFactory.Get<IGenericGateway<Field>>();
+            createGateway = dependencyFactory.Get<ICreateGateway<Field>>();
+            deleteGateway = dependencyFactory.Get<IDeleteGateway<Field>>();
+            entitySeedGateway = dependencyFactory.Get<IEntitiesToSeedGateway>();
             modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
         }
 
@@ -24,14 +28,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         public int ResetOrder => 6;
 
-        public void Reset() => gateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
 
         public void Seed(App app)
         {
-            IEnumerable<Type> allEntities = gateway.ContextType.GetProperties()
-                .Where(x => x.PropertyType.Name == "DbSet`1")
-                .Select(x => x.PropertyType.GetGenericArguments().First());
-
+            IEnumerable<Type> allEntities = entitySeedGateway.GetAll();
             foreach (Type entityType in allEntities)
             {
                 string[] keys = modelConfiguration.GetKeys(entityType);
@@ -65,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                     Entity entity = app.Entities.Single(x => x.Name == entityType.Name);
                     entity.Fields.Add(field);
 
-                    gateway.Create(field);
+                    createGateway.Create(field);
                 }
             }
         }

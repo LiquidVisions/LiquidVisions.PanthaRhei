@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
     /// </summary>
     internal class CodeGeneratorBuilderInteractor : ICodeGeneratorBuilderInteractor
     {
-        private readonly IGenericGateway<App> gateway;
+        private readonly IGetGateway<App> gateway;
         private readonly Parameters parameters;
         private readonly IExpanderPluginLoaderInteractor pluginLoader;
         private readonly IDependencyManagerInteractor dependencyManager;
@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public CodeGeneratorBuilderInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            gateway = dependencyFactory.Get<IGenericGateway<App>>();
+            gateway = dependencyFactory.Get<IGetGateway<App>>();
             parameters = dependencyFactory.Get<Parameters>();
             pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
             dependencyManager = dependencyFactory.Get<IDependencyManagerInteractor>();

@@ -8,11 +8,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
     internal class ConnectionStringsSeederInteractor : ISeederInteractor<App>
     {
-        private readonly IGenericGateway<ConnectionString> gateway;
+        private readonly ICreateGateway<ConnectionString> createGateway;
+        private readonly IDeleteGateway<ConnectionString> deleteGateway;
 
         public ConnectionStringsSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            gateway = dependencyFactory.Get<IGenericGateway<ConnectionString>>();
+            createGateway = dependencyFactory.Get<ICreateGateway<ConnectionString>>();
+            deleteGateway = dependencyFactory.Get<IDeleteGateway<ConnectionString>>();
         }
 
         public int SeedOrder => 1;
@@ -31,9 +33,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
             app.ConnectionStrings.Add(connectionString);
             connectionString.App = app;
 
-            gateway.Create(connectionString);
+            createGateway.Create(connectionString);
         }
 
-        public void Reset() => gateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
     }
 }

@@ -15,11 +15,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
     public class ComponentSeederInteractorTests : AbstractTests
     {
         private readonly ComponentSeederInteractor interactor;
-        private readonly Mock<IGenericGateway<Component>> mockedIGenericGatewayForComponent = new Mock<IGenericGateway<Component>>();
+        private readonly Mock<ICreateGateway<Component>> mockedCreateGateway = new();
+        private readonly Mock<IDeleteGateway<Component>> mockedDeleteGateway = new();
 
         public ComponentSeederInteractorTests()
         {
-            Fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IGenericGateway<Component>>()).Returns(mockedIGenericGatewayForComponent.Object);
+            Fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<Component>>()).Returns(mockedCreateGateway.Object);
+            Fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteGateway<Component>>()).Returns(mockedDeleteGateway.Object);
 
             interactor = new ComponentSeederInteractor(Fakes.IDependencyFactoryInteractor.Object);
         }
@@ -30,11 +32,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // arrange
             // act
             // assert
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IGenericGateway<Component>>(), Times.Once);
+            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Component>>(), Times.Once);
+            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<Component>>(), Times.Once);
             Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
             Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
             Fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
@@ -64,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             interactor.Reset();
 
             // assert
-            mockedIGenericGatewayForComponent.Verify(x => x.DeleteAll(), Times.Once);
+            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
         [Fact]
@@ -91,7 +94,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             Fakes.IDirectory.Verify(x => x.Exists(actualTemplatePathExpander1), Times.Once);
             Fakes.IDirectory.Verify(x => x.Exists(actualTemplatePathExpander2), Times.Once);
             Fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>()), Times.Never);
-            mockedIGenericGatewayForComponent.Verify(x => x.Create(It.IsAny<Component>()), Times.Never);
+            mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Never);
         }
 
         [Fact]
@@ -123,7 +126,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // assert
             Fakes.IDirectory.Verify(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories), Times.Once);
             Fakes.IDirectory.Verify(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories), Times.Once);
-            mockedIGenericGatewayForComponent.Verify(x => x.Create(It.IsAny<Component>()), Times.Exactly(2));
+            mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Exactly(2));
         }
     }
 }

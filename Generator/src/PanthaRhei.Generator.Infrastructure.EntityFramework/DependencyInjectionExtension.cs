@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Generator.Domain;
+using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
@@ -37,14 +37,31 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
             });
 
             services.AddTransient<IModelConfiguration, ModelConfiguration>()
-                .AddTransient<IGenericGateway<App>, GenericRepository<App>>()
-                .AddTransient<IGenericGateway<Expander>, GenericRepository<Expander>>()
-                .AddTransient<IGenericGateway<Component>, GenericRepository<Component>>()
-                .AddTransient<IGenericGateway<Package>, GenericRepository<Package>>()
-                .AddTransient<IGenericGateway<Field>, GenericRepository<Field>>()
-                .AddTransient<IGenericGateway<Entity>, GenericRepository<Entity>>()
-                .AddTransient<IGenericGateway<ConnectionString>, GenericRepository<ConnectionString>>()
-                .AddTransient<IGenericGateway<Relationship>, GenericRepository<Relationship>>();
+                .AddRepositories();
+
+            return services;
+        }
+
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            string ns = typeof(Entity).Namespace;
+
+            var repositoryType = typeof(GenericRepository<>);
+            var getGatewayType = typeof(IGetGateway<>);
+            var deleteGatewayType = typeof(IDeleteGateway<>);
+            var updateGatewayType = typeof(IUpdateGateway<>);
+            var createGatewayType = typeof(ICreateGateway<>);
+
+            var entityTypes = typeof(Entity).Assembly.GetTypes()
+                .Where(x => x.IsClass && x.Namespace == ns);
+
+            foreach (var entityType in entityTypes)
+            {
+                services.AddTransient(repositoryType.MakeGenericType(entityType), getGatewayType.MakeGenericType(entityType));
+                services.AddTransient(repositoryType.MakeGenericType(entityType), deleteGatewayType.MakeGenericType(entityType));
+                services.AddTransient(repositoryType.MakeGenericType(entityType), updateGatewayType.MakeGenericType(entityType));
+                services.AddTransient(repositoryType.MakeGenericType(entityType), createGatewayType.MakeGenericType(entityType));
+            }
 
             return services;
         }

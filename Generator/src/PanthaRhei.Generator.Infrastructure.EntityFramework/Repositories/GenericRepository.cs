@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Repositories
 {
-    internal class GenericRepository<TEntity> : IGenericGateway<TEntity>
+    internal class GenericRepository<TEntity> : ICreateGateway<TEntity>, IGetGateway<TEntity>, IUpdateGateway<TEntity>, IDeleteGateway<TEntity>
         where TEntity : class
     {
         private readonly Context context;

@@ -1,6 +1,7 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
@@ -10,10 +11,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
     public class CodeGeneratorBuilderTests
     {
         private readonly CodeGeneratorBuilderInteractor interactor;
+        private readonly Mock<IGetGateway<App>> mockedGetGateway = new();
         private readonly Fakes fakes = new();
 
         public CodeGeneratorBuilderTests()
         {
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IGetGateway<App>>()).Returns(mockedGetGateway.Object);
+
             interactor = new CodeGeneratorBuilderInteractor(fakes.IDependencyFactoryInteractor.Object);
         }
 
@@ -23,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
             // arrange
             Guid id = Guid.NewGuid();
             fakes.Parameters.Setup(x => x.AppId).Returns(id);
-            fakes.IAppGateway.Setup(x => x.GetById(id)).Returns((App)null);
+            mockedGetGateway.Setup(x => x.GetById(id)).Returns((App)null);
 
             // act
             void Action() => interactor.Build();
@@ -40,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
             Guid id = Guid.NewGuid();
             fakes.Parameters.Setup(x => x.AppId).Returns(id);
             App app = new();
-            fakes.IAppGateway.Setup(x => x.GetById(id)).Returns(app);
+            mockedGetGateway.Setup(x => x.GetById(id)).Returns(app);
             fakes.IDependencyManagerInteractor.Setup(x => x.Build()).Returns(fakes.IDependencyFactoryInteractor.Object);
 
             // act

@@ -5,6 +5,7 @@ using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +25,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
             return services.AddTransient<ICodeGeneratorBuilderInteractor, CodeGeneratorBuilderInteractor>()
+                .AddTransient<IEntitiesToSeedGateway, EntitiesToSeedGateway>()
                 .AddTransient<ICodeGeneratorInteractor, CodeGeneratorInteractor>()
                 .AddInitializers()
                 .AddSeedersInteractors()

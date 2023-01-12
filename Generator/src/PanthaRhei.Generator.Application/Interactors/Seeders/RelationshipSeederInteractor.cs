@@ -10,12 +10,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
     internal class RelationshipSeederInteractor : ISeederInteractor<App>
     {
-        private readonly IGenericGateway<Relationship> gateway;
+        private readonly ICreateGateway<Relationship> createGateway;
+        private readonly IDeleteGateway<Relationship> deleteGateway;
         private readonly IModelConfiguration modelConfiguration;
 
         public RelationshipSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            gateway = dependencyFactory.Get<IGenericGateway<Relationship>>();
+            createGateway = dependencyFactory.Get<ICreateGateway<Relationship>>();
+            deleteGateway = dependencyFactory.Get<IDeleteGateway<Relationship>>();
             modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
         }
 
@@ -59,11 +61,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
                     relationship.Required = info.Required;
 
-                    gateway.Create(relationship);
+                    createGateway.Create(relationship);
                 }
             }
         }
 
-        public void Reset() => gateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
     }
 }

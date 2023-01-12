@@ -13,13 +13,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
     {
         private readonly IExpanderPluginLoaderInteractor pluginLoader;
         private readonly Parameters parameters;
-        private readonly IGenericGateway<Expander> expanderRepository;
+        private readonly ICreateGateway<Expander> createGateway;
+        private readonly IDeleteGateway<Expander> deleteGateway;
 
         public ExpanderSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
             parameters = dependencyFactory.Get<Parameters>();
-            expanderRepository = dependencyFactory.Get<IGenericGateway<Expander>>();
+            createGateway = dependencyFactory.Get<ICreateGateway<Expander>>();
+            deleteGateway = dependencyFactory.Get<IDeleteGateway<Expander>>();
         }
 
         public int SeedOrder => 2;
@@ -42,10 +44,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                 expander.Apps.Add(app);
                 app.Expanders.Add(expander);
 
-                expanderRepository.Create(expander);
+                createGateway.Create(expander);
             }
         }
 
-        public void Reset() => expanderRepository.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
     }
 }
