@@ -33,4 +33,9 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Generator\tests\PanthaRhei.Generator.Tests\PanthaRhei.Generator.Tests.csproj" />
+	  <ProjectReference Include="..\..\src\PanthaRhei.Expanders.CleanArchitecture\PanthaRhei.Expanders.CleanArchitecture.csproj" />
+	</ItemGroup>
+
 </Project>

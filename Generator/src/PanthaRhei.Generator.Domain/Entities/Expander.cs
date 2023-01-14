@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
         /// <summary>
         /// Gets or sets the name of the <seealso cref="Expander"/>.
         /// </summary>
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the template folder of the <seealso cref="Expander"/>.

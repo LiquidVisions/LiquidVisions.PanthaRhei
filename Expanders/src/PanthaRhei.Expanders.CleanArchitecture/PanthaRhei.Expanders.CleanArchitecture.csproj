@@ -52,4 +52,9 @@
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Tests" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+	</ItemGroup>
 </Project>

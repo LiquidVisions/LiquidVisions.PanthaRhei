@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
             string folder = projectAgent.GetComponentOutputFolder(component);
 
-            string path = System.IO.Path.Combine(folder, "appsettings.json");
+            string path = System.IO.Path.Combine(folder, Resources.AppSettingsJson);
             string json = File.ReadAllText(path);
             JObject jsonObject = JsonConvert.DeserializeObject<JObject>(json);
             if (!jsonObject.ContainsKey("ConnectionStrings"))

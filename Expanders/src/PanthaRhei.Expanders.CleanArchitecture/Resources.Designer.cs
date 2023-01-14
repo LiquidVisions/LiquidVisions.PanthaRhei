@@ -115,6 +115,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to appsettings.json.
+        /// </summary>
+        public static string AppSettingsJson {
+            get {
+                return ResourceManager.GetString("AppSettingsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BoundaryTemplate.
         /// </summary>
         public static string BoundaryTemplate {

@@ -135,6 +135,9 @@
   <data name="ApplicationMapperTemplate" xml:space="preserve">
     <value>ApplicationMapperTemplate</value>
   </data>
+  <data name="AppSettingsJson" xml:space="preserve">
+    <value>appsettings.json</value>
+  </data>
   <data name="BoundaryTemplate" xml:space="preserve">
     <value>BoundaryTemplate</value>
   </data>
