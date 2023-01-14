@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Tests;
@@ -33,12 +34,13 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
         public Mock<IProjectAgentInteractor> IProjectAgentInteractor { get; } = new();
 
-        internal App MockAppWithMockedExpanders()
+        internal void MockCleanArchitectureExpander(List<Entity> entities = null)
         {
+            App app = SetupApp(entities, new List<Expander> { CleanArchitectureExpanderModel.Object });
+
             CleanArchitectureExpanderInteractor.Setup(x => x.Name).Returns(nameof(CleanArchitectureExpanderInteractor));
             CleanArchitectureExpanderInteractor.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
 
-            App app = GetDefaultApplication(new List<Expander> { CleanArchitectureExpanderModel.Object });
             CleanArchitectureExpanderModel.Setup(x => x.TemplateFolder).Returns(".Templates");
             CleanArchitectureExpanderModel.Setup(x => x.Name).Returns("CleanArchitectgure");
 
@@ -59,39 +61,25 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
                     ClientComponent.Object,
                 });
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<App>()).Returns(app);
             CleanArchitectureExpander.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<CleanArchitectureExpander>()).Returns(CleanArchitectureExpander.Object);
+        }
+
+        internal App SetupApp(List<Expander> expanders = null)
+        {
+            return SetupApp(GetValidEntities(), expanders);
+        }
+
+        internal App SetupApp(List<Entity> entities, List<Expander> expanders = null)
+        {
+            App app = GetDefaultApp(entities, expanders);
+
+            IDependencyFactoryInteractor.Setup(x => x.Get<App>()).Returns(app);
 
             return app;
-
         }
 
-        public App GetDefaultApplication(List<Expander> expanders = null)
-        {
-            return GetApplication(GetValidEntities(), expanders);
-        }
-
-        private App GetApplication(List<Entity> entities, List<Expander> expanders = null)
-        {
-            return new App
-            {
-                FullName = "LiquidVisions.Tests",
-                Name = "Project",
-                Expanders = expanders ?? new List<Expander>(),
-                ConnectionStrings = new List<ConnectionString>
-                {
-                    new ConnectionString
-                    {
-                        Name = "DefaultConnectionString",
-                        Definition = "SomeConnectionStringDefinition",
-                    },
-                },
-                Entities = entities,
-            };
-        }
-
-        private App GetDefaultApplication(List<Entity> entities, List<Expander> expanders = null)
+        private App GetDefaultApp(List<Entity> entities, List<Expander> expanders = null)
         {
             return new App
             {

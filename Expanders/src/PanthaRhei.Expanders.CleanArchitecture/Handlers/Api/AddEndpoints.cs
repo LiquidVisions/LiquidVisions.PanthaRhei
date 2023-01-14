@@ -39,9 +39,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             string folder = IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.EndpointFolder);
             Directory.Create(folder);
 
+            string fullPathToTemplate = Expander.Model.GetTemplateFolder(Parameters, Resources.EndpointTemplate);
+
             foreach (Entity endpoint in App.Entities)
             {
-                GenerateAndSaveOutput(component, folder, endpoint);
+                GenerateAndSaveOutput(component, folder, endpoint, fullPathToTemplate);
 
                 ModifyBootstrapperFile(component, endpoint);
             }
@@ -64,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             writer.Save(bootstrapperFile);
         }
 
-        private void GenerateAndSaveOutput(Component component, string destinationFolder, Entity endpoint)
+        private void GenerateAndSaveOutput(Component component, string destinationFolder, Entity endpoint, string fullPathToTemplate)
         {
             Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
             Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
@@ -77,7 +79,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
                 Entity = endpoint,
             };
 
-            string fullPathToTemplate = Expander.Model.GetTemplateFolder(Parameters, Resources.EndpointTemplate);
             string result = templateService.Render(fullPathToTemplate, parameters);
 
             string path = IO.Path.Combine(destinationFolder, $"{endpoint.Name}{Resources.EndpointFolder}.cs");

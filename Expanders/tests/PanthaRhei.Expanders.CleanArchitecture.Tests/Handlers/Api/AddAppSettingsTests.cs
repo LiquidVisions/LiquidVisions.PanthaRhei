@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
 
         public AddAppSettingsTests()
         {
-            Fakes.MockAppWithMockedExpanders();
+            Fakes.MockCleanArchitectureExpander();
             handler = new AddAppSettings(Fakes.CleanArchitectureExpanderInteractor.Object, Fakes.IDependencyFactoryInteractor.Object);
         }
 
