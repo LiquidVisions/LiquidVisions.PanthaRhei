@@ -1,6 +1,6 @@
 ﻿using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers
+namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
 {
     /// <summary>
     /// Specifies the interface of an expander handler.

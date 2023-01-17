@@ -32,6 +32,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
         public Mock<CleanArchitectureExpander> CleanArchitectureExpander { get; } = new();
 
+        internal Mock<IProjectTemplateInteractor> IProjectTemplateInteractor { get; } = new();
+
         public Mock<IProjectAgentInteractor> IProjectAgentInteractor { get; } = new();
 
         internal void MockCleanArchitectureExpander(List<Entity> entities = null)
@@ -65,6 +67,14 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             IDependencyFactoryInteractor.Setup(x => x.Get<CleanArchitectureExpander>()).Returns(CleanArchitectureExpander.Object);
         }
 
+        public override void ConfigureIDependencyFactoryInteractor()
+        {
+            base.ConfigureIDependencyFactoryInteractor();
+
+            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectTemplateInteractor>())
+                .Returns(IProjectTemplateInteractor.Object);
+        }
+
         internal App SetupApp(List<Expander> expanders = null)
         {
             return SetupApp(GetValidEntities(), expanders);
@@ -79,12 +89,16 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             return app;
         }
 
+        internal static string DefaultAppName => "Project";
+        
+        internal static string DefaultAppFullName => "LiquidVisions.Tests";
+
         private App GetDefaultApp(List<Entity> entities, List<Expander> expanders = null)
         {
             return new App
             {
-                FullName = "LiquidVisions.Tests",
-                Name = "Project",
+                FullName = DefaultAppFullName,
+                Name = DefaultAppName,
                 Expanders = expanders ?? new List<Expander>(),
                 ConnectionStrings = new List<ConnectionString>
                 {

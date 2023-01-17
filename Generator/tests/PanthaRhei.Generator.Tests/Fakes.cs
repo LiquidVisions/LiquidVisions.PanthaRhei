@@ -52,6 +52,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         internal Mock<IAssemblyManagerInteractor> IAssemblyManagerInteractor { get; } = new();
 
+        public Mock<ICommandLineInteractor> ICommandLineInteractor { get; } = new();
+
         public void Configure()
         {
             ILogManager.Setup(x => x.GetExceptionLogger()).Returns(ILogger.Object);
@@ -61,7 +63,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
             Parameters.Setup(x => x.ExpandersFolder).Returns(@"C:\\Some\\Root\\Expanders\");
         }
 
-        public void ConfigureIDependencyFactoryInteractor()
+        public virtual void ConfigureIDependencyFactoryInteractor()
         {
             IDependencyFactoryInteractor.Setup(x => x.Get<ILogger>()).Returns(ILogger.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<ILogManager>()).Returns(ILogManager.Object);
@@ -78,6 +80,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
             IDependencyFactoryInteractor.Setup(x => x.Get<IExpanderPluginLoaderInteractor>()).Returns(IExpanderPluginLoaderInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IWriterInteractor>()).Returns(IWriterInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<ITemplateInteractor>()).Returns(ITemplateInteractor.Object);
+            IDependencyFactoryInteractor.Setup(x => x.Get<ICommandLineInteractor>()).Returns(ICommandLineInteractor.Object);
         }
     }
 }
