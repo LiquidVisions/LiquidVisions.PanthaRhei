@@ -43,6 +43,31 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         }
 
         [Fact]
+        public void Name_ShouldBeEqual()
+        {
+            // arrange
+            // act
+            // assert
+            Assert.Equal(nameof(AddAppSettings), handler.Name);
+        }
+
+        [Theory]
+        [InlineData(GenerationModes.Default, true)]
+        [InlineData(GenerationModes.Migrate, false)]
+        [InlineData(GenerationModes.Extend, true)]
+        [InlineData(GenerationModes.Deploy, false)]
+        [InlineData(GenerationModes.None, false)]
+        public void CanExecute_ShouldBeFalse(GenerationModes mode, bool expectedResult)
+        {
+            // arrange
+            fakes.Parameters.Setup(x => x.GenerationMode).Returns(mode);
+
+            // act
+            // assert
+            Assert.Equal(expectedResult, handler.CanExecute);
+        }
+
+        [Fact]
         public void Execute_ShouldAddConnectionStringToAppSettings_ShouldVerify()
         {
             // arrange

@@ -50,6 +50,45 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         }
 
         [Fact]
+        public void Name_ShouldBeEqual()
+        {
+            // arrange
+            // act
+            // assert
+            Assert.Equal(nameof(AddEndpoints), handler.Name);
+        }
+
+        [Theory]
+        [InlineData(GenerationModes.Default, true)]
+        [InlineData(GenerationModes.Migrate, false)]
+        [InlineData(GenerationModes.Extend, true)]
+        [InlineData(GenerationModes.Deploy, false)]
+        [InlineData(GenerationModes.None, false)]
+        public void CanExecute_ShouldBeFalse(GenerationModes mode, bool expectedResult)
+        {
+            // arrange
+            fakes.Parameters.Setup(x => x.GenerationMode).Returns(mode);
+
+            // act
+            // assert
+            Assert.Equal(expectedResult, handler.CanExecute);
+        }
+
+        [Theory]
+        [InlineData(false, true)]
+        [InlineData(true, true)]
+        public void CanExecute_ShouldOnlyBeTrueWhenCleanParameterIsSetToTrue(bool clean, bool expectedResult)
+        {
+            // arrange
+            fakes.Parameters.Setup(x => x.GenerationMode).Returns(GenerationModes.Default);
+            fakes.Parameters.Setup(x => x.Clean).Returns(clean);
+
+            // act
+            // assert
+            Assert.Equal(expectedResult, handler.CanExecute);
+        }
+
+        [Fact]
         public void Execute_ShouldRenderAndSaveTemplate()
         {
             // arrange
