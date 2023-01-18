@@ -32,5 +32,13 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
             return parameters.GenerationMode.HasFlag(GenerationModes.Default)
                 || parameters.GenerationMode.HasFlag(GenerationModes.Extend);
         }
+
+        internal static string ToFileName(this Entity entity, string action, string postfix) =>
+            action switch
+            {
+                "Get" => $"Get{entity.Name.Pluralize()}{postfix}",
+                "GetById" => $"Get{entity.Name}ById{postfix}",
+                _ => $"{action}{entity.Name}{postfix}"
+            };
     }
 }
