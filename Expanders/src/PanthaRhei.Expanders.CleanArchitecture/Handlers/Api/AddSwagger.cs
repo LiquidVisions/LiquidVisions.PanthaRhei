@@ -1,17 +1,20 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 {
     /// <summary>
     /// Adds swagger capabilities to the outputted project.
     /// </summary>
-    public class AddSwagger : AbstractHandlerInteractor<CleanArchitectureExpander>
+    public class AddSwagger : IHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
+        private readonly Parameters parameters;
         private readonly IProjectAgentInteractor projectAgent;
+        private readonly CleanArchitectureExpander expander;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddSwagger"/> class.
@@ -19,16 +22,23 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public AddSwagger(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
-            : base(expander, dependencyFactory)
         {
             writer = dependencyFactory.Get<IWriterInteractor>();
+            parameters = dependencyFactory.Get<Parameters>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
+            this.expander = expander;
         }
 
-        public override int Order => 12;
+        public int Order => 12;
+
+        public string Name => nameof(AddSwagger);
+
+        public CleanArchitectureExpander Expander => expander;
+
+        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
-        public override void Execute()
+        public void Execute()
         {
             string matchServices = "return services;";
             string matchApp = "app.Run();";

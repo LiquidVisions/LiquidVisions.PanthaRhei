@@ -3,20 +3,19 @@ using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using Moq;
 using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Api
 {
-    public class AddPresentersTests
+    public class AddSwaggerTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly AddPresenters handler;
+        private readonly AddSwagger handler;
         private readonly Entity expectedEntity = new();
 
-        public AddPresentersTests()
+        public AddSwaggerTests()
         {
             expectedEntity.Name = "JustATestEntity";
 
@@ -31,11 +30,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // act
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Domain.Parameters>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
         }
 
         [Fact]
@@ -44,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(14, handler.Order);
+            Assert.Equal(12, handler.Order);
         }
 
         [Fact]
@@ -53,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(AddPresenters), handler.Name);
+            Assert.Equal(nameof(AddSwagger), handler.Name);
         }
 
         [Theory]
@@ -87,37 +84,29 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         }
 
         [Fact]
-        public void Execute_ShouldRenderAndSaveTemplate()
+        public void Execute_ShouldAddSwaggerToConfiguration()
         {
             // arrange
-            string expectedCompontentOutputFolder = "C:\\Some\\Component\\Output";
-            string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{Resources.PresenterTemplate}.template");
-            string expectedCreateFolder = Path.Combine(expectedCompontentOutputFolder, Resources.PresentersFolder, expectedEntity.Name.Pluralize());
-            string[] expectedActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(expectedCompontentOutputFolder);
+            string expectedComponentOutputPath = "C:\\Some\\Component\\Output\\Folder";
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(expectedComponentOutputPath);
+            string expectedMatch1 = "return services;";
+            string expectedMatch2 = "app.Run();";
+            string expectedPathToBootstrapperFile = Path.Combine(expectedComponentOutputPath, Resources.DependencyInjectionBootstrapperFile);
 
             // act
             handler.Execute();
 
             // assert
-            fakes.IDirectory.Verify(x => x.Create(expectedCreateFolder), Times.Once);
-            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(expectedTemplatePath, It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(5));
-            foreach (string expectedAction in expectedActions)
-            {
-                fakes.ITemplateInteractor.Verify(
-                x => x.RenderAndSave(
-                    expectedTemplatePath,
-                    It.Is<object>(x => x.GetHashCode() == new
-                    {
-                        clientComponent = fakes.ClientComponent.Object,
-                        applicationComponent = fakes.ApplicationComponent.Object,
-                        component = fakes.ApiComponent.Object,
-                        action = expectedAction,
-                        entity = expectedEntity,
-                    }.GetHashCode()),
-                    Path.Combine(expectedCreateFolder, $"{expectedEntity.ToFileName(expectedAction, "Presenter")}.cs")),
-                Times.Exactly(1));
-            }
+            fakes.IWriterInteractor.Verify(x => x.Load(expectedPathToBootstrapperFile), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch1, "services.AddEndpointsApiExplorer();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch1, "services.AddSwaggerGen();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch1, string.Empty), Times.Once);
+
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch2, "app.UseSwagger();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch2, "app.UseSwaggerUI();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch1, string.Empty), Times.Once);
+
+            fakes.IWriterInteractor.Verify(x => x.Save(expectedPathToBootstrapperFile), Times.Once);
         }
     }
 }
