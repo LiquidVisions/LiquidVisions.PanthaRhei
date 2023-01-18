@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Tests;
@@ -9,13 +8,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 {
     public class CleanArchitectureFakes : Fakes
     {
-        public CleanArchitectureFakes()
-        {
-            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectAgentInteractor>())
-                .Returns(IProjectAgentInteractor.Object);
-
-        }
-
         public Mock<CleanArchitectureExpander> CleanArchitectureExpanderInteractor { get; } = new();
 
         public Mock<Component> InfrastructureComponent { get; } = new();
@@ -73,6 +65,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
             IDependencyFactoryInteractor.Setup(x => x.Get<IProjectTemplateInteractor>())
                 .Returns(IProjectTemplateInteractor.Object);
+
+            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectAgentInteractor>())
+                .Returns(IProjectAgentInteractor.Object);
         }
 
         internal App SetupApp(List<Expander> expanders = null)

@@ -1,19 +1,36 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
+using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using Moq;
 using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Api
 {
-    public class AddAppSettingsTests : AbstractCleanArchitectureTests
+    public class AddAppSettingsTests
     {
+        private readonly CleanArchitectureFakes fakes = new();
         private readonly AddAppSettings handler;
 
         public AddAppSettingsTests()
         {
-            Fakes.MockCleanArchitectureExpander();
-            handler = new AddAppSettings(Fakes.CleanArchitectureExpanderInteractor.Object, Fakes.IDependencyFactoryInteractor.Object);
+            fakes.MockCleanArchitectureExpander();
+            handler = new AddAppSettings(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
+        }
+
+        [Fact]
+        public void Constructor_ShouldValidate()
+        {
+            // arrange
+            // act
+            // assert
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]
@@ -53,15 +70,15 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
   }
 }";
             string folder = "C:\\Some\\Path\\";
-            string full = Path.Combine(folder, Resources.AppSettingsJson);
-            Fakes.IFile.Setup(x => x.ReadAllText(It.IsAny<string>())).Returns(json);
-            Fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(Fakes.ApiComponent.Object)).Returns(folder);
+            string full = Path.Combine(folder, Expanders.CleanArchitecture.Resources.AppSettingsJson);
+            fakes.IFile.Setup(x => x.ReadAllText(It.IsAny<string>())).Returns(json);
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(folder);
 
             // act
             handler.Execute();
 
-            Fakes.IFile.Verify(x => x.ReadAllText(full), Times.Once);
-            Fakes.IFile.Verify(x => x.WriteAllText(full, jsonExpectedResult), Times.Once);
+            fakes.IFile.Verify(x => x.ReadAllText(full), Times.Once);
+            fakes.IFile.Verify(x => x.WriteAllText(full, jsonExpectedResult), Times.Once);
         }
     }
 }

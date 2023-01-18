@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
@@ -11,8 +10,9 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Api
 {
-    public class AddEndpointsTests : AbstractCleanArchitectureTests
+    public class AddEndpointsTests
     {
+        private readonly CleanArchitectureFakes fakes = new();
         private readonly AddEndpoints handler;
         private readonly Entity expectedEntity = new();
 
@@ -20,8 +20,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         {
             expectedEntity.Name = "JustATestEntity";
 
-            Fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
-            handler = new(Fakes.CleanArchitectureExpanderInteractor.Object, Fakes.IDependencyFactoryInteractor.Object);
+            fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
+            handler = new(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -30,10 +30,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(8));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(8));
         }
 
         [Fact]
@@ -51,28 +51,28 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             string componentPath = "C:\\Some\\Folder\\Path";
             string endpointPath = Path.Combine(componentPath, Resources.EndpointFolder);
-            string expextedFullPathToTemplate = Path.Combine(Extensions.GetTemplateFolder(Fakes.CleanArchitectureExpander.Object.Model, Fakes.Parameters.Object, Resources.EndpointTemplate));
-            Fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(Fakes.ApiComponent.Object)).Returns(componentPath);
+            string expextedFullPathToTemplate = Path.Combine(Extensions.GetTemplateFolder(fakes.CleanArchitectureExpander.Object.Model, fakes.Parameters.Object, Resources.EndpointTemplate));
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(componentPath);
 
             var expectedTemplateParameters = new
             {
-                applicationComponent = Fakes.ApplicationComponent.Object,
-                clientComponent = Fakes.ClientComponent.Object,
-                component = Fakes.ApiComponent.Object,
+                applicationComponent = fakes.ApplicationComponent.Object,
+                clientComponent = fakes.ClientComponent.Object,
+                component = fakes.ApiComponent.Object,
                 Entity = expectedEntity,
             };
 
             string expectedPathToWrite = Path.Combine(endpointPath, $"{expectedEntity.Name}{Resources.EndpointFolder}.cs");
             string expectedRenderedTemplate = "RenderedResult";
-            Fakes.ITemplateInteractor.Setup(x => x.Render(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode()))).Returns(expectedRenderedTemplate);
+            fakes.ITemplateInteractor.Setup(x => x.Render(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode()))).Returns(expectedRenderedTemplate);
 
             // act
             handler.Execute();
 
             // assert
-            Fakes.IDirectory.Verify(x => x.Create(endpointPath), Times.Once);
-            Fakes.ITemplateInteractor.Verify(x => x.Render(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode())), Times.Once);
-            Fakes.IFile.Verify(x => x.WriteAllText(expectedPathToWrite, expectedRenderedTemplate), Times.Once);
+            fakes.IDirectory.Verify(x => x.Create(endpointPath), Times.Once);
+            fakes.ITemplateInteractor.Verify(x => x.Render(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode())), Times.Once);
+            fakes.IFile.Verify(x => x.WriteAllText(expectedPathToWrite, expectedRenderedTemplate), Times.Once);
         }
 
         [Fact]
@@ -81,25 +81,25 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             string componentPath = "C:\\Some\\Folder\\Path";
             string expectedPathToBootstrapperFile = Path.Combine(componentPath, Resources.DependencyInjectionBootstrapperFile);
-            Fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(Fakes.ApiComponent.Object)).Returns(componentPath);
-            Fakes.IWriterInteractor.Setup(x => x.IndexOf("return services;")).Returns(5);
-            Fakes.IWriterInteractor.Setup(x => x.IndexOf("app.Run();")).Returns(12);
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(componentPath);
+            fakes.IWriterInteractor.Setup(x => x.IndexOf("return services;")).Returns(5);
+            fakes.IWriterInteractor.Setup(x => x.IndexOf("app.Run();")).Returns(12);
 
 
             // act
             handler.Execute();
 
             // assert
-            Fakes.IWriterInteractor.Verify(x => x.Load(expectedPathToBootstrapperFile), Times.Once);
-            Fakes.IWriterInteractor.Verify(x => x.IndexOf("return services;"), Times.Once);
-            Fakes.IWriterInteractor.Verify(x => x.WriteAt(4, string.Empty), Times.Once);
-            Fakes.IWriterInteractor.Verify(x => x.WriteAt(5, $"            services.Add{expectedEntity.Name}Elements();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.Load(expectedPathToBootstrapperFile), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.IndexOf("return services;"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(4, string.Empty), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(5, $"            services.Add{expectedEntity.Name}Elements();"), Times.Once);
 
-            Fakes.IWriterInteractor.Verify(x => x.IndexOf("app.Run();"), Times.Once);
-            Fakes.IWriterInteractor.Verify(x => x.WriteAt(11, string.Empty), Times.Once);
-            Fakes.IWriterInteractor.Verify(x => x.WriteAt(12, $"            app.Use{expectedEntity.Name}Endpoints();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.IndexOf("app.Run();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(11, string.Empty), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(12, $"            app.Use{expectedEntity.Name}Endpoints();"), Times.Once);
 
-            Fakes.IWriterInteractor.Verify(x => x.Save(expectedPathToBootstrapperFile), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.Save(expectedPathToBootstrapperFile), Times.Once);
         }
     }
 }

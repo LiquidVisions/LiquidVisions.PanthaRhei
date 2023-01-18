@@ -1,6 +1,9 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
+using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using Moq;
 using Xunit;
 
@@ -16,6 +19,20 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             fakes.MockCleanArchitectureExpander();
 
             interactor = new(fakes.IDependencyFactoryInteractor.Object);
+        }
+
+        [Fact]
+        public void Dependencies_ShouldBeResolved()
+        {
+            // arrange
+            // act
+            // assert
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICommandLineInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogger>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 
         [Fact]
