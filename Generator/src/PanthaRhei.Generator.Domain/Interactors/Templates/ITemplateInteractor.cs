@@ -17,8 +17,8 @@
         /// Creates the generated file and the folder if needed.
         /// </summary>
         /// <param name="fullPathToTemplate">The template folder path.</param>
-        /// <param name="parameters">The template parameters.</param>
+        /// <param name="templateModel">The template parameters.</param>
         /// <param name="fullPathToOutput">Full path of the file that should be generated.</param>
-        void RenderAndSave(string fullPathToTemplate, object parameters, string fullPathToOutput);
+        void RenderAndSave(string fullPathToTemplate, object templateModel, string fullPathToOutput);
     }
 }

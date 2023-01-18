@@ -5,6 +5,7 @@ using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using Moq;
 using Xunit;
 
@@ -31,9 +32,12 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // act
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Domain.Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(8));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(6));
         }
 
         [Fact]
@@ -71,8 +75,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
 
             // assert
             fakes.IDirectory.Verify(x => x.Create(endpointPath), Times.Once);
-            fakes.ITemplateInteractor.Verify(x => x.Render(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode())), Times.Once);
-            fakes.IFile.Verify(x => x.WriteAllText(expectedPathToWrite, expectedRenderedTemplate), Times.Once);
+            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode()), expectedPathToWrite), Times.Once);
         }
 
         [Fact]

@@ -9,14 +9,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     {
         private static readonly Pluralizer pluralizer = new();
 
-        public static string GetTemplateFolder(this Expander expander, Parameters parameters, string templateName)
+        internal static string GetTemplateFolder(this Expander expander, Parameters parameters, string templateName)
         {
             return Path.Combine(parameters.ExpandersFolder, expander.Name, expander.TemplateFolder, $"{templateName}.template");
         }
 
-        public static string Pluralize(this string str) => pluralizer.Pluralize(str);
+        internal static string Pluralize(this string str) => pluralizer.Pluralize(str);
 
-        public static string GetComponentNamespace(this Component component, App app, string ns = null)
+        internal static string GetComponentNamespace(this Component component, App app, string ns = null)
         {
             string result = $"{app.FullName}.{component.Name}";
             if(ns != null)
@@ -25,6 +25,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
             }
 
             return result;
+        }
+
+        internal static bool CanExecuteDefaultAndExtend(this Parameters parameters)
+        {
+            return parameters.GenerationMode.HasFlag(GenerationModes.Default)
+                || parameters.GenerationMode.HasFlag(GenerationModes.Extend);
         }
     }
 }

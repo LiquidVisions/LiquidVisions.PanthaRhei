@@ -1,8 +1,10 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+﻿using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using IO = System.IO;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
@@ -10,11 +12,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// <summary>
     /// Adds an endpoint to the API.
     /// </summary>
-    public class AddEndpoints : AbstractHandlerInteractor<CleanArchitectureExpander>
+    public class AddEndpoints : IHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
+        private readonly CleanArchitectureExpander expander;
+        private readonly Parameters parameters;
+        private readonly IDirectory directory;
+        private readonly App app;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddEndpoints"/> class.
@@ -22,26 +28,35 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public AddEndpoints(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
-            : base(expander, dependencyFactory)
         {
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
+            directory = dependencyFactory.Get<IDirectory>();
+            parameters = dependencyFactory.Get<Parameters>();
             writer = dependencyFactory.Get<IWriterInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
+            app = dependencyFactory.Get<App>();
+            this.expander = expander;
         }
 
-        public override int Order => 16;
+        public int Order => 16;
+
+        public string Name => nameof(AddEndpoints);
+
+        public CleanArchitectureExpander Expander => expander;
+
+        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
-        public override void Execute()
+        public virtual void Execute()
         {
             Component component = Expander.Model.GetComponentByName(Resources.Api);
 
             string folder = IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.EndpointFolder);
-            Directory.Create(folder);
+            directory.Create(folder);
 
-            string fullPathToTemplate = Expander.Model.GetTemplateFolder(Parameters, Resources.EndpointTemplate);
+            string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.EndpointTemplate);
 
-            foreach (Entity endpoint in App.Entities)
+            foreach (Entity endpoint in app.Entities)
             {
                 GenerateAndSaveOutput(component, folder, endpoint, fullPathToTemplate);
 
@@ -71,7 +86,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
             Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
 
-            var parameters = new
+            var templateModel = new
             {
                 applicationComponent,
                 clientComponent,
@@ -79,10 +94,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
                 Entity = endpoint,
             };
 
-            string result = templateService.Render(fullPathToTemplate, parameters);
-
-            string path = IO.Path.Combine(destinationFolder, $"{endpoint.Name}{Resources.EndpointFolder}.cs");
-            File.WriteAllText(path, result);
+            string fullPath = IO.Path.Combine(destinationFolder, $"{endpoint.Name}{Resources.EndpointFolder}.cs");
+            templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPath);
         }
     }
 }
