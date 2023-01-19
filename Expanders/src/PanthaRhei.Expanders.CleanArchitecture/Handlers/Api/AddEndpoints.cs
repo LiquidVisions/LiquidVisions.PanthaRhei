@@ -57,15 +57,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
             string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.EndpointTemplate);
 
-            foreach (Entity endpoint in app.Entities)
+            foreach (Entity entity in app.Entities)
             {
-                GenerateAndSaveOutput(component, folder, endpoint, fullPathToTemplate);
+                GenerateAndSaveOutput(component, folder, entity, fullPathToTemplate);
 
-                ModifyBootstrapperFile(component, endpoint);
+                ModifyBootstrapperFile(component, entity);
             }
         }
 
-        private void ModifyBootstrapperFile(Component component, Entity endpoint)
+        private void ModifyBootstrapperFile(Component component, Entity entity)
         {
             string bootstrapperFile = IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
 
@@ -73,11 +73,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
             int index = writer.IndexOf("return services;") - 1;
             writer.WriteAt(index, string.Empty);
-            writer.WriteAt(index + 1, $"            services.Add{endpoint.Name}Elements();");
+            writer.WriteAt(index + 1, $"            services.Add{entity.Name}Elements();");
 
             index = writer.IndexOf("app.Run();") - 1;
             writer.WriteAt(index, string.Empty);
-            writer.WriteAt(index + 1, $"            app.Use{endpoint.Name}Endpoints();");
+            writer.WriteAt(index + 1, $"            app.Use{entity.Name}Endpoints();");
 
             writer.Save(bootstrapperFile);
         }

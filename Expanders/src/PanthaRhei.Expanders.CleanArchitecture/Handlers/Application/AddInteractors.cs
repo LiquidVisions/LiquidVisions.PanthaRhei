@@ -1,54 +1,84 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application
 {
     /// <summary>
     /// a <seealso cref="RequestActionsTemplateHandlerService"/> that adds the request models to the output project.
     /// </summary>
-    public class AddInteractors : RequestActionsTemplateHandlerService
+    public class AddInteractors : IHandlerInteractor<CleanArchitectureExpander>
     {
+        private readonly CleanArchitectureExpander expander;
+        private readonly Parameters parameters;
+        private readonly IProjectAgentInteractor projectAgent;
+        private readonly ITemplateInteractor templateService;
+        private readonly App app;
+        private readonly IDirectory directory;
+
+        private readonly List<string> actions;
+        private readonly Component component;
+        private readonly Component clientComponent;
+        private readonly string fullPathToComponentOutput;
+        private readonly string destinationFolder;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AddInteractors"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public AddInteractors(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
-            : base(expander, dependencyFactory)
         {
+            this.expander = expander;
+
+            parameters = dependencyFactory.Get<Parameters>();
+            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
+            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            app = dependencyFactory.Get<App>();
+            directory = dependencyFactory.Get<IDirectory>();
+
+            actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries).ToList();
+            component = expander.Model.GetComponentByName(Resources.Application);
+            clientComponent = expander.Model.GetComponentByName(Resources.Client);
+            fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
+            destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.InteractorFolder);
         }
 
-        public override int Order => 5;
+        public int Order => 5;
 
-        /// <inheritdoc/>
-        protected override string RootLibraryName => Resources.Application;
+        public string Name => nameof(AddInteractors);
 
-        /// <inheritdoc/>
-        protected override string RootFolderName => Resources.InteractorFolder;
+        public CleanArchitectureExpander Expander => expander;
 
-        /// <inheritdoc/>
-        protected override string FileNamePostFix => "Interactor";
+        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
 
-        /// <inheritdoc/>
-        protected override string TemplateName => Resources.InteractorTemplate;
-
-        /// <inheritdoc/>
-        protected override string GetTemplateName(string action)
+        public void Execute()
         {
-            return $"{action}{TemplateName}";
-        }
-
-        /// <inheritdoc/>
-        protected override object GetTemplateParameters(Component component, Entity entity, string action)
-        {
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
-
-            return new
+            foreach (Entity entity in app.Entities)
             {
-                clientComponent,
-                component,
-                Entity = entity,
-            };
+                string endpointFolder = Path.Combine(destinationFolder, entity.Name.Pluralize());
+                directory.Create(endpointFolder);
+
+                foreach (string action in actions)
+                {
+                    string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, $"{action}{Resources.InteractorTemplate}");
+                    string fullPathToFile = Path.Combine(endpointFolder, $"{entity.ToFileName(action, "Interactor")}.cs");
+                    object templateModel = new
+                    {
+                        clientComponent,
+                        component,
+                        Entity = entity,
+                    };
+
+                    templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPathToFile);
+                }
+            }
         }
     }
 }
