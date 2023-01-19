@@ -14,10 +14,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     {
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
-        private readonly IDirectory directory;
         private readonly CleanArchitectureExpander expander;
         private readonly Parameters parameters;
         private readonly App app;
+        private readonly Component component;
+        private readonly Component clientComponent;
+        private readonly Component applicationComponent;
+        private readonly string fullPathToTemplate;
+        private readonly string fullPathToViewModelsFolder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddViewModelMappers"/> class.
@@ -26,13 +30,24 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public AddViewModelMappers(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
         {
+            this.expander = expander;
+
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-            directory = dependencyFactory.Get<IDirectory>();
             parameters = dependencyFactory.Get<Parameters>();
             app = dependencyFactory.Get<App>();
 
-            this.expander = expander;
+            component = Expander.Model.GetComponentByName(Resources.Api);
+            clientComponent = Expander.Model.GetComponentByName(Resources.Client);
+            applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
+
+            string fullPathToApiComponent = projectAgent.GetComponentOutputFolder(component);
+            fullPathToViewModelsFolder = System.IO.Path.Combine(fullPathToApiComponent, Resources.ViewModelMapperFolder);
+            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ViewModelMapperTemplate);
+
+            dependencyFactory
+                .Get<IDirectory>()
+                .Create(fullPathToViewModelsFolder);
         }
 
         public int Order => 15;
@@ -46,16 +61,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <inheritdoc/>
         public void Execute()
         {
-            Component component = Expander.Model.GetComponentByName(Resources.Api);
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
-            Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
-
-            string path = projectAgent.GetComponentOutputFolder(component);
-            string viewModelsFolder = System.IO.Path.Combine(path, Resources.ViewModelMapperFolder);
-            directory.Create(viewModelsFolder);
-
-            string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ViewModelMapperTemplate);
-
             foreach (var entity in app.Entities)
             {
                 object templateModel = new
@@ -66,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
                     applicationComponent,
                 };
 
-                string fullPath = System.IO.Path.Combine(viewModelsFolder, $"{entity.Name}ModelMapper.cs");
+                string fullPath = System.IO.Path.Combine(fullPathToViewModelsFolder, $"{entity.Name}ModelMapper.cs");
                 templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPath);
             }
         }

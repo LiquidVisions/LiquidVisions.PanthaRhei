@@ -1,52 +1,88 @@
-﻿using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application
 {
     /// <summary>
     /// a <seealso cref="RequestActionsTemplateHandlerService"/> that adds the boundaries to the output project.
     /// </summary>
-    public class AddBoundaries : RequestActionsTemplateHandlerService
+    public class AddBoundaries : IHandlerInteractor<CleanArchitectureExpander>
     {
+        private readonly CleanArchitectureExpander expander;
+        private readonly Parameters parameters;
+        private readonly IProjectAgentInteractor projectAgent;
+        private readonly ITemplateInteractor templateService;
+        private readonly App app;
+        private readonly IDirectory directory;
+
+        private readonly List<string> actions;
+        private readonly Component component;
+        private readonly Component clientComponent;
+        private readonly string fullPathToComponentOutput;
+        private readonly string fullPathToTemplate;
+        private readonly string destinationFolder;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AddBoundaries"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public AddBoundaries(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
-            : base(expander, dependencyFactory)
         {
+            this.expander = expander;
+
+            parameters = dependencyFactory.Get<Parameters>();
+            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
+            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            app = dependencyFactory.Get<App>();
+            directory = dependencyFactory.Get<IDirectory>();
+
+            actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries).ToList();
+            component = expander.Model.GetComponentByName(Resources.Application);
+            clientComponent = expander.Model.GetComponentByName(Resources.Client);
+            fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
+            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.BoundaryTemplate);
+            destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.ApplicationBoundariesFolder);
         }
 
-        public override int Order => 3;
+        public int Order => 3;
 
-        /// <inheritdoc/>
-        protected override string RootLibraryName => Resources.Application;
+        public string Name => nameof(AddBoundaries);
 
-        /// <inheritdoc/>
-        protected override string RootFolderName => Resources.ApplicationBoundariesFolder;
+        public CleanArchitectureExpander Expander => expander;
 
-        /// <inheritdoc/>
-        protected override string FileNamePostFix => "Boundary";
+        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
 
-        /// <inheritdoc/>
-        protected override string TemplateName => Resources.BoundaryTemplate;
-
-        /// <inheritdoc/>
-        protected override object GetTemplateParameters(Component component, Entity entity, string action)
+        public void Execute()
         {
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
-
-            return new
+            foreach (Entity endpoint in app.Entities)
             {
-                clientComponent,
-                component,
-                ActionType = action,
-                entity,
-            };
+                string endpointFolder = Path.Combine(destinationFolder, endpoint.Name.Pluralize());
+                directory.Create(endpointFolder);
+
+                foreach (string action in actions)
+                {
+                    string fullPathToFile = Path.Combine(endpointFolder, $"{endpoint.ToFileName(action, "Boundary")}.cs");
+                    object templateModel = new
+                    {
+                        clientComponent,
+                        component,
+                        ActionType = action,
+                        entity = endpoint,
+                    };
+
+                    templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPathToFile);
+                }
+            }
         }
     }
 }

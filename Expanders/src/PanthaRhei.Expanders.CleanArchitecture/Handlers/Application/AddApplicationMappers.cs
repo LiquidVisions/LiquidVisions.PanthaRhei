@@ -19,6 +19,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         private readonly ITemplateInteractor templateService;
         private readonly App app;
         private readonly IDirectory directory;
+        private readonly string[] actions;
+        private readonly Component component;
+        private readonly Component clientComponent;
+        private readonly string fullPathToRootFolder;
+        private readonly string fullPathToTemplate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddApplicationMappers"/> class.
@@ -34,6 +39,16 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
+
+            actions = new string[] { "Create", "Update" };
+
+            component = Expander.Model.GetComponentByName(Resources.Application);
+            clientComponent = Expander.Model.GetComponentByName(Resources.Client);
+
+            string fullPathToComponent = projectAgent.GetComponentOutputFolder(component);
+            fullPathToRootFolder = Path.Combine(fullPathToComponent, Resources.ApplicationMapperFolder);
+            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ApplicationMapperTemplate);
+
         }
 
         public int Order => 4;
@@ -46,15 +61,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public void Execute()
         {
-            string[] actions = new string[] { "Create", "Update" };
-
-            Component component = Expander.Model.GetComponentByName(Resources.Application);
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
-
-            string fullPathToComponent = projectAgent.GetComponentOutputFolder(component);
-            string fullPathToRootFolder = Path.Combine(fullPathToComponent, Resources.ApplicationMapperFolder);
-            string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ApplicationMapperTemplate);
-
             foreach (Entity endpoint in app.Entities)
             {
                 string fullpathToDestinationFolder = Path.Combine(fullPathToRootFolder, endpoint.Name.Pluralize());

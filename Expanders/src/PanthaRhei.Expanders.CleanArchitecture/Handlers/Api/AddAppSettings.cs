@@ -18,7 +18,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         private readonly CleanArchitectureExpander expander;
         private readonly Parameters parameters;
         private readonly IFile file;
+        private readonly Component component;
+        private readonly JObject jsonObject;
         private readonly App app;
+        private readonly string fullPathToAppSettingsJson;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddAppSettings"/> class.
@@ -27,11 +30,19 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public AddAppSettings(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
         {
+            this.expander = expander;
+
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             parameters = dependencyFactory.Get<Parameters>();
             app = dependencyFactory.Get<App>();
             file = dependencyFactory.Get<IFile>();
-            this.expander = expander;
+
+            component = Expander.Model.GetComponentByName(Resources.Api);
+            string fullPathToApiComponent = projectAgent.GetComponentOutputFolder(component);
+            fullPathToAppSettingsJson = System.IO.Path.Combine(fullPathToApiComponent, Resources.AppSettingsJson);
+
+            string jsonFile = file.ReadAllText(fullPathToAppSettingsJson);
+            jsonObject = JsonConvert.DeserializeObject<JObject>(jsonFile);
         }
 
         public int Order => 13;
@@ -46,13 +57,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <inheritdoc/>
         public void Execute()
         {
-            Component component = Expander.Model.GetComponentByName(Resources.Api);
-
-            string folder = projectAgent.GetComponentOutputFolder(component);
-
-            string path = System.IO.Path.Combine(folder, Resources.AppSettingsJson);
-            string json = file.ReadAllText(path);
-            JObject jsonObject = JsonConvert.DeserializeObject<JObject>(json);
             if (!jsonObject.ContainsKey("ConnectionStrings"))
             {
                 JObject connectionStringObject = new();
@@ -64,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
                 jsonObject.Add("ConnectionStrings", connectionStringObject);
 
                 string result = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
-                file.WriteAllText(path, result);
+                file.WriteAllText(fullPathToAppSettingsJson, result);
             }
         }
     }

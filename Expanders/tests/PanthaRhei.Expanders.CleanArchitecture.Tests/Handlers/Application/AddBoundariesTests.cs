@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
@@ -10,15 +12,19 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Application
 {
-    public class AddApplicationMappersTests
+    public class AddBoundariesTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly AddApplicationMappers handler;
+        private readonly AddBoundaries handler;
         private readonly Entity expectedEntity = new();
+        private readonly string expectedCreateFolder;
 
-        public AddApplicationMappersTests()
+        public AddBoundariesTests()
         {
             expectedEntity.Name = "JustATestEntity";
+
+            expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.ApplicationBoundariesFolder, expectedEntity.Name.Pluralize());
+
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApplicationComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
@@ -35,7 +41,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Domain.Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 
@@ -45,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(4, handler.Order);
+            Assert.Equal(3, handler.Order);
         }
 
         [Fact]
@@ -54,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(AddApplicationMappers), handler.Name);
+            Assert.Equal(nameof(AddBoundaries), handler.Name);
         }
 
         [Theory]
@@ -91,30 +96,29 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void Execute_ShouldRenderAnSaveApplicationMapperTemplate()
         {
             // arrange
-            string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{Resources.ApplicationMapperTemplate}.template");
-            string expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.ApplicationMapperFolder, expectedEntity.Name.Pluralize());
-            string[] expectedActions = new string[] { "Create", "Update" };
+            string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{Resources.BoundaryTemplate}.template");
+            string[] expectedActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
 
             // act
             handler.Execute();
 
             // assert
             fakes.IDirectory.Verify(x => x.Create(expectedCreateFolder), Times.Once);
-            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(expectedTemplatePath, It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(2));
+            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(expectedTemplatePath, It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(5));
             foreach (string expectedAction in expectedActions)
             {
                 fakes.ITemplateInteractor.Verify(
-                x => x.RenderAndSave(
-                    expectedTemplatePath,
-                    It.Is<object>(x => x.GetHashCode() == new
-                    {
-                        clientComponent = fakes.ClientComponent.Object,
-                        component = fakes.ApplicationComponent.Object,
-                        Action = expectedAction,
-                        Entity = expectedEntity,
-                    }.GetHashCode()),
-                    Path.Combine(expectedCreateFolder, $"{expectedAction}{expectedEntity.Name}CommandTo{expectedEntity.Name}Mapper.cs")),
-                Times.Exactly(1));
+                    x => x.RenderAndSave(
+                        expectedTemplatePath,
+                        It.Is<object>(x => x.GetHashCode() == new
+                        {
+                            clientComponent = fakes.ClientComponent.Object,
+                            component = fakes.ApplicationComponent.Object,
+                            ActionType = expectedAction,
+                            entity = expectedEntity,
+                        }.GetHashCode()),
+                        Path.Combine(expectedCreateFolder, $"{expectedEntity.ToFileName(expectedAction, "Boundary")}.cs")),
+                    Times.Exactly(1));
             }
         }
     }

@@ -28,6 +28,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
         public Mock<IProjectAgentInteractor> IProjectAgentInteractor { get; } = new();
 
+        public string ExpectedCompontentOutputFolder = "C:\\Some\\Component\\Output\\Path";
+
         internal void MockCleanArchitectureExpander(List<Entity> entities = null)
         {
             App app = SetupApp(entities, new List<Expander> { CleanArchitectureExpanderModel.Object });
@@ -36,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             CleanArchitectureExpanderInteractor.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
 
             CleanArchitectureExpanderModel.Setup(x => x.TemplateFolder).Returns(".Templates");
-            CleanArchitectureExpanderModel.Setup(x => x.Name).Returns("CleanArchitectgure");
+            CleanArchitectureExpanderModel.Setup(x => x.Name).Returns("CleanArchitecture");
 
             InfrastructureComponent.Setup(x => x.Name).Returns(Resources.EntityFramework);
             InfrastructureComponent.Setup(x => x.Name).Returns(Resources.EntityFramework);

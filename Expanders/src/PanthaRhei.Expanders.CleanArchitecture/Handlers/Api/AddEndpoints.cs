@@ -29,13 +29,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public AddEndpoints(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
         {
+            this.expander = expander;
+
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             directory = dependencyFactory.Get<IDirectory>();
             parameters = dependencyFactory.Get<Parameters>();
             writer = dependencyFactory.Get<IWriterInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
-            this.expander = expander;
         }
 
         public int Order => 16;

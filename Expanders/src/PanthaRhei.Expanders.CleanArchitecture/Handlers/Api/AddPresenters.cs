@@ -5,7 +5,6 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 {
@@ -20,6 +19,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         private readonly IDirectory directory;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
+        private readonly string[] requestActions;
+        private readonly Component component;
+        private readonly Component applicationComponent;
+        private readonly Component clientComponent;
+        private readonly string destinationFolder;
+        private readonly string fullPathToTemplate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddPresenters"/> class.
@@ -35,6 +40,16 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             directory = dependencyFactory.Get<IDirectory>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
+
+            requestActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
+
+            component = Expander.Model.GetComponentByName(Resources.Api);
+            applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
+            clientComponent = Expander.Model.GetComponentByName(Resources.Client);
+
+            string projectOutputFolder = projectAgent.GetComponentOutputFolder(component);
+            destinationFolder = Path.Combine(projectOutputFolder, Resources.PresentersFolder);
+            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.PresenterTemplate);
         }
 
         public int Order => 14;
@@ -47,13 +62,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         public void Execute()
         {
-            string[] requestActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
-
-            Component component = Expander.Model.GetComponentByName(Resources.Api);
-            string projectOutputFolder = projectAgent.GetComponentOutputFolder(component);
-            string destinationFolder = Path.Combine(projectOutputFolder, Resources.PresentersFolder);
-            string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.PresenterTemplate);
-
             foreach (Entity endpoint in app.Entities)
             {
                 string endpointFolder = Path.Combine(destinationFolder, endpoint.Name.Pluralize());
@@ -61,27 +69,19 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
                 foreach (string action in requestActions)
                 {
-                    object templateModel = GetTemplateModel(component, endpoint, action);
                     string fullPath = Path.Combine(endpointFolder, $"{endpoint.ToFileName(action, "Presenter")}.cs");
+                    object templateModel = new
+                    {
+                        clientComponent,
+                        applicationComponent,
+                        component,
+                        action,
+                        entity = endpoint,
+                    };
 
                     templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPath);
                 }
             }
-        }
-
-        private object GetTemplateModel(Component component, Entity entity, string action)
-        {
-            Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
-
-            return new
-            {
-                clientComponent,
-                applicationComponent,
-                component,
-                action,
-                entity,
-            };
         }
     }
 }

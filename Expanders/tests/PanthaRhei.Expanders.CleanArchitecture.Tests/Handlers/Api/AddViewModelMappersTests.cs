@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public AddViewModelMappersTests()
         {
             expectedEntity.Name = "JustATestEntity";
-
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
             handler = new(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
         }
@@ -91,9 +91,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void Execute_ShouldRenderAnSaveViewModelTemplate()
         {
             // arrange
-            string expectedComponentOutputFolder = "C:\\Some\\Output\\Folder";
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(expectedComponentOutputFolder);
-            string expectedViewModelFolder = Path.Combine(expectedComponentOutputFolder, Resources.ViewModelMapperFolder);
+            string expectedViewModelFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.ViewModelMapperFolder);
             string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpanderInteractor.Object.Model.Name, fakes.CleanArchitectureExpanderInteractor.Object.Model.TemplateFolder, $"{Resources.ViewModelMapperTemplate}.template");
             string expectedFilePath = Path.Combine(expectedViewModelFolder, $"{expectedEntity.Name}ModelMapper.cs");
             // act

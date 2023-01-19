@@ -13,9 +13,34 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
     {
         private readonly CleanArchitectureFakes fakes = new();
         private readonly AddAppSettings handler;
+        private readonly string json = @"{
+  ""Logging"": {
+    ""LogLevel"": {
+                ""Default"": ""Information"",
+      ""Microsoft"": ""Warning"",
+      ""Microsoft.Hosting.Lifetime"": ""Information""
+    }
+        },
+  ""AllowedHosts"": ""*""
+}";
+        string jsonExpectedResult = @"{
+  ""Logging"": {
+    ""LogLevel"": {
+      ""Default"": ""Information"",
+      ""Microsoft"": ""Warning"",
+      ""Microsoft.Hosting.Lifetime"": ""Information""
+    }
+  },
+  ""AllowedHosts"": ""*"",
+  ""ConnectionStrings"": {
+    ""DefaultConnectionString"": ""SomeConnectionStringDefinition""
+  }
+}";
 
         public AddAppSettingsTests()
         {
+            fakes.IFile.Setup(x => x.ReadAllText(It.IsAny<string>())).Returns(json);
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander();
             handler = new AddAppSettings(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
         }
@@ -71,33 +96,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void Execute_ShouldAddConnectionStringToAppSettings_ShouldVerify()
         {
             // arrange
-            string json = @"{
-  ""Logging"": {
-    ""LogLevel"": {
-                ""Default"": ""Information"",
-      ""Microsoft"": ""Warning"",
-      ""Microsoft.Hosting.Lifetime"": ""Information""
-    }
-        },
-  ""AllowedHosts"": ""*""
-}";
-            string jsonExpectedResult = @"{
-  ""Logging"": {
-    ""LogLevel"": {
-      ""Default"": ""Information"",
-      ""Microsoft"": ""Warning"",
-      ""Microsoft.Hosting.Lifetime"": ""Information""
-    }
-  },
-  ""AllowedHosts"": ""*"",
-  ""ConnectionStrings"": {
-    ""DefaultConnectionString"": ""SomeConnectionStringDefinition""
-  }
-}";
-            string folder = "C:\\Some\\Path\\";
-            string full = Path.Combine(folder, Expanders.CleanArchitecture.Resources.AppSettingsJson);
-            fakes.IFile.Setup(x => x.ReadAllText(It.IsAny<string>())).Returns(json);
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(folder);
+            string full = Path.Combine(fakes.ExpectedCompontentOutputFolder, Expanders.CleanArchitecture.Resources.AppSettingsJson);
 
             // act
             handler.Execute();

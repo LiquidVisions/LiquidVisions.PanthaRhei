@@ -20,6 +20,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         {
             expectedEntity.Name = "JustATestEntity";
 
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
             handler = new(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
         }
@@ -90,11 +91,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void Execute_ShouldRenderAndSaveTemplate()
         {
             // arrange
-            string expectedCompontentOutputFolder = "C:\\Some\\Component\\Output";
             string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{Resources.PresenterTemplate}.template");
-            string expectedCreateFolder = Path.Combine(expectedCompontentOutputFolder, Resources.PresentersFolder, expectedEntity.Name.Pluralize());
+            string expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.PresentersFolder, expectedEntity.Name.Pluralize());
             string[] expectedActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(expectedCompontentOutputFolder);
 
             // act
             handler.Execute();
