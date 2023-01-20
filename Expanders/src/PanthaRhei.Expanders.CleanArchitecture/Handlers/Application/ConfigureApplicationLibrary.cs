@@ -1,8 +1,9 @@
 ﻿using System.IO;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application
@@ -10,11 +11,18 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     /// <summary>
     /// Configures the dependency inversion container of the Application library.
     /// </summary>
-    public class ConfigureApplicationLibrary : AbstractHandlerInteractor<CleanArchitectureExpander>
+    public class ConfigureApplicationLibrary : IHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
+        private readonly Parameters parameters;
+        private readonly App app;
+        private readonly Component component;
+        private readonly CleanArchitectureExpander expander;
+        private readonly Component clientComponent;
+        private readonly string fullPathToTemplate;
+        private readonly string fullPathToBootstrapperFile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigureApplicationLibrary"/> class.
@@ -22,44 +30,56 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public ConfigureApplicationLibrary(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
-            : base(expander, dependencyFactory)
         {
+            this.expander = expander;
+
             writer = dependencyFactory.Get<IWriterInteractor>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
+            parameters = dependencyFactory.Get<Parameters>();
+            app = dependencyFactory.Get<App>();
+
+            component = Expander.Model.GetComponentByName(Resources.Application);
+            clientComponent = Expander.Model.GetComponentByName(Resources.Client);
+
+            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ApplicationDependencyInjectionBootstrapperTemplate);
+
+            string fullPathToComponent = projectAgent.GetComponentOutputFolder(component);
+            fullPathToBootstrapperFile = Path.Combine(fullPathToComponent, Resources.DependencyInjectionBootstrapperFile);
         }
 
-        public override int Order => 7;
+        public int Order => 7;
+
+        public string Name => nameof(ConfigureApplicationLibrary);
+
+        public CleanArchitectureExpander Expander => expander;
+
+        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
-        public override void Execute()
+        public void Execute()
         {
-            Component component = Expander.Model.GetComponentByName(Resources.Application);
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
-            string path = Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
+            writer.Load(fullPathToBootstrapperFile);
 
-            writer.Load(path);
-
-            foreach (Entity entity in App.Entities)
+            foreach (Entity entity in app.Entities)
             {
-                string fullPathToTemplate = Expander.Model.GetTemplateFolder(Parameters, Resources.ApplicationDependencyInjectionBootstrapperTemplate);
                 string result = templateService.Render(fullPathToTemplate, new { Entity = entity });
 
                 writer.AddOrReplaceMethod(result);
                 writer.AppendToMethod("AddApplicationLayer", $"            services.Add{entity.Name}();");
 
                 string pluralizedName = entity.Name.Pluralize();
-                string ns = component.GetComponentNamespace(App);
+                string ns = component.GetComponentNamespace(app);
 
                 writer.AddNameSpace($"{ns}.Boundaries.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Interactors.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Mappers.{pluralizedName}");
-                writer.AddNameSpace($"{clientComponent.GetComponentNamespace(App)}.RequestModels.{pluralizedName}");
+                writer.AddNameSpace($"{clientComponent.GetComponentNamespace(app)}.RequestModels.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Validators.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Gateways");
             }
 
-            writer.Save(path);
+            writer.Save(fullPathToBootstrapperFile);
         }
     }
 }

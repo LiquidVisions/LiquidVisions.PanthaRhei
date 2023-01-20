@@ -64,20 +64,20 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public void Execute()
         {
-            foreach (Entity entity in app.Entities)
+            foreach (Entity endpoint in app.Entities)
             {
-                string endpointFolder = Path.Combine(destinationFolder, entity.Name.Pluralize());
+                string endpointFolder = Path.Combine(destinationFolder, endpoint.Name.Pluralize());
                 directory.Create(endpointFolder);
 
                 foreach (string action in actions)
                 {
-                    string fullPathToFile = Path.Combine(endpointFolder, $"{entity.ToFileName(action, "Boundary")}.cs");
+                    string fullPathToFile = Path.Combine(endpointFolder, $"{endpoint.ToFileName(action, "Boundary")}.cs");
                     object templateModel = new
                     {
                         clientComponent,
                         component,
                         ActionType = action,
-                        entity = entity,
+                        entity = endpoint,
                     };
 
                     templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPathToFile);
