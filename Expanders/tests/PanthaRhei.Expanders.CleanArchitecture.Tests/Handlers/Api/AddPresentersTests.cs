@@ -14,14 +14,11 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
     {
         private readonly CleanArchitectureFakes fakes = new();
         private readonly AddPresenters handler;
-        private readonly Entity expectedEntity = new();
 
         public AddPresentersTests()
         {
-            expectedEntity.Name = "JustATestEntity";
-
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
-            fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
+            fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 
@@ -92,7 +89,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         {
             // arrange
             string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{Resources.PresenterTemplate}.template");
-            string expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.PresentersFolder, expectedEntity.Name.Pluralize());
+            string expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.PresentersFolder, fakes.ExpectedEntity.Name.Pluralize());
             string[] expectedActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
 
             // act
@@ -112,9 +109,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                         applicationComponent = fakes.ApplicationComponent.Object,
                         component = fakes.ApiComponent.Object,
                         action = expectedAction,
-                        entity = expectedEntity,
+                        entity = fakes.ExpectedEntity,
                     }.GetHashCode()),
-                    Path.Combine(expectedCreateFolder, $"{expectedEntity.ToFileName(expectedAction, "Presenter")}.cs")),
+                    Path.Combine(expectedCreateFolder, $"{fakes.ExpectedEntity.ToFileName(expectedAction, "Presenter")}.cs")),
                 Times.Exactly(1));
             }
         }

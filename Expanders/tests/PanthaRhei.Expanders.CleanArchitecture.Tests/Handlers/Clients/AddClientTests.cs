@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Api
+namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Clients
 {
-    public class AddViewModelMappersTests
+    public class AddClientTests
     {
+        private readonly AddClient handler;
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly AddViewModelMappers handler;
+        private readonly Entity expectedEntity = new();
 
-        public AddViewModelMappersTests()
+        public AddClientTests()
         {
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ClientComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
+            handler = new AddClient(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -28,13 +28,11 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Domain.Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]
@@ -43,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(15, handler.Order);
+            Assert.Equal(19, handler.Order);
         }
 
         [Fact]
@@ -52,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(AddViewModelMappers), handler.Name);
+            Assert.Equal(nameof(AddClient), handler.Name);
         }
 
         [Theory]
@@ -86,28 +84,29 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         }
 
         [Fact]
-        public void Execute_ShouldRenderAnSaveViewModelTemplate()
+        public void Test()
         {
             // arrange
-            string expectedViewModelFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.ViewModelMapperFolder);
-            string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpanderInteractor.Object.Model.Name, fakes.CleanArchitectureExpanderInteractor.Object.Model.TemplateFolder, $"{Resources.ViewModelMapperTemplate}.template");
-            string expectedFilePath = Path.Combine(expectedViewModelFolder, $"{fakes.ExpectedEntity.Name}ModelMapper.cs");
+            string expectedPathToOutputFile = Path.Combine(fakes.ExpectedCompontentOutputFolder, $"{fakes.ExpectedEntity.Name}Client.cs");
+            string expectedFullPathToTemplate = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{Resources.ClientTemplate}.template");
+
             // act
             handler.Execute();
 
             // assert
-            fakes.IDirectory.Verify(x => x.Create(expectedViewModelFolder), Times.Once);
             fakes.ITemplateInteractor.Verify(
                 x => x.RenderAndSave(
-                    expectedTemplatePath,
-                    It.Is<object>(x => x.GetHashCode() == new
-                    {
-                        Entity = fakes.ExpectedEntity,
-                        component = fakes.ApiComponent.Object,
-                        clientComponent = fakes.ClientComponent.Object,
-                        applicationComponent = fakes.ApplicationComponent.Object,
-                    }
-                    .GetHashCode()), expectedFilePath), Times.Once);
+                    expectedFullPathToTemplate,
+                    It.Is<object>(
+                        x => x.GetHashCode() ==
+                        new
+                        {
+                            entity = fakes.ExpectedEntity,
+                            component = fakes.ClientComponent.Object,
+                        }
+                        .GetHashCode()),
+                    expectedPathToOutputFile),
+                Times.Once);
         }
     }
 }

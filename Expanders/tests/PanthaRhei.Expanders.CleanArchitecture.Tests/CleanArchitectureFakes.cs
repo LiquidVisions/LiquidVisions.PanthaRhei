@@ -29,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
         public Mock<IProjectAgentInteractor> IProjectAgentInteractor { get; } = new();
 
         public string ExpectedCompontentOutputFolder = "C:\\Some\\Component\\Output\\Path";
-
+        public Entity ExpectedEntity { get; } = new() { Name = "JustATestEntity" };
         internal void MockCleanArchitectureExpander(List<Entity> entities = null)
         {
             App app = SetupApp(entities, new List<Expander> { CleanArchitectureExpanderModel.Object });

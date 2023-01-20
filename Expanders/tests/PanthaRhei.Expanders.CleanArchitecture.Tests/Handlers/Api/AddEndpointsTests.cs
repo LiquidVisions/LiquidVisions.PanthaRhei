@@ -15,13 +15,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
     {
         private readonly CleanArchitectureFakes fakes = new();
         private readonly AddEndpoints handler;
-        private readonly Entity expectedEntity = new();
-
+        
         public AddEndpointsTests()
         {
-            expectedEntity.Name = "JustATestEntity";
-
-            fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
+            fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 
@@ -102,10 +99,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                 applicationComponent = fakes.ApplicationComponent.Object,
                 clientComponent = fakes.ClientComponent.Object,
                 component = fakes.ApiComponent.Object,
-                Entity = expectedEntity,
+                Entity = fakes.ExpectedEntity,
             };
 
-            string expectedPathToWrite = Path.Combine(endpointPath, $"{expectedEntity.Name}{Resources.EndpointFolder}.cs");
+            string expectedPathToWrite = Path.Combine(endpointPath, $"{fakes.ExpectedEntity.Name}{Resources.EndpointFolder}.cs");
             string expectedRenderedTemplate = "RenderedResult";
             fakes.ITemplateInteractor.Setup(x => x.Render(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode()))).Returns(expectedRenderedTemplate);
 
@@ -135,11 +132,11 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             fakes.IWriterInteractor.Verify(x => x.Load(expectedPathToBootstrapperFile), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.IndexOf("return services;"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.WriteAt(4, string.Empty), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.WriteAt(5, $"            services.Add{expectedEntity.Name}Elements();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(5, $"            services.Add{fakes.ExpectedEntity.Name}Elements();"), Times.Once);
 
             fakes.IWriterInteractor.Verify(x => x.IndexOf("app.Run();"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.WriteAt(11, string.Empty), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.WriteAt(12, $"            app.Use{expectedEntity.Name}Endpoints();"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.WriteAt(12, $"            app.Use{fakes.ExpectedEntity.Name}Endpoints();"), Times.Once);
 
             fakes.IWriterInteractor.Verify(x => x.Save(expectedPathToBootstrapperFile), Times.Once);
         }

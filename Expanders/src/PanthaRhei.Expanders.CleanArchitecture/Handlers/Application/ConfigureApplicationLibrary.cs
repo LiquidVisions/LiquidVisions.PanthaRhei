@@ -56,6 +56,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
 
+
+
         /// <inheritdoc/>
         public void Execute()
         {

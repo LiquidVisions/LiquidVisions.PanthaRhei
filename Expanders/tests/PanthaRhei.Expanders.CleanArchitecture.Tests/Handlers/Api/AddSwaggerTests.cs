@@ -13,13 +13,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
     {
         private readonly CleanArchitectureFakes fakes = new();
         private readonly AddSwagger handler;
-        private readonly Entity expectedEntity = new();
 
         public AddSwaggerTests()
         {
-            expectedEntity.Name = "JustATestEntity";
-
-            fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
+            fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 

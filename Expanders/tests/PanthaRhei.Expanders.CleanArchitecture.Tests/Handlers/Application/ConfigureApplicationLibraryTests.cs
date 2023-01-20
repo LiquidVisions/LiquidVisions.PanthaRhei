@@ -5,6 +5,7 @@ using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
 
@@ -14,14 +15,12 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
     {
         private readonly ConfigureApplicationLibrary handler;
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly Entity expectedEntity = new();
         private readonly string expectedRenderResult = "JustAFakeRenderedResult";
 
         public ConfigureApplicationLibraryTests()
         {
-            expectedEntity.Name = "JustATestEntity";
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApplicationComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
-            fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
+            fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 
@@ -104,7 +103,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             fakes.ITemplateInteractor.Setup(
                 x => x.Render(
                     expectedFullPathToTemplate, 
-                    It.Is<object>(x => x.GetHashCode() == new { Entity = expectedEntity }.GetHashCode())))
+                    It.Is<object>(x => x.GetHashCode() == new { Entity = fakes.ExpectedEntity }.GetHashCode())))
                 .Returns(expectedRenderResult);
 
             // act
@@ -113,13 +112,13 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // assert
             fakes.IWriterInteractor.Verify(x => x.Load(expectedFullPathToBootstrapperFile), Times.Once);
 
-            fakes.ITemplateInteractor.Verify(x => x.Render(expectedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == new { Entity = expectedEntity }.GetHashCode())), Times.Once);
+            fakes.ITemplateInteractor.Verify(x => x.Render(expectedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == new { Entity = fakes.ExpectedEntity }.GetHashCode())), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.AddOrReplaceMethod(expectedRenderResult), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{expectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{expectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Mappers.{expectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedClientNameSpace}.RequestModels.{expectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Validators.{expectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Mappers.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedClientNameSpace}.RequestModels.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Validators.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Gateways"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.AddNameSpace(It.IsAny<string>()), Times.Exactly(6));
 

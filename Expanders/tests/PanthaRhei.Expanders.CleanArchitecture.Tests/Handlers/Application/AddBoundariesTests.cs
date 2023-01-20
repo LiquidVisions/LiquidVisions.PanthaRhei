@@ -16,17 +16,14 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
     {
         private readonly CleanArchitectureFakes fakes = new();
         private readonly AddBoundaries handler;
-        private readonly Entity expectedEntity = new();
         private readonly string expectedCreateFolder;
 
         public AddBoundariesTests()
         {
-            expectedEntity.Name = "JustATestEntity";
-
-            expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.ApplicationBoundariesFolder, expectedEntity.Name.Pluralize());
+            expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.ApplicationBoundariesFolder, fakes.ExpectedEntity.Name.Pluralize());
 
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApplicationComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
-            fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
+            fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 
@@ -115,9 +112,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                             clientComponent = fakes.ClientComponent.Object,
                             component = fakes.ApplicationComponent.Object,
                             ActionType = expectedAction,
-                            entity = expectedEntity,
+                            entity = fakes.ExpectedEntity,
                         }.GetHashCode()),
-                        Path.Combine(expectedCreateFolder, $"{expectedEntity.ToFileName(expectedAction, "Boundary")}.cs")),
+                        Path.Combine(expectedCreateFolder, $"{fakes.ExpectedEntity.ToFileName(expectedAction, "Boundary")}.cs")),
                     Times.Exactly(1));
             }
         }

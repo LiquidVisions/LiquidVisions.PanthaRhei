@@ -14,17 +14,14 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
     {
         private readonly CleanArchitectureFakes fakes = new();
         private readonly AddInteractors handler;
-        private readonly Entity expectedEntity = new();
         private readonly string expectedCreateFolder;
 
         public AddInteractorsTests()
         {
-            expectedEntity.Name = "JustATestEntity";
-
-            expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.InteractorFolder, expectedEntity.Name.Pluralize());
+            expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.InteractorFolder, fakes.ExpectedEntity.Name.Pluralize());
 
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApplicationComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
-            fakes.MockCleanArchitectureExpander(new List<Entity> { expectedEntity });
+            fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 
@@ -113,9 +110,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                         {
                             clientComponent = fakes.ClientComponent.Object,
                             component = fakes.ApplicationComponent.Object,
-                            Entity = expectedEntity,
+                            Entity = fakes.ExpectedEntity,
                         }.GetHashCode()),
-                        Path.Combine(expectedCreateFolder, $"{expectedEntity.ToFileName(expectedAction, "Interactor")}.cs")),
+                        Path.Combine(expectedCreateFolder, $"{fakes.ExpectedEntity.ToFileName(expectedAction, "Interactor")}.cs")),
                     Times.Exactly(1));
             }
         }
