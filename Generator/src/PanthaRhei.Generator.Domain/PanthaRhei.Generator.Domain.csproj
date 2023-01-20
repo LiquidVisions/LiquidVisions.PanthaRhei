@@ -5,6 +5,7 @@
 		<AssemblyName>LiquidVisions.PanthaRhei.Generator.Domain</AssemblyName>
 		<RootNamespace>LiquidVisions.PanthaRhei.Generator.Domain</RootNamespace>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<NeutralLanguage>en</NeutralLanguage>
 	</PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <GenerateDocumentationFile>true</GenerateDocumentationFile>

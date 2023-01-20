@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
@@ -10,22 +9,23 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seeders
 {
-    public class ConnectionStringSeederInteractorTests : AbstractTests
+    public class ConnectionStringSeederInteractorTests
     {
+        private readonly Fakes fakes = new();
         private readonly ConnectionStringsSeederInteractor interactor;
         private readonly Mock<ICreateGateway<ConnectionString>> mockedCreateGateway = new();
         private readonly Mock<IDeleteGateway<ConnectionString>> mockedDeleteGateway = new();
 
         public ConnectionStringSeederInteractorTests()
         {
-            Fakes.IDependencyFactoryInteractor
+            fakes.IDependencyFactoryInteractor
                 .Setup(x => x.Get<ICreateGateway<ConnectionString>>())
                 .Returns(mockedCreateGateway.Object);
-            Fakes.IDependencyFactoryInteractor
+            fakes.IDependencyFactoryInteractor
                 .Setup(x => x.Get<IDeleteGateway<ConnectionString>>())
                 .Returns(mockedDeleteGateway.Object);
 
-            interactor = new ConnectionStringsSeederInteractor(Fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ConnectionStringsSeederInteractor(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -34,10 +34,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // arrange
             // act
             // assert
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<ConnectionString>>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<ConnectionString>>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<ConnectionString>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<ConnectionString>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
         [Fact]

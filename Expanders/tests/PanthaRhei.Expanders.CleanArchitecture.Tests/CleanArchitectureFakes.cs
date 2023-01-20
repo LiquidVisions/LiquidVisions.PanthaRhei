@@ -24,15 +24,32 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
         public Mock<CleanArchitectureExpander> CleanArchitectureExpander { get; } = new();
 
-        internal Mock<IProjectTemplateInteractor> IProjectTemplateInteractor { get; } = new();
-
         public Mock<IProjectAgentInteractor> IProjectAgentInteractor { get; } = new();
 
-        public string ExpectedCompontentOutputFolder = "C:\\Some\\Component\\Output\\Path";
+        public string ExpectedCompontentOutputFolder { get; } = "C:\\Some\\Component\\Output\\Path";
+
         public Entity ExpectedEntity { get; } = new() { Name = "JustATestEntity" };
+
+        internal static string DefaultAppName { get; } = "Project";
+
+        internal static string DefaultAppFullName { get; } = "LiquidVisions.Tests";
+
+        internal Mock<IProjectTemplateInteractor> IProjectTemplateInteractor { get; } = new();
+
+        public override void ConfigureIDependencyFactoryInteractor()
+        {
+            base.ConfigureIDependencyFactoryInteractor();
+
+            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectTemplateInteractor>())
+                .Returns(IProjectTemplateInteractor.Object);
+
+            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectAgentInteractor>())
+                .Returns(IProjectAgentInteractor.Object);
+        }
+
         internal void MockCleanArchitectureExpander(List<Entity> entities = null)
         {
-            App app = SetupApp(entities, new List<Expander> { CleanArchitectureExpanderModel.Object });
+            SetupApp(entities, new List<Expander> { CleanArchitectureExpanderModel.Object });
 
             CleanArchitectureExpanderInteractor.Setup(x => x.Name).Returns(nameof(CleanArchitectureExpanderInteractor));
             CleanArchitectureExpanderInteractor.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
@@ -61,17 +78,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             IDependencyFactoryInteractor.Setup(x => x.Get<CleanArchitectureExpander>()).Returns(CleanArchitectureExpander.Object);
         }
 
-        public override void ConfigureIDependencyFactoryInteractor()
-        {
-            base.ConfigureIDependencyFactoryInteractor();
-
-            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectTemplateInteractor>())
-                .Returns(IProjectTemplateInteractor.Object);
-
-            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectAgentInteractor>())
-                .Returns(IProjectAgentInteractor.Object);
-        }
-
         internal App SetupApp(List<Expander> expanders = null)
         {
             return SetupApp(GetValidEntities(), expanders);
@@ -86,11 +92,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             return app;
         }
 
-        internal static string DefaultAppName => "Project";
-        
-        internal static string DefaultAppFullName => "LiquidVisions.Tests";
-
-        private App GetDefaultApp(List<Entity> entities, List<Expander> expanders = null)
+        private static App GetDefaultApp(List<Entity> entities, List<Expander> expanders = null)
         {
             return new App
             {
@@ -109,7 +111,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             };
         }
 
-        private List<Entity> GetValidEntities()
+        private static List<Entity> GetValidEntities()
         {
             List<Entity> entities = new()
             {
@@ -118,8 +120,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
                     Name = "EntityWithSingleKey",
                     Fields = new List<Field>
                     {
-                        new Field{ Name = "Key", IsKey = true, ReturnType = "Guid", Required = true },
-                        new Field{ Name = "Field1", ReturnType = "string", Required = true },
+                        new Field { Name = "Key", IsKey = true, ReturnType = "Guid", Required = true },
+                        new Field { Name = "Field1", ReturnType = "string", Required = true },
                     },
                 },
                 new Entity
@@ -127,9 +129,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
                     Name = "EntityWithClusteredKey",
                     Fields = new List<Field>
                     {
-                        new Field{ Name = "Key1", IsKey = true, ReturnType = "Guid", Required = true },
-                        new Field{ Name = "Key2", IsKey = true, ReturnType = "Guid", Required = true },
-                        new Field{ Name = "Field1", ReturnType = "Guid", Required = true },
+                        new Field { Name = "Key1", IsKey = true, ReturnType = "Guid", Required = true },
+                        new Field { Name = "Key2", IsKey = true, ReturnType = "Guid", Required = true },
+                        new Field { Name = "Field1", ReturnType = "Guid", Required = true },
                     },
                 },
                 new Entity
@@ -137,9 +139,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
                     Name = "EntityWithSingleIndex",
                     Fields = new List<Field>
                     {
-                        new Field{ Name = "Key1", IsKey = true, ReturnType = "Guid", Required = true },
-                        new Field{ Name = "Index", IsIndex = true, ReturnType = "string", Required = true },
-                        new Field{ Name = "Field1", ReturnType = "string", Required = true },
+                        new Field { Name = "Key1", IsKey = true, ReturnType = "Guid", Required = true },
+                        new Field { Name = "Index", IsIndex = true, ReturnType = "string", Required = true },
+                        new Field { Name = "Field1", ReturnType = "string", Required = true },
                     },
                 },
                 new Entity
@@ -147,10 +149,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
                     Name = "EntityWithClusteredIndex",
                     Fields = new List<Field>
                     {
-                        new Field{ Name = "Key", IsKey = true, ReturnType = "string", Required = true},
-                        new Field{ Name = "Index1", IsIndex = true, ReturnType = "string", Required = true },
-                        new Field{ Name = "Index2", IsIndex = true, ReturnType = "string", Required = true },
-                        new Field{ Name = "Field1", ReturnType = "string", Required = true },
+                        new Field { Name = "Key", IsKey = true, ReturnType = "string", Required = true },
+                        new Field { Name = "Index1", IsIndex = true, ReturnType = "string", Required = true },
+                        new Field { Name = "Index2", IsIndex = true, ReturnType = "string", Required = true },
+                        new Field { Name = "Field1", ReturnType = "string", Required = true },
                     },
                 },
             };

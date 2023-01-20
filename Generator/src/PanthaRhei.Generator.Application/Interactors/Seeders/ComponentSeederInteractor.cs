@@ -41,7 +41,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                     IEnumerable<string> files = directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)
                         .Where(x => !string.IsNullOrEmpty(x));
 
-
                     if (files != null && files.Any())
                     {
                         foreach (string file in files)

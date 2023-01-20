@@ -37,7 +37,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
 
             component = Expander.Model.GetComponentByName(Resources.Client);
             fullPathToComponentFolder = projectAgent.GetComponentOutputFolder(component);
-
         }
 
         public int Order => 19;

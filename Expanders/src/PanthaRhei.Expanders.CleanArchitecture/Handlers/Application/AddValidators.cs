@@ -25,7 +25,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         private readonly List<string> actions;
         private readonly Component component;
         private readonly string fullPathToComponentOutput;
-        private readonly string destinationFolder;
         private readonly string fullPathToTemplate;
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries).ToList();
             component = expander.Model.GetComponentByName(Resources.Application);
             fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
-            destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.ValidatorFolder);
             fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ValidatorTemplate);
         }
 

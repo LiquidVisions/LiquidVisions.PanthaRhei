@@ -12,7 +12,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
         private readonly IDeleteGateway<Entity> deleteGateway;
         private readonly IEntitiesToSeedGateway entitySeederGateway;
 
-
         public EntitySeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             createGateway = dependencyFactory.Get<ICreateGateway<Entity>>();
@@ -55,12 +54,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
                 return "public";
             }
 
-            if(type.IsNotPublic || type.IsNestedPrivate)
+            if (type.IsNotPublic || type.IsNestedPrivate)
             {
                 return "private";
             }
 
-            if(type.IsNested || type.IsNestedFamily)
+            if (type.IsNested || type.IsNestedFamily)
             {
                 return "protected";
             }

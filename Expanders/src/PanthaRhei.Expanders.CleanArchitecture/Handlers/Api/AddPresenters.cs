@@ -76,7 +76,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
                         applicationComponent,
                         component,
                         action,
-                        entity = entity,
+                        entity,
                     };
 
                     templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPath);

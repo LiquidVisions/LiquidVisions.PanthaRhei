@@ -13,7 +13,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Cl
     {
         private readonly AddClient handler;
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly Entity expectedEntity = new();
 
         public AddClientTests()
         {

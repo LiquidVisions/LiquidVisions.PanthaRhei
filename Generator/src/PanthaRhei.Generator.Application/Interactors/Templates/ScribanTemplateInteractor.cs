@@ -47,9 +47,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
         }
 
         /// <inheritdoc/>
-        public void RenderAndSave(string fullPathToTemplate, object parameters, string fullPathToOutput)
+        public void RenderAndSave(string fullPathToTemplate, object templateModel, string fullPathToOutput)
         {
-            string result = Render(fullPathToTemplate, parameters);
+            string result = Render(fullPathToTemplate, templateModel);
             string folder = fileService.GetDirectory(fullPathToOutput);
 
             if (!directoryService.Exists(folder))

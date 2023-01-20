@@ -23,7 +23,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         },
   ""AllowedHosts"": ""*""
 }";
-        string jsonExpectedResult = @"{
+
+        private readonly string jsonExpectedResult = @"{
   ""Logging"": {
     ""LogLevel"": {
       ""Default"": ""Information"",

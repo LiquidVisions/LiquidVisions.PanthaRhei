@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
     {
         private readonly CleanArchitectureFakes fakes = new();
         private readonly AddEndpoints handler;
-        
+
         public AddEndpointsTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
@@ -123,7 +123,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(componentPath);
             fakes.IWriterInteractor.Setup(x => x.IndexOf("return services;")).Returns(5);
             fakes.IWriterInteractor.Setup(x => x.IndexOf("app.Run();")).Returns(12);
-
 
             // act
             handler.Execute();

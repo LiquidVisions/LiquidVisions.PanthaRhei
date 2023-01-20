@@ -102,7 +102,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
 
             fakes.ITemplateInteractor.Setup(
                 x => x.Render(
-                    expectedFullPathToTemplate, 
+                    expectedFullPathToTemplate,
                     It.Is<object>(x => x.GetHashCode() == new { Entity = fakes.ExpectedEntity }.GetHashCode())))
                 .Returns(expectedRenderResult);
 

@@ -46,13 +46,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         public Mock<ITemplateInteractor> ITemplateInteractor { get; } = new();
 
+        public Mock<ICommandLineInteractor> ICommandLineInteractor { get; } = new();
+
         internal Mock<IAssemblyContextInteractor> IAssemblyContextInteractor { get; } = new();
 
         internal Mock<IObjectActivatorInteractor> IObjectActivatorInteractor { get; } = new();
 
         internal Mock<IAssemblyManagerInteractor> IAssemblyManagerInteractor { get; } = new();
-
-        public Mock<ICommandLineInteractor> ICommandLineInteractor { get; } = new();
 
         public void Configure()
         {

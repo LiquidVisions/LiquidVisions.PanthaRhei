@@ -13,21 +13,21 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seeders
 {
-    public class IExpanderSeederInteractorTests : AbstractTests
+    public class IExpanderSeederInteractorTests
     {
         private readonly ExpanderSeederInteractor interactor;
-
+        private readonly Fakes fakes = new();
         private readonly Mock<ICreateGateway<Expander>> mockedCreateGateway = new();
         private readonly Mock<IDeleteGateway<Expander>> mockedDeleteGateway = new();
         private readonly Mock<IExpanderPluginLoaderInteractor> mockedPluginLoader = new();
 
         public IExpanderSeederInteractorTests()
         {
-            Fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<Expander>>()).Returns(mockedCreateGateway.Object);
-            Fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteGateway<Expander>>()).Returns(mockedDeleteGateway.Object);
-            Fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IExpanderPluginLoaderInteractor>()).Returns(mockedPluginLoader.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<Expander>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteGateway<Expander>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IExpanderPluginLoaderInteractor>()).Returns(mockedPluginLoader.Object);
 
-            interactor = new ExpanderSeederInteractor(Fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ExpanderSeederInteractor(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -36,12 +36,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // arrange
             // act
             // assert
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Expander>>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<Expander>>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IExpanderPluginLoaderInteractor>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
-            Fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Expander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<Expander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IExpanderPluginLoaderInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // assert
             App app = new();
             string folder = "Expanders";
-            Fakes.Parameters.Setup(x => x.ExpandersFolder).Returns(folder);
+            fakes.Parameters.Setup(x => x.ExpandersFolder).Returns(folder);
             mockedPluginLoader.Setup(x => x.ShallowLoadAllExpanders(folder))
                 .Returns(new List<IExpanderInteractor> { GetMockedIExpanderInteractor() });
 
@@ -92,13 +92,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             Assert.Single(app.Expanders);
             mockedCreateGateway.Verify(
                 x => x.Create(It.Is<Expander>(x =>
-                x.Id != Guid.Empty && 
-                x.Name == "Name" && 
-                x.Order == 1 && 
+                x.Id != Guid.Empty &&
+                x.Name == "Name" &&
+                x.Order == 1 &&
                 x.TemplateFolder == ".Templates")), Times.Once);
         }
 
-        private IExpanderInteractor GetMockedIExpanderInteractor()
+        private static IExpanderInteractor GetMockedIExpanderInteractor()
         {
             Mock<IExpanderInteractor> mock = new();
             mock.Setup(x => x.Name).Returns("Name");
