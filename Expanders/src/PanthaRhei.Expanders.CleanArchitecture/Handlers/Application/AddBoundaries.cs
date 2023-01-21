@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application
 {
     /// <summary>
-    /// a <seealso cref="RequestActionsTemplateHandlerService"/> that adds the boundaries to the output project.
+    /// a <seealso cref="IHandlerInteractor{CleanArchitectureExpander}"/> that adds the boundaries to the output project.
     /// </summary>
     public class AddBoundaries : IHandlerInteractor<CleanArchitectureExpander>
     {

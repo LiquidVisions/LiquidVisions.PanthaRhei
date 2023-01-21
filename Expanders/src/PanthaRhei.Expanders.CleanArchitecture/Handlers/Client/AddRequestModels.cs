@@ -11,7 +11,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
 {
     /// <summary>
-    /// a <seealso cref="RequestActionsTemplateHandlerService"/> that adds the request models to the output project.
+    /// a <seealso cref="IHandlerInteractor{CleanArchitectureExpander}"/> that adds the request models to the output project.
     /// </summary>
     public class AddRequestModels : IHandlerInteractor<CleanArchitectureExpander>
     {
