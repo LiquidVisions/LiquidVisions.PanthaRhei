@@ -138,7 +138,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         }
 
         /// <summary>
-        /// Register all <seealso cref="IHandlerInteractor{TExpander}"/> that are loaded in the <paramref name="assembly"/>.
+        /// Register all <seealso cref="IExpanderHandlerInteractor{TExpander}"/> that are loaded in the <paramref name="assembly"/>.
         /// </summary>
         /// <param name="assembly"><seealso cref="Assembly"/></param>
         public virtual void RegisterHandlers(Assembly assembly)
@@ -146,19 +146,19 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
             var listOfHandlers = assembly
                 .GetExportedTypes()
                 .Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.GetInterfaces().Contains(typeof(IHandlerInteractor<TExpander>)))
+                .Where(x => x.GetInterfaces().Contains(typeof(IExpanderHandlerInteractor<TExpander>)))
                 .ToList();
 
             if (!listOfHandlers.Any())
             {
-                logger.Warn($"Expander '{expander.Name}' does not have any {nameof(IHandlerInteractor<IExpanderInteractor>)} implememntations.");
+                logger.Warn($"Expander '{expander.Name}' does not have any {nameof(IExpanderHandlerInteractor<IExpanderInteractor>)} implememntations.");
                 return;
             }
 
             foreach (Type handlerType in listOfHandlers)
             {
-                dependencyManager.AddTransient(typeof(IHandlerInteractor<TExpander>), handlerType);
-                logger.Trace($"Registered {typeof(IHandlerInteractor<TExpander>)} to match {handlerType} in the dependency container.");
+                dependencyManager.AddTransient(typeof(IExpanderHandlerInteractor<TExpander>), handlerType);
+                logger.Trace($"Registered {typeof(IExpanderHandlerInteractor<TExpander>)} to match {handlerType} in the dependency container.");
             }
         }
 

@@ -62,9 +62,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandlerInteractor{TExpander}"/>.
         /// </summary>e
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandlerInteractor{TExpander}"/>.</returns>
-        public virtual IEnumerable<IHandlerInteractor<TExpander>> GetHandlers()
+        public virtual IEnumerable<IExpanderHandlerInteractor<TExpander>> GetHandlers()
         {
-            IEnumerable<IHandlerInteractor<TExpander>> handlers = dependencyFactory.GetAll<IHandlerInteractor<TExpander>>();
+            IEnumerable<IExpanderHandlerInteractor<TExpander>> handlers = dependencyFactory.GetAll<IExpanderHandlerInteractor<TExpander>>();
 
             return handlers;
         }
@@ -118,7 +118,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         {
             Logger.Trace($"Expanding expander {Name}");
 
-            foreach (IHandlerInteractor<TExpander> handler in GetHandlers()
+            foreach (IExpanderHandlerInteractor<TExpander> handler in GetHandlers()
                 .Where(x => x.CanExecute)
                 .OrderBy(x => x.Order))
             {

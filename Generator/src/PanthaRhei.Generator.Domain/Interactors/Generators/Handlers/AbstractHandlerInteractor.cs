@@ -7,10 +7,10 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers
 {
     /// <summary>
-    /// Abstract implementation of <seealso cref="IHandlerInteractor{TExpander}"/>.
+    /// Abstract implementation of <seealso cref="IExpanderHandlerInteractor{TExpander}"/>.
     /// </summary>
-    /// <typeparam name="TExpander">An instance of <see cref="IHandlerInteractor{TExpander}"/>.</typeparam>
-    public abstract class AbstractHandlerInteractor<TExpander> : IHandlerInteractor<TExpander>
+    /// <typeparam name="TExpander">An instance of <see cref="IExpanderHandlerInteractor{TExpander}"/>.</typeparam>
+    public abstract class AbstractHandlerInteractor<TExpander> : IExpanderHandlerInteractor<TExpander>
         where TExpander : class, IExpanderInteractor
     {
         private readonly App app;

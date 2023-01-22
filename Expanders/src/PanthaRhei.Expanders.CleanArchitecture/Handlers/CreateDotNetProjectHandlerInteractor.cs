@@ -7,7 +7,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
     /// <summary>
     /// Generates the solution and projects using the dotnet cli command liquidvisions-ca.
     /// </summary>
-    public class CreateDotNetProjectHandlerInteractor : IHandlerInteractor<CleanArchitectureExpander>
+    public class CreateDotNetProjectHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IProjectTemplateInteractor projectTemplateInteractor;
         private readonly CleanArchitectureExpander expander;
