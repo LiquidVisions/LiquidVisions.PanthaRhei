@@ -2,11 +2,13 @@
 using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using Moq;
 using Xunit;
+using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
 
 namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Clients
 {
@@ -18,7 +20,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Cl
 
         public AddRequestModelsTests()
         {
-            expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.RequestModelsFolder, fakes.ExpectedEntity.Name.Pluralize());
+            expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.RequestModelsFolder, fakes.ExpectedEntity.Name.Pluralize());
 
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ClientComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
@@ -34,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Cl
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Domain.Parameters>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
@@ -93,7 +95,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Cl
             // arrange
             App expectedApp = fakes.SetupApp();
             string expectedTemplateBaseBath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder);
-            string[] actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
+            string[] actions = CleanArchitectureResources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
 
             // act
             handler.Execute();
@@ -105,12 +107,12 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Cl
                 fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(5));
                 fakes.ITemplateInteractor.Verify(
                     x => x.RenderAndSave(
-                        Path.Combine(expectedTemplateBaseBath, $"{action}{Resources.RequestModelTemplate}.template"),
+                        Path.Combine(expectedTemplateBaseBath, $"{action}{CleanArchitectureResources.RequestModelTemplate}.template"),
                         It.Is<object>(x => x.GetHashCode() == new
                         {
                             Action = action,
                             NS = fakes.CleanArchitectureExpander.Object.Model.Name,
-                            NameSpace = $"{fakes.ClientComponent.Object.GetComponentNamespace(expectedApp, Resources.RequestModelsFolder)}.{fakes.ExpectedEntity.Name.Pluralize()}",
+                            NameSpace = $"{fakes.ClientComponent.Object.GetComponentNamespace(expectedApp, CleanArchitectureResources.RequestModelsFolder)}.{fakes.ExpectedEntity.Name.Pluralize()}",
                             Entity = fakes.ExpectedEntity,
                         }.GetHashCode()),
                         Path.Combine(expectedCreateFolder, $"{AddRequestModels.ToFileName(action, fakes.ExpectedEntity)}.cs")),

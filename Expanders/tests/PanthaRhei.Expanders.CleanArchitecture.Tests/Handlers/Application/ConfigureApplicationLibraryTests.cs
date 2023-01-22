@@ -2,12 +2,13 @@
 using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 using Xunit;
+using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
 
 namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Application
 {
@@ -33,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Domain.Parameters>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
@@ -93,12 +94,12 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             App app = fakes.SetupApp();
             string expectedNameSpace = fakes.ApplicationComponent.Object.GetComponentNamespace(app);
             string expectedClientNameSpace = fakes.ClientComponent.Object.GetComponentNamespace(app);
-            string expectedFullPathToBootstrapperFile = Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.DependencyInjectionBootstrapperFile);
+            string expectedFullPathToBootstrapperFile = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.DependencyInjectionBootstrapperFile);
             string expectedFullPathToTemplate = Path.Combine(
                 fakes.Parameters.Object.ExpandersFolder,
                 fakes.CleanArchitectureExpander.Object.Model.Name,
                 fakes.CleanArchitectureExpander.Object.Model.TemplateFolder,
-                $"{Resources.ApplicationDependencyInjectionBootstrapperTemplate}.template");
+                $"{CleanArchitectureResources.ApplicationDependencyInjectionBootstrapperTemplate}.template");
 
             fakes.ITemplateInteractor.Setup(
                 x => x.Render(

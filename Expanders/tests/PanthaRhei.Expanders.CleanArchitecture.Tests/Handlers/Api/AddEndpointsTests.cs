@@ -2,12 +2,14 @@
 using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using Moq;
 using Xunit;
+using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
 
 namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Api
 {
@@ -30,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Domain.Parameters>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
@@ -90,8 +92,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         {
             // arrange
             string componentPath = "C:\\Some\\Folder\\Path";
-            string endpointPath = Path.Combine(componentPath, Resources.EndpointFolder);
-            string expextedFullPathToTemplate = Path.Combine(Extensions.GetTemplateFolder(fakes.CleanArchitectureExpander.Object.Model, fakes.Parameters.Object, Resources.EndpointTemplate));
+            string endpointPath = Path.Combine(componentPath, CleanArchitectureResources.EndpointFolder);
+            string expextedFullPathToTemplate = Path.Combine(Extensions.GetTemplateFolder(fakes.CleanArchitectureExpander.Object.Model, fakes.Parameters.Object, CleanArchitectureResources.EndpointTemplate));
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(componentPath);
 
             var expectedTemplateParameters = new
@@ -102,7 +104,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                 Entity = fakes.ExpectedEntity,
             };
 
-            string expectedPathToWrite = Path.Combine(endpointPath, $"{fakes.ExpectedEntity.Name}{Resources.EndpointFolder}.cs");
+            string expectedPathToWrite = Path.Combine(endpointPath, $"{fakes.ExpectedEntity.Name}{CleanArchitectureResources.EndpointFolder}.cs");
             string expectedRenderedTemplate = "RenderedResult";
             fakes.ITemplateInteractor.Setup(x => x.Render(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode()))).Returns(expectedRenderedTemplate);
 
@@ -119,7 +121,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         {
             // arrange
             string componentPath = "C:\\Some\\Folder\\Path";
-            string expectedPathToBootstrapperFile = Path.Combine(componentPath, Resources.DependencyInjectionBootstrapperFile);
+            string expectedPathToBootstrapperFile = Path.Combine(componentPath, CleanArchitectureResources.DependencyInjectionBootstrapperFile);
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(componentPath);
             fakes.IWriterInteractor.Setup(x => x.IndexOf("return services;")).Returns(5);
             fakes.IWriterInteractor.Setup(x => x.IndexOf("app.Run();")).Returns(12);

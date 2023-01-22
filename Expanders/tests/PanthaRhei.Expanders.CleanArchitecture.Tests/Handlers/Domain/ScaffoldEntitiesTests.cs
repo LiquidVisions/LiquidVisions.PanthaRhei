@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
@@ -12,19 +11,19 @@ using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Application
+namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Domain
 {
-    public class AddValidatorsTests
+    public class ScaffoldEntitiesTests
     {
+        private readonly ScaffoldEntities handler;
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly AddValidators handler;
-        private readonly string expectedCreateFolder;
+        private readonly string rootFolder;
 
-        public AddValidatorsTests()
+        public ScaffoldEntitiesTests()
         {
-            expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.ValidatorFolder, fakes.ExpectedEntity.Name.Pluralize());
+            rootFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.DomainEntityFolder);
 
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApplicationComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
+            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.DomainComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
@@ -35,12 +34,14 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+
+            fakes.IDirectory.Verify(x => x.Create(rootFolder), Times.Once);
         }
 
         [Fact]
@@ -49,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(6, handler.Order);
+            Assert.Equal(2, handler.Order);
         }
 
         [Fact]
@@ -58,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(AddValidators), handler.Name);
+            Assert.Equal(nameof(ScaffoldEntities), handler.Name);
         }
 
         [Theory]
@@ -92,32 +93,22 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         }
 
         [Fact]
-        public void Execute_ShouldRenderAnSaveApplicationMapperTemplate()
+        public void Execute_ShouldCreateAndSaveTemplate()
         {
             // arrange
-            string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.ValidatorTemplate}.template");
-            string[] expectedActions = CleanArchitectureResources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
+            string expectedTemplateBaseBath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.EntityTemplate}.template");
 
             // act
             handler.Execute();
 
             // assert
-            fakes.IDirectory.Verify(x => x.Create(expectedCreateFolder), Times.Once);
-            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(expectedTemplatePath, It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(5));
-            foreach (string expectedAction in expectedActions)
-            {
-                fakes.ITemplateInteractor.Verify(
-                    x => x.RenderAndSave(
-                        expectedTemplatePath,
-                        It.Is<object>(x => x.GetHashCode() == new
-                        {
-                            component = fakes.ApplicationComponent.Object,
-                            Action = expectedAction,
-                            Entity = fakes.ExpectedEntity,
-                        }.GetHashCode()),
-                        Path.Combine(expectedCreateFolder, $"{fakes.ExpectedEntity.ToFileName(expectedAction, "Validator")}.cs")),
-                    Times.Exactly(1));
-            }
+            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Once);
+            fakes.ITemplateInteractor.Verify(
+                x => x.RenderAndSave(
+                    expectedTemplateBaseBath,
+                    It.Is<object>(x => x.GetHashCode() == new { entity = fakes.ExpectedEntity }.GetHashCode()),
+                    Path.Combine(rootFolder, $"{fakes.ExpectedEntity.Name}.cs")),
+                Times.Once);
         }
     }
 }

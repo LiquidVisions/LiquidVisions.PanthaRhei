@@ -1,18 +1,26 @@
 ﻿using System.IO;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
 {
     /// <summary>
     /// Generates the <seealso cref="Entity">Entities</seealso>.
     /// </summary>
-    public class ScaffoldEntities : AbstractHandlerInteractor<CleanArchitectureExpander>
+    public class ScaffoldEntities : IHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly ITemplateInteractor templateService;
         private readonly IProjectAgentInteractor projectInteractor;
+        private readonly Parameters parameters;
+        private readonly App app;
+        private readonly Component domain;
+        private readonly string entitiesFolder;
+        private readonly CleanArchitectureExpander expander;
+        private readonly string templateFolder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScaffoldEntities"/> class.
@@ -20,29 +28,36 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/>.</param>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public ScaffoldEntities(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
-            : base(expander, dependencyFactory)
         {
-            this.templateService = dependencyFactory.Get<ITemplateInteractor>();
-            this.projectInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
+            this.expander = expander;
+
+            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            projectInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
+            parameters = dependencyFactory.Get<Parameters>();
+            app = dependencyFactory.Get<App>();
+
+            domain = Expander.Model.GetComponentByName(Resources.Domain);
+            templateFolder = Expander.Model.GetTemplateFolder(parameters, Resources.EntityTemplate);
+            string componentFolder = projectInteractor.GetComponentOutputFolder(domain);
+            entitiesFolder = Path.Combine(componentFolder, Resources.DomainEntityFolder);
+            dependencyFactory.Get<IDirectory>().Create(entitiesFolder);
         }
 
-        public override int Order => 2;
+        public int Order => 2;
 
-        public override bool CanExecute => Parameters.GenerationMode.HasFlag(GenerationModes.Default) || Parameters.GenerationMode.HasFlag(GenerationModes.Extend);
+        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
+
+        public string Name => nameof(ScaffoldEntities);
+
+        public CleanArchitectureExpander Expander => expander;
 
         /// <inheritdoc/>
-        public override void Execute()
+        public void Execute()
         {
-            Component domain = Expander.Model.GetComponentByName(Resources.Domain);
-
-            string entitiesFolder = Path.Combine(projectInteractor.GetComponentOutputFolder(domain), Resources.DomainEntityFolder);
-            Directory.Create(entitiesFolder);
-
-            string templateFolder = Expander.Model.GetTemplateFolder(Parameters, Resources.EntityTemplate);
-            foreach (var entity in App.Entities)
+            foreach (var entity in app.Entities)
             {
-                string result = templateService.Render(templateFolder, new { entity });
-                File.WriteAllText(Path.Combine(entitiesFolder, $"{entity.Name}.cs"), result);
+                string fullSavePath = Path.Combine(entitiesFolder, $"{entity.Name}.cs");
+                templateService.RenderAndSave(templateFolder, new { entity }, fullSavePath);
             }
         }
     }
