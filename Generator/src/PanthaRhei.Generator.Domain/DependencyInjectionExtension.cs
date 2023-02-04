@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
@@ -26,7 +27,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
             return services.AddSingleton<IDependencyManagerInteractor>(container)
                 .AddSingleton<IDependencyFactoryInteractor>(container)
                 .AddSingleton(new Parameters())
-                .AddInitializers();
+                .AddInitializers()
+                .AddTransient<IHarvestSerializerInteractor, HarvestSerializerInteractor>();
         }
 
         private static IServiceCollection AddInitializers(this IServiceCollection services)

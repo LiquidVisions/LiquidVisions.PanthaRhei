@@ -57,10 +57,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 
             foreach (var entityType in entityTypes)
             {
-                services.AddTransient(repositoryType.MakeGenericType(entityType), getGatewayType.MakeGenericType(entityType));
-                services.AddTransient(repositoryType.MakeGenericType(entityType), deleteGatewayType.MakeGenericType(entityType));
-                services.AddTransient(repositoryType.MakeGenericType(entityType), updateGatewayType.MakeGenericType(entityType));
-                services.AddTransient(repositoryType.MakeGenericType(entityType), createGatewayType.MakeGenericType(entityType));
+                services.AddTransient(getGatewayType.MakeGenericType(entityType), repositoryType.MakeGenericType(entityType));
+                services.AddTransient(deleteGatewayType.MakeGenericType(entityType), repositoryType.MakeGenericType(entityType));
+                services.AddTransient(updateGatewayType.MakeGenericType(entityType), repositoryType.MakeGenericType(entityType));
+                services.AddTransient(createGatewayType.MakeGenericType(entityType), repositoryType.MakeGenericType(entityType));
             }
 
             return services;

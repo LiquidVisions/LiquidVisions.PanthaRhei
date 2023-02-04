@@ -8,7 +8,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
 {
     public class HarvestSerializerInteractor : IHarvestSerializerInteractor
     {
-        private readonly Parameters parameters;
         private readonly ISerializerInteractor<Harvest> serializer;
         private readonly IFile file;
         private readonly IDirectory directory;
@@ -18,7 +17,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
             file = dependencyFactory.Get<IFile>();
             directory = dependencyFactory.Get<IDirectory>();
             serializer = dependencyFactory.Get<ISerializerInteractor<Harvest>>();
-            parameters = dependencyFactory.Get<Parameters>();
         }
 
         public void Deserialize(Harvest harvest, string fullPath)
