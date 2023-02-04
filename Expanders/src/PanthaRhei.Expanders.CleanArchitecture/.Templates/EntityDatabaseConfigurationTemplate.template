@@ -17,7 +17,7 @@ namespace {{name_space}}.Configuration
             {{~end~}}
             
             {{~for field in entity.fields | array.sort 'order'~}}
-            {{~if field.reference_id == null~}}
+            {{~if field.reference == null~}}
             builder.Property(x => x.{{ field.name }})
                 {{~if field.size != null~}}
                 .HasMaxLength({{field.size}})

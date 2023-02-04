@@ -24,8 +24,16 @@ begin
 	begin
 		result += "List<" + $0.return_type + "> "
 	else
-		result += $0.return_type + " "
+		result += $0.return_type
+		if(!$0.required && $0.return_type != 'string' && $0.reference == null)
+		begin
+		result += '?'
+		end
+
+		result += ' '
 	end
+
+
 
 	result += $0.name + " { get; set; }"
 
