@@ -7,16 +7,22 @@
 				<Configuration>
 					<CodeCoverage>
 						<!-- Match the path of the source files in which each method is defined: -->
-						<Sources>
+						<Exclude>
+							<ModulePath>.*Tests.*</ModulePath>
+						</Exclude>
+
+						<ModulePaths>
 							<Exclude>
-								<Sources>.\\*.Tests\\.*</Sources>
-								<Source>.*\\Migrations\\.*</Source>
-								<Source>.*\\Configuration\\.*</Source>
+								<ModulePath>.*Tests.*</ModulePath>
 							</Exclude>
-							<Include>
-								<Sources>LiquidVisions*\\.*</Sources>
-							</Include>
-						</Sources>
+						</ModulePaths>
+
+						<Functions>
+							<Exclude>
+								<Function>.*Migrations.*</Function>
+							</Exclude>
+						</Functions>
+						
 					</CodeCoverage>
 				</Configuration>
 			</DataCollector>
