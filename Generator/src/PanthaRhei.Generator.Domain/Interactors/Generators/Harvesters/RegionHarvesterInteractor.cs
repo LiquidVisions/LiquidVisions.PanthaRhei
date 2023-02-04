@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters
 {
@@ -10,34 +12,39 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
     /// An abstract implementation of the <see cref="IHarvesterInteractor{TExpander}"/>.
     /// </summary>
     /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
-    internal sealed class RegionHarvesterInteractor<TExpander> : HarvesterInteractor<TExpander>
+    internal sealed class RegionHarvesterInteractor<TExpander> : IHarvesterInteractor<TExpander>
         where TExpander : class, IExpanderInteractor
     {
         private readonly string regexPattern = @"#region ns-custom-(?'tag'.*)(?'content'(?s).*?)#endregion ns-custom-(?'tag'.*)";
         private readonly Parameters parameters;
+        private readonly IDirectory directory;
+        private readonly IFile file;
+        private readonly IHarvestSerializerInteractor serializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionHarvesterInteractor{TExpander}"/> class.
         /// </summary>
         /// <param name="dependencyProvider"><seealso cref="IDependencyFactoryInteractor"/></param>
         public RegionHarvesterInteractor(IDependencyFactoryInteractor dependencyProvider)
-           : base(dependencyProvider)
         {
+            serializer = dependencyProvider.Get<IHarvestSerializerInteractor>();
             parameters = dependencyProvider.Get<Parameters>();
+            directory = dependencyProvider.Get<IDirectory>();
+            file = dependencyProvider.Get<IFile>();
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => !parameters.GenerationMode.HasFlag(GenerationModes.Deploy) && Directory.Exists(parameters.OutputFolder);
+        public bool CanExecute => !parameters.GenerationMode.HasFlag(GenerationModes.Deploy)
+            && directory.Exists(parameters.OutputFolder);
+
+        public TExpander Expander => throw new System.NotImplementedException();
 
         /// <inheritdoc/>
-        protected override string Extension => Resources.RegionHarvesterExtensionFile;
-
-        /// <inheritdoc/>
-        public override void Execute()
+        public void Execute()
         {
-            string[] files = Directory.GetFiles(parameters.OutputFolder, "*.cs", System.IO.SearchOption.AllDirectories);
+            string[] filePaths = directory.GetFiles(parameters.OutputFolder, "*.cs", System.IO.SearchOption.AllDirectories);
 
-            ExecuteAllFiles(files);
+            ExecuteAllFiles(filePaths);
         }
 
         private static void HandleMatch(Harvest harvest, Match match)
@@ -62,24 +69,24 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
             return !string.IsNullOrWhiteSpace(str.Trim());
         }
 
-        private void ExecuteAllFiles(string[] files)
+        private void ExecuteAllFiles(string[] pathToFiles)
         {
-            foreach (string file in files)
+            foreach (string filePath in pathToFiles)
             {
-                ExecuteFile(file);
+                ExecuteFile(filePath);
             }
         }
 
-        private void ExecuteFile(string file)
+        private void ExecuteFile(string pathToFile)
         {
-            string fileText = File.ReadAllText(file);
+            string fileText = file.ReadAllText(pathToFile);
 
             MatchCollection result = Regex.Matches(fileText, regexPattern, RegexOptions.Multiline);
             if (result.Any())
             {
                 Harvest harvest = new()
                 {
-                    Path = file,
+                    Path = pathToFile,
                 };
 
                 foreach (Match match in result.Cast<Match>())
@@ -87,7 +94,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
                     HandleMatch(harvest, match);
                 }
 
-                DeserializeHarvestModelToFile(harvest, file);
+                string fullPathToHarvestLocation = Path.Combine(
+                    parameters.HarvestFolder,
+                    Expander.Model.Name,
+                    $"{file.GetFileNameWithoutExtension(pathToFile)}.{Resources.RegionHarvesterExtensionFile}");
+
+                serializer.Deserialize(harvest, fullPathToHarvestLocation);
             }
         }
     }

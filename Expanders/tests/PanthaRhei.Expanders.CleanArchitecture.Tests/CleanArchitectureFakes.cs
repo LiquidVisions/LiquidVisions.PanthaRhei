@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
 
@@ -26,6 +27,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
         public Mock<IProjectAgentInteractor> IProjectAgentInteractor { get; } = new();
 
+        public Mock<IHarvestSerializerInteractor> IHarvestSerializerInteractor { get; } = new();
+
         public string ExpectedCompontentOutputFolder { get; } = "C:\\Some\\Component\\Output\\Path";
 
         public Entity ExpectedEntity { get; } = new() { Name = "JustATestEntity" };
@@ -45,6 +48,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
             IDependencyFactoryInteractor.Setup(x => x.Get<IProjectAgentInteractor>())
                 .Returns(IProjectAgentInteractor.Object);
+
+            IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializerInteractor>())
+                .Returns(IHarvestSerializerInteractor.Object);
         }
 
         internal void MockCleanArchitectureExpander(List<Entity> entities = null)

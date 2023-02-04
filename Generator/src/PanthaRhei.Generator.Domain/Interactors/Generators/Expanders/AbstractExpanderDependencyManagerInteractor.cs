@@ -102,9 +102,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         }
 
         /// <summary>
-        /// Registers all <seealso cref="HarvesterInteractor{TExpander}">Harvesters</seealso>.
+        /// Registers all <seealso cref="IHarvesterInteractor{TExpander}">Harvesters</seealso>.
         /// </summary>
-        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="HarvesterInteractor{TExpander}">types</seealso> that should be registered.</param>
+        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="IHarvesterInteractor{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterHarvesters(Assembly assembly)
         {
             dependencyManager.AddTransient(typeof(IHarvesterInteractor<TExpander>), typeof(RegionHarvesterInteractor<TExpander>));
