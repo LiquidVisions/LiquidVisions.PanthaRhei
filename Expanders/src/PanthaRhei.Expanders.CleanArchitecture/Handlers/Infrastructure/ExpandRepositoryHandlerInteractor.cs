@@ -1,10 +1,8 @@
-﻿using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
@@ -69,7 +67,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
                 string filePath = Path.Combine(projectAgent.GetComponentOutputFolder(component), $"{entity.Name}Repository.cs");
                 templateService.RenderAndSave(fullPathToTemplate, templateModel, filePath);
-
             }
         }
     }

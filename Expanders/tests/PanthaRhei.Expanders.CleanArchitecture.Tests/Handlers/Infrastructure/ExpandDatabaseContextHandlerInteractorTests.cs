@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastructure;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastructure;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain;
 using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;

@@ -92,26 +92,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             return app;
         }
 
-        private static App GetDefaultApp(List<Entity> entities, List<Expander> expanders = null)
-        {
-            return new App
-            {
-                FullName = DefaultAppFullName,
-                Name = DefaultAppName,
-                Expanders = expanders ?? new List<Expander>(),
-                ConnectionStrings = new List<ConnectionString>
-                {
-                    new ConnectionString
-                    {
-                        Name = "DefaultConnectionString",
-                        Definition = "SomeConnectionStringDefinition",
-                    },
-                },
-                Entities = entities,
-            };
-        }
-
-        internal static List<Entity> GetValidEntities()
+        internal List<Entity> GetValidEntities()
         {
             List<Entity> entities = new()
             {
@@ -166,6 +147,25 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             }
 
             return entities;
+        }
+
+        private static App GetDefaultApp(List<Entity> entities, List<Expander> expanders = null)
+        {
+            return new App
+            {
+                FullName = DefaultAppFullName,
+                Name = DefaultAppName,
+                Expanders = expanders ?? new List<Expander>(),
+                ConnectionStrings = new List<ConnectionString>
+                {
+                    new ConnectionString
+                    {
+                        Name = "DefaultConnectionString",
+                        Definition = "SomeConnectionStringDefinition",
+                    },
+                },
+                Entities = entities,
+            };
         }
     }
 }

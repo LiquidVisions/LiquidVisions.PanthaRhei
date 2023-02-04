@@ -15,10 +15,11 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
     {
         private readonly ExpandEntityDatabaseConfigurationHandlerInteractor handler;
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly List<Entity> allEntities = CleanArchitectureFakes.GetValidEntities();
+        private readonly List<Entity> allEntities;
 
         public ExpandEntityDatabaseConfigurationHandlerInteractorTests()
         {
+            allEntities = fakes.GetValidEntities();
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.InfrastructureComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(allEntities);
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
@@ -100,7 +101,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             handler.Execute();
 
             // assert
-            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(allEntities.Count()));
+            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(allEntities.Count));
 
             foreach (Entity entity in allEntities)
             {
@@ -125,7 +126,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
                         })),
                         fullSavePath),
                     Times.Once);
-
             }
         }
     }

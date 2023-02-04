@@ -2,7 +2,6 @@
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Preprocessors;
@@ -59,9 +58,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         public virtual int Order => Model == null ? GetOrder() : Model.Order;
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandlerInteractor{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderHandlerInteractor{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="AbstractHandlerInteractor{TExpander}"/>.</returns>
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderHandlerInteractor{TExpander}"/>.</returns>
         public virtual IEnumerable<IExpanderHandlerInteractor<TExpander>> GetHandlers()
         {
             IEnumerable<IExpanderHandlerInteractor<TExpander>> handlers = dependencyFactory.GetAll<IExpanderHandlerInteractor<TExpander>>();

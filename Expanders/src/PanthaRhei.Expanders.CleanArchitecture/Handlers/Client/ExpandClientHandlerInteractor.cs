@@ -3,13 +3,12 @@ using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Handlers;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
 {
     /// <summary>
-    /// a <seealso cref="AbstractHandlerInteractor{CleanArchitectureExpander}"/> that adds the request models to the output project.
+    /// a <seealso cref="IExpanderHandlerInteractor{CleanArchitectureExpander}"/> that adds the request models to the output project.
     /// </summary>
     public class ExpandClientHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {

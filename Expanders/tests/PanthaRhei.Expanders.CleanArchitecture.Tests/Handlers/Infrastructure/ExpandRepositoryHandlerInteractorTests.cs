@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastructure;
 using LiquidVisions.PanthaRhei.Generator.Domain;
@@ -22,7 +21,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
 
         public ExpandRepositoryHandlerInteractorTests()
         {
-            allEntities = CleanArchitectureFakes.GetValidEntities();
+            allEntities = fakes.GetValidEntities();
             app = fakes.SetupApp(allEntities);
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.InfrastructureComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(allEntities);
@@ -53,7 +52,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             fakes.IDirectory.Verify(x => x.Create(It.IsAny<string>()), Times.Once);
             fakes.IDirectory.Verify(x => x.Create(outputFolder), Times.Once);
         }
-
 
         [Fact]
         public void Order_ShouldValidate()
@@ -108,7 +106,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         {
             // arrange
             string expectedTemplateBaseBath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.RepositoryTemplate}.template");
-
 
             // act
             handler.Execute();
