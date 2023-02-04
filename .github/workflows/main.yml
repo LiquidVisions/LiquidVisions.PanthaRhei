@@ -26,11 +26,13 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     
     - name: Test
-      run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --settings test.runsettings
+      run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
     
     - name: Codecov
       uses: codecov/codecov-action@v3.1.1
       with:
         # Repository upload token - get it from codecov.io. Required only for private repositories
         token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
+        directory: ./coverage
           
