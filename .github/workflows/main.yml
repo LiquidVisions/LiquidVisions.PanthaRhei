@@ -26,7 +26,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     
     - name: Test
-      run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --settings test.runsettings
+      run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --settings test.runsettings /p:CollectCoverage=true /p:CoverletOutput=..\results\coverage /p:MergeWith=..\results\coverage.json /p:CoverletOutputFormat=\"opencover,json\"
     
     - name: Codecov
       uses: codecov/codecov-action@v3.1.1
