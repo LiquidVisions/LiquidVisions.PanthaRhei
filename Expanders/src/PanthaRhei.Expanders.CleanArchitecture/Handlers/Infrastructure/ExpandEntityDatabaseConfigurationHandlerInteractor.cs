@@ -83,7 +83,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
                     Keys = keys,
                 };
 
-                string savePath = Path.Combine(projectAgent.GetComponentOutputFolder(infrastructureComponent), $"{entity.Name}Configuration.cs");
+                string savePath = Path.Combine(projectAgent.GetComponentOutputFolder(infrastructureComponent), Resources.InfrastructureConfigurationFolder, $"{entity.Name}Configuration.cs");
                 templateService.RenderAndSave(fullPathToTemplate, modelTemplate, savePath);
             }
         }

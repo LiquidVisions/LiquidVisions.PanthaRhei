@@ -69,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
                     applicationComponent,
                 };
 
-                string filePath = Path.Combine(projectAgent.GetComponentOutputFolder(component), $"{entity.Name}Repository.cs");
+                string filePath = Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.RepositoryFolder, $"{entity.Name}Repository.cs");
                 templateService.RenderAndSave(fullPathToTemplate, templateModel, filePath);
             }
         }

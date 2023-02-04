@@ -108,6 +108,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             {
                 string fullSavePath = Path.Combine(
                     fakes.IProjectAgentInteractor.Object.GetComponentOutputFolder(fakes.InfrastructureComponent.Object),
+                    CleanArchitectureResources.RepositoryFolder,
                     $"{entity.Name}Repository.cs");
 
                 fakes.ITemplateInteractor.Verify(

@@ -106,6 +106,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             {
                 string fullSavePath = Path.Combine(
                     fakes.IProjectAgentInteractor.Object.GetComponentOutputFolder(fakes.InfrastructureComponent.Object),
+                    Resources.InfrastructureConfigurationFolder,
                     $"{entity.Name}Configuration.cs");
 
                 var indexes = entity.Fields.Where(x => x.IsIndex).Select(x => x.Name).ToArray();
