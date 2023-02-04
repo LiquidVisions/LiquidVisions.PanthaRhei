@@ -44,16 +44,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         }
 
         [Fact]
-        public void Constructor_ShouldCreateOutputDirectory()
-        {
-            // arrange
-            // act
-            // assert
-            fakes.IDirectory.Verify(x => x.Create(It.IsAny<string>()), Times.Once);
-            fakes.IDirectory.Verify(x => x.Create(outputFolder), Times.Once);
-        }
-
-        [Fact]
         public void Order_ShouldValidate()
         {
             // arrange
@@ -111,6 +101,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             handler.Execute();
 
             // assert
+            fakes.IDirectory.Verify(x => x.Create(outputFolder), Times.Once);
             fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(allEntities.Count));
 
             foreach (Entity entity in allEntities)

@@ -107,7 +107,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Cl
                 fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(5));
                 fakes.ITemplateInteractor.Verify(
                     x => x.RenderAndSave(
-                        Path.Combine(expectedTemplateBaseBath, $"{action}{CleanArchitectureResources.RequestModelTemplate}.template"),
+                        Path.Combine(expectedTemplateBaseBath, $"{CleanArchitectureResources.RequestModelTemplate}.template"),
                         It.Is<object>(x => x.GetHashCode() == new
                         {
                             Action = action,

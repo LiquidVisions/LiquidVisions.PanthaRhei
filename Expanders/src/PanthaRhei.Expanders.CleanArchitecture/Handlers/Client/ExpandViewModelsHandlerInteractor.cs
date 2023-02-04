@@ -19,6 +19,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
         private readonly Parameters parameters;
         private readonly Component component;
         private readonly string viewModelsFolder;
+        private readonly IDirectory directory;
         private readonly CleanArchitectureExpander expander;
         private readonly string fullPathToTemplate;
 
@@ -35,11 +36,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
             parameters = dependencyFactory.Get<Parameters>();
+            directory = dependencyFactory.Get<IDirectory>();
 
             component = Expander.Model.GetComponentByName(Resources.Client);
             string fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
             viewModelsFolder = Path.Combine(fullPathToComponentOutput, Resources.ViewModelsFolder);
-            dependencyFactory.Get<IDirectory>().Create(viewModelsFolder);
             fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ViewModelTemplate);
         }
 
@@ -54,6 +55,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
         /// <inheritdoc/>
         public void Execute()
         {
+            directory.Create(viewModelsFolder);
+
             foreach (Entity entity in app.Entities)
             {
                 var templateModel = new

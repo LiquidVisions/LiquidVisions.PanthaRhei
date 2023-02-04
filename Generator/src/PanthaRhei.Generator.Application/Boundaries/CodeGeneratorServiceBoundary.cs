@@ -32,9 +32,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
         {
             try
             {
-                ICodeGeneratorInteractor codeGenerator = builder.Build();
+                builder.Build()
+                    .Execute();
 
-                codeGenerator.Execute();
+                logger.Info("Successfully completed the code generation process.");
             }
             catch (CodeGenerationException ex)
             {
@@ -45,7 +46,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
                 exceptionLogger.Fatal(ex, $"An unexpected error has occured with the following message: {ex.Message}.");
             }
 
-            logger.Info("Successfully completed the code generation process.");
+
         }
     }
 }

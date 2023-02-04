@@ -19,6 +19,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         private readonly Parameters parameters;
         private readonly IDirectory directory;
         private readonly IFile file;
+        private readonly TExpander expander;
         private readonly IHarvestSerializerInteractor serializer;
 
         /// <summary>
@@ -31,13 +32,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
             parameters = dependencyProvider.Get<Parameters>();
             directory = dependencyProvider.Get<IDirectory>();
             file = dependencyProvider.Get<IFile>();
+            expander = dependencyProvider.Get<TExpander>();
         }
 
         /// <inheritdoc/>
         public bool CanExecute => !parameters.GenerationMode.HasFlag(GenerationModes.Deploy)
             && directory.Exists(parameters.OutputFolder);
 
-        public TExpander Expander => throw new System.NotImplementedException();
+        public TExpander Expander => expander;
 
         /// <inheritdoc/>
         public void Execute()

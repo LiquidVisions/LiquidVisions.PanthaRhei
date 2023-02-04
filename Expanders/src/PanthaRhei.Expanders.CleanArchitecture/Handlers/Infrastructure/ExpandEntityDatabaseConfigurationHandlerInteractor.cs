@@ -22,6 +22,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         private readonly Component infrastructureComponent;
         private readonly Component domainComponent;
         private readonly string fullPathToTemplate;
+        private readonly string targetFolderPath;
+        private readonly IDirectory directory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandEntityDatabaseConfigurationHandlerInteractor"/> class.
@@ -34,19 +36,16 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-
             parameters = dependencyFactory.Get<Parameters>();
             app = dependencyFactory.Get<App>();
+            directory = dependencyFactory.Get<IDirectory>();
 
             infrastructureComponent = Expander.Model.GetComponentByName(Resources.EntityFramework);
             domainComponent = Expander.Model.GetComponentByName(Resources.Domain);
 
             fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.EntityDatabaseConfigurationTemplate);
             string componentOutputPath = projectAgent.GetComponentOutputFolder(infrastructureComponent);
-            string targetFolderPath = Path.Combine(componentOutputPath, Resources.InfrastructureConfigurationFolder);
-            dependencyFactory
-                .Get<IDirectory>()
-                .Create(targetFolderPath);
+            targetFolderPath = Path.Combine(componentOutputPath, Resources.InfrastructureConfigurationFolder);
         }
 
         public int Order => 8;
@@ -60,6 +59,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         /// <inheritdoc/>
         public void Execute()
         {
+            directory.Create(targetFolderPath);
+
             foreach (Entity entity in app.Entities)
             {
                 string[] indexes = entity.Fields

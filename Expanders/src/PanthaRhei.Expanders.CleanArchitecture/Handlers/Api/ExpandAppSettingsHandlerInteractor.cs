@@ -19,7 +19,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         private readonly Parameters parameters;
         private readonly IFile file;
         private readonly Component component;
-        private readonly JObject jsonObject;
         private readonly App app;
         private readonly string fullPathToAppSettingsJson;
 
@@ -40,9 +39,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             component = Expander.Model.GetComponentByName(Resources.Api);
             string fullPathToApiComponent = projectAgent.GetComponentOutputFolder(component);
             fullPathToAppSettingsJson = System.IO.Path.Combine(fullPathToApiComponent, Resources.AppSettingsJson);
-
-            string jsonFile = file.ReadAllText(fullPathToAppSettingsJson);
-            jsonObject = JsonConvert.DeserializeObject<JObject>(jsonFile);
         }
 
         public int Order => 13;
@@ -57,6 +53,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <inheritdoc/>
         public void Execute()
         {
+            string jsonFile = file.ReadAllText(fullPathToAppSettingsJson);
+            JObject jsonObject = JsonConvert.DeserializeObject<JObject>(jsonFile);
+
             if (!jsonObject.ContainsKey("ConnectionStrings"))
             {
                 JObject connectionStringObject = new();

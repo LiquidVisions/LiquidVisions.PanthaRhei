@@ -37,8 +37,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Generator.Domain.Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
-
-            fakes.IDirectory.Verify(x => x.Create(Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.InfrastructureConfigurationFolder)), Times.Once);
         }
 
         [Fact]
@@ -101,6 +99,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             handler.Execute();
 
             // assert
+            fakes.IDirectory.Verify(x => x.Create(Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.InfrastructureConfigurationFolder)), Times.Once);
             fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(allEntities.Count));
 
             foreach (Entity entity in allEntities)

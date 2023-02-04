@@ -19,7 +19,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         private readonly App app;
         private readonly Generator.Domain.Entities.Component component;
         private readonly Generator.Domain.Entities.Component applicationComponent;
+        private readonly string fullPathToRepositoryFolder;
         private readonly CleanArchitectureExpander expander;
+        private readonly IDirectory directory;
         private readonly string fullPathToTemplate;
 
         /// <summary>
@@ -39,8 +41,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             component = expander.Model.GetComponentByName(Resources.EntityFramework);
             applicationComponent = expander.Model.GetComponentByName(Resources.Application);
 
-            string path = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.RepositoryFolder);
-            dependencyFactory.Get<IDirectory>().Create(path);
+            fullPathToRepositoryFolder = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.RepositoryFolder);
+            directory = dependencyFactory.Get<IDirectory>();
 
             fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.RepositoryTemplate);
         }
@@ -56,6 +58,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         /// <inheritdoc/>
         public void Execute()
         {
+            directory.Create(fullPathToRepositoryFolder);
+
             foreach (Entity entity in app.Entities)
             {
                 var templateModel = new

@@ -39,7 +39,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             Component component = Expander.Model.GetComponentByName(Resources.EntityFramework);
             string componentOutputPath = projectAgent.GetComponentOutputFolder(component);
             fullPathToBootstrapperFile = Path.Combine(componentOutputPath, Resources.DependencyInjectionBootstrapperFile);
-            writer.Load(fullPathToBootstrapperFile);
         }
 
         public int Order => 10;
@@ -53,6 +52,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         /// <inheritdoc/>
         public void Execute()
         {
+            writer.Load(fullPathToBootstrapperFile);
+
             foreach (Entity entity in app.Entities)
             {
                 string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.InfrastructureDependencyInjectionBootstrapperTemplate);

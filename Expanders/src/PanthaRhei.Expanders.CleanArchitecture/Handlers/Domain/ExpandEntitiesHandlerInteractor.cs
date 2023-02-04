@@ -19,6 +19,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         private readonly App app;
         private readonly Component domain;
         private readonly string entitiesFolder;
+        private readonly IDirectory directory;
         private readonly CleanArchitectureExpander expander;
         private readonly string templateFolder;
 
@@ -35,12 +36,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
             projectInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
             parameters = dependencyFactory.Get<Parameters>();
             app = dependencyFactory.Get<App>();
+            directory = dependencyFactory.Get<IDirectory>();
 
             domain = Expander.Model.GetComponentByName(Resources.Domain);
             templateFolder = Expander.Model.GetTemplateFolder(parameters, Resources.EntityTemplate);
             string componentFolder = projectInteractor.GetComponentOutputFolder(domain);
             entitiesFolder = Path.Combine(componentFolder, Resources.DomainEntityFolder);
-            dependencyFactory.Get<IDirectory>().Create(entitiesFolder);
         }
 
         public int Order => 2;
@@ -54,6 +55,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         /// <inheritdoc/>
         public void Execute()
         {
+            directory.Create(entitiesFolder);
+
             foreach (var entity in app.Entities)
             {
                 string fullSavePath = Path.Combine(entitiesFolder, $"{entity.Name}.cs");
