@@ -45,8 +45,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
             {
                 exceptionLogger.Fatal(ex, $"An unexpected error has occured with the following message: {ex.Message}.");
             }
-
-
         }
     }
 }

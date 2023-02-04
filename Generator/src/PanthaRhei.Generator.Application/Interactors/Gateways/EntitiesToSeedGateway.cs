@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
@@ -9,6 +10,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Gateways
 {
     internal class EntitiesToSeedGateway : IEntitiesToSeedGateway
     {
+        [ExcludeFromCodeCoverage]
         public IEnumerable<Type> GetAll()
         {
             return Assembly.GetExecutingAssembly()

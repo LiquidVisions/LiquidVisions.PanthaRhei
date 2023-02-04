@@ -69,7 +69,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
             string fullPathHarvestFile1 = Path.Combine(fakes.Parameters.Object.HarvestFolder, fakes.CleanArchitectureExpander.Object.Model.Name, $"{sourceFile1}.{CleanArchitectureResources.MigrationHarvesterExtensionFile}");
             string fullPathHarvestFile2 = Path.Combine(fakes.Parameters.Object.HarvestFolder, fakes.CleanArchitectureExpander.Object.Model.Name, $"{sourceFile2}.{CleanArchitectureResources.MigrationHarvesterExtensionFile}");
 
-
             string contentFile1 = "ContentFile1";
             string contentFile2 = "ContentFile2";
 
