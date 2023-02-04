@@ -111,7 +111,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             };
         }
 
-        private static List<Entity> GetValidEntities()
+        internal static List<Entity> GetValidEntities()
         {
             List<Entity> entities = new()
             {

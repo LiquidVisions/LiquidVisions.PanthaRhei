@@ -52,9 +52,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             var templateModel = new
             {
                 app.Entities,
-                //ConnectionString = app.ConnectionStrings.Single(x => x.Name == "DefaultConnectionString").Definition,
-                //NameSpace = infrastructure.GetComponentNamespace(app),
-                //NameSpaceEntities = domain.GetComponentNamespace(app, Resources.DomainEntityFolder),
+                ConnectionString = app.ConnectionStrings.Single(x => x.Name == "DefaultConnectionString").Definition,
+                NameSpace = infrastructure.GetComponentNamespace(app),
+                NameSpaceEntities = domain.GetComponentNamespace(app, Resources.DomainEntityFolder),
             };
 
             string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.DbContextTemplate);
