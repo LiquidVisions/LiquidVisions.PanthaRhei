@@ -7,19 +7,15 @@
 				<Configuration>
 					<CodeCoverage>
 						<!-- Match the path of the source files in which each method is defined: -->
-						<Exclude>
-							<ModulePath>.*Tests.*</ModulePath>
-						</Exclude>
-
 						<ModulePaths>
 							<Exclude>
-								<ModulePath>.*Tests.*</ModulePath>
+								<ModulePath>.*Tests.dll</ModulePath>
 							</Exclude>
 						</ModulePaths>
 
 						<Functions>
 							<Exclude>
-								<Function>.*Migrations.*</Function>
+								<Function>^PanthaRhei.Generator.Infrastructure.EntityFramework\.Migrations\..*</Function>
 							</Exclude>
 						</Functions>
 						
