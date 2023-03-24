@@ -1,7 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
+namespace LiquidVisions.PanthaRhei.Generator.Domain
 {
     public static class ModelExtensions
     {

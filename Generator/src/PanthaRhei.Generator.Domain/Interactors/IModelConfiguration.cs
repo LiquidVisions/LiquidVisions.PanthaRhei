@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Models;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors
 {

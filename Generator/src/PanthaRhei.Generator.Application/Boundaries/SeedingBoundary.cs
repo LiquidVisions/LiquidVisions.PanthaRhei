@@ -17,13 +17,17 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
 
         public void Execute()
         {
-            seeders.OrderBy(x => x.ResetOrder)
-                .ToList().ForEach(x => x.Reset());
-
             App app = new();
 
-            seeders.OrderBy(x => x.ResetOrder)
-                .ToList().ForEach(x => x.Seed(app));
+            foreach (var seeder in seeders.OrderBy(x => x.ResetOrder))
+            {
+                seeder.Reset();
+            }
+
+            foreach (var seeder in seeders.OrderBy(x => x.SeedOrder))
+            {
+                seeder.Seed(app);
+            }
         }
     }
 }

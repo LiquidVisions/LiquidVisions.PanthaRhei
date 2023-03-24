@@ -19,7 +19,7 @@ begin
         ret result;
     end
     result = $0.return_type;
-    if(!$0.required && $0.return_type != 'string' && (!$0.required && $0.reference_id != null))
+    if(!$0.required && $0.return_type != 'string' && (!$0.required && $0.reference_id == null))
     begin
         result += '?'
     end

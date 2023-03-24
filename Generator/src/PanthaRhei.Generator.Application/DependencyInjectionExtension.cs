@@ -62,7 +62,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
             services.AddTransient<ISeederInteractor<App>, AppSeederInteractor>()
                 .AddTransient<ISeederInteractor<App>, ExpanderSeederInteractor>()
                 .AddTransient<ISeederInteractor<App>, EntitySeederInteractor>()
-                .AddTransient<ISeederInteractor<App>, PackageSeederInteractor>()
+                //.AddTransient<ISeederInteractor<App>, PackageSeederInteractor>()
                 .AddTransient<ISeederInteractor<App>, FieldSeederInteractor>()
                 .AddTransient<ISeederInteractor<App>, ComponentSeederInteractor>()
                 .AddTransient<ISeederInteractor<App>, ConnectionStringsSeederInteractor>()

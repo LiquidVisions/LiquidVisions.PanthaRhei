@@ -1,4 +1,4 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
+﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Models
 {
     public class RelationshipDto
     {
