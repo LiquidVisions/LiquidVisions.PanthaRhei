@@ -2,25 +2,80 @@
     "version": "0.2.0",
     "configurations": [
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": ".NET Core Launch (console)",
+            "name": "flux-default",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli/bin/Debug/net7.0/LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli.dll",
-            "args": [],
+            "args": [
+                "--root C:\\Dev\\PanthaRhei.Output", 
+                "--clean", 
+                "--mode Default", 
+                "--app 6c6984a1-c87a-429b-b91f-2a976adb3c0e"
+            ],
             "cwd": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli",
-            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
-            "console": "internalConsole",
+            "console": "externalTerminal",
             "stopAtEntry": false
         },
         {
-            "name": ".NET Core Attach",
+            "name": "flux-extend",
             "type": "coreclr",
-            "request": "attach"
-        }
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli/bin/Debug/net7.0/LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli.dll",
+            "args": [
+                "--root C:\\Dev\\PanthaRhei.Output", 
+                "--mode Default, Extend", 
+                "--app 6c6984a1-c87a-429b-b91f-2a976adb3c0e"
+            ],
+            "cwd": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli",
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "flux-migrate",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli/bin/Debug/net7.0/LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli.dll",
+            "args": [
+                "--root C:\\Dev\\PanthaRhei.Output", 
+                "--mode Migrate", 
+                "--app 6c6984a1-c87a-429b-b91f-2a976adb3c0e"
+            ],
+            "cwd": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli",
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "flux-deploy",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli/bin/Debug/net7.0/LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli.dll",
+            "args": [
+                "--root C:\\Dev\\PanthaRhei.Output", 
+                "--mode Deploy", 
+                "--app 6c6984a1-c87a-429b-b91f-2a976adb3c0e"
+            ],
+            "cwd": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli",
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "flux-reseed",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli/bin/Debug/net7.0/LiquidVisions.PanthaRhei.Generator.Infrastructure.Cli.dll",
+            "args": [
+                "--root C:\\Dev\\PanthaRhei.Output", 
+                "--reseed", 
+                "--app 6c6984a1-c87a-429b-b91f-2a976adb3c0e"
+            ],
+            "cwd": "${workspaceFolder}/Generator/src/PanthaRhei.Generator.Infrastructure.Cli",
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
     ]
 }
