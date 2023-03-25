@@ -10,7 +10,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LiquidVisions.PanthaRhei.Generator.Application
+namespace LiquidVisions.PanthaRhei.Generator.Application 
 {
     /// <summary>
     /// DependencyInjection extensions for the application library.
