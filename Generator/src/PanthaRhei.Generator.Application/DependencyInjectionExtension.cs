@@ -9,7 +9,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using Microsoft.Extensions.DependencyInjection;
-//gerco
+
 namespace LiquidVisions.PanthaRhei.Generator.Application 
 {
     /// <summary>
