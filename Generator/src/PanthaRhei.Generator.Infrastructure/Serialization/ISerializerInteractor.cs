@@ -1,11 +1,11 @@
-﻿namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization
+﻿namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Serialization
 {
     /// <summary>
     /// A generic object that serializes the <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">The subjected model.</typeparam>
     internal interface ISerializerInteractor<in TModel>
-        where TModel : new()
+        where TModel : class
     {
         /// <summary>
         /// Serialized <typeparamref name="TModel"/>.

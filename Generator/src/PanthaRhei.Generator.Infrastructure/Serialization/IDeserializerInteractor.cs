@@ -1,13 +1,13 @@
 ﻿using System.Xml.Linq;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization
+namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Serialization
 {
     /// <summary>
     /// A generic object that serializes the <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">The subjected model.</typeparam>
     public interface IDeserializerInteractor<out TModel>
-        where TModel : new()
+        where TModel : class
     {
         /// <summary>
         /// Deserializes to a <seealso cref="XDocument"/>.

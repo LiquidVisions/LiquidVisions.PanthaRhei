@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
@@ -14,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
     public class MigrationHarvesterInteractor : IHarvesterInteractor<CleanArchitectureExpander>
     {
         private readonly string migrationsFolder;
-        private readonly IHarvestSerializerInteractor serializer;
+        private readonly ICreateGateway<Harvest> gateway;
         private readonly Parameters parameters;
         private readonly CleanArchitectureExpander expander;
         private readonly IFile file;
@@ -26,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
         /// <param name="factory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public MigrationHarvesterInteractor(IDependencyFactoryInteractor factory)
         {
-            serializer = factory.Get<IHarvestSerializerInteractor>();
+            gateway = factory.Get<ICreateGateway<Harvest>>();
             parameters = factory.Get<Parameters>();
             expander = factory.Get<CleanArchitectureExpander>();
             file = factory.Get<IFile>();
@@ -50,7 +51,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
 
         private void HarvestSingle(string fullPathToSourceFile)
         {
-            Harvest harvest = new()
+            Harvest harvest = new(Resources.MigrationHarvesterExtensionFile)
             {
                 Path = fullPathToSourceFile,
                 Items = new List<HarvestItem>
@@ -59,12 +60,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
                 },
             };
 
-            string fullPath = Path.Combine(
-                parameters.HarvestFolder,
-                expander.Model.Name,
-                $"{file.GetFileNameWithoutExtension(fullPathToSourceFile)}.{Resources.MigrationHarvesterExtensionFile}");
-
-            serializer.Deserialize(harvest, fullPath);
+            gateway.Create(harvest);
         }
     }
 }

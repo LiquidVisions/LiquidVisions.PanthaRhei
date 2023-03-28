@@ -7,10 +7,27 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
     /// </summary>
     public class Harvest
     {
+        private readonly string type;
+
+        public Harvest()
+        {
+
+        }
+
+        public Harvest(string type)
+        {
+            this.type = type;
+        }
+
         /// <summary>
         /// Gets or sets the path of the file that is the source of the Harvest.
         /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        /// Gets the harvest of harvest.
+        /// </summary>
+        public string HarvestType => type;
 
         /// <summary>
         /// Gets or sets the list of <seealso cref="HarvestItem">HarvestItems</seealso>.

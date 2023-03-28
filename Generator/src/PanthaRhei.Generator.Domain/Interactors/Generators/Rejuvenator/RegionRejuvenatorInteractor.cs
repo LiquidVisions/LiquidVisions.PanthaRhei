@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuvenator
@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
         where TExpander : class, IExpanderInteractor
     {
         private readonly IDirectory directoryService;
-        private readonly IDeserializerInteractor<Harvest> deserializer;
+        private readonly IGetGateway<Harvest> harvestGateway;
         private readonly IWriterInteractor writer;
         private readonly string folder;
         private readonly Parameters parameters;
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
             parameters = dependencyFactory.Get<Parameters>();
 
             directoryService = dependencyFactory.Get<IDirectory>();
-            deserializer = dependencyFactory.Get<IDeserializerInteractor<Harvest>>();
+            harvestGateway = dependencyFactory.Get<IGetGateway<Harvest>>();
             writer = dependencyFactory.Get<IWriterInteractor>();
             folder = Path.Combine(parameters.HarvestFolder, Expander.Model.Name);
         }
@@ -48,7 +48,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
             string[] files = directoryService.GetFiles(folder, $"*.{Extension}", SearchOption.TopDirectoryOnly);
             foreach (string file in files)
             {
-                Harvest harvest = deserializer.Deserialize(file);
+                Harvest harvest = harvestGateway.GetById(file);
                 HandleReplace(harvest);
 
                 writer.Save(harvest.Path);

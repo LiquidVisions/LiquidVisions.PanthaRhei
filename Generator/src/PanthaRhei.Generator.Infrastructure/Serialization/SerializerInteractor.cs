@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization
+namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Serialization
 {
     /// <summary>
     /// Handles serialization and deserialization for <typeparamref name="TModel"/>.
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization
     /// <typeparam name="TModel">The model.</typeparam>
     [ExcludeFromCodeCoverage]
     internal sealed class SerializerInteractor<TModel> : IDeserializerInteractor<TModel>, ISerializerInteractor<TModel>
-        where TModel : new()
+        where TModel : class
     {
         private readonly XmlSerializer serializer = new(typeof(TModel));
 

@@ -89,15 +89,15 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
 
             // assert
             fakes.IDirectory.Verify(x => x.GetFiles(expectedMigrationsFolder, "*.cs", System.IO.SearchOption.AllDirectories), Times.Once);
-            fakes.IHarvestSerializerInteractor.Verify(x => x.Deserialize(It.IsAny<Harvest>(), It.IsAny<string>()), Times.Exactly(2));
+            fakes.IHarvestSerializerInteractor.Verify(x => x.Serialize(It.IsAny<Harvest>(), It.IsAny<string>()), Times.Exactly(2));
             fakes.IHarvestSerializerInteractor.Verify(
-                x => x.Deserialize(
+                x => x.Serialize(
                     It.Is<Harvest>(h => h.Path == $"{sourceFile1}.cs" && h.Items.Count == 1 && h.Items.First().Content == contentFile1),
                     fullPathHarvestFile1),
                 Times.Once);
 
             fakes.IHarvestSerializerInteractor.Verify(
-                x => x.Deserialize(
+                x => x.Serialize(
                     It.Is<Harvest>(h => h.Path == $"{sourceFile2}.cs" && h.Items.Count == 1 && h.Items.First().Content == contentFile2),
                     fullPathHarvestFile2),
                 Times.Once);

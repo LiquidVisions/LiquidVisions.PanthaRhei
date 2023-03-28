@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
-namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters
+namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Serialization
 {
     public class HarvestSerializerInteractor : IHarvestSerializerInteractor
     {
@@ -19,16 +19,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
             serializer = dependencyFactory.Get<ISerializerInteractor<Harvest>>();
         }
 
-        public void Deserialize(Harvest harvest, string fullPath)
+        public void Serialize(Harvest harvest, string fullPath)
         {
             bool serialize = File.Exists(fullPath) && !harvest.Items.Any();
             serialize |= harvest.Items.Any();
             if (serialize)
             {
                 string dir = file.GetDirectory(fullPath);
-                if (!this.directory.Exists(dir))
+                if (!directory.Exists(dir))
                 {
-                    this.directory.Create(dir);
+                    directory.Create(dir);
                 }
 
                 serializer.Serialize(fullPath, harvest);
