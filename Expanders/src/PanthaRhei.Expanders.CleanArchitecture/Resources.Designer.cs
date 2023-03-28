@@ -61,7 +61,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Infrastructure.Api.
+        ///   Looks up a localized string similar to Presentation.Api.
         /// </summary>
         public static string Api {
             get {
