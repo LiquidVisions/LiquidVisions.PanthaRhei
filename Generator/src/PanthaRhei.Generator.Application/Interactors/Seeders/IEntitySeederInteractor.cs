@@ -1,6 +1,6 @@
 ﻿namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-    public interface ISeederInteractor<in TEntity>
+    public interface IEntitySeederInteractor<in TEntity>
         where TEntity : class
     {
         int SeedOrder { get; }
