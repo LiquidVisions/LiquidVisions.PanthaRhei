@@ -59,14 +59,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
 
         private static IServiceCollection AddSeedersInteractors(this IServiceCollection services)
         {
-            services.AddTransient<ISeederInteractor<App>, AppSeederInteractor>()
-                .AddTransient<ISeederInteractor<App>, ExpanderSeederInteractor>()
-                .AddTransient<ISeederInteractor<App>, EntitySeederInteractor>()
+            services.AddTransient<IEntitySeederInteractor<App>, AppSeederInteractor>()
+                .AddTransient<IEntitySeederInteractor<App>, ExpanderSeederInteractor>()
+                .AddTransient<IEntitySeederInteractor<App>, EntitySeederInteractor>()
                 //.AddTransient<ISeederInteractor<App>, PackageSeederInteractor>()
-                .AddTransient<ISeederInteractor<App>, FieldSeederInteractor>()
-                .AddTransient<ISeederInteractor<App>, ComponentSeederInteractor>()
-                .AddTransient<ISeederInteractor<App>, ConnectionStringsSeederInteractor>()
-                .AddTransient<ISeederInteractor<App>, RelationshipSeederInteractor>();
+                .AddTransient<IEntitySeederInteractor<App>, FieldSeederInteractor>()
+                .AddTransient<IEntitySeederInteractor<App>, ComponentSeederInteractor>()
+                .AddTransient<IEntitySeederInteractor<App>, ConnectionStringsSeederInteractor>()
+                .AddTransient<IEntitySeederInteractor<App>, RelationshipSeederInteractor>();
 
             return services;
         }

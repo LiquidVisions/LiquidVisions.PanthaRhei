@@ -8,11 +8,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
 {
     internal class SeedingBoundary : ISeedingBoundary
     {
-        private readonly List<ISeederInteractor<App>> seeders;
+        private readonly List<IEntitySeederInteractor<App>> seeders;
 
         public SeedingBoundary(IDependencyFactoryInteractor dependencyFactory)
         {
-            seeders = dependencyFactory.GetAll<ISeederInteractor<App>>().ToList();
+            seeders = dependencyFactory.GetAll<IEntitySeederInteractor<App>>().ToList();
         }
 
         public void Execute()
