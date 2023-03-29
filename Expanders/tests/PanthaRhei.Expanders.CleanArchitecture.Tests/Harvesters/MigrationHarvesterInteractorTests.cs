@@ -3,6 +3,7 @@ using System.Linq;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using Moq;
@@ -16,10 +17,12 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
         private readonly CleanArchitectureFakes fakes = new();
         private readonly MigrationHarvesterInteractor interactor;
         private readonly string expectedMigrationsFolder;
+        private readonly Mock<ICreateGateway<Harvest>> mockedICreateGateWay = new();
 
         public MigrationHarvesterInteractorTests()
         {
             fakes.MockCleanArchitectureExpander();
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<Harvest>>()).Returns(mockedICreateGateWay.Object);
 
             interactor = new MigrationHarvesterInteractor(fakes.IDependencyFactoryInteractor.Object);
 
@@ -33,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
             // act
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IHarvestSerializerInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Harvest>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
@@ -66,9 +69,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
             string sourceFile1 = $"{basePath}\\SourceFile1";
             string sourceFile2 = $"{basePath}\\SourceFile2";
 
-            string fullPathHarvestFile1 = Path.Combine(fakes.Parameters.Object.HarvestFolder, fakes.CleanArchitectureExpander.Object.Model.Name, $"{sourceFile1}.{CleanArchitectureResources.MigrationHarvesterExtensionFile}");
-            string fullPathHarvestFile2 = Path.Combine(fakes.Parameters.Object.HarvestFolder, fakes.CleanArchitectureExpander.Object.Model.Name, $"{sourceFile2}.{CleanArchitectureResources.MigrationHarvesterExtensionFile}");
-
             string contentFile1 = "ContentFile1";
             string contentFile2 = "ContentFile2";
 
@@ -89,17 +89,14 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
 
             // assert
             fakes.IDirectory.Verify(x => x.GetFiles(expectedMigrationsFolder, "*.cs", System.IO.SearchOption.AllDirectories), Times.Once);
-            fakes.IHarvestSerializerInteractor.Verify(x => x.Deserialize(It.IsAny<Harvest>(), It.IsAny<string>()), Times.Exactly(2));
-            fakes.IHarvestSerializerInteractor.Verify(
-                x => x.Deserialize(
-                    It.Is<Harvest>(h => h.Path == $"{sourceFile1}.cs" && h.Items.Count == 1 && h.Items.First().Content == contentFile1),
-                    fullPathHarvestFile1),
+            mockedICreateGateWay.Verify(x => x.Create(It.IsAny<Harvest>()), Times.Exactly(2));
+
+            mockedICreateGateWay.Verify(
+                x => x.Create(It.Is<Harvest>(h => h.Path == $"{sourceFile1}.cs" && h.Items.Count == 1 && h.Items.First().Content == contentFile1 && h.HarvestType == Expanders.CleanArchitecture.Resources.MigrationHarvesterExtensionFile)),
                 Times.Once);
 
-            fakes.IHarvestSerializerInteractor.Verify(
-                x => x.Deserialize(
-                    It.Is<Harvest>(h => h.Path == $"{sourceFile2}.cs" && h.Items.Count == 1 && h.Items.First().Content == contentFile2),
-                    fullPathHarvestFile2),
+            mockedICreateGateWay.Verify(
+                x => x.Create(It.Is<Harvest>(h => h.Path == $"{sourceFile2}.cs" && h.Items.Count == 1 && h.Items.First().Content == contentFile2 && h.HarvestType == Expanders.CleanArchitecture.Resources.MigrationHarvesterExtensionFile)),
                 Times.Once);
         }
     }

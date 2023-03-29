@@ -9,7 +9,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-    internal class ExpanderSeederInteractor : ISeederInteractor<App>
+    internal class ExpanderSeederInteractor : IEntitySeederInteractor<App>
     {
         private readonly IExpanderPluginLoaderInteractor pluginLoader;
         private readonly Parameters parameters;

@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuvenator;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Serialization;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
     public class MigrationRejuvenator : RejuvenatorInteractor<CleanArchitectureExpander>
     {
         private readonly IDirectory directoryService;
-        private readonly IDeserializerInteractor<Harvest> deserializer;
+        private readonly IGetGateway<Harvest> getGateway;
         private readonly IFile fileService;
         private readonly string folder;
 
@@ -29,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
             Parameters parameters = factory.Get<Parameters>();
 
             directoryService = factory.Get<IDirectory>();
-            deserializer = factory.Get<IDeserializerInteractor<Harvest>>();
+            getGateway = factory.Get<IGetGateway<Harvest>>();
             fileService = factory.Get<IFile>();
             folder = Path.Combine(parameters.HarvestFolder, Expander.Model.Name);
         }
@@ -49,7 +49,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
             string[] files = directoryService.GetFiles(folder, $"*.{Extension}", SearchOption.TopDirectoryOnly);
             foreach (string file in files)
             {
-                Harvest harvest = deserializer.Deserialize(file);
+                Harvest harvest = getGateway.GetById(file);
                 var item = harvest.Items.Single();
                 string content = item.Content;
 

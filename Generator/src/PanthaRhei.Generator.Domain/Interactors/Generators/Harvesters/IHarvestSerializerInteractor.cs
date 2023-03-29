@@ -2,6 +2,6 @@
 {
     public interface IHarvestSerializerInteractor
     {
-        void Deserialize(Harvest harvest, string fullPath);
+        void Serialize(Harvest harvest, string fullPath);
     }
 }

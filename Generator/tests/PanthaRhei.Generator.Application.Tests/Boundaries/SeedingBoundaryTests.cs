@@ -16,15 +16,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Boundaries
     {
         private readonly SeedingBoundary boundary;
         private readonly Fakes fakes = new();
-        private readonly Mock<ISeederInteractor<App>> mockedSeederInteractor;
+        private readonly Mock<IEntitySeederInteractor<App>> mockedSeederInteractor;
 
         public SeedingBoundaryTests()
         {
-            mockedSeederInteractor = new Mock<ISeederInteractor<App>>();
+            mockedSeederInteractor = new Mock<IEntitySeederInteractor<App>>();
 
             fakes.IDependencyFactoryInteractor
-                .Setup(x => x.GetAll<ISeederInteractor<App>>())
-                .Returns(new List<ISeederInteractor<App>> { mockedSeederInteractor.Object });
+                .Setup(x => x.GetAll<IEntitySeederInteractor<App>>())
+                .Returns(new List<IEntitySeederInteractor<App>> { mockedSeederInteractor.Object });
 
             boundary = new SeedingBoundary(fakes.IDependencyFactoryInteractor.Object);
         }
@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Boundaries
             boundary.Execute();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<ISeederInteractor<App>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IEntitySeederInteractor<App>>(), Times.Once);
             mockedSeederInteractor.Verify(x => x.Reset(), Times.Once);
             mockedSeederInteractor.Verify(x => x.Seed(It.IsAny<App>()), Times.Once);
         }

@@ -9,7 +9,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-    internal class FieldSeederInteractor : ISeederInteractor<App>
+    internal class FieldSeederInteractor : IEntitySeederInteractor<App>
     {
         private readonly ICreateGateway<Field> createGateway;
         private readonly IDeleteGateway<Field> deleteGateway;
