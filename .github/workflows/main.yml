@@ -36,4 +36,4 @@ jobs:
         verbose: true
   
     - name: dotnet pack
-      run: dotnet pack ../Generator/src/PanthaRhei.Generator.Presentation.Cli/PanthaRhei.Generator.Presentation.Cli.csproj -c Release --no-restore --no-build
+      run: dotnet pack ../LiquidVisions.PanthaRhei/Generator/src/PanthaRhei.Generator.Presentation.Cli/PanthaRhei.Generator.Presentation.Cli.csproj -c Release --no-restore --no-build
