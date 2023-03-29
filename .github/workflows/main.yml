@@ -34,4 +34,12 @@ jobs:
         # Repository upload token - get it from codecov.io. Required only for private repositories
         token: ${{ secrets.CODECOV_TOKEN }}
         verbose: true
+  
+  deployment:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: dotnet pack
+      run: dotnet pack ../Generator/src/PanthaRhei.Generator.Presentation.Cli/PanthaRhei.Generator.Presentation.Cli.csproj -c Release --no-restore --no-build
+      
           
