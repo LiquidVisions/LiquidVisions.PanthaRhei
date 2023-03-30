@@ -33,5 +33,5 @@ jobs:
       with:
         # Repository upload token - get it from codecov.io. Required only for private repositories
         token: ${{ secrets.CODECOV_TOKEN }}
-        verbose: true
+        verbose: true 
           
