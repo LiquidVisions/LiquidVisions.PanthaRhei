@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             string folder = IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.EndpointFolder);
             directory.Create(folder);
 
-            string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.EndpointTemplate);
+            string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.EndpointTemplate);
 
             foreach (Entity entity in app.Entities)
             {

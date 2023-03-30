@@ -41,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
             component = Expander.Model.GetComponentByName(Resources.Client);
             string fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
             viewModelsFolder = Path.Combine(fullPathToComponentOutput, Resources.ViewModelsFolder);
-            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ViewModelTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.ViewModelTemplate);
         }
 
         public int Order => 17;

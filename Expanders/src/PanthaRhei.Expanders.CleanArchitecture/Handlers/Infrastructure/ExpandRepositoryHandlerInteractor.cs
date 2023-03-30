@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             fullPathToRepositoryFolder = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.RepositoryFolder);
             directory = dependencyFactory.Get<IDirectory>();
 
-            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.RepositoryTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.RepositoryTemplate);
         }
 
         public int Order => 11;

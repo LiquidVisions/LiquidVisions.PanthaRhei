@@ -93,7 +93,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             string componentPath = "C:\\Some\\Folder\\Path";
             string endpointPath = Path.Combine(componentPath, CleanArchitectureResources.EndpointFolder);
-            string expextedFullPathToTemplate = Path.Combine(Extensions.GetTemplateFolder(fakes.CleanArchitectureExpander.Object.Model, fakes.Parameters.Object, CleanArchitectureResources.EndpointTemplate));
+            string expextedFullPathToTemplate = Path.Combine(Extensions.GetPathToTemplate(fakes.CleanArchitectureExpander.Object.Model, fakes.Parameters.Object, CleanArchitectureResources.EndpointTemplate));
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(componentPath);
 
             var expectedTemplateParameters = new

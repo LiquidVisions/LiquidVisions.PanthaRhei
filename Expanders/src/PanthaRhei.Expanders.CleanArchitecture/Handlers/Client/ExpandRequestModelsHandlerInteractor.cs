@@ -72,7 +72,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
 
                 foreach (string action in actions)
                 {
-                    string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.RequestModelTemplate);
+                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.RequestModelTemplate);
                     string fullPathToFile = Path.Combine(endpointFolder, $"{ToFileName(action, entity)}.cs");
                     object templateModel = new
                     {

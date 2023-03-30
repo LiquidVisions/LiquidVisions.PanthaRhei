@@ -58,7 +58,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Client
                 };
 
                 string fullPathToOutputFile = Path.Combine(fullPathToComponentFolder, $"{entity.Name}Client.cs");
-                string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ClientTemplate);
+                string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.ClientTemplate);
                 templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPathToOutputFile);
             }
         }

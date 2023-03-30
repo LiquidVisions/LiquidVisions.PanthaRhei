@@ -67,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
                 foreach (string action in actions)
                 {
-                    string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, $"{action}{Resources.InteractorTemplate}");
+                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, $"{action}{Resources.InteractorTemplate}");
                     string fullPathToFile = Path.Combine(endpointFolder, $"{entity.ToFileName(action, "Interactor")}.cs");
                     object templateModel = new
                     {

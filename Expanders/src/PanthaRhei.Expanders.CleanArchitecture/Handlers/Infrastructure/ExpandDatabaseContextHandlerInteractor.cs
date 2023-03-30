@@ -57,7 +57,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
                 NameSpaceEntities = domain.GetComponentNamespace(app, Resources.DomainEntityFolder),
             };
 
-            string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.DbContextTemplate);
+            string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.DbContextTemplate);
             string fullPathToComponent = projectAgent.GetComponentOutputFolder(infrastructure);
             string path = System.IO.Path.Combine(fullPathToComponent, "Context.cs");
 

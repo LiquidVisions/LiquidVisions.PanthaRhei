@@ -49,7 +49,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
             string projectOutputFolder = projectAgent.GetComponentOutputFolder(component);
             destinationFolder = Path.Combine(projectOutputFolder, Resources.PresentersFolder);
-            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.PresenterTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.PresenterTemplate);
         }
 
         public int Order => 14;

@@ -48,7 +48,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             component = expander.Model.GetComponentByName(Resources.Application);
             clientComponent = expander.Model.GetComponentByName(Resources.Client);
             fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
-            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.BoundaryTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.BoundaryTemplate);
             destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.ApplicationBoundariesFolder);
         }
 

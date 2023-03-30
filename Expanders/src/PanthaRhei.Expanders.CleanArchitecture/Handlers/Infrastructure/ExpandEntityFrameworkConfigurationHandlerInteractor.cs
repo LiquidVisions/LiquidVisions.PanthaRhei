@@ -56,7 +56,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
             foreach (Entity entity in app.Entities)
             {
-                string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.InfrastructureDependencyInjectionBootstrapperTemplate);
+                string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.InfrastructureDependencyInjectionBootstrapperTemplate);
                 string result = templateService.Render(fullPathToTemplate, new { Entity = entity });
 
                 writer.AddOrReplaceMethod(result);

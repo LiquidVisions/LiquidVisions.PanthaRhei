@@ -42,7 +42,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             component = Expander.Model.GetComponentByName(Resources.Application);
             clientComponent = Expander.Model.GetComponentByName(Resources.Client);
 
-            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.ApplicationDependencyInjectionBootstrapperTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.ApplicationDependencyInjectionBootstrapperTemplate);
 
             string fullPathToComponent = projectAgent.GetComponentOutputFolder(component);
             fullPathToBootstrapperFile = Path.Combine(fullPathToComponent, Resources.DependencyInjectionBootstrapperFile);
