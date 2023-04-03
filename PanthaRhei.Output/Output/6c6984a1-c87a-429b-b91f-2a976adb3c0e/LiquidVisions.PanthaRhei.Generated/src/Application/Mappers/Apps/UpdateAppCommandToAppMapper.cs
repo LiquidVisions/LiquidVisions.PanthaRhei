@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generated.Client.RequestModels.Apps;
+﻿using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Apps;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Apps

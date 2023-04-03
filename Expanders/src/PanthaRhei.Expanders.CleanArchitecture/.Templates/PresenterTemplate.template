@@ -7,7 +7,7 @@ end
 {{-if action == "Delete"-}}
 using {{component_fullname application_component}};
 {{~else~}}
-using {{component_fullname client_component 'ViewModels'}};
+using {{component_fullname component 'ViewModels'}};
 using {{component_fullname application_component}};
 using {{component_fullname application_component 'Mappers'}};
 using {{component_fullname component 'Presenters'}};

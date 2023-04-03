@@ -107,7 +107,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                     {
                         Entity = fakes.ExpectedEntity,
                         component = fakes.ApiComponent.Object,
-                        clientComponent = fakes.ClientComponent.Object,
                         applicationComponent = fakes.ApplicationComponent.Object,
                     }
                     .GetHashCode()), expectedFilePath), Times.Once);

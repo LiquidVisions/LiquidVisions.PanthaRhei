@@ -24,7 +24,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         private readonly List<string> actions;
         private readonly Component component;
-        private readonly Component clientComponent;
         private readonly string fullPathToComponentOutput;
         private readonly string destinationFolder;
 
@@ -45,7 +44,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
             actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries).ToList();
             component = expander.Model.GetComponentByName(Resources.Application);
-            clientComponent = expander.Model.GetComponentByName(Resources.Client);
             fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
             destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.InteractorFolder);
         }
@@ -67,11 +65,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
                 foreach (string action in actions)
                 {
-                    string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, $"{action}{Resources.InteractorTemplate}");
+                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, $"{action}{Resources.InteractorTemplate}");
                     string fullPathToFile = Path.Combine(endpointFolder, $"{entity.ToFileName(action, "Interactor")}.cs");
                     object templateModel = new
                     {
-                        clientComponent,
                         component,
                         Entity = entity,
                     };

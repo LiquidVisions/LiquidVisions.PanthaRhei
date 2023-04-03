@@ -107,7 +107,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                     expectedTemplatePath,
                     It.Is<object>(x => x.GetHashCode() == new
                     {
-                        clientComponent = fakes.ClientComponent.Object,
                         applicationComponent = fakes.ApplicationComponent.Object,
                         component = fakes.ApiComponent.Object,
                         action = expectedAction,

@@ -22,7 +22,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         private readonly string[] requestActions;
         private readonly Component component;
         private readonly Component applicationComponent;
-        private readonly Component clientComponent;
         private readonly string destinationFolder;
         private readonly string fullPathToTemplate;
 
@@ -45,11 +44,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
             component = Expander.Model.GetComponentByName(Resources.Api);
             applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
-            clientComponent = Expander.Model.GetComponentByName(Resources.Client);
 
             string projectOutputFolder = projectAgent.GetComponentOutputFolder(component);
             destinationFolder = Path.Combine(projectOutputFolder, Resources.PresentersFolder);
-            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.PresenterTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.PresenterTemplate);
         }
 
         public int Order => 14;
@@ -72,7 +70,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
                     string fullPath = Path.Combine(endpointFolder, $"{entity.ToFileName(action, "Presenter")}.cs");
                     object templateModel = new
                     {
-                        clientComponent,
                         applicationComponent,
                         component,
                         action,

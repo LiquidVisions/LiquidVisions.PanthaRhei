@@ -19,8 +19,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
         public Mock<Component> ApplicationComponent { get; } = new();
 
-        public Mock<Component> ClientComponent { get; } = new();
-
         public Mock<Expander> CleanArchitectureExpanderModel { get; } = new();
 
         public Mock<CleanArchitectureExpander> CleanArchitectureExpander { get; } = new();
@@ -68,7 +66,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             DomainComponent.Setup(x => x.Name).Returns(Resources.Domain);
             ApiComponent.Setup(x => x.Name).Returns(Resources.Api);
             ApplicationComponent.Setup(x => x.Name).Returns(Resources.Application);
-            ClientComponent.Setup(x => x.Name).Returns(Resources.Client);
 
             CleanArchitectureExpanderModel.Setup(x => x.Components).Returns(
                 new List<Component>
@@ -77,7 +74,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
                     DomainComponent.Object,
                     ApiComponent.Object,
                     ApplicationComponent.Object,
-                    ClientComponent.Object,
                 });
 
             CleanArchitectureExpander.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);

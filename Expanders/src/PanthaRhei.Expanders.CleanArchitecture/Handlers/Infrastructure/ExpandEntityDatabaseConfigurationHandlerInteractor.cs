@@ -43,7 +43,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             infrastructureComponent = Expander.Model.GetComponentByName(Resources.EntityFramework);
             domainComponent = Expander.Model.GetComponentByName(Resources.Domain);
 
-            fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.EntityDatabaseConfigurationTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.EntityDatabaseConfigurationTemplate);
             string componentOutputPath = projectAgent.GetComponentOutputFolder(infrastructureComponent);
             targetFolderPath = Path.Combine(componentOutputPath, Resources.InfrastructureConfigurationFolder);
         }

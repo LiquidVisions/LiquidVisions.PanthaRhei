@@ -20,7 +20,7 @@ end
 using System.Threading.Tasks;
 using {{component_fullname component 'Interactors'}};
 using {{component_fullname component 'Boundaries'}};
-using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname component 'RequestModels' entity.name | pluralize}};
 
 namespace {{component_fullname component 'Boundaries' entity.name | pluralize}}
 {

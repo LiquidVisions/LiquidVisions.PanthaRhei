@@ -1,4 +1,4 @@
-﻿using NS.Presentation.Api.Endpoints;
+﻿using NS.Presentation.Api.Controllers;
 using NS.Application;
 using NS.Domain;
 using NS.Infrastructure.EntityFramework;

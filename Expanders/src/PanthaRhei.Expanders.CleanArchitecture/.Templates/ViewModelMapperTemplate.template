@@ -16,7 +16,7 @@ begin
     ret 'source.' + $0.name;
 end
 -}}
-using {{component_fullname client_component 'ViewModels'}};
+using {{component_fullname component 'ViewModels'}};
 using {{component_fullname application_component 'Mappers'}};
 using {{entity.callsite}};
 using System.Linq;

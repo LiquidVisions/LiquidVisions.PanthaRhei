@@ -93,7 +93,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             App app = fakes.SetupApp();
             string expectedNameSpace = fakes.ApplicationComponent.Object.GetComponentNamespace(app);
-            string expectedClientNameSpace = fakes.ClientComponent.Object.GetComponentNamespace(app);
             string expectedFullPathToBootstrapperFile = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.DependencyInjectionBootstrapperFile);
             string expectedFullPathToTemplate = Path.Combine(
                 fakes.Parameters.Object.ExpandersFolder,
@@ -118,7 +117,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Mappers.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedClientNameSpace}.RequestModels.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.RequestModels.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Validators.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Gateways"), Times.Once);
             fakes.IWriterInteractor.Verify(x => x.AddNameSpace(It.IsAny<string>()), Times.Exactly(6));

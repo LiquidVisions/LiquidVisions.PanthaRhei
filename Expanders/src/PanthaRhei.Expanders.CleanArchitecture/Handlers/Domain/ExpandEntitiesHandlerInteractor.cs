@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
             directory = dependencyFactory.Get<IDirectory>();
 
             domain = Expander.Model.GetComponentByName(Resources.Domain);
-            templateFolder = Expander.Model.GetTemplateFolder(parameters, Resources.EntityTemplate);
+            templateFolder = Expander.Model.GetPathToTemplate(parameters, Resources.EntityTemplate);
             string componentFolder = projectInteractor.GetComponentOutputFolder(domain);
             entitiesFolder = Path.Combine(componentFolder, Resources.DomainEntityFolder);
         }

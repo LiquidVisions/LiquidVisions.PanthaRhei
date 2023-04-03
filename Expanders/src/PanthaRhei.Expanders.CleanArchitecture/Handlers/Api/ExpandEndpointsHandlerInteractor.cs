@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             string folder = IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.EndpointFolder);
             directory.Create(folder);
 
-            string fullPathToTemplate = Expander.Model.GetTemplateFolder(parameters, Resources.EndpointTemplate);
+            string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.EndpointTemplate);
 
             foreach (Entity entity in app.Entities)
             {
@@ -84,13 +84,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         private void GenerateAndSaveOutput(Component component, string destinationFolder, Entity endpoint, string fullPathToTemplate)
         {
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
             Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
 
             var templateModel = new
             {
                 applicationComponent,
-                clientComponent,
                 component,
                 Entity = endpoint,
             };

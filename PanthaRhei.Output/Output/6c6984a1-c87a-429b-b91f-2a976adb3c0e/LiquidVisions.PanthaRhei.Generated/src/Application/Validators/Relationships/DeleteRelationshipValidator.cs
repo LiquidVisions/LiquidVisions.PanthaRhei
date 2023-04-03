@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using LiquidVisions.PanthaRhei.Generated.Client.RequestModels.Relationships;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationships
 {
