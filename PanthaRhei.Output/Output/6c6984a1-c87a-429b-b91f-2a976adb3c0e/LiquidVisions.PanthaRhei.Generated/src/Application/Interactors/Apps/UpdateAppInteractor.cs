@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using LiquidVisions.PanthaRhei.Generated.Application.Gateways;
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
-using LiquidVisions.PanthaRhei.Generated.Client.RequestModels.Apps;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Apps;
 using LiquidVisions.PanthaRhei.Generated.Application.Validators;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 

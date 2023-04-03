@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generated.Application;
-using LiquidVisions.PanthaRhei.Generated.Client.ViewModels;
+using LiquidVisions.PanthaRhei.Generated.Presentation.Api.ViewModels;
 using Microsoft.AspNetCore.Http;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters

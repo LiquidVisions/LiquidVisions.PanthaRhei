@@ -1,8 +1,8 @@
 using System;
 using {{component_fullname component 'Mappers'}};
 using {{component_fullname component 'Presenters' entity.name | pluralize}};
-using {{component_fullname client_component 'ViewModels'}};
-using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname component 'ViewModels'}};
+using {{component_fullname application_component 'RequestModels' entity.name | pluralize}};
 using {{component_fullname application_component 'Boundaries'}};
 using {{component_fullname application_component 'Mappers'}};
 using {{entity.callsite}};
@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace {{component_fullname component 'Endpoints'}}
+namespace {{component_fullname component 'Controllers'}}
 {
-    public static class {{entity.name}}Endpoints
+    public static class {{entity.name}}Controller
     {
         private static readonly string endpointTemplate = "/{{entity.name | pluralize | string.downcase}}";
 

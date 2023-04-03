@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LiquidVisions.PanthaRhei.Generated.Application.Gateways;
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
-using LiquidVisions.PanthaRhei.Generated.Client.RequestModels.Entities;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Entities;
 using LiquidVisions.PanthaRhei.Generated.Application.Validators;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 

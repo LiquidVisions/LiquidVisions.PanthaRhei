@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using {{component_fullname component 'Gateways'}};
 using {{component_fullname component 'Mappers'}};
-using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname component 'RequestModels' entity.name | pluralize}};
 using {{component_fullname component 'Validators'}};
 using {{entity.callsite}};
 

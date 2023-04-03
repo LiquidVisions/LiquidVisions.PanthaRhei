@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generated.Client.ViewModels;
+﻿using LiquidVisions.PanthaRhei.Generated.Presentation.Api.ViewModels;
 using LiquidVisions.PanthaRhei.Generated.Application;
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
 using LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters;

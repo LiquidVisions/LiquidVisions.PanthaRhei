@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using NS.Client.RequestModels;
+using NS.Application.RequestModels;
 
 namespace NS.Application.Interactors
 {

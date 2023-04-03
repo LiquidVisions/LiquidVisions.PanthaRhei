@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NS.Application;
-using NS.Client.ViewModels;
+using NS.Presentation.Api.ViewModels;
 using Microsoft.AspNetCore.Http;
 
 namespace NS.Presentation.Api.Presenters

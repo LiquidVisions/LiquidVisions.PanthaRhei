@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generated.Client.RequestModels.Fields;
+﻿using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Fields;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Fields

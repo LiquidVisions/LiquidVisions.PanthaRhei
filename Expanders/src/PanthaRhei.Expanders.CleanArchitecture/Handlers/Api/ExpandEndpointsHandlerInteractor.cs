@@ -84,13 +84,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         private void GenerateAndSaveOutput(Component component, string destinationFolder, Entity endpoint, string fullPathToTemplate)
         {
-            Component clientComponent = Expander.Model.GetComponentByName(Resources.Client);
             Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
 
             var templateModel = new
             {
                 applicationComponent,
-                clientComponent,
                 component,
                 Entity = endpoint,
             };

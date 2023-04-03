@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using LiquidVisions.PanthaRhei.Generated.Client.RequestModels;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries
 {

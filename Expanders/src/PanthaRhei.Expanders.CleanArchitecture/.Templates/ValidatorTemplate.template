@@ -13,7 +13,7 @@ if action == "Get" || action == "GetById"
 end
 -}}
 using FluentValidation;
-using {{app_fullname component 'Client' 'RequestModels' entity.name | pluralize }};
+using {{app_fullname component 'Application' 'RequestModels' entity.name | pluralize }};
 
 namespace {{component_fullname component 'Validators' entity.name | pluralize }}
 {

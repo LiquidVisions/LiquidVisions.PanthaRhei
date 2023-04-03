@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using LiquidVisions.PanthaRhei.Generated.Client.RequestModels.Expanders;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Expanders
 {

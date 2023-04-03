@@ -20,7 +20,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         private readonly App app;
         private readonly Component component;
         private readonly CleanArchitectureExpander expander;
-        private readonly Component clientComponent;
         private readonly string fullPathToTemplate;
         private readonly string fullPathToBootstrapperFile;
 
@@ -40,7 +39,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             app = dependencyFactory.Get<App>();
 
             component = Expander.Model.GetComponentByName(Resources.Application);
-            clientComponent = Expander.Model.GetComponentByName(Resources.Client);
 
             fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.ApplicationDependencyInjectionBootstrapperTemplate);
 
@@ -74,7 +72,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
                 writer.AddNameSpace($"{ns}.Boundaries.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Interactors.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Mappers.{pluralizedName}");
-                writer.AddNameSpace($"{clientComponent.GetComponentNamespace(app)}.RequestModels.{pluralizedName}");
+                writer.AddNameSpace($"{component.GetComponentNamespace(app)}.RequestModels.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Validators.{pluralizedName}");
                 writer.AddNameSpace($"{ns}.Gateways");
             }

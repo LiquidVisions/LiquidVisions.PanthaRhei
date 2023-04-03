@@ -99,7 +99,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             var expectedTemplateParameters = new
             {
                 applicationComponent = fakes.ApplicationComponent.Object,
-                clientComponent = fakes.ClientComponent.Object,
                 component = fakes.ApiComponent.Object,
                 Entity = fakes.ExpectedEntity,
             };

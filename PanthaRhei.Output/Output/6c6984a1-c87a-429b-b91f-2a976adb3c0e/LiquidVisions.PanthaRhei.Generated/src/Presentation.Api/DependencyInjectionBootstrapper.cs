@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generated.Presentation.Api.Endpoints;
+﻿using LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers;
 using LiquidVisions.PanthaRhei.Generated.Application;
 using LiquidVisions.PanthaRhei.Generated.Domain;
 using LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework;
@@ -35,6 +35,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api
 
             services.AddRelationshipElements();
 
+
             return services;
         }
 
@@ -58,6 +59,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api
             app.UseConnectionStringEndpoints();
 
             app.UseRelationshipEndpoints();
+
 
             app.Run();
         }

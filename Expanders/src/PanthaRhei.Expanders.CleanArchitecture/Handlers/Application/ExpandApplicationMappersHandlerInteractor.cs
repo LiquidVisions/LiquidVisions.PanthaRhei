@@ -21,7 +21,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         private readonly IDirectory directory;
         private readonly string[] actions;
         private readonly Component component;
-        private readonly Component clientComponent;
         private readonly string fullPathToRootFolder;
         private readonly string fullPathToTemplate;
 
@@ -43,7 +42,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             actions = new string[] { "Create", "Update" };
 
             component = Expander.Model.GetComponentByName(Resources.Application);
-            clientComponent = Expander.Model.GetComponentByName(Resources.Client);
 
             string fullPathToComponent = projectAgent.GetComponentOutputFolder(component);
             fullPathToRootFolder = Path.Combine(fullPathToComponent, Resources.ApplicationMapperFolder);
@@ -70,7 +68,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
                     string filePath = Path.Combine(fullpathToDestinationFolder, $"{action}{entity.Name}CommandTo{entity.Name}Mapper.cs");
                     object templateModel = new
                     {
-                        clientComponent,
                         component,
                         Action = action,
                         Entity = entity,

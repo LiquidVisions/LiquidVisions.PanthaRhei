@@ -133,15 +133,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Client.
-        /// </summary>
-        public static string Client {
-            get {
-                return ResourceManager.GetString("Client", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ClientTemplate.
         /// </summary>
         public static string ClientTemplate {
@@ -205,7 +196,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endpoints.
+        ///   Looks up a localized string similar to Controllers.
         /// </summary>
         public static string EndpointFolder {
             get {

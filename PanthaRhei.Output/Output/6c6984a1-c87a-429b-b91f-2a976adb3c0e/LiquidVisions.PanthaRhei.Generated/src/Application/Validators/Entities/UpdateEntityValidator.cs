@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using LiquidVisions.PanthaRhei.Generated.Client.RequestModels.Entities;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Entities
 {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using LiquidVisions.PanthaRhei.Generated.Application.Interactors;
 using LiquidVisions.PanthaRhei.Generated.Application.Boundaries;
-using LiquidVisions.PanthaRhei.Generated.Client.RequestModels.Relationships;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Relationships
 {

@@ -18,7 +18,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         private readonly Parameters parameters;
         private readonly App app;
         private readonly Component component;
-        private readonly Component clientComponent;
         private readonly Component applicationComponent;
         private readonly string fullPathToTemplate;
         private readonly IDirectory directory;
@@ -40,7 +39,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             directory = dependencyFactory.Get<IDirectory>();
 
             component = Expander.Model.GetComponentByName(Resources.Api);
-            clientComponent = Expander.Model.GetComponentByName(Resources.Client);
             applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
 
             string fullPathToApiComponent = projectAgent.GetComponentOutputFolder(component);
@@ -67,7 +65,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
                 {
                     Entity = entity,
                     component,
-                    clientComponent,
                     applicationComponent,
                 };
 

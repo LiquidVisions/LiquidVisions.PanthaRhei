@@ -24,7 +24,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         private readonly List<string> actions;
         private readonly Component component;
-        private readonly Component clientComponent;
         private readonly string fullPathToComponentOutput;
         private readonly string fullPathToTemplate;
         private readonly string destinationFolder;
@@ -46,7 +45,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
             actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries).ToList();
             component = expander.Model.GetComponentByName(Resources.Application);
-            clientComponent = expander.Model.GetComponentByName(Resources.Client);
             fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
             fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.BoundaryTemplate);
             destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.ApplicationBoundariesFolder);
@@ -72,7 +70,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
                     string fullPathToFile = Path.Combine(endpointFolder, $"{endpoint.ToFileName(action, "Boundary")}.cs");
                     object templateModel = new
                     {
-                        clientComponent,
                         component,
                         ActionType = action,
                         entity = endpoint,

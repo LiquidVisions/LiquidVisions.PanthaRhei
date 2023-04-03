@@ -141,9 +141,6 @@
   <data name="BoundaryTemplate" xml:space="preserve">
     <value>BoundaryTemplate</value>
   </data>
-  <data name="Client" xml:space="preserve">
-    <value>Client</value>
-  </data>
   <data name="ClientTemplate" xml:space="preserve">
     <value>ClientTemplate</value>
   </data>
@@ -166,7 +163,7 @@
     <value>Entities</value>
   </data>
   <data name="EndpointFolder" xml:space="preserve">
-    <value>Endpoints</value>
+    <value>Controllers</value>
   </data>
   <data name="EndpointTemplate" xml:space="preserve">
     <value>EndpointTemplate</value>

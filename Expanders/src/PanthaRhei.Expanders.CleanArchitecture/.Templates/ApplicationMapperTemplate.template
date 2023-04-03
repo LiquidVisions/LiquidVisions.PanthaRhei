@@ -1,7 +1,7 @@
 {{-
 model_name = action+entity.name+"Command";
 -}}
-using {{component_fullname client_component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname component 'RequestModels' entity.name | pluralize}};
 using {{entity.callsite}};
 
 namespace {{component_fullname component 'Mappers' entity.name | pluralize}}
