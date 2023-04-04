@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class RelationshipModelMapper : IMapper<Relationship, RelationshipViewModel>
+    public class RelationshipViewModelMapper : IMapper<Relationship, RelationshipViewModel>
     {
         public void Map(Relationship source, RelationshipViewModel target)
         {

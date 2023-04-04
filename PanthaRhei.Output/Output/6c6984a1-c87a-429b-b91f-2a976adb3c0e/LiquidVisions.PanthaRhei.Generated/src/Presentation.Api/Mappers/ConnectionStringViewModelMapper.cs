@@ -5,19 +5,19 @@ using System.Linq;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class PackageModelMapper : IMapper<Package, PackageViewModel>
+    public class ConnectionStringViewModelMapper : IMapper<ConnectionString, ConnectionStringViewModel>
     {
-        public void Map(Package source, PackageViewModel target)
+        public void Map(ConnectionString source, ConnectionStringViewModel target)
         {
             target.Id = source.Id;
             target.Name = source.Name;
-            target.Version = source.Version;
-            target.Component = new ComponentModelMapper().Map(source.Component);
+            target.Definition = source.Definition;
+            target.App = new AppModelMapper().Map(source.App);
         }
 
-        public PackageViewModel Map(Package source)
+        public ConnectionStringViewModel Map(ConnectionString source)
         {
-			PackageViewModel target = new();
+			ConnectionStringViewModel target = new();
 
             Map(source, target);
 

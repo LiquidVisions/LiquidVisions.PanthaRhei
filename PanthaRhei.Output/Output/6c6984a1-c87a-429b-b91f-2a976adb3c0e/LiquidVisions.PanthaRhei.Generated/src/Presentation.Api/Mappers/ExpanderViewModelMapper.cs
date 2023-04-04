@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class ExpanderModelMapper : IMapper<Expander, ExpanderViewModel>
+    public class ExpanderViewModelMapper : IMapper<Expander, ExpanderViewModel>
     {
         public void Map(Expander source, ExpanderViewModel target)
         {

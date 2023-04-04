@@ -68,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
                     applicationComponent,
                 };
 
-                string fullPath = System.IO.Path.Combine(fullPathToViewModelsFolder, $"{entity.Name}ModelMapper.cs");
+                string fullPath = System.IO.Path.Combine(fullPathToViewModelsFolder, $"{entity.Name}ViewModelMapper.cs");
                 templateService.RenderAndSave(fullPathToTemplate, templateModel, fullPath);
             }
         }
