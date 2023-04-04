@@ -23,7 +23,7 @@ using System.Linq;
 
 namespace {{component_fullname component 'Mappers'}}
 {
-    public class {{entity.name}}ModelMapper : IMapper<{{entity.name}}, {{entity.name}}ViewModel>
+    public class {{entity.name}}ViewModelMapper : IMapper<{{entity.name}}, {{entity.name}}ViewModel>
     {
         public void Map({{entity.name}} source, {{entity.name}}ViewModel target)
         {
