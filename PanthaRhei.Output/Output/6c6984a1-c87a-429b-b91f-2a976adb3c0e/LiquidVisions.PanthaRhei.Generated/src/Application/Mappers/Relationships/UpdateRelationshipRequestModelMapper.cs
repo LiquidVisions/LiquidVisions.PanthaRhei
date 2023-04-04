@@ -3,9 +3,9 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Relationships
 {
-    internal class CreateRelationshipCommandToRelationshipMapper : IMapper<CreateRelationshipCommand, Relationship>
+    internal class UpdateRelationshipCommandRequestModelMapper : IMapper<UpdateRelationshipCommand, Relationship>
     {
-        public void Map(CreateRelationshipCommand source, Relationship target)
+        public void Map(UpdateRelationshipCommand source, Relationship target)
         {
             target.Key = source.Key;
             target.Entity = source.Entity;
@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Relationships
             target.Required = source.Required;
         }
 
-        public Relationship Map(CreateRelationshipCommand source)
+        public Relationship Map(UpdateRelationshipCommand source)
         {
             Relationship target = new();
 

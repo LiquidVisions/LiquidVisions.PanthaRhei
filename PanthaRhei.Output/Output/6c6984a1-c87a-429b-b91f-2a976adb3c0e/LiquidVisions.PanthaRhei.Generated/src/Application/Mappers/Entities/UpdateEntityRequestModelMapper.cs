@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Entities
 {
-    internal class UpdateEntityCommandToEntityMapper : IMapper<UpdateEntityCommand, Entity>
+    internal class UpdateEntityCommandRequestModelMapper : IMapper<UpdateEntityCommand, Entity>
     {
         public void Map(UpdateEntityCommand source, Entity target)
         {

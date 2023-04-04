@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class FieldModelMapper : IMapper<Field, FieldViewModel>
+    public class FieldViewModelMapper : IMapper<Field, FieldViewModel>
     {
         public void Map(Field source, FieldViewModel target)
         {

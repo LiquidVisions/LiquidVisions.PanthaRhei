@@ -6,7 +6,7 @@ using {{entity.callsite}};
 
 namespace {{component_fullname component 'Mappers' entity.name | pluralize}}
 {
-    internal class {{model_name}}{{entity.name}}RequestModelMapper : IMapper<{{model_name}}, {{entity.name}}>
+    internal class {{model_name}}RequestModelMapper : IMapper<{{model_name}}, {{entity.name}}>
     {
         public void Map({{model_name}} source, {{entity.name}} target)
         {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class ComponentModelMapper : IMapper<Component, ComponentViewModel>
+    public class ComponentViewModelMapper : IMapper<Component, ComponentViewModel>
     {
         public void Map(Component source, ComponentViewModel target)
         {
