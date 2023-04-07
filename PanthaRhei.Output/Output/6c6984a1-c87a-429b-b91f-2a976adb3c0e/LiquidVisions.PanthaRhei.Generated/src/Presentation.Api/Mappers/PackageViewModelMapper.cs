@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
             target.Id = source.Id;
             target.Name = source.Name;
             target.Version = source.Version;
-            target.Component = new ComponentModelMapper().Map(source.Component);
+            target.Component = new ComponentViewModelMapper().Map(source.Component);
         }
 
         public PackageViewModel Map(Package source)

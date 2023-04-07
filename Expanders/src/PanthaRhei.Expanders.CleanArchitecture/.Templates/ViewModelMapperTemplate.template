@@ -6,12 +6,12 @@ begin
     begin
         if($0.is_collection)
         begin
-            result = 'source.' + $0.name + '.Select(x => new ' + $0.return_type + 'ModelMapper().Map(x)).ToList()'
+            result = 'source.' + $0.name + '.Select(x => new ' + $0.return_type + 'ViewModelMapper().Map(x)).ToList()'
             ret result;
 
         end
 
-        ret 'new ' + $0.return_type + 'ModelMapper().Map(source.' + $0.name + ')'
+        ret 'new ' + $0.return_type + 'ViewModelMapper().Map(source.' + $0.name + ')'
     end
     ret 'source.' + $0.name;
 end

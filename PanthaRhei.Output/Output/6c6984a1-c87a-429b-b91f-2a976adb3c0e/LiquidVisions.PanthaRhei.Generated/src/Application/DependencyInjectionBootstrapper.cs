@@ -95,8 +95,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateFieldCommand>, UpdateFieldValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateFieldCommand, Field>, CreateFieldCommandToFieldMapper>();
-            services.AddTransient<IMapper<UpdateFieldCommand, Field>, UpdateFieldCommandToFieldMapper>();
+            services.AddTransient<IMapper<CreateFieldCommand, Field>, CreateFieldCommandRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateFieldCommand, Field>, UpdateFieldCommandRequestModelMapper>();
 
             return services;
         }
@@ -129,8 +129,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateAppCommand>, UpdateAppValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateAppCommand, App>, CreateAppCommandToAppMapper>();
-            services.AddTransient<IMapper<UpdateAppCommand, App>, UpdateAppCommandToAppMapper>();
+            services.AddTransient<IMapper<CreateAppCommand, App>, CreateAppCommandRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateAppCommand, App>, UpdateAppCommandRequestModelMapper>();
 
             return services;
         }
@@ -163,8 +163,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdatePackageCommand>, UpdatePackageValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreatePackageCommand, Package>, CreatePackageCommandToPackageMapper>();
-            services.AddTransient<IMapper<UpdatePackageCommand, Package>, UpdatePackageCommandToPackageMapper>();
+            services.AddTransient<IMapper<CreatePackageCommand, Package>, CreatePackageCommandRequestModelMapper>();
+            services.AddTransient<IMapper<UpdatePackageCommand, Package>, UpdatePackageCommandRequestModelMapper>();
 
             return services;
         }
@@ -197,8 +197,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateEntityCommand>, UpdateEntityValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateEntityCommand, Entity>, CreateEntityCommandToEntityMapper>();
-            services.AddTransient<IMapper<UpdateEntityCommand, Entity>, UpdateEntityCommandToEntityMapper>();
+            services.AddTransient<IMapper<CreateEntityCommand, Entity>, CreateEntityCommandRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateEntityCommand, Entity>, UpdateEntityCommandRequestModelMapper>();
 
             return services;
         }
@@ -231,8 +231,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateComponentCommand>, UpdateComponentValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateComponentCommand, Component>, CreateComponentCommandToComponentMapper>();
-            services.AddTransient<IMapper<UpdateComponentCommand, Component>, UpdateComponentCommandToComponentMapper>();
+            services.AddTransient<IMapper<CreateComponentCommand, Component>, CreateComponentCommandRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateComponentCommand, Component>, UpdateComponentCommandRequestModelMapper>();
 
             return services;
         }
@@ -265,8 +265,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateExpanderCommand>, UpdateExpanderValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateExpanderCommand, Expander>, CreateExpanderCommandToExpanderMapper>();
-            services.AddTransient<IMapper<UpdateExpanderCommand, Expander>, UpdateExpanderCommandToExpanderMapper>();
+            services.AddTransient<IMapper<CreateExpanderCommand, Expander>, CreateExpanderCommandRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateExpanderCommand, Expander>, UpdateExpanderCommandRequestModelMapper>();
 
             return services;
         }
@@ -299,8 +299,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateConnectionStringCommand>, UpdateConnectionStringValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateConnectionStringCommand, ConnectionString>, CreateConnectionStringCommandToConnectionStringMapper>();
-            services.AddTransient<IMapper<UpdateConnectionStringCommand, ConnectionString>, UpdateConnectionStringCommandToConnectionStringMapper>();
+            services.AddTransient<IMapper<CreateConnectionStringCommand, ConnectionString>, CreateConnectionStringCommandRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateConnectionStringCommand, ConnectionString>, UpdateConnectionStringCommandRequestModelMapper>();
 
             return services;
         }
@@ -333,8 +333,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateRelationshipCommand>, UpdateRelationshipValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateRelationshipCommand, Relationship>, CreateRelationshipCommandToRelationshipMapper>();
-            services.AddTransient<IMapper<UpdateRelationshipCommand, Relationship>, UpdateRelationshipCommandToRelationshipMapper>();
+            services.AddTransient<IMapper<CreateRelationshipCommand, Relationship>, CreateRelationshipCommandRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateRelationshipCommand, Relationship>, UpdateRelationshipCommandRequestModelMapper>();
 
             return services;
         }

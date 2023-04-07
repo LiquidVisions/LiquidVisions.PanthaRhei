@@ -15,11 +15,11 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
             target.Type = source.Type;
             target.Modifier = source.Modifier;
             target.Behaviour = source.Behaviour;
-            target.App = new AppModelMapper().Map(source.App);
-            target.Fields = source.Fields.Select(x => new FieldModelMapper().Map(x)).ToList();
-            target.ReferencedIn = source.ReferencedIn.Select(x => new FieldModelMapper().Map(x)).ToList();
-            target.Relations = source.Relations.Select(x => new RelationshipModelMapper().Map(x)).ToList();
-            target.IsForeignEntityOf = source.IsForeignEntityOf.Select(x => new RelationshipModelMapper().Map(x)).ToList();
+            target.App = new AppViewModelMapper().Map(source.App);
+            target.Fields = source.Fields.Select(x => new FieldViewModelMapper().Map(x)).ToList();
+            target.ReferencedIn = source.ReferencedIn.Select(x => new FieldViewModelMapper().Map(x)).ToList();
+            target.Relations = source.Relations.Select(x => new RelationshipViewModelMapper().Map(x)).ToList();
+            target.IsForeignEntityOf = source.IsForeignEntityOf.Select(x => new RelationshipViewModelMapper().Map(x)).ToList();
         }
 
         public EntityViewModel Map(Entity source)

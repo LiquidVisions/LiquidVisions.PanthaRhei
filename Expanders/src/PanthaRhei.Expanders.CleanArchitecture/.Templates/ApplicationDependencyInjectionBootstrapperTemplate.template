@@ -27,8 +27,8 @@
             services.AddTransient<IValidator<Update{{entity.name}}Command>, Update{{entity.name}}Validator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<Create{{entity.name}}Command, {{entity.name}}>, Create{{entity.name}}CommandTo{{entity.name}}Mapper>();
-            services.AddTransient<IMapper<Update{{entity.name}}Command, {{entity.name}}>, Update{{entity.name}}CommandTo{{entity.name}}Mapper>();
+            services.AddTransient<IMapper<Create{{entity.name}}Command, {{entity.name}}>, Create{{entity.name}}CommandRequestModelMapper>();
+            services.AddTransient<IMapper<Update{{entity.name}}Command, {{entity.name}}>, Update{{entity.name}}CommandRequestModelMapper>();
 
             return services;
         }

@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         public static IServiceCollection AddExpanderElements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<Expander, ExpanderViewModel>, ExpanderModelMapper>();
+            services.AddTransient<IMapper<Expander, ExpanderViewModel>, ExpanderViewModelMapper>();
             services.AddTransient<ICreateExpanderPresenter, CreateExpanderPresenter>();
             services.AddTransient<IGetByIdExpanderPresenter, GetByIdExpanderPresenter>();
             services.AddTransient<IGetExpandersPresenter, GetExpandersPresenter>();
