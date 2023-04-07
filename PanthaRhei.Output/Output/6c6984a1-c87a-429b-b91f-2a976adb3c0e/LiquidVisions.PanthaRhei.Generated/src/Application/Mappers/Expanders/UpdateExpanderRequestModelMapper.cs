@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Expanders
 {
-    internal class UpdateExpanderCommandToExpanderMapper : IMapper<UpdateExpanderCommand, Expander>
+    internal class UpdateExpanderCommandRequestModelMapper : IMapper<UpdateExpanderCommand, Expander>
     {
         public void Map(UpdateExpanderCommand source, Expander target)
         {

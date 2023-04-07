@@ -3,16 +3,16 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.ConnectionStrings
 {
-    internal class CreateConnectionStringCommandToConnectionStringMapper : IMapper<CreateConnectionStringCommand, ConnectionString>
+    internal class UpdateConnectionStringCommandRequestModelMapper : IMapper<UpdateConnectionStringCommand, ConnectionString>
     {
-        public void Map(CreateConnectionStringCommand source, ConnectionString target)
+        public void Map(UpdateConnectionStringCommand source, ConnectionString target)
         {
             target.Name = source.Name;
             target.Definition = source.Definition;
             target.App = source.App;
         }
 
-        public ConnectionString Map(CreateConnectionStringCommand source)
+        public ConnectionString Map(UpdateConnectionStringCommand source)
         {
             ConnectionString target = new();
 

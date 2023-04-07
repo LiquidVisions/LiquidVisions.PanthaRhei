@@ -5,16 +5,16 @@ using System.Linq;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class AppModelMapper : IMapper<App, AppViewModel>
+    public class AppViewModelMapper : IMapper<App, AppViewModel>
     {
         public void Map(App source, AppViewModel target)
         {
             target.Id = source.Id;
             target.Name = source.Name;
             target.FullName = source.FullName;
-            target.Expanders = source.Expanders.Select(x => new ExpanderModelMapper().Map(x)).ToList();
-            target.Entities = source.Entities.Select(x => new EntityModelMapper().Map(x)).ToList();
-            target.ConnectionStrings = source.ConnectionStrings.Select(x => new ConnectionStringModelMapper().Map(x)).ToList();
+            target.Expanders = source.Expanders.Select(x => new ExpanderViewModelMapper().Map(x)).ToList();
+            target.Entities = source.Entities.Select(x => new EntityViewModelMapper().Map(x)).ToList();
+            target.ConnectionStrings = source.ConnectionStrings.Select(x => new ConnectionStringViewModelMapper().Map(x)).ToList();
         }
 
         public AppViewModel Map(App source)

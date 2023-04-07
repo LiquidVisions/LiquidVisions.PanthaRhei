@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class ExpanderModelMapper : IMapper<Expander, ExpanderViewModel>
+    public class ExpanderViewModelMapper : IMapper<Expander, ExpanderViewModel>
     {
         public void Map(Expander source, ExpanderViewModel target)
         {
@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
             target.Name = source.Name;
             target.TemplateFolder = source.TemplateFolder;
             target.Order = source.Order;
-            target.Apps = source.Apps.Select(x => new AppModelMapper().Map(x)).ToList();
-            target.Components = source.Components.Select(x => new ComponentModelMapper().Map(x)).ToList();
+            target.Apps = source.Apps.Select(x => new AppViewModelMapper().Map(x)).ToList();
+            target.Components = source.Components.Select(x => new ComponentViewModelMapper().Map(x)).ToList();
         }
 
         public ExpanderViewModel Map(Expander source)

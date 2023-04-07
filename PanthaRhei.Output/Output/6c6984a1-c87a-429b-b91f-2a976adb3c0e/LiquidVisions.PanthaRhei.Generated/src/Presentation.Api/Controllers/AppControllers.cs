@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         public static IServiceCollection AddAppElements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<App, AppViewModel>, AppModelMapper>();
+            services.AddTransient<IMapper<App, AppViewModel>, AppViewModelMapper>();
             services.AddTransient<ICreateAppPresenter, CreateAppPresenter>();
             services.AddTransient<IGetByIdAppPresenter, GetByIdAppPresenter>();
             services.AddTransient<IGetAppsPresenter, GetAppsPresenter>();

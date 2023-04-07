@@ -3,9 +3,9 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Fields
 {
-    internal class UpdateFieldCommandToFieldMapper : IMapper<UpdateFieldCommand, Field>
+    internal class CreateFieldCommandRequestModelMapper : IMapper<CreateFieldCommand, Field>
     {
-        public void Map(UpdateFieldCommand source, Field target)
+        public void Map(CreateFieldCommand source, Field target)
         {
             target.Name = source.Name;
             target.ReturnType = source.ReturnType;
@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Fields
             target.IsForeignEntityKeyOf = source.IsForeignEntityKeyOf;
         }
 
-        public Field Map(UpdateFieldCommand source)
+        public Field Map(CreateFieldCommand source)
         {
             Field target = new();
 

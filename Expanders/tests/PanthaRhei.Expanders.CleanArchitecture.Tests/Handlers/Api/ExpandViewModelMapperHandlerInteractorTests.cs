@@ -93,7 +93,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             string expectedViewModelFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.ViewModelMapperFolder);
             string expectedTemplatePath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpanderInteractor.Object.Model.Name, fakes.CleanArchitectureExpanderInteractor.Object.Model.TemplateFolder, $"{CleanArchitectureResources.ViewModelMapperTemplate}.template");
-            string expectedFilePath = Path.Combine(expectedViewModelFolder, $"{fakes.ExpectedEntity.Name}ModelMapper.cs");
+            string expectedFilePath = Path.Combine(expectedViewModelFolder, $"{fakes.ExpectedEntity.Name}ViewModelMapper.cs");
 
             // act
             handler.Execute();

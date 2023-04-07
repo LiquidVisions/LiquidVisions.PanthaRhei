@@ -65,7 +65,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
                 foreach (string action in actions)
                 {
-                    string filePath = Path.Combine(fullpathToDestinationFolder, $"{action}{entity.Name}CommandTo{entity.Name}Mapper.cs");
+                    string filePath = Path.Combine(fullpathToDestinationFolder, $"{action}{entity.Name}RequestModelMapper.cs");
                     object templateModel = new
                     {
                         component,

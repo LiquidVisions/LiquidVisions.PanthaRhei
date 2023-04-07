@@ -3,9 +3,9 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Apps
 {
-    internal class UpdateAppCommandToAppMapper : IMapper<UpdateAppCommand, App>
+    internal class CreateAppCommandRequestModelMapper : IMapper<CreateAppCommand, App>
     {
-        public void Map(UpdateAppCommand source, App target)
+        public void Map(CreateAppCommand source, App target)
         {
             target.Name = source.Name;
             target.FullName = source.FullName;
@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Apps
             target.ConnectionStrings = source.ConnectionStrings;
         }
 
-        public App Map(UpdateAppCommand source)
+        public App Map(CreateAppCommand source)
         {
             App target = new();
 
