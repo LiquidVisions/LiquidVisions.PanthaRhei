@@ -112,7 +112,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                         Action = expectedAction,
                         Entity = fakes.ExpectedEntity,
                     }.GetHashCode()),
-                    Path.Combine(expectedCreateFolder, $"{expectedAction}{fakes.ExpectedEntity.Name}CommandTo{fakes.ExpectedEntity.Name}Mapper.cs")),
+                    Path.Combine(expectedCreateFolder, $"{expectedAction}{fakes.ExpectedEntity.Name}RequestModelMapper.cs")),
                 Times.Exactly(1));
             }
         }
