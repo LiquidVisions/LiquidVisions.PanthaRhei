@@ -1,4 +1,4 @@
-name: Pantha Rhei Flux - Deployment
+name: Pantha Rhei Flux - Build
 
 on:
   push:
