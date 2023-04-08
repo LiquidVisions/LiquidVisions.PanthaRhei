@@ -9,13 +9,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
     {
         private readonly ICreateGateway<App> createGateway;
         private readonly IDeleteGateway<App> deleteGateway;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
 
         public AppSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             createGateway = dependencyFactory.Get<ICreateGateway<App>>();
             deleteGateway = dependencyFactory.Get<IDeleteGateway<App>>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
         }
 
         public int SeedOrder => 1;
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         public void Seed(App app)
         {
-            app.Id = parameters.AppId;
+            app.Id = expandRequestModel.AppId;
             app.Name = "PanthaRhei.Generated";
             app.FullName = "LiquidVisions.PanthaRhei.Generated";
 

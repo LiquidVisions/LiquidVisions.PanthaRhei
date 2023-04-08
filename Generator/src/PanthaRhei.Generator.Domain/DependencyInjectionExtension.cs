@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
 
             return services.AddSingleton<IDependencyManagerInteractor>(container)
                 .AddSingleton<IDependencyFactoryInteractor>(container)
-                .AddSingleton(new Parameters())
+                .AddSingleton(new ExpandRequestModel())
                 .AddInitializers();
         }
 

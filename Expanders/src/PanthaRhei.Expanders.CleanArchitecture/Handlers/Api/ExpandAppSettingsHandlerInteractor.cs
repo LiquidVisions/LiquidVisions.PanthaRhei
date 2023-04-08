@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     {
         private readonly IProjectAgentInteractor projectAgent;
         private readonly CleanArchitectureExpander expander;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly IFile file;
         private readonly Component component;
         private readonly App app;
@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             this.expander = expander;
 
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             app = dependencyFactory.Get<App>();
             file = dependencyFactory.Get<IFile>();
 
@@ -47,8 +47,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => parameters.GenerationMode.HasFlag(GenerationModes.Default)
-            || parameters.GenerationMode.HasFlag(GenerationModes.Extend);
+        public bool CanExecute => expandRequestModel.GenerationMode.HasFlag(GenerationModes.Default)
+            || expandRequestModel.GenerationMode.HasFlag(GenerationModes.Extend);
 
         /// <inheritdoc/>
         public void Execute()

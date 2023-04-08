@@ -7,9 +7,9 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
 {
     /// <summary>
-    /// An implemented type of the contract <seealso cref="ICodeGeneratorBoundary"/>.
+    /// An implemented type of the contract <seealso cref="IExpandBoundary"/>.
     /// </summary>
-    internal class CodeGeneratorServiceBoundary : ICodeGeneratorBoundary
+    internal class ExpandBoundary : IExpandBoundary
     {
         private readonly ICodeGeneratorBuilderInteractor builder;
         private readonly ISeederInteractor seederInteractor;
@@ -17,10 +17,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
         private readonly ILogger exceptionLogger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeGeneratorServiceBoundary"/> class.
+        /// Initializes a new instance of the <see cref="ExpandBoundary"/> class.
         /// </summary>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
-        public CodeGeneratorServiceBoundary(IDependencyFactoryInteractor dependencyFactory)
+        public ExpandBoundary(IDependencyFactoryInteractor dependencyFactory)
         {
             builder = dependencyFactory.Get<ICodeGeneratorBuilderInteractor>();
             seederInteractor = dependencyFactory.Get<ISeederInteractor>();
@@ -33,17 +33,20 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
         /// <inheritdoc/>
         public void Execute()
         {
+            if(!TrySeed())
+            {
+                TryExpand();
+            }
+        }
+
+        private void TryExpand()
+        {
             try
             {
-                if(seederInteractor.CanExecute)
-                {
-                    seederInteractor.Execute();
-                }
-
                 builder.Build()
                     .Execute();
 
-                logger.Info("Successfully completed the code generation process.");
+                logger.Info("Successfully completed the expanding process.");
             }
             catch (CodeGenerationException ex)
             {
@@ -51,8 +54,32 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
             }
             catch (Exception ex)
             {
-                exceptionLogger.Fatal(ex, $"An unexpected error has occured with the following message: {ex.Message}.");
+                exceptionLogger.Fatal(ex, $"An unexpected error has occured during the expanding procecess with the following message: {ex.Message}.");
             }
+        }
+
+        private bool TrySeed()
+        {
+            try
+            {
+                if (seederInteractor.CanExecute)
+                {
+                    seederInteractor.Execute();
+                    return true;
+                }
+
+                logger.Info("Successfully completed the seeding generation process.");
+            }
+            catch (CodeGenerationException ex)
+            {
+                logger.Fatal(ex, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                exceptionLogger.Fatal(ex, $"An unexpected error has occured during the seeding processes with the following message: {ex.Message}.");
+            }
+
+            return false;
         }
     }
 }

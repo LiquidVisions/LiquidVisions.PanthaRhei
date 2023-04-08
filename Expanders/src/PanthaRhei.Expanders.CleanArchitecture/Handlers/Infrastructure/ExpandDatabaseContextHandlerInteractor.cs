@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     {
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly App app;
         private readonly Component domain;
         private readonly CleanArchitectureExpander expander;
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             app = dependencyFactory.Get<App>();
 
             domain = Expander.Model.GetComponentByName(Resources.Domain);
@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
+        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public void Execute()
@@ -57,7 +57,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
                 NameSpaceEntities = domain.GetComponentNamespace(app, Resources.DomainEntityFolder),
             };
 
-            string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.DbContextTemplate);
+            string fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.DbContextTemplate);
             string fullPathToComponent = projectAgent.GetComponentOutputFolder(infrastructure);
             string path = System.IO.Path.Combine(fullPathToComponent, "Context.cs");
 

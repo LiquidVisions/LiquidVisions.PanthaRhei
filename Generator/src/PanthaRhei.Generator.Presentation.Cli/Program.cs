@@ -54,17 +54,17 @@ cmd.OnExecute(() =>
         .AddInfrastructureLayer()
         .BuildServiceProvider();
 
-    Parameters parameters = provider.GetService<Parameters>();
-    parameters.AppId = Guid.Parse(appOption.Value());
-    parameters.ConnectionString = dbOption.Value();
-    parameters.ReSeed = reseed.HasValue();
-    parameters.Root = rootOption.Value();
-    parameters.Clean = cleanModeOption.HasValue();
-    parameters.GenerationMode = runModeOption.ParsedValue == GenerationModes.None
+    ExpandRequestModel expandRequestModel = provider.GetService<ExpandRequestModel>();
+    expandRequestModel.AppId = Guid.Parse(appOption.Value());
+    expandRequestModel.ConnectionString = dbOption.Value();
+    expandRequestModel.ReSeed = reseed.HasValue();
+    expandRequestModel.Root = rootOption.Value();
+    expandRequestModel.Clean = cleanModeOption.HasValue();
+    expandRequestModel.GenerationMode = runModeOption.ParsedValue == GenerationModes.None
         ? GenerationModes.Default
         : runModeOption.ParsedValue;
 
-    provider.GetService<ICodeGeneratorBoundary>()
+    provider.GetService<IExpandBoundary>()
         .Execute();
 });
 

@@ -12,14 +12,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
     internal class ExpanderSeederInteractor : IEntitySeederInteractor<App>
     {
         private readonly IExpanderPluginLoaderInteractor pluginLoader;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly ICreateGateway<Expander> createGateway;
         private readonly IDeleteGateway<Expander> deleteGateway;
 
         public ExpanderSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             createGateway = dependencyFactory.Get<ICreateGateway<Expander>>();
             deleteGateway = dependencyFactory.Get<IDeleteGateway<Expander>>();
         }
@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
         public void Seed(App app)
         {
-            List<IExpanderInteractor> expanders = pluginLoader.ShallowLoadAllExpanders(parameters.ExpandersFolder);
+            List<IExpanderInteractor> expanders = pluginLoader.ShallowLoadAllExpanders(expandRequestModel.ExpandersFolder);
             foreach (IExpanderInteractor exp in expanders)
             {
                 Expander expander = new()

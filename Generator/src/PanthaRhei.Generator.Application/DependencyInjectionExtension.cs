@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
 
         private static IServiceCollection AddBoundaries(this IServiceCollection services)
         {
-            return services.AddTransient<ICodeGeneratorBoundary, CodeGeneratorServiceBoundary>()
+            return services.AddTransient<IExpandBoundary, ExpandBoundary>()
                 .AddTransient<ISeederInteractor, SeederInteractor>();
         }
 

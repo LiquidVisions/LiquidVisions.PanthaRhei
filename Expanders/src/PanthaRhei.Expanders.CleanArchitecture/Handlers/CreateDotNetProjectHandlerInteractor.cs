@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
     {
         private readonly IProjectTemplateInteractor projectTemplateInteractor;
         private readonly CleanArchitectureExpander expander;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateDotNetProjectHandlerInteractor "/> class.
@@ -21,12 +21,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         public CreateDotNetProjectHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
         {
             projectTemplateInteractor = dependencyFactory.Get<IProjectTemplateInteractor>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             this.expander = expander;
         }
 
         /// <inheritdoc/>
-        public bool CanExecute => parameters.Clean;
+        public bool CanExecute => expandRequestModel.Clean;
 
         public virtual int Order => 1;
 

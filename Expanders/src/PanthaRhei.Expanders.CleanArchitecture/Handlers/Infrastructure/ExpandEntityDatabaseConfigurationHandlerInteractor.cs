@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     {
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly CleanArchitectureExpander expander;
         private readonly App app;
         private readonly Component infrastructureComponent;
@@ -36,14 +36,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
 
             infrastructureComponent = Expander.Model.GetComponentByName(Resources.EntityFramework);
             domainComponent = Expander.Model.GetComponentByName(Resources.Domain);
 
-            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.EntityDatabaseConfigurationTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.EntityDatabaseConfigurationTemplate);
             string componentOutputPath = projectAgent.GetComponentOutputFolder(infrastructureComponent);
             targetFolderPath = Path.Combine(componentOutputPath, Resources.InfrastructureConfigurationFolder);
         }
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
+        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public void Execute()

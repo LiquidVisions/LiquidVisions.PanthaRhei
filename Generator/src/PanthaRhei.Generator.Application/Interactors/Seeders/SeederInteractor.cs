@@ -9,16 +9,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 
     internal class SeederInteractor : ISeederInteractor
     {
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly List<IEntitySeederInteractor<App>> seeders;
 
         public SeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             seeders = dependencyFactory.GetAll<IEntitySeederInteractor<App>>().ToList();
         }
 
-        public bool CanExecute => parameters.ReSeed;
+        public bool CanExecute => expandRequestModel.ReSeed;
 
         public void Execute()
         {

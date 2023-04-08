@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         where TExpander : class, IExpanderInteractor
     {
         private readonly string regexPattern = @"#region ns-custom-(?'tag'.*)(?'content'(?s).*?)#endregion ns-custom-(?'tag'.*)";
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly IDirectory directory;
         private readonly IFile file;
         private readonly TExpander expander;
@@ -29,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         /// <param name="dependencyProvider"><seealso cref="IDependencyFactoryInteractor"/></param>
         public RegionHarvesterInteractor(IDependencyFactoryInteractor dependencyProvider)
         {
-            parameters = dependencyProvider.Get<Parameters>();
+            expandRequestModel = dependencyProvider.Get<ExpandRequestModel>();
             directory = dependencyProvider.Get<IDirectory>();
             file = dependencyProvider.Get<IFile>();
             expander = dependencyProvider.Get<TExpander>();
@@ -37,15 +37,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         }
 
         /// <inheritdoc/>
-        public bool CanExecute => !parameters.GenerationMode.HasFlag(GenerationModes.Deploy)
-            && directory.Exists(parameters.OutputFolder);
+        public bool CanExecute => !expandRequestModel.GenerationMode.HasFlag(GenerationModes.Deploy)
+            && directory.Exists(expandRequestModel.OutputFolder);
 
         public TExpander Expander => expander;
 
         /// <inheritdoc/>
         public void Execute()
         {
-            string[] filePaths = directory.GetFiles(parameters.OutputFolder, "*.cs", System.IO.SearchOption.AllDirectories);
+            string[] filePaths = directory.GetFiles(expandRequestModel.OutputFolder, "*.cs", System.IO.SearchOption.AllDirectories);
 
             ExecuteAllFiles(filePaths);
         }

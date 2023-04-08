@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     public class ExpandApplicationMappersHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly App app;
@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
@@ -45,7 +45,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
             string fullPathToComponent = projectAgent.GetComponentOutputFolder(component);
             fullPathToRootFolder = Path.Combine(fullPathToComponent, Resources.ApplicationMapperFolder);
-            fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.ApplicationMapperTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.ApplicationMapperTemplate);
         }
 
         public int Order => 4;
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
+        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
 
         public void Execute()
         {

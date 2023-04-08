@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializer
     internal class ExpanderPluginLoaderInteractor : IExpanderPluginLoaderInteractor
     {
         private readonly string searchPattern = "*.Expanders.*.dll";
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly IDirectory directoryService;
         private readonly IAssemblyContextInteractor assemblyContext;
         private readonly ILogger logger;
@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializer
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
         public ExpanderPluginLoaderInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             directoryService = dependencyFactory.Get<IDirectory>();
             assemblyContext = dependencyFactory.Get<IAssemblyContextInteractor>();
             logger = dependencyFactory.Get<ILogger>();
@@ -47,7 +47,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializer
             {
                 logger.Info($"===Loading Expander {expander.Name}===");
 
-                string rootDirectory = Path.Combine(parameters.ExpandersFolder, expander.Name);
+                string rootDirectory = Path.Combine(expandRequestModel.ExpandersFolder, expander.Name);
                 string[] files = directoryService.GetFiles(rootDirectory, searchPattern, SearchOption.TopDirectoryOnly);
                 if (!files.Any())
                 {

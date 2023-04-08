@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
         private readonly ICommandLineInteractor commandLine;
         private readonly IDirectory directoryService;
         private readonly ILogger logger;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly TExpander expander;
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
             commandLine = dependencyFactory.Get<ICommandLineInteractor>();
             directoryService = dependencyFactory.Get<IDirectory>();
             logger = dependencyFactory.Get<ILogger>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             expander = dependencyFactory.Get<TExpander>();
         }
 
@@ -61,7 +61,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
         /// <summary>
         /// Gets the <seealso cref="Parameters"/>.
         /// </summary>
-        public Parameters Parameters => parameters;
+        public ExpandRequestModel Parameters => expandRequestModel;
 
         /// <inheritdoc/>
         public abstract void Execute();

@@ -7,9 +7,9 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders
 namespace LiquidVisions.PanthaRhei.Generator.Domain
 {
     /// <summary>
-    /// Global parameters for the generation operations.
+    /// Global requestmodel for the generation operations.
     /// </summary>
-    public class Parameters
+    public class ExpandRequestModel
     {
         private string harvestFolder = "Harvest";
         private string expanderFolder = "Expanders";
