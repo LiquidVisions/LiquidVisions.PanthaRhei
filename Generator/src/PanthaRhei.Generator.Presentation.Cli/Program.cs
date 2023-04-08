@@ -64,19 +64,8 @@ cmd.OnExecute(() =>
         ? GenerationModes.Default
         : runModeOption.ParsedValue;
 
-    if (parameters.ReSeed)
-    {
-        provider.GetService<ISeedingBoundary>()
-            .Execute();
-
-        return;
-    }
-
-    if (appOption.HasValue())
-    {
-        provider.GetService<ICodeGeneratorBoundary>()
-            .Execute();
-    }
+    provider.GetService<ICodeGeneratorBoundary>()
+        .Execute();
 });
 
 return cmd.Execute(args);

@@ -1,5 +1,6 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
@@ -11,6 +12,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
     internal class CodeGeneratorServiceBoundary : ICodeGeneratorBoundary
     {
         private readonly ICodeGeneratorBuilderInteractor builder;
+        private readonly ISeederInteractor seederInteractor;
         private readonly ILogger logger;
         private readonly ILogger exceptionLogger;
 
@@ -21,6 +23,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
         public CodeGeneratorServiceBoundary(IDependencyFactoryInteractor dependencyFactory)
         {
             builder = dependencyFactory.Get<ICodeGeneratorBuilderInteractor>();
+            seederInteractor = dependencyFactory.Get<ISeederInteractor>();
             logger = dependencyFactory.Get<ILogger>();
             exceptionLogger = dependencyFactory
                 .Get<ILogManager>()
@@ -32,6 +35,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
         {
             try
             {
+                if(seederInteractor.CanExecute)
+                {
+                    seederInteractor.Execute();
+                }
+
                 builder.Build()
                     .Execute();
 

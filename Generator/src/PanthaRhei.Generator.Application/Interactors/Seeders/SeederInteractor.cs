@@ -1,19 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 
-namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
+namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-    internal class SeedingBoundary : ISeedingBoundary
+
+    internal class SeederInteractor : ISeederInteractor
     {
+        private readonly Parameters parameters;
         private readonly List<IEntitySeederInteractor<App>> seeders;
 
-        public SeedingBoundary(IDependencyFactoryInteractor dependencyFactory)
+        public SeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
+            parameters = dependencyFactory.Get<Parameters>();
             seeders = dependencyFactory.GetAll<IEntitySeederInteractor<App>>().ToList();
         }
+
+        public bool CanExecute => parameters.ReSeed;
 
         public void Execute()
         {
