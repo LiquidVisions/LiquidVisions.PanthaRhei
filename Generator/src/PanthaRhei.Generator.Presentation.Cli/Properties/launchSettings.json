@@ -2,23 +2,23 @@
   "profiles": {
     "flux-Default": {
       "commandName": "Project",
-      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --clean --mode \"Default\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --clean --mode \"Default\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\" --db \"Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=1qJ4AFcHyb7QL4gM!5n2vk2@^$%U;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;\""
     },
     "flux-Deploy": {
       "commandName": "Project",
-      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --model --mode \"Deploy\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --model --mode \"Deploy\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\" --db \"Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=1qJ4AFcHyb7QL4gM!5n2vk2@^$%U;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;\""
     },
     "flux-Migrate": {
       "commandName": "Project",
-      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --mode \"Migrate\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --mode \"Migrate\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\" --db \"Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=1qJ4AFcHyb7QL4gM!5n2vk2@^$%U;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;\""
     },
     "flux-Extend": {
       "commandName": "Project",
-      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --mode \"Default, Extend\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --mode \"Default, Extend\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\" --db \"Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=1qJ4AFcHyb7QL4gM!5n2vk2@^$%U;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;\""
     },
     "flux-ReSeed": {
       "commandName": "Project",
-      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --reseed --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --reseed --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\" --db \"Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=1qJ4AFcHyb7QL4gM!5n2vk2@^$%U;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;\""
     }
 
   }
