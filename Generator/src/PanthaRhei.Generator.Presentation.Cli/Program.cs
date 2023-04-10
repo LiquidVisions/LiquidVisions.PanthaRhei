@@ -46,23 +46,25 @@ var reseed = cmd.Option<bool>(
 
 cmd.OnExecute(() =>
 {
+    ExpandRequestModel expandRequestModel = new ExpandRequestModel
+    {
+        AppId = Guid.Parse(appOption.Value()),
+        ConnectionString = dbOption.Value(),
+        ReSeed = reseed.HasValue(),
+        Root = rootOption.Value(),
+        Clean = cleanModeOption.HasValue(),
+        GenerationMode = runModeOption.ParsedValue == GenerationModes.None
+            ? GenerationModes.Default
+            : runModeOption.ParsedValue,
+    };
+
     var provider = new ServiceCollection()
         .AddConsole()
-        .AddDomainLayer()
+        .AddDomainLayer(expandRequestModel)
         .AddApplicationLayer()
         .AddEntityFrameworkLayer()
         .AddInfrastructureLayer()
         .BuildServiceProvider();
-
-    ExpandRequestModel expandRequestModel = provider.GetService<ExpandRequestModel>();
-    expandRequestModel.AppId = Guid.Parse(appOption.Value());
-    expandRequestModel.ConnectionString = dbOption.Value();
-    expandRequestModel.ReSeed = reseed.HasValue();
-    expandRequestModel.Root = rootOption.Value();
-    expandRequestModel.Clean = cleanModeOption.HasValue();
-    expandRequestModel.GenerationMode = runModeOption.ParsedValue == GenerationModes.None
-        ? GenerationModes.Default
-        : runModeOption.ParsedValue;
 
     provider.GetService<IExpandBoundary>()
         .Execute();
