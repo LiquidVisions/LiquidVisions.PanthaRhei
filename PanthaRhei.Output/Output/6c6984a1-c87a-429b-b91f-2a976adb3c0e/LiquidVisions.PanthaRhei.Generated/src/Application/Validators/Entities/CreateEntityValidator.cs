@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Entities
 {
-    internal class CreateEntityValidator : AbstractValidator<CreateEntityCommand>, IValidator<CreateEntityCommand>
+    internal class CreateEntityValidator : AbstractValidator<CreateEntityRequestModel>, IValidator<CreateEntityRequestModel>
     {
         public CreateEntityValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Entities
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(CreateEntityCommand objectToValidate) => 
+        public new Response Validate(CreateEntityRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

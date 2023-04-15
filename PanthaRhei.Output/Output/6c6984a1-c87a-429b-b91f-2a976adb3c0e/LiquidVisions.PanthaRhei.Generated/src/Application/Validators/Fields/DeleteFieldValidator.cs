@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Fields;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Fields
 {
-    internal class DeleteFieldValidator : AbstractValidator<DeleteFieldCommand>, IValidator<DeleteFieldCommand>
+    internal class DeleteFieldValidator : AbstractValidator<DeleteFieldRequestModel>, IValidator<DeleteFieldRequestModel>
     {
         public DeleteFieldValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Fields
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(DeleteFieldCommand objectToValidate) => 
+        public new Response Validate(DeleteFieldRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

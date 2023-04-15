@@ -8,16 +8,16 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Entities
 {
-    internal class UpdateEntityInteractor : IInteractor<UpdateEntityCommand>
+    internal class UpdateEntityInteractor : IInteractor<UpdateEntityRequestModel>
     {
-        private readonly IValidator<UpdateEntityCommand> validator;
-        private readonly IMapper<UpdateEntityCommand, Entity> mapper;
+        private readonly IValidator<UpdateEntityRequestModel> validator;
+        private readonly IMapper<UpdateEntityRequestModel, Entity> mapper;
         private readonly IUpdateGateway<Entity> repository;
         private readonly IGetByIdGateway<Entity> getRepository;
 
         public UpdateEntityInteractor(
-            IValidator<UpdateEntityCommand> validator,
-            IMapper<UpdateEntityCommand, Entity> mapper,
+            IValidator<UpdateEntityRequestModel> validator,
+            IMapper<UpdateEntityRequestModel, Entity> mapper,
             IUpdateGateway<Entity> repository,
             IGetByIdGateway<Entity> getRepository)
         {
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Entities
             this.getRepository = getRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(UpdateEntityCommand requestModel)
+        public async Task<Response> ExecuteUseCase(UpdateEntityRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

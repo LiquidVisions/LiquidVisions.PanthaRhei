@@ -10,20 +10,20 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders
 {
-    internal class GetExpanderInteractor : IInteractor<GetExpanderByIdQuery>
+    internal class GetExpanderInteractor : IInteractor<GetExpanderByIdRequestModel>
     {
-        private readonly IValidator<GetExpanderByIdQuery> validator;
+        private readonly IValidator<GetExpanderByIdRequestModel> validator;
         private readonly IGetByIdGateway<Expander> repository;
 
         public GetExpanderInteractor(
-            IValidator<GetExpanderByIdQuery> validator,
+            IValidator<GetExpanderByIdRequestModel> validator,
             IGetByIdGateway<Expander> repository)
         {
             this.validator = validator;
             this.repository = repository;
         }
 
-        public Task<Response> ExecuteUseCase(GetExpanderByIdQuery model)
+        public Task<Response> ExecuteUseCase(GetExpanderByIdRequestModel model)
         {
             return Task.Run(() =>
             {

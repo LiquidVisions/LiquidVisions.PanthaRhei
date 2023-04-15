@@ -8,14 +8,14 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.ConnectionStrings
 {
-    internal class DeleteConnectionStringInteractor : IInteractor<DeleteConnectionStringCommand>
+    internal class DeleteConnectionStringInteractor : IInteractor<DeleteConnectionStringRequestModel>
     {
-        private readonly IValidator<DeleteConnectionStringCommand> validator;
+        private readonly IValidator<DeleteConnectionStringRequestModel> validator;
         private readonly IDeleteGateway<ConnectionString> repository;
         private readonly IGetByIdGateway<ConnectionString> getByIdRepository;
 
         public DeleteConnectionStringInteractor(
-            IValidator<DeleteConnectionStringCommand> validator,
+            IValidator<DeleteConnectionStringRequestModel> validator,
             IDeleteGateway<ConnectionString> repository,
             IGetByIdGateway<ConnectionString> getByIdRepository)
         {
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.ConnectionS
             this.getByIdRepository = getByIdRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(DeleteConnectionStringCommand requestModel)
+        public async Task<Response> ExecuteUseCase(DeleteConnectionStringRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

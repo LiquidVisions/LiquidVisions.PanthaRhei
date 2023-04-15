@@ -35,6 +35,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api
 
             services.AddRelationshipElements();
 
+
             return services;
         }
 
@@ -58,6 +59,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api
             app.UseConnectionStringEndpoints();
 
             app.UseRelationshipEndpoints();
+
 
             app.Run();
         }

@@ -8,16 +8,16 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders
 {
-    internal class UpdateExpanderInteractor : IInteractor<UpdateExpanderCommand>
+    internal class UpdateExpanderInteractor : IInteractor<UpdateExpanderRequestModel>
     {
-        private readonly IValidator<UpdateExpanderCommand> validator;
-        private readonly IMapper<UpdateExpanderCommand, Expander> mapper;
+        private readonly IValidator<UpdateExpanderRequestModel> validator;
+        private readonly IMapper<UpdateExpanderRequestModel, Expander> mapper;
         private readonly IUpdateGateway<Expander> repository;
         private readonly IGetByIdGateway<Expander> getRepository;
 
         public UpdateExpanderInteractor(
-            IValidator<UpdateExpanderCommand> validator,
-            IMapper<UpdateExpanderCommand, Expander> mapper,
+            IValidator<UpdateExpanderRequestModel> validator,
+            IMapper<UpdateExpanderRequestModel, Expander> mapper,
             IUpdateGateway<Expander> repository,
             IGetByIdGateway<Expander> getRepository)
         {
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders
             this.getRepository = getRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(UpdateExpanderCommand requestModel)
+        public async Task<Response> ExecuteUseCase(UpdateExpanderRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

@@ -8,16 +8,16 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Fields
 {
-    internal class UpdateFieldInteractor : IInteractor<UpdateFieldCommand>
+    internal class UpdateFieldInteractor : IInteractor<UpdateFieldRequestModel>
     {
-        private readonly IValidator<UpdateFieldCommand> validator;
-        private readonly IMapper<UpdateFieldCommand, Field> mapper;
+        private readonly IValidator<UpdateFieldRequestModel> validator;
+        private readonly IMapper<UpdateFieldRequestModel, Field> mapper;
         private readonly IUpdateGateway<Field> repository;
         private readonly IGetByIdGateway<Field> getRepository;
 
         public UpdateFieldInteractor(
-            IValidator<UpdateFieldCommand> validator,
-            IMapper<UpdateFieldCommand, Field> mapper,
+            IValidator<UpdateFieldRequestModel> validator,
+            IMapper<UpdateFieldRequestModel, Field> mapper,
             IUpdateGateway<Field> repository,
             IGetByIdGateway<Field> getRepository)
         {
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Fields
             this.getRepository = getRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(UpdateFieldCommand requestModel)
+        public async Task<Response> ExecuteUseCase(UpdateFieldRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

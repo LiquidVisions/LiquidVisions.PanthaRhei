@@ -8,15 +8,15 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders
 {
-    internal class CreateExpanderInteractor : IInteractor<CreateExpanderCommand>
+    internal class CreateExpanderInteractor : IInteractor<CreateExpanderRequestModel>
     {
-        private readonly IValidator<CreateExpanderCommand> validator;
-        private readonly IMapper<CreateExpanderCommand, Expander> mapper;
+        private readonly IValidator<CreateExpanderRequestModel> validator;
+        private readonly IMapper<CreateExpanderRequestModel, Expander> mapper;
         private readonly ICreateGateway<Expander> repository;
 
         public CreateExpanderInteractor(
-            IValidator<CreateExpanderCommand> validator,
-            IMapper<CreateExpanderCommand, Expander> mapper,
+            IValidator<CreateExpanderRequestModel> validator,
+            IMapper<CreateExpanderRequestModel, Expander> mapper,
             ICreateGateway<Expander> gateway)
         {
             this.validator = validator;
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders
             repository = gateway;
         }
 
-        public async Task<Response> ExecuteUseCase(CreateExpanderCommand requestModel)
+        public async Task<Response> ExecuteUseCase(CreateExpanderRequestModel requestModel)
         {
             Response result = validator.Validate(requestModel);
             if (result.IsValid)

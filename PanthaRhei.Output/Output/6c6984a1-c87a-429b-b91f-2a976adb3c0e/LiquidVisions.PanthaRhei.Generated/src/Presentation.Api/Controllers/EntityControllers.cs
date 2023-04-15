@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapCreateEntity(this WebApplication app)
         {
-            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateEntityCommand model, IBoundary<CreateEntityCommand> boundary, ICreateEntityPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateEntityRequestModel model, IBoundary<CreateEntityRequestModel> boundary, ICreateEntityPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -55,9 +55,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetEntity(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetEntityByIdQuery> boundary, IGetByIdEntityPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetEntityByIdRequestModel> boundary, IGetByIdEntityPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new GetEntityByIdQuery { Id = id }, presenter);
+                await boundary.Execute(new GetEntityByIdRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
             
@@ -71,9 +71,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetEntities(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetEntitiesQuery> boudary, IGetEntitiesPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetEntitiesRequestModel> boudary, IGetEntitiesPresenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new GetEntitiesQuery(), presenter);
+                await boudary.Execute(new GetEntitiesRequestModel(), presenter);
                 return presenter.GetResult(request);
             });
 
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapUpdateEntity(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateEntityCommand model, IBoundary<UpdateEntityCommand> boundary, IUpdateEntityPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateEntityRequestModel model, IBoundary<UpdateEntityRequestModel> boundary, IUpdateEntityPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -103,9 +103,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapDeleteEntity(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteEntityCommand> boundary, IDeleteEntityPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteEntityRequestModel> boundary, IDeleteEntityPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new DeleteEntityCommand { Id = id }, presenter);
+                await boundary.Execute(new DeleteEntityRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
 

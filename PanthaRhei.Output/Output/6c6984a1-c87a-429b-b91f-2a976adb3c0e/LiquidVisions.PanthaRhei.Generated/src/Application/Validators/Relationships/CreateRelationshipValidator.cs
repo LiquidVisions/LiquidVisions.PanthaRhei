@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationships
 {
-    internal class CreateRelationshipValidator : AbstractValidator<CreateRelationshipCommand>, IValidator<CreateRelationshipCommand>
+    internal class CreateRelationshipValidator : AbstractValidator<CreateRelationshipRequestModel>, IValidator<CreateRelationshipRequestModel>
     {
         public CreateRelationshipValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationship
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(CreateRelationshipCommand objectToValidate) => 
+        public new Response Validate(CreateRelationshipRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

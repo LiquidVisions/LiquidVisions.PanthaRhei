@@ -39,7 +39,7 @@ namespace {{component_fullname component 'Controllers'}}
 
         private static WebApplication MapCreate{{entity.name}}(this WebApplication app)
         {
-            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (Create{{entity.name}}Command model, IBoundary<Create{{entity.name}}Command> boundary, ICreate{{entity.name}}Presenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (Create{{entity.name}}RequestModel model, IBoundary<Create{{entity.name}}RequestModel> boundary, ICreate{{entity.name}}Presenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -55,9 +55,9 @@ namespace {{component_fullname component 'Controllers'}}
 
         private static WebApplication MapGet{{entity.name}}(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{%{{{id:Guid}}}%}", async (Guid id, IBoundary<Get{{entity.name}}ByIdQuery> boundary, IGetById{{entity.name}}Presenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{%{{{id:Guid}}}%}", async (Guid id, IBoundary<Get{{entity.name}}ByIdRequestModel> boundary, IGetById{{entity.name}}Presenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new Get{{entity.name}}ByIdQuery { Id = id }, presenter);
+                await boundary.Execute(new Get{{entity.name}}ByIdRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
             
@@ -71,9 +71,9 @@ namespace {{component_fullname component 'Controllers'}}
 
         private static WebApplication MapGet{{entity.name | pluralize}}(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<Get{{entity.name | pluralize}}Query> boudary, IGet{{entity.name | pluralize}}Presenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<Get{{entity.name | pluralize}}RequestModel> boudary, IGet{{entity.name | pluralize}}Presenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new Get{{entity.name | pluralize}}Query(), presenter);
+                await boudary.Execute(new Get{{entity.name | pluralize}}RequestModel(), presenter);
                 return presenter.GetResult(request);
             });
 
@@ -87,7 +87,7 @@ namespace {{component_fullname component 'Controllers'}}
 
         private static WebApplication MapUpdate{{entity.name}}(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (Update{{entity.name}}Command model, IBoundary<Update{{entity.name}}Command> boundary, IUpdate{{entity.name}}Presenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (Update{{entity.name}}RequestModel model, IBoundary<Update{{entity.name}}RequestModel> boundary, IUpdate{{entity.name}}Presenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -103,9 +103,9 @@ namespace {{component_fullname component 'Controllers'}}
 
         private static WebApplication MapDelete{{entity.name}}(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{%{{{id:Guid}}}%}", async (Guid id, IBoundary<Delete{{entity.name}}Command> boundary, IDelete{{entity.name}}Presenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{%{{{id:Guid}}}%}", async (Guid id, IBoundary<Delete{{entity.name}}RequestModel> boundary, IDelete{{entity.name}}Presenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new Delete{{entity.name}}Command { Id = id }, presenter);
+                await boundary.Execute(new Delete{{entity.name}}RequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
 

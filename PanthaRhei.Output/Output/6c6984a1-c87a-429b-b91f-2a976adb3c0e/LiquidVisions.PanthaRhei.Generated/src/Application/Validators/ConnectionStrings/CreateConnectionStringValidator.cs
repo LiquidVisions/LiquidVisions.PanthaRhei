@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.ConnectionStr
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.ConnectionStrings
 {
-    internal class CreateConnectionStringValidator : AbstractValidator<CreateConnectionStringCommand>, IValidator<CreateConnectionStringCommand>
+    internal class CreateConnectionStringValidator : AbstractValidator<CreateConnectionStringRequestModel>, IValidator<CreateConnectionStringRequestModel>
     {
         public CreateConnectionStringValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.ConnectionSt
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(CreateConnectionStringCommand objectToValidate) => 
+        public new Response Validate(CreateConnectionStringRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

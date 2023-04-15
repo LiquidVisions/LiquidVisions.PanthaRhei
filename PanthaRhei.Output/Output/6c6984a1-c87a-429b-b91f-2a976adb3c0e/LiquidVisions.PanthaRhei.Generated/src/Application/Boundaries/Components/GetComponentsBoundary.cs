@@ -5,16 +5,16 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Components;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Components
 {
-    internal class GetComponentsBoundary : IBoundary<GetComponentsQuery>
+    internal class GetComponentsBoundary : IBoundary<GetComponentsRequestModel>
     {
-        private readonly IInteractor<GetComponentsQuery> interactor;
+        private readonly IInteractor<GetComponentsRequestModel> interactor;
 
-        public GetComponentsBoundary(IInteractor<GetComponentsQuery> interactor)
+        public GetComponentsBoundary(IInteractor<GetComponentsRequestModel> interactor)
         {
             this.interactor = interactor;
         }
 
-        public async Task Execute(GetComponentsQuery requestModel, IPresenter presenter) =>
+        public async Task Execute(GetComponentsRequestModel requestModel, IPresenter presenter) =>
             presenter.Response = await interactor.ExecuteUseCase(requestModel);
     }
 }

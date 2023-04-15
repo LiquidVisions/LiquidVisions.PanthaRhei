@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapCreatePackage(this WebApplication app)
         {
-            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreatePackageCommand model, IBoundary<CreatePackageCommand> boundary, ICreatePackagePresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreatePackageRequestModel model, IBoundary<CreatePackageRequestModel> boundary, ICreatePackagePresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -55,9 +55,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetPackage(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetPackageByIdQuery> boundary, IGetByIdPackagePresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetPackageByIdRequestModel> boundary, IGetByIdPackagePresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new GetPackageByIdQuery { Id = id }, presenter);
+                await boundary.Execute(new GetPackageByIdRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
             
@@ -71,9 +71,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetPackages(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetPackagesQuery> boudary, IGetPackagesPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetPackagesRequestModel> boudary, IGetPackagesPresenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new GetPackagesQuery(), presenter);
+                await boudary.Execute(new GetPackagesRequestModel(), presenter);
                 return presenter.GetResult(request);
             });
 
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapUpdatePackage(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdatePackageCommand model, IBoundary<UpdatePackageCommand> boundary, IUpdatePackagePresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdatePackageRequestModel model, IBoundary<UpdatePackageRequestModel> boundary, IUpdatePackagePresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -103,9 +103,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapDeletePackage(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeletePackageCommand> boundary, IDeletePackagePresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeletePackageRequestModel> boundary, IDeletePackagePresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new DeletePackageCommand { Id = id }, presenter);
+                await boundary.Execute(new DeletePackageRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
 

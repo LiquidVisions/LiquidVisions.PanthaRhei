@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapCreateComponent(this WebApplication app)
         {
-            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateComponentCommand model, IBoundary<CreateComponentCommand> boundary, ICreateComponentPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateComponentRequestModel model, IBoundary<CreateComponentRequestModel> boundary, ICreateComponentPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -55,9 +55,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetComponent(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetComponentByIdQuery> boundary, IGetByIdComponentPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetComponentByIdRequestModel> boundary, IGetByIdComponentPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new GetComponentByIdQuery { Id = id }, presenter);
+                await boundary.Execute(new GetComponentByIdRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
             
@@ -71,9 +71,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetComponents(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetComponentsQuery> boudary, IGetComponentsPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetComponentsRequestModel> boudary, IGetComponentsPresenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new GetComponentsQuery(), presenter);
+                await boudary.Execute(new GetComponentsRequestModel(), presenter);
                 return presenter.GetResult(request);
             });
 
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapUpdateComponent(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateComponentCommand model, IBoundary<UpdateComponentCommand> boundary, IUpdateComponentPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateComponentRequestModel model, IBoundary<UpdateComponentRequestModel> boundary, IUpdateComponentPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -103,9 +103,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapDeleteComponent(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteComponentCommand> boundary, IDeleteComponentPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteComponentRequestModel> boundary, IDeleteComponentPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new DeleteComponentCommand { Id = id }, presenter);
+                await boundary.Execute(new DeleteComponentRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
 

@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapCreateField(this WebApplication app)
         {
-            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateFieldCommand model, IBoundary<CreateFieldCommand> boundary, ICreateFieldPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateFieldRequestModel model, IBoundary<CreateFieldRequestModel> boundary, ICreateFieldPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -55,9 +55,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetField(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetFieldByIdQuery> boundary, IGetByIdFieldPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetFieldByIdRequestModel> boundary, IGetByIdFieldPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new GetFieldByIdQuery { Id = id }, presenter);
+                await boundary.Execute(new GetFieldByIdRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
             
@@ -71,9 +71,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetFields(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetFieldsQuery> boudary, IGetFieldsPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetFieldsRequestModel> boudary, IGetFieldsPresenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new GetFieldsQuery(), presenter);
+                await boudary.Execute(new GetFieldsRequestModel(), presenter);
                 return presenter.GetResult(request);
             });
 
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapUpdateField(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateFieldCommand model, IBoundary<UpdateFieldCommand> boundary, IUpdateFieldPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateFieldRequestModel model, IBoundary<UpdateFieldRequestModel> boundary, IUpdateFieldPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -103,9 +103,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapDeleteField(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteFieldCommand> boundary, IDeleteFieldPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteFieldRequestModel> boundary, IDeleteFieldPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new DeleteFieldCommand { Id = id }, presenter);
+                await boundary.Execute(new DeleteFieldRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
 
