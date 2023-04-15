@@ -15,14 +15,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
         private readonly ICreateGateway<Package> createGateway;
         private readonly IDeleteGateway<Package> deleteGateway;
         private readonly IDirectory directoryService;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
 
         public PackageSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             createGateway = dependencyFactory.Get<ICreateGateway<Package>>();
             deleteGateway = dependencyFactory.Get<IDeleteGateway<Package>>();
             directoryService = dependencyFactory.Get<IDirectory>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
         }
 
         public int SeedOrder => 4;
@@ -35,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
         {
             foreach (Component component in app.Expanders.SelectMany(x => x.Components))
             {
-                string templatePath = Path.Combine(parameters.ExpandersFolder, component.Expander.Name, component.Expander.TemplateFolder);
+                string templatePath = Path.Combine(expandRequestModel.ExpandersFolder, component.Expander.Name, component.Expander.TemplateFolder);
                 if (directoryService.Exists(templatePath))
                 {
                     HandleTemplate(component, templatePath);

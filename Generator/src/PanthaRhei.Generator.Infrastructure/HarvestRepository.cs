@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
     internal class HarvestRepository : ICreateGateway<Harvest>, IGetGateway<Harvest>
     {
         private readonly IHarvestSerializerInteractor serializer;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly App app;
         private readonly IDeserializerInteractor<Harvest> deserializer;
         private readonly IFile file;
@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
             file = dependencyFactory.Get<IFile>();
             deserializer = dependencyFactory.Get<IDeserializerInteractor<Harvest>>();
             serializer = dependencyFactory.Get<IHarvestSerializerInteractor>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             app = dependencyFactory.Get<App>();
         }
 
@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
             }
 
             string fullPath = Path.Combine(
-                parameters.HarvestFolder,
+                expandRequestModel.HarvestFolder,
                 app.FullName,
                 $"{file.GetFileNameWithoutExtension(entity.Path)}.{entity.HarvestType}");
 

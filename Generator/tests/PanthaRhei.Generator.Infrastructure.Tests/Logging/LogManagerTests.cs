@@ -1,4 +1,5 @@
 ﻿using System;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging;
 using Xunit;
@@ -7,7 +8,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Tests.Logging
 {
     public class LogManagerTests
     {
-        private readonly LogManager logManager = new();
+        private readonly LogManager logManager = new(new ExpandRequestModel { Root = "C:\\Some\\Root\\Path" });
 
         [Fact]
         public void Logger_ShouldBeOfCorrectType()

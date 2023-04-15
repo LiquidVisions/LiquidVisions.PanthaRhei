@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
     {
         private readonly ICreateGateway<Component> createGateway;
         private readonly IDeleteGateway<Component> deleteGateway;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly IDirectory directoryService;
         private readonly IFile fileService;
 
@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
         {
             createGateway = dependencyFactory.Get<ICreateGateway<Component>>();
             deleteGateway = dependencyFactory.Get<IDeleteGateway<Component>>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             directoryService = dependencyFactory.Get<IDirectory>();
             fileService = dependencyFactory.Get<IFile>();
         }
@@ -35,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
         {
             foreach (Expander expander in app.Expanders)
             {
-                string templatePath = Path.Combine(parameters.ExpandersFolder, expander.Name, expander.TemplateFolder);
+                string templatePath = Path.Combine(expandRequestModel.ExpandersFolder, expander.Name, expander.TemplateFolder);
                 if (directoryService.Exists(templatePath))
                 {
                     IEnumerable<string> files = directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)

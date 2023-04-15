@@ -8,17 +8,17 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     internal class ProjectAgentInteractor : IProjectAgentInteractor
     {
         private readonly App app;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
 
         public ProjectAgentInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             app = dependencyFactory.Get<App>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
         }
 
         public string GetComponentOutputFolder(Component component)
         {
-            return Path.Combine(parameters.OutputFolder, app.FullName, "src", $"{component.Name}");
+            return Path.Combine(expandRequestModel.OutputFolder, app.FullName, "src", $"{component.Name}");
         }
 
         public string GetComponentProjectFile(Component component)

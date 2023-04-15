@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
@@ -14,6 +15,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
     {
         private static readonly ConcurrentDictionary<string, ILogger> loggerCache = new();
         private static readonly IEnumerable<string> loggerNames = new List<string> { Loggers.DefaultLogger, Loggers.ExceptionLogger, Loggers.AuthenticationLogger };
+        private readonly ExpandRequestModel requestModel;
+
+        public LogManager(ExpandRequestModel requestModel)
+        {
+            this.requestModel = requestModel;
+        }
 
         /// <summary>
         /// Gets an instance of the default logger.
@@ -56,7 +63,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
                 throw new ArgumentOutOfRangeException(nameof(loggerName));
             }
 
-            return loggerCache.GetOrAdd(loggerName, new Logger(loggerName));
+            return loggerCache.GetOrAdd(loggerName, new Logger(loggerName, requestModel.Root));
         }
     }
 }

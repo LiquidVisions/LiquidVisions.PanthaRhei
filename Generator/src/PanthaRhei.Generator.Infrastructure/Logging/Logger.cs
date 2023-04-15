@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
+using NLog.Targets;
+using NLog.Targets.Wrappers;
 using NLogger = NLog;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
@@ -20,12 +23,24 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
         /// <param name="name">The name of the logger.</param>
         internal Logger(string name)
         {
+
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
 
             logger = NLogger.LogManager.GetLogger(name);
+        }
+
+        internal Logger(string name, string root)
+            : this(name)
+        {
+            string logPath = Path.Combine(root, "Logs");
+            if (NLogger.LogManager.Configuration?.FindTargetByName("file") is AsyncTargetWrapper { WrappedTarget: FileTarget target })
+            {
+                target.FileName = Path.Combine(logPath, "currentlog.log");
+                target.ArchiveFileName = Path.Combine(logPath, DateTime.Now.ToShortDateString(), "archived{###}.log");
+            }
         }
 
         /// <summary>
@@ -38,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
         }
 
         /// <summary>
-        /// Writes the diagnostic message at the Trace level using the specified parameters.
+        /// Writes the diagnostic message at the Trace level using the specified expandRequestModel.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>
@@ -57,7 +72,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
         }
 
         /// <summary>
-        /// Writes the diagnostic message at the Debug level using the specified parameters.
+        /// Writes the diagnostic message at the Debug level using the specified expandRequestModel.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>
@@ -76,7 +91,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
         }
 
         /// <summary>
-        /// Writes the diagnostic message at the Info level using the specified parameters.
+        /// Writes the diagnostic message at the Info level using the specified expandRequestModel.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>
@@ -95,7 +110,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
         }
 
         /// <summary>
-        /// Writes the diagnostic message at the Warn level using the specified parameters.
+        /// Writes the diagnostic message at the Warn level using the specified expandRequestModel.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>
@@ -135,7 +150,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
         }
 
         /// <summary>
-        /// Writes the diagnostic message at the Fatal level using the specified parameters.
+        /// Writes the diagnostic message at the Fatal level using the specified expandRequestModel.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>

@@ -13,12 +13,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
     internal sealed class CodeGeneratorInteractor : ICodeGeneratorInteractor
     {
         private readonly IEnumerable<IExpanderInteractor> expanders;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly IDirectory directory;
 
         public CodeGeneratorInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             directory = dependencyFactory.Get<IDirectory>();
             expanders = dependencyFactory.GetAll<IExpanderInteractor>();
         }
@@ -41,9 +41,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
 
         private void Clean()
         {
-            if (parameters.Clean)
+            if (expandRequestModel.Clean)
             {
-                directory.Delete(parameters.OutputFolder);
+                directory.Delete(expandRequestModel.OutputFolder);
             }
         }
     }

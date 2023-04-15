@@ -46,37 +46,28 @@ var reseed = cmd.Option<bool>(
 
 cmd.OnExecute(() =>
 {
+    ExpandRequestModel expandRequestModel = new ExpandRequestModel
+    {
+        AppId = Guid.Parse(appOption.Value()),
+        ConnectionString = dbOption.Value(),
+        ReSeed = reseed.HasValue(),
+        Root = rootOption.Value(),
+        Clean = cleanModeOption.HasValue(),
+        GenerationMode = runModeOption.ParsedValue == GenerationModes.None
+            ? GenerationModes.Default
+            : runModeOption.ParsedValue,
+    };
+
     var provider = new ServiceCollection()
         .AddConsole()
-        .AddDomainLayer()
+        .AddDomainLayer(expandRequestModel)
         .AddApplicationLayer()
         .AddEntityFrameworkLayer()
         .AddInfrastructureLayer()
         .BuildServiceProvider();
 
-    Parameters parameters = provider.GetService<Parameters>();
-    parameters.AppId = Guid.Parse(appOption.Value());
-    parameters.ConnectionString = dbOption.Value();
-    parameters.ReSeed = reseed.HasValue();
-    parameters.Root = rootOption.Value();
-    parameters.Clean = cleanModeOption.HasValue();
-    parameters.GenerationMode = runModeOption.ParsedValue == GenerationModes.None
-        ? GenerationModes.Default
-        : runModeOption.ParsedValue;
-
-    if (parameters.ReSeed)
-    {
-        provider.GetService<ISeedingBoundary>()
-            .Execute();
-
-        return;
-    }
-
-    if (appOption.HasValue())
-    {
-        provider.GetService<ICodeGeneratorBoundary>()
-            .Execute();
-    }
+    provider.GetService<IExpandBoundary>()
+        .Execute();
 });
 
 return cmd.Execute(args);

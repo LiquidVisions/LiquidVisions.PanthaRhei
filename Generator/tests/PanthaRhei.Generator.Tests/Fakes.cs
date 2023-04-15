@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
 
         public Mock<IDirectory> IDirectory { get; } = new();
 
-        public Mock<Parameters> Parameters { get; } = new();
+        public Mock<ExpandRequestModel> Parameters { get; } = new();
 
         public Mock<IExpanderDependencyManagerInteractor> IExpanderDependencyManagerInteractor { get; } = new();
 
@@ -72,7 +72,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
             IDependencyFactoryInteractor.Setup(x => x.Get<ICodeGeneratorBuilderInteractor>()).Returns(ICodeGeneratorBuilderInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IFile>()).Returns(IFile.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IDirectory>()).Returns(IDirectory.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<Parameters>()).Returns(Parameters.Object);
+            IDependencyFactoryInteractor.Setup(x => x.Get<ExpandRequestModel>()).Returns(Parameters.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IAssemblyContextInteractor>()).Returns(IAssemblyContextInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IObjectActivatorInteractor>()).Returns(IObjectActivatorInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IDependencyManagerInteractor>()).Returns(IDependencyManagerInteractor.Object);

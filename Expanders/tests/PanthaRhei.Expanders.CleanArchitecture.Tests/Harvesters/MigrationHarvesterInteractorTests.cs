@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Harvest>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);

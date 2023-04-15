@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         private readonly IWriterInteractor writer;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly App app;
         private readonly string fullPathToBootstrapperFile;
         private readonly CleanArchitectureExpander expander;
@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             writer = dependencyFactory.Get<IWriterInteractor>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             app = dependencyFactory.Get<App>();
 
             Component component = Expander.Model.GetComponentByName(Resources.EntityFramework);
@@ -47,7 +47,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
+        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public void Execute()
@@ -56,7 +56,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
             foreach (Entity entity in app.Entities)
             {
-                string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, Resources.InfrastructureDependencyInjectionBootstrapperTemplate);
+                string fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.InfrastructureDependencyInjectionBootstrapperTemplate);
                 string result = templateService.Render(fullPathToTemplate, new { Entity = entity });
 
                 writer.AddOrReplaceMethod(result);

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
@@ -38,8 +39,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
 
         private static IServiceCollection AddLogging(this IServiceCollection services)
         {
-            services.AddSingleton<ILogManager>(new LogManager());
-            services.AddSingleton<ILogger>(new LogManager().Logger);
+            ExpandRequestModel requestModel = services.BuildServiceProvider().GetService<ExpandRequestModel>();
+            var logManager = new LogManager(requestModel);
+
+            services.AddSingleton<ILogManager>(logManager);
+            services.AddSingleton<ILogger>(logManager.Logger);
 
             return services;
         }

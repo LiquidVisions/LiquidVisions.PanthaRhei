@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<App>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<App>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Parameters>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
             fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }

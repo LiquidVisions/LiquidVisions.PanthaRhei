@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     public class ExpandInteractorsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
-        private readonly Parameters parameters;
+        private readonly ExpandRequestModel expandRequestModel;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly App app;
@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            parameters = dependencyFactory.Get<Parameters>();
+            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => parameters.CanExecuteDefaultAndExtend();
+        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
 
         public void Execute()
         {
@@ -65,7 +65,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
                 foreach (string action in actions)
                 {
-                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(parameters, $"{action}{Resources.InteractorTemplate}");
+                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, $"{action}{Resources.InteractorTemplate}");
                     string fullPathToFile = Path.Combine(endpointFolder, $"{entity.ToFileName(action, "Interactor")}.cs");
                     object templateModel = new
                     {
