@@ -7,10 +7,7 @@ if action == "GetById"
     name = "Get" + entity.name + "ById"
 end
 
-model_postfix = "Command";
-if action == "Get" || action == "GetById"
-    model_postfix = "Query";
-end
+model_postfix = "RequestModel";
 -}}
 using FluentValidation;
 using {{app_fullname component 'Application' 'RequestModels' entity.name | pluralize }};

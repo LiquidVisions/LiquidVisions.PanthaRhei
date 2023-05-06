@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationships
 {
-    internal class GetRelationshipsValidator : AbstractValidator<GetRelationshipsQuery>, IValidator<GetRelationshipsQuery>
+    internal class GetRelationshipsValidator : AbstractValidator<GetRelationshipsRequestModel>, IValidator<GetRelationshipsRequestModel>
     {
         public GetRelationshipsValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationship
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(GetRelationshipsQuery objectToValidate) => 
+        public new Response Validate(GetRelationshipsRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

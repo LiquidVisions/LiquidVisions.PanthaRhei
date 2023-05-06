@@ -8,15 +8,15 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Apps
 {
-    internal class CreateAppInteractor : IInteractor<CreateAppCommand>
+    internal class CreateAppInteractor : IInteractor<CreateAppRequestModel>
     {
-        private readonly IValidator<CreateAppCommand> validator;
-        private readonly IMapper<CreateAppCommand, App> mapper;
+        private readonly IValidator<CreateAppRequestModel> validator;
+        private readonly IMapper<CreateAppRequestModel, App> mapper;
         private readonly ICreateGateway<App> repository;
 
         public CreateAppInteractor(
-            IValidator<CreateAppCommand> validator,
-            IMapper<CreateAppCommand, App> mapper,
+            IValidator<CreateAppRequestModel> validator,
+            IMapper<CreateAppRequestModel, App> mapper,
             ICreateGateway<App> gateway)
         {
             this.validator = validator;
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Apps
             repository = gateway;
         }
 
-        public async Task<Response> ExecuteUseCase(CreateAppCommand requestModel)
+        public async Task<Response> ExecuteUseCase(CreateAppRequestModel requestModel)
         {
             Response result = validator.Validate(requestModel);
             if (result.IsValid)

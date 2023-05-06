@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Components;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Components
 {
-    internal class GetComponentsValidator : AbstractValidator<GetComponentsQuery>, IValidator<GetComponentsQuery>
+    internal class GetComponentsValidator : AbstractValidator<GetComponentsRequestModel>, IValidator<GetComponentsRequestModel>
     {
         public GetComponentsValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Components
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(GetComponentsQuery objectToValidate) => 
+        public new Response Validate(GetComponentsRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

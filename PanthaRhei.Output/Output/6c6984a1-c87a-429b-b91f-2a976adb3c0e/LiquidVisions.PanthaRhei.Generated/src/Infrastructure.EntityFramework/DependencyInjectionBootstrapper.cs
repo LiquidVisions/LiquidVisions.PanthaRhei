@@ -31,8 +31,200 @@ namespace LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework
             services.AddExpander();
             services.AddConnectionString();
             services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
             return services;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private static IServiceCollection AddField(this IServiceCollection services)
         {

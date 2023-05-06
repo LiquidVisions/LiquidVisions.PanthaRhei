@@ -8,14 +8,14 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders
 {
-    internal class DeleteExpanderInteractor : IInteractor<DeleteExpanderCommand>
+    internal class DeleteExpanderInteractor : IInteractor<DeleteExpanderRequestModel>
     {
-        private readonly IValidator<DeleteExpanderCommand> validator;
+        private readonly IValidator<DeleteExpanderRequestModel> validator;
         private readonly IDeleteGateway<Expander> repository;
         private readonly IGetByIdGateway<Expander> getByIdRepository;
 
         public DeleteExpanderInteractor(
-            IValidator<DeleteExpanderCommand> validator,
+            IValidator<DeleteExpanderRequestModel> validator,
             IDeleteGateway<Expander> repository,
             IGetByIdGateway<Expander> getByIdRepository)
         {
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders
             this.getByIdRepository = getByIdRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(DeleteExpanderCommand requestModel)
+        public async Task<Response> ExecuteUseCase(DeleteExpanderRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

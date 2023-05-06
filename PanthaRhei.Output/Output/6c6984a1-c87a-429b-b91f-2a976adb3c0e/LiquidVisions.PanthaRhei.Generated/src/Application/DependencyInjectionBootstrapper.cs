@@ -1,49 +1,51 @@
-﻿using LiquidVisions.PanthaRhei.Generated.Application.Boundaries;
-using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Apps;
-using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Components;
-using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.ConnectionStrings;
-using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Entities;
-using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Expanders;
-using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Fields;
-using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Packages;
-using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Relationships;
+﻿using Microsoft.Extensions.DependencyInjection;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Generated.Application.Interactors;
-using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Apps;
-using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Components;
-using LiquidVisions.PanthaRhei.Generated.Application.Interactors.ConnectionStrings;
-using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Entities;
-using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders;
-using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Fields;
-using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Packages;
-using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Relationships;
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
-using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Apps;
-using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Components;
-using LiquidVisions.PanthaRhei.Generated.Application.Mappers.ConnectionStrings;
-using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Entities;
-using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Expanders;
-using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Fields;
-using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Packages;
-using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Relationships;
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Apps;
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Components;
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.ConnectionStrings;
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Entities;
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Expanders;
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Fields;
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Packages;
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships;
 using LiquidVisions.PanthaRhei.Generated.Application.Validators;
-using LiquidVisions.PanthaRhei.Generated.Application.Validators.Apps;
-using LiquidVisions.PanthaRhei.Generated.Application.Validators.Components;
-using LiquidVisions.PanthaRhei.Generated.Application.Validators.ConnectionStrings;
-using LiquidVisions.PanthaRhei.Generated.Application.Validators.Entities;
-using LiquidVisions.PanthaRhei.Generated.Application.Validators.Expanders;
-using LiquidVisions.PanthaRhei.Generated.Application.Validators.Fields;
-using LiquidVisions.PanthaRhei.Generated.Application.Validators.Packages;
-using LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationships;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
-using Microsoft.Extensions.DependencyInjection;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Fields;
+using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Fields;
+using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Fields;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Fields;
+using LiquidVisions.PanthaRhei.Generated.Application.Validators.Fields;
+using LiquidVisions.PanthaRhei.Generated.Application.Gateways;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Apps;
+using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Apps;
+using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Apps;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Apps;
+using LiquidVisions.PanthaRhei.Generated.Application.Validators.Apps;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Packages;
+using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Packages;
+using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Packages;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Packages;
+using LiquidVisions.PanthaRhei.Generated.Application.Validators.Packages;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Entities;
+using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Entities;
+using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Entities;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Entities;
+using LiquidVisions.PanthaRhei.Generated.Application.Validators.Entities;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Components;
+using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Components;
+using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Components;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Components;
+using LiquidVisions.PanthaRhei.Generated.Application.Validators.Components;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Expanders;
+using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Expanders;
+using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Expanders;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Expanders;
+using LiquidVisions.PanthaRhei.Generated.Application.Validators.Expanders;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.ConnectionStrings;
+using LiquidVisions.PanthaRhei.Generated.Application.Interactors.ConnectionStrings;
+using LiquidVisions.PanthaRhei.Generated.Application.Mappers.ConnectionStrings;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.ConnectionStrings;
+using LiquidVisions.PanthaRhei.Generated.Application.Validators.ConnectionStrings;
+using LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Relationships;
+using LiquidVisions.PanthaRhei.Generated.Application.Interactors.Relationships;
+using LiquidVisions.PanthaRhei.Generated.Application.Mappers.Relationships;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships;
+using LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationships;
+using LiquidVisions.PanthaRhei.Generated.Domain;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application
 {
@@ -59,39 +61,231 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddExpander();
             services.AddConnectionString();
             services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
+            services.AddField();
+            services.AddApp();
+            services.AddPackage();
+            services.AddEntity();
+            services.AddComponent();
+            services.AddExpander();
+            services.AddConnectionString();
+            services.AddRelationship();
             return services;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private static IServiceCollection AddField(this IServiceCollection services)
         {
             // CREATE FIELD
-            services.AddTransient<IInteractor<CreateFieldCommand>, CreateFieldInteractor>();
-            services.AddTransient<IBoundary<CreateFieldCommand>, CreateFieldBoundary>();
-            services.AddTransient<IValidator<CreateFieldCommand>, CreateFieldValidator>();
+            services.AddTransient<IInteractor<CreateFieldRequestModel>, CreateFieldInteractor>();
+            services.AddTransient<IBoundary<CreateFieldRequestModel>, CreateFieldBoundary>();
+            services.AddTransient<IValidator<CreateFieldRequestModel>, CreateFieldValidator>();
 
             // GET 
-            services.AddTransient<IInteractor<GetFieldsQuery>, GetFieldsInteractor>();
-            services.AddTransient<IBoundary<GetFieldsQuery>, GetFieldsBoundary>();
-            services.AddTransient<IValidator<GetFieldsQuery>, GetFieldsValidator>();
+            services.AddTransient<IInteractor<GetFieldsRequestModel>, GetFieldsInteractor>();
+            services.AddTransient<IBoundary<GetFieldsRequestModel>, GetFieldsBoundary>();
+            services.AddTransient<IValidator<GetFieldsRequestModel>, GetFieldsValidator>();
 
             // GET FIELD
-            services.AddTransient<IInteractor<GetFieldByIdQuery>, GetFieldInteractor>();
-            services.AddTransient<IBoundary<GetFieldByIdQuery>, GetFieldByIdBoundary>();
-            services.AddTransient<IValidator<GetFieldByIdQuery>, GetFieldByIdValidator>();
+            services.AddTransient<IInteractor<GetFieldByIdRequestModel>, GetFieldInteractor>();
+            services.AddTransient<IBoundary<GetFieldByIdRequestModel>, GetFieldByIdBoundary>();
+            services.AddTransient<IValidator<GetFieldByIdRequestModel>, GetFieldByIdValidator>();
 
             // DELETE FIELD
-            services.AddTransient<IInteractor<DeleteFieldCommand>, DeleteFieldInteractor>();
-            services.AddTransient<IBoundary<DeleteFieldCommand>, DeleteFieldBoundary>();
-            services.AddTransient<IValidator<DeleteFieldCommand>, DeleteFieldValidator>();
+            services.AddTransient<IInteractor<DeleteFieldRequestModel>, DeleteFieldInteractor>();
+            services.AddTransient<IBoundary<DeleteFieldRequestModel>, DeleteFieldBoundary>();
+            services.AddTransient<IValidator<DeleteFieldRequestModel>, DeleteFieldValidator>();
 
             // UPDATE FIELD
-            services.AddTransient<IInteractor<UpdateFieldCommand>, UpdateFieldInteractor>();
-            services.AddTransient<IBoundary<UpdateFieldCommand>, UpdateFieldBoundary>();
-            services.AddTransient<IValidator<UpdateFieldCommand>, UpdateFieldValidator>();
+            services.AddTransient<IInteractor<UpdateFieldRequestModel>, UpdateFieldInteractor>();
+            services.AddTransient<IBoundary<UpdateFieldRequestModel>, UpdateFieldBoundary>();
+            services.AddTransient<IValidator<UpdateFieldRequestModel>, UpdateFieldValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateFieldCommand, Field>, CreateFieldCommandRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateFieldCommand, Field>, UpdateFieldCommandRequestModelMapper>();
+            services.AddTransient<IMapper<CreateFieldRequestModel, Field>, CreateFieldRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateFieldRequestModel, Field>, UpdateFieldRequestModelRequestModelMapper>();
 
             return services;
         }
@@ -99,33 +293,33 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddApp(this IServiceCollection services)
         {
             // CREATE APP
-            services.AddTransient<IInteractor<CreateAppCommand>, CreateAppInteractor>();
-            services.AddTransient<IBoundary<CreateAppCommand>, CreateAppBoundary>();
-            services.AddTransient<IValidator<CreateAppCommand>, CreateAppValidator>();
+            services.AddTransient<IInteractor<CreateAppRequestModel>, CreateAppInteractor>();
+            services.AddTransient<IBoundary<CreateAppRequestModel>, CreateAppBoundary>();
+            services.AddTransient<IValidator<CreateAppRequestModel>, CreateAppValidator>();
 
             // GET 
-            services.AddTransient<IInteractor<GetAppsQuery>, GetAppsInteractor>();
-            services.AddTransient<IBoundary<GetAppsQuery>, GetAppsBoundary>();
-            services.AddTransient<IValidator<GetAppsQuery>, GetAppsValidator>();
+            services.AddTransient<IInteractor<GetAppsRequestModel>, GetAppsInteractor>();
+            services.AddTransient<IBoundary<GetAppsRequestModel>, GetAppsBoundary>();
+            services.AddTransient<IValidator<GetAppsRequestModel>, GetAppsValidator>();
 
             // GET APP
-            services.AddTransient<IInteractor<GetAppByIdQuery>, GetAppInteractor>();
-            services.AddTransient<IBoundary<GetAppByIdQuery>, GetAppByIdBoundary>();
-            services.AddTransient<IValidator<GetAppByIdQuery>, GetAppByIdValidator>();
+            services.AddTransient<IInteractor<GetAppByIdRequestModel>, GetAppInteractor>();
+            services.AddTransient<IBoundary<GetAppByIdRequestModel>, GetAppByIdBoundary>();
+            services.AddTransient<IValidator<GetAppByIdRequestModel>, GetAppByIdValidator>();
 
             // DELETE APP
-            services.AddTransient<IInteractor<DeleteAppCommand>, DeleteAppInteractor>();
-            services.AddTransient<IBoundary<DeleteAppCommand>, DeleteAppBoundary>();
-            services.AddTransient<IValidator<DeleteAppCommand>, DeleteAppValidator>();
+            services.AddTransient<IInteractor<DeleteAppRequestModel>, DeleteAppInteractor>();
+            services.AddTransient<IBoundary<DeleteAppRequestModel>, DeleteAppBoundary>();
+            services.AddTransient<IValidator<DeleteAppRequestModel>, DeleteAppValidator>();
 
             // UPDATE APP
-            services.AddTransient<IInteractor<UpdateAppCommand>, UpdateAppInteractor>();
-            services.AddTransient<IBoundary<UpdateAppCommand>, UpdateAppBoundary>();
-            services.AddTransient<IValidator<UpdateAppCommand>, UpdateAppValidator>();
+            services.AddTransient<IInteractor<UpdateAppRequestModel>, UpdateAppInteractor>();
+            services.AddTransient<IBoundary<UpdateAppRequestModel>, UpdateAppBoundary>();
+            services.AddTransient<IValidator<UpdateAppRequestModel>, UpdateAppValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateAppCommand, App>, CreateAppCommandRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateAppCommand, App>, UpdateAppCommandRequestModelMapper>();
+            services.AddTransient<IMapper<CreateAppRequestModel, App>, CreateAppRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateAppRequestModel, App>, UpdateAppRequestModelRequestModelMapper>();
 
             return services;
         }
@@ -133,33 +327,33 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddPackage(this IServiceCollection services)
         {
             // CREATE PACKAGE
-            services.AddTransient<IInteractor<CreatePackageCommand>, CreatePackageInteractor>();
-            services.AddTransient<IBoundary<CreatePackageCommand>, CreatePackageBoundary>();
-            services.AddTransient<IValidator<CreatePackageCommand>, CreatePackageValidator>();
+            services.AddTransient<IInteractor<CreatePackageRequestModel>, CreatePackageInteractor>();
+            services.AddTransient<IBoundary<CreatePackageRequestModel>, CreatePackageBoundary>();
+            services.AddTransient<IValidator<CreatePackageRequestModel>, CreatePackageValidator>();
 
             // GET 
-            services.AddTransient<IInteractor<GetPackagesQuery>, GetPackagesInteractor>();
-            services.AddTransient<IBoundary<GetPackagesQuery>, GetPackagesBoundary>();
-            services.AddTransient<IValidator<GetPackagesQuery>, GetPackagesValidator>();
+            services.AddTransient<IInteractor<GetPackagesRequestModel>, GetPackagesInteractor>();
+            services.AddTransient<IBoundary<GetPackagesRequestModel>, GetPackagesBoundary>();
+            services.AddTransient<IValidator<GetPackagesRequestModel>, GetPackagesValidator>();
 
             // GET PACKAGE
-            services.AddTransient<IInteractor<GetPackageByIdQuery>, GetPackageInteractor>();
-            services.AddTransient<IBoundary<GetPackageByIdQuery>, GetPackageByIdBoundary>();
-            services.AddTransient<IValidator<GetPackageByIdQuery>, GetPackageByIdValidator>();
+            services.AddTransient<IInteractor<GetPackageByIdRequestModel>, GetPackageInteractor>();
+            services.AddTransient<IBoundary<GetPackageByIdRequestModel>, GetPackageByIdBoundary>();
+            services.AddTransient<IValidator<GetPackageByIdRequestModel>, GetPackageByIdValidator>();
 
             // DELETE PACKAGE
-            services.AddTransient<IInteractor<DeletePackageCommand>, DeletePackageInteractor>();
-            services.AddTransient<IBoundary<DeletePackageCommand>, DeletePackageBoundary>();
-            services.AddTransient<IValidator<DeletePackageCommand>, DeletePackageValidator>();
+            services.AddTransient<IInteractor<DeletePackageRequestModel>, DeletePackageInteractor>();
+            services.AddTransient<IBoundary<DeletePackageRequestModel>, DeletePackageBoundary>();
+            services.AddTransient<IValidator<DeletePackageRequestModel>, DeletePackageValidator>();
 
             // UPDATE PACKAGE
-            services.AddTransient<IInteractor<UpdatePackageCommand>, UpdatePackageInteractor>();
-            services.AddTransient<IBoundary<UpdatePackageCommand>, UpdatePackageBoundary>();
-            services.AddTransient<IValidator<UpdatePackageCommand>, UpdatePackageValidator>();
+            services.AddTransient<IInteractor<UpdatePackageRequestModel>, UpdatePackageInteractor>();
+            services.AddTransient<IBoundary<UpdatePackageRequestModel>, UpdatePackageBoundary>();
+            services.AddTransient<IValidator<UpdatePackageRequestModel>, UpdatePackageValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreatePackageCommand, Package>, CreatePackageCommandRequestModelMapper>();
-            services.AddTransient<IMapper<UpdatePackageCommand, Package>, UpdatePackageCommandRequestModelMapper>();
+            services.AddTransient<IMapper<CreatePackageRequestModel, Package>, CreatePackageRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<UpdatePackageRequestModel, Package>, UpdatePackageRequestModelRequestModelMapper>();
 
             return services;
         }
@@ -167,33 +361,33 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddEntity(this IServiceCollection services)
         {
             // CREATE ENTITY
-            services.AddTransient<IInteractor<CreateEntityCommand>, CreateEntityInteractor>();
-            services.AddTransient<IBoundary<CreateEntityCommand>, CreateEntityBoundary>();
-            services.AddTransient<IValidator<CreateEntityCommand>, CreateEntityValidator>();
+            services.AddTransient<IInteractor<CreateEntityRequestModel>, CreateEntityInteractor>();
+            services.AddTransient<IBoundary<CreateEntityRequestModel>, CreateEntityBoundary>();
+            services.AddTransient<IValidator<CreateEntityRequestModel>, CreateEntityValidator>();
 
             // GET 
-            services.AddTransient<IInteractor<GetEntitiesQuery>, GetEntitiesInteractor>();
-            services.AddTransient<IBoundary<GetEntitiesQuery>, GetEntitiesBoundary>();
-            services.AddTransient<IValidator<GetEntitiesQuery>, GetEntitiesValidator>();
+            services.AddTransient<IInteractor<GetEntitiesRequestModel>, GetEntitiesInteractor>();
+            services.AddTransient<IBoundary<GetEntitiesRequestModel>, GetEntitiesBoundary>();
+            services.AddTransient<IValidator<GetEntitiesRequestModel>, GetEntitiesValidator>();
 
             // GET ENTITY
-            services.AddTransient<IInteractor<GetEntityByIdQuery>, GetEntityInteractor>();
-            services.AddTransient<IBoundary<GetEntityByIdQuery>, GetEntityByIdBoundary>();
-            services.AddTransient<IValidator<GetEntityByIdQuery>, GetEntityByIdValidator>();
+            services.AddTransient<IInteractor<GetEntityByIdRequestModel>, GetEntityInteractor>();
+            services.AddTransient<IBoundary<GetEntityByIdRequestModel>, GetEntityByIdBoundary>();
+            services.AddTransient<IValidator<GetEntityByIdRequestModel>, GetEntityByIdValidator>();
 
             // DELETE ENTITY
-            services.AddTransient<IInteractor<DeleteEntityCommand>, DeleteEntityInteractor>();
-            services.AddTransient<IBoundary<DeleteEntityCommand>, DeleteEntityBoundary>();
-            services.AddTransient<IValidator<DeleteEntityCommand>, DeleteEntityValidator>();
+            services.AddTransient<IInteractor<DeleteEntityRequestModel>, DeleteEntityInteractor>();
+            services.AddTransient<IBoundary<DeleteEntityRequestModel>, DeleteEntityBoundary>();
+            services.AddTransient<IValidator<DeleteEntityRequestModel>, DeleteEntityValidator>();
 
             // UPDATE ENTITY
-            services.AddTransient<IInteractor<UpdateEntityCommand>, UpdateEntityInteractor>();
-            services.AddTransient<IBoundary<UpdateEntityCommand>, UpdateEntityBoundary>();
-            services.AddTransient<IValidator<UpdateEntityCommand>, UpdateEntityValidator>();
+            services.AddTransient<IInteractor<UpdateEntityRequestModel>, UpdateEntityInteractor>();
+            services.AddTransient<IBoundary<UpdateEntityRequestModel>, UpdateEntityBoundary>();
+            services.AddTransient<IValidator<UpdateEntityRequestModel>, UpdateEntityValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateEntityCommand, Entity>, CreateEntityCommandRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateEntityCommand, Entity>, UpdateEntityCommandRequestModelMapper>();
+            services.AddTransient<IMapper<CreateEntityRequestModel, Entity>, CreateEntityRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateEntityRequestModel, Entity>, UpdateEntityRequestModelRequestModelMapper>();
 
             return services;
         }
@@ -201,33 +395,33 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddComponent(this IServiceCollection services)
         {
             // CREATE COMPONENT
-            services.AddTransient<IInteractor<CreateComponentCommand>, CreateComponentInteractor>();
-            services.AddTransient<IBoundary<CreateComponentCommand>, CreateComponentBoundary>();
-            services.AddTransient<IValidator<CreateComponentCommand>, CreateComponentValidator>();
+            services.AddTransient<IInteractor<CreateComponentRequestModel>, CreateComponentInteractor>();
+            services.AddTransient<IBoundary<CreateComponentRequestModel>, CreateComponentBoundary>();
+            services.AddTransient<IValidator<CreateComponentRequestModel>, CreateComponentValidator>();
 
             // GET 
-            services.AddTransient<IInteractor<GetComponentsQuery>, GetComponentsInteractor>();
-            services.AddTransient<IBoundary<GetComponentsQuery>, GetComponentsBoundary>();
-            services.AddTransient<IValidator<GetComponentsQuery>, GetComponentsValidator>();
+            services.AddTransient<IInteractor<GetComponentsRequestModel>, GetComponentsInteractor>();
+            services.AddTransient<IBoundary<GetComponentsRequestModel>, GetComponentsBoundary>();
+            services.AddTransient<IValidator<GetComponentsRequestModel>, GetComponentsValidator>();
 
             // GET COMPONENT
-            services.AddTransient<IInteractor<GetComponentByIdQuery>, GetComponentInteractor>();
-            services.AddTransient<IBoundary<GetComponentByIdQuery>, GetComponentByIdBoundary>();
-            services.AddTransient<IValidator<GetComponentByIdQuery>, GetComponentByIdValidator>();
+            services.AddTransient<IInteractor<GetComponentByIdRequestModel>, GetComponentInteractor>();
+            services.AddTransient<IBoundary<GetComponentByIdRequestModel>, GetComponentByIdBoundary>();
+            services.AddTransient<IValidator<GetComponentByIdRequestModel>, GetComponentByIdValidator>();
 
             // DELETE COMPONENT
-            services.AddTransient<IInteractor<DeleteComponentCommand>, DeleteComponentInteractor>();
-            services.AddTransient<IBoundary<DeleteComponentCommand>, DeleteComponentBoundary>();
-            services.AddTransient<IValidator<DeleteComponentCommand>, DeleteComponentValidator>();
+            services.AddTransient<IInteractor<DeleteComponentRequestModel>, DeleteComponentInteractor>();
+            services.AddTransient<IBoundary<DeleteComponentRequestModel>, DeleteComponentBoundary>();
+            services.AddTransient<IValidator<DeleteComponentRequestModel>, DeleteComponentValidator>();
 
             // UPDATE COMPONENT
-            services.AddTransient<IInteractor<UpdateComponentCommand>, UpdateComponentInteractor>();
-            services.AddTransient<IBoundary<UpdateComponentCommand>, UpdateComponentBoundary>();
-            services.AddTransient<IValidator<UpdateComponentCommand>, UpdateComponentValidator>();
+            services.AddTransient<IInteractor<UpdateComponentRequestModel>, UpdateComponentInteractor>();
+            services.AddTransient<IBoundary<UpdateComponentRequestModel>, UpdateComponentBoundary>();
+            services.AddTransient<IValidator<UpdateComponentRequestModel>, UpdateComponentValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateComponentCommand, Component>, CreateComponentCommandRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateComponentCommand, Component>, UpdateComponentCommandRequestModelMapper>();
+            services.AddTransient<IMapper<CreateComponentRequestModel, Component>, CreateComponentRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateComponentRequestModel, Component>, UpdateComponentRequestModelRequestModelMapper>();
 
             return services;
         }
@@ -235,33 +429,33 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddExpander(this IServiceCollection services)
         {
             // CREATE EXPANDER
-            services.AddTransient<IInteractor<CreateExpanderCommand>, CreateExpanderInteractor>();
-            services.AddTransient<IBoundary<CreateExpanderCommand>, CreateExpanderBoundary>();
-            services.AddTransient<IValidator<CreateExpanderCommand>, CreateExpanderValidator>();
+            services.AddTransient<IInteractor<CreateExpanderRequestModel>, CreateExpanderInteractor>();
+            services.AddTransient<IBoundary<CreateExpanderRequestModel>, CreateExpanderBoundary>();
+            services.AddTransient<IValidator<CreateExpanderRequestModel>, CreateExpanderValidator>();
 
             // GET 
-            services.AddTransient<IInteractor<GetExpandersQuery>, GetExpandersInteractor>();
-            services.AddTransient<IBoundary<GetExpandersQuery>, GetExpandersBoundary>();
-            services.AddTransient<IValidator<GetExpandersQuery>, GetExpandersValidator>();
+            services.AddTransient<IInteractor<GetExpandersRequestModel>, GetExpandersInteractor>();
+            services.AddTransient<IBoundary<GetExpandersRequestModel>, GetExpandersBoundary>();
+            services.AddTransient<IValidator<GetExpandersRequestModel>, GetExpandersValidator>();
 
             // GET EXPANDER
-            services.AddTransient<IInteractor<GetExpanderByIdQuery>, GetExpanderInteractor>();
-            services.AddTransient<IBoundary<GetExpanderByIdQuery>, GetExpanderByIdBoundary>();
-            services.AddTransient<IValidator<GetExpanderByIdQuery>, GetExpanderByIdValidator>();
+            services.AddTransient<IInteractor<GetExpanderByIdRequestModel>, GetExpanderInteractor>();
+            services.AddTransient<IBoundary<GetExpanderByIdRequestModel>, GetExpanderByIdBoundary>();
+            services.AddTransient<IValidator<GetExpanderByIdRequestModel>, GetExpanderByIdValidator>();
 
             // DELETE EXPANDER
-            services.AddTransient<IInteractor<DeleteExpanderCommand>, DeleteExpanderInteractor>();
-            services.AddTransient<IBoundary<DeleteExpanderCommand>, DeleteExpanderBoundary>();
-            services.AddTransient<IValidator<DeleteExpanderCommand>, DeleteExpanderValidator>();
+            services.AddTransient<IInteractor<DeleteExpanderRequestModel>, DeleteExpanderInteractor>();
+            services.AddTransient<IBoundary<DeleteExpanderRequestModel>, DeleteExpanderBoundary>();
+            services.AddTransient<IValidator<DeleteExpanderRequestModel>, DeleteExpanderValidator>();
 
             // UPDATE EXPANDER
-            services.AddTransient<IInteractor<UpdateExpanderCommand>, UpdateExpanderInteractor>();
-            services.AddTransient<IBoundary<UpdateExpanderCommand>, UpdateExpanderBoundary>();
-            services.AddTransient<IValidator<UpdateExpanderCommand>, UpdateExpanderValidator>();
+            services.AddTransient<IInteractor<UpdateExpanderRequestModel>, UpdateExpanderInteractor>();
+            services.AddTransient<IBoundary<UpdateExpanderRequestModel>, UpdateExpanderBoundary>();
+            services.AddTransient<IValidator<UpdateExpanderRequestModel>, UpdateExpanderValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateExpanderCommand, Expander>, CreateExpanderCommandRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateExpanderCommand, Expander>, UpdateExpanderCommandRequestModelMapper>();
+            services.AddTransient<IMapper<CreateExpanderRequestModel, Expander>, CreateExpanderRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateExpanderRequestModel, Expander>, UpdateExpanderRequestModelRequestModelMapper>();
 
             return services;
         }
@@ -269,33 +463,33 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddConnectionString(this IServiceCollection services)
         {
             // CREATE CONNECTIONSTRING
-            services.AddTransient<IInteractor<CreateConnectionStringCommand>, CreateConnectionStringInteractor>();
-            services.AddTransient<IBoundary<CreateConnectionStringCommand>, CreateConnectionStringBoundary>();
-            services.AddTransient<IValidator<CreateConnectionStringCommand>, CreateConnectionStringValidator>();
+            services.AddTransient<IInteractor<CreateConnectionStringRequestModel>, CreateConnectionStringInteractor>();
+            services.AddTransient<IBoundary<CreateConnectionStringRequestModel>, CreateConnectionStringBoundary>();
+            services.AddTransient<IValidator<CreateConnectionStringRequestModel>, CreateConnectionStringValidator>();
 
             // GET 
-            services.AddTransient<IInteractor<GetConnectionStringsQuery>, GetConnectionStringsInteractor>();
-            services.AddTransient<IBoundary<GetConnectionStringsQuery>, GetConnectionStringsBoundary>();
-            services.AddTransient<IValidator<GetConnectionStringsQuery>, GetConnectionStringsValidator>();
+            services.AddTransient<IInteractor<GetConnectionStringsRequestModel>, GetConnectionStringsInteractor>();
+            services.AddTransient<IBoundary<GetConnectionStringsRequestModel>, GetConnectionStringsBoundary>();
+            services.AddTransient<IValidator<GetConnectionStringsRequestModel>, GetConnectionStringsValidator>();
 
             // GET CONNECTIONSTRING
-            services.AddTransient<IInteractor<GetConnectionStringByIdQuery>, GetConnectionStringInteractor>();
-            services.AddTransient<IBoundary<GetConnectionStringByIdQuery>, GetConnectionStringByIdBoundary>();
-            services.AddTransient<IValidator<GetConnectionStringByIdQuery>, GetConnectionStringByIdValidator>();
+            services.AddTransient<IInteractor<GetConnectionStringByIdRequestModel>, GetConnectionStringInteractor>();
+            services.AddTransient<IBoundary<GetConnectionStringByIdRequestModel>, GetConnectionStringByIdBoundary>();
+            services.AddTransient<IValidator<GetConnectionStringByIdRequestModel>, GetConnectionStringByIdValidator>();
 
             // DELETE CONNECTIONSTRING
-            services.AddTransient<IInteractor<DeleteConnectionStringCommand>, DeleteConnectionStringInteractor>();
-            services.AddTransient<IBoundary<DeleteConnectionStringCommand>, DeleteConnectionStringBoundary>();
-            services.AddTransient<IValidator<DeleteConnectionStringCommand>, DeleteConnectionStringValidator>();
+            services.AddTransient<IInteractor<DeleteConnectionStringRequestModel>, DeleteConnectionStringInteractor>();
+            services.AddTransient<IBoundary<DeleteConnectionStringRequestModel>, DeleteConnectionStringBoundary>();
+            services.AddTransient<IValidator<DeleteConnectionStringRequestModel>, DeleteConnectionStringValidator>();
 
             // UPDATE CONNECTIONSTRING
-            services.AddTransient<IInteractor<UpdateConnectionStringCommand>, UpdateConnectionStringInteractor>();
-            services.AddTransient<IBoundary<UpdateConnectionStringCommand>, UpdateConnectionStringBoundary>();
-            services.AddTransient<IValidator<UpdateConnectionStringCommand>, UpdateConnectionStringValidator>();
+            services.AddTransient<IInteractor<UpdateConnectionStringRequestModel>, UpdateConnectionStringInteractor>();
+            services.AddTransient<IBoundary<UpdateConnectionStringRequestModel>, UpdateConnectionStringBoundary>();
+            services.AddTransient<IValidator<UpdateConnectionStringRequestModel>, UpdateConnectionStringValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateConnectionStringCommand, ConnectionString>, CreateConnectionStringCommandRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateConnectionStringCommand, ConnectionString>, UpdateConnectionStringCommandRequestModelMapper>();
+            services.AddTransient<IMapper<CreateConnectionStringRequestModel, ConnectionString>, CreateConnectionStringRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateConnectionStringRequestModel, ConnectionString>, UpdateConnectionStringRequestModelRequestModelMapper>();
 
             return services;
         }
@@ -303,33 +497,33 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddRelationship(this IServiceCollection services)
         {
             // CREATE RELATIONSHIP
-            services.AddTransient<IInteractor<CreateRelationshipCommand>, CreateRelationshipInteractor>();
-            services.AddTransient<IBoundary<CreateRelationshipCommand>, CreateRelationshipBoundary>();
-            services.AddTransient<IValidator<CreateRelationshipCommand>, CreateRelationshipValidator>();
+            services.AddTransient<IInteractor<CreateRelationshipRequestModel>, CreateRelationshipInteractor>();
+            services.AddTransient<IBoundary<CreateRelationshipRequestModel>, CreateRelationshipBoundary>();
+            services.AddTransient<IValidator<CreateRelationshipRequestModel>, CreateRelationshipValidator>();
 
             // GET 
-            services.AddTransient<IInteractor<GetRelationshipsQuery>, GetRelationshipsInteractor>();
-            services.AddTransient<IBoundary<GetRelationshipsQuery>, GetRelationshipsBoundary>();
-            services.AddTransient<IValidator<GetRelationshipsQuery>, GetRelationshipsValidator>();
+            services.AddTransient<IInteractor<GetRelationshipsRequestModel>, GetRelationshipsInteractor>();
+            services.AddTransient<IBoundary<GetRelationshipsRequestModel>, GetRelationshipsBoundary>();
+            services.AddTransient<IValidator<GetRelationshipsRequestModel>, GetRelationshipsValidator>();
 
             // GET RELATIONSHIP
-            services.AddTransient<IInteractor<GetRelationshipByIdQuery>, GetRelationshipInteractor>();
-            services.AddTransient<IBoundary<GetRelationshipByIdQuery>, GetRelationshipByIdBoundary>();
-            services.AddTransient<IValidator<GetRelationshipByIdQuery>, GetRelationshipByIdValidator>();
+            services.AddTransient<IInteractor<GetRelationshipByIdRequestModel>, GetRelationshipInteractor>();
+            services.AddTransient<IBoundary<GetRelationshipByIdRequestModel>, GetRelationshipByIdBoundary>();
+            services.AddTransient<IValidator<GetRelationshipByIdRequestModel>, GetRelationshipByIdValidator>();
 
             // DELETE RELATIONSHIP
-            services.AddTransient<IInteractor<DeleteRelationshipCommand>, DeleteRelationshipInteractor>();
-            services.AddTransient<IBoundary<DeleteRelationshipCommand>, DeleteRelationshipBoundary>();
-            services.AddTransient<IValidator<DeleteRelationshipCommand>, DeleteRelationshipValidator>();
+            services.AddTransient<IInteractor<DeleteRelationshipRequestModel>, DeleteRelationshipInteractor>();
+            services.AddTransient<IBoundary<DeleteRelationshipRequestModel>, DeleteRelationshipBoundary>();
+            services.AddTransient<IValidator<DeleteRelationshipRequestModel>, DeleteRelationshipValidator>();
 
             // UPDATE RELATIONSHIP
-            services.AddTransient<IInteractor<UpdateRelationshipCommand>, UpdateRelationshipInteractor>();
-            services.AddTransient<IBoundary<UpdateRelationshipCommand>, UpdateRelationshipBoundary>();
-            services.AddTransient<IValidator<UpdateRelationshipCommand>, UpdateRelationshipValidator>();
+            services.AddTransient<IInteractor<UpdateRelationshipRequestModel>, UpdateRelationshipInteractor>();
+            services.AddTransient<IBoundary<UpdateRelationshipRequestModel>, UpdateRelationshipBoundary>();
+            services.AddTransient<IValidator<UpdateRelationshipRequestModel>, UpdateRelationshipValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateRelationshipCommand, Relationship>, CreateRelationshipCommandRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateRelationshipCommand, Relationship>, UpdateRelationshipCommandRequestModelMapper>();
+            services.AddTransient<IMapper<CreateRelationshipRequestModel, Relationship>, CreateRelationshipRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateRelationshipRequestModel, Relationship>, UpdateRelationshipRequestModelRequestModelMapper>();
 
             return services;
         }

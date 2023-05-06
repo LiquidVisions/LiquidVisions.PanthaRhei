@@ -3,9 +3,9 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Entities
 {
-    internal class UpdateEntityCommandRequestModelMapper : IMapper<UpdateEntityCommand, Entity>
+    internal class UpdateEntityRequestModelRequestModelMapper : IMapper<UpdateEntityRequestModel, Entity>
     {
-        public void Map(UpdateEntityCommand source, Entity target)
+        public void Map(UpdateEntityRequestModel source, Entity target)
         {
             target.Name = source.Name;
             target.Callsite = source.Callsite;
@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Entities
             target.IsForeignEntityOf = source.IsForeignEntityOf;
         }
 
-        public Entity Map(UpdateEntityCommand source)
+        public Entity Map(UpdateEntityRequestModel source)
         {
             Entity target = new();
 

@@ -12,9 +12,6 @@ namespace NS.Application
     {
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
-            DependencyInjectionContainer serviceProvider = new DependencyInjectionContainer(services);
-            services.AddSingleton<IDependencyServiceProvider>(serviceProvider);
-
             return services;
         }
     }

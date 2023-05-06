@@ -3,9 +3,9 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Expanders
 {
-    internal class CreateExpanderCommandRequestModelMapper : IMapper<CreateExpanderCommand, Expander>
+    internal class CreateExpanderRequestModelRequestModelMapper : IMapper<CreateExpanderRequestModel, Expander>
     {
-        public void Map(CreateExpanderCommand source, Expander target)
+        public void Map(CreateExpanderRequestModel source, Expander target)
         {
             target.Name = source.Name;
             target.TemplateFolder = source.TemplateFolder;
@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Expanders
             target.Components = source.Components;
         }
 
-        public Expander Map(CreateExpanderCommand source)
+        public Expander Map(CreateExpanderRequestModel source)
         {
             Expander target = new();
 

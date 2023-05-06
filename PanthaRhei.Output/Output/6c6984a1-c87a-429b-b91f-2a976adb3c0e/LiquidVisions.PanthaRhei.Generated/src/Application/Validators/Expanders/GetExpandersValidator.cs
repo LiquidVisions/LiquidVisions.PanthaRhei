@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Expanders
 {
-    internal class GetExpandersValidator : AbstractValidator<GetExpandersQuery>, IValidator<GetExpandersQuery>
+    internal class GetExpandersValidator : AbstractValidator<GetExpandersRequestModel>, IValidator<GetExpandersRequestModel>
     {
         public GetExpandersValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Expanders
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(GetExpandersQuery objectToValidate) => 
+        public new Response Validate(GetExpandersRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

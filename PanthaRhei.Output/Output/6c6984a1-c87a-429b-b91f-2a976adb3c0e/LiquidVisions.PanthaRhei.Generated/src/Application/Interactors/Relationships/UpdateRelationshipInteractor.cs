@@ -8,16 +8,16 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Relationships
 {
-    internal class UpdateRelationshipInteractor : IInteractor<UpdateRelationshipCommand>
+    internal class UpdateRelationshipInteractor : IInteractor<UpdateRelationshipRequestModel>
     {
-        private readonly IValidator<UpdateRelationshipCommand> validator;
-        private readonly IMapper<UpdateRelationshipCommand, Relationship> mapper;
+        private readonly IValidator<UpdateRelationshipRequestModel> validator;
+        private readonly IMapper<UpdateRelationshipRequestModel, Relationship> mapper;
         private readonly IUpdateGateway<Relationship> repository;
         private readonly IGetByIdGateway<Relationship> getRepository;
 
         public UpdateRelationshipInteractor(
-            IValidator<UpdateRelationshipCommand> validator,
-            IMapper<UpdateRelationshipCommand, Relationship> mapper,
+            IValidator<UpdateRelationshipRequestModel> validator,
+            IMapper<UpdateRelationshipRequestModel, Relationship> mapper,
             IUpdateGateway<Relationship> repository,
             IGetByIdGateway<Relationship> getRepository)
         {
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Relationshi
             this.getRepository = getRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(UpdateRelationshipCommand requestModel)
+        public async Task<Response> ExecuteUseCase(UpdateRelationshipRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

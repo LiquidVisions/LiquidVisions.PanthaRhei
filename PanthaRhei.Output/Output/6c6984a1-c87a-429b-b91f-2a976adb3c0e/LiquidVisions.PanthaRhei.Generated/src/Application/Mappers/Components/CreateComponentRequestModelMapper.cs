@@ -3,9 +3,9 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Components
 {
-    internal class CreateComponentCommandRequestModelMapper : IMapper<CreateComponentCommand, Component>
+    internal class CreateComponentRequestModelRequestModelMapper : IMapper<CreateComponentRequestModel, Component>
     {
-        public void Map(CreateComponentCommand source, Component target)
+        public void Map(CreateComponentRequestModel source, Component target)
         {
             target.Name = source.Name;
             target.Description = source.Description;
@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Components
             target.Expander = source.Expander;
         }
 
-        public Component Map(CreateComponentCommand source)
+        public Component Map(CreateComponentRequestModel source)
         {
             Component target = new();
 

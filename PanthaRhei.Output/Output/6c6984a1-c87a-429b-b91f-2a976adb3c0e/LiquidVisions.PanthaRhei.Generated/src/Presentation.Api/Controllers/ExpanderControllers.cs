@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapCreateExpander(this WebApplication app)
         {
-            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateExpanderCommand model, IBoundary<CreateExpanderCommand> boundary, ICreateExpanderPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateExpanderRequestModel model, IBoundary<CreateExpanderRequestModel> boundary, ICreateExpanderPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -55,9 +55,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetExpander(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetExpanderByIdQuery> boundary, IGetByIdExpanderPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetExpanderByIdRequestModel> boundary, IGetByIdExpanderPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new GetExpanderByIdQuery { Id = id }, presenter);
+                await boundary.Execute(new GetExpanderByIdRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
             
@@ -71,9 +71,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetExpanders(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetExpandersQuery> boudary, IGetExpandersPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetExpandersRequestModel> boudary, IGetExpandersPresenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new GetExpandersQuery(), presenter);
+                await boudary.Execute(new GetExpandersRequestModel(), presenter);
                 return presenter.GetResult(request);
             });
 
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapUpdateExpander(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateExpanderCommand model, IBoundary<UpdateExpanderCommand> boundary, IUpdateExpanderPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateExpanderRequestModel model, IBoundary<UpdateExpanderRequestModel> boundary, IUpdateExpanderPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -103,9 +103,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapDeleteExpander(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteExpanderCommand> boundary, IDeleteExpanderPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteExpanderRequestModel> boundary, IDeleteExpanderPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new DeleteExpanderCommand { Id = id }, presenter);
+                await boundary.Execute(new DeleteExpanderRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
 

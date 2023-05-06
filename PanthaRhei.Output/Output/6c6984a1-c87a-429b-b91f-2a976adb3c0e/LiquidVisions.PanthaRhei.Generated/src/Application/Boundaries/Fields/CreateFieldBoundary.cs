@@ -5,16 +5,16 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Fields;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Fields
 {
-    internal class CreateFieldBoundary : IBoundary<CreateFieldCommand>
+    internal class CreateFieldBoundary : IBoundary<CreateFieldRequestModel>
     {
-        private readonly IInteractor<CreateFieldCommand> interactor;
+        private readonly IInteractor<CreateFieldRequestModel> interactor;
 
-        public CreateFieldBoundary(IInteractor<CreateFieldCommand> interactor)
+        public CreateFieldBoundary(IInteractor<CreateFieldRequestModel> interactor)
         {
             this.interactor = interactor;
         }
 
-        public async Task Execute(CreateFieldCommand requestModel, IPresenter presenter) =>
+        public async Task Execute(CreateFieldRequestModel requestModel, IPresenter presenter) =>
             presenter.Response = await interactor.ExecuteUseCase(requestModel);
     }
 }

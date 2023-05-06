@@ -1,6 +1,7 @@
 {{-
 name = "Update" + entity.name;
 class_name = name + "Interactor";
+class_postfix = "RequestModel";
 -}}
 using System;
 using System.Threading.Tasks;
@@ -12,16 +13,16 @@ using {{entity.callsite}};
 
 namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
 {
-    internal class {{class_name}} : IInteractor<{{name}}Command>
+    internal class {{class_name}} : IInteractor<{{name}}{{class_postfix}}>
     {
-        private readonly IValidator<{{name}}Command> validator;
-        private readonly IMapper<{{name}}Command, {{entity.name}}> mapper;
+        private readonly IValidator<{{name}}{{class_postfix}}> validator;
+        private readonly IMapper<{{name}}{{class_postfix}}, {{entity.name}}> mapper;
         private readonly IUpdateGateway<{{entity.name}}> repository;
         private readonly IGetByIdGateway<{{entity.name}}> getRepository;
 
         public {{class_name}}(
-            IValidator<{{name}}Command> validator,
-            IMapper<{{name}}Command, {{entity.name}}> mapper,
+            IValidator<{{name}}{{class_postfix}}> validator,
+            IMapper<{{name}}{{class_postfix}}, {{entity.name}}> mapper,
             IUpdateGateway<{{entity.name}}> repository,
             IGetByIdGateway<{{entity.name}}> getRepository)
         {
@@ -31,7 +32,7 @@ namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
             this.getRepository = getRepository;
         }
 
-        public async Task<Response> ExecuteUseCase({{name}}Command requestModel)
+        public async Task<Response> ExecuteUseCase({{name}}{{class_postfix}} requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

@@ -8,14 +8,14 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Entities
 {
-    internal class DeleteEntityInteractor : IInteractor<DeleteEntityCommand>
+    internal class DeleteEntityInteractor : IInteractor<DeleteEntityRequestModel>
     {
-        private readonly IValidator<DeleteEntityCommand> validator;
+        private readonly IValidator<DeleteEntityRequestModel> validator;
         private readonly IDeleteGateway<Entity> repository;
         private readonly IGetByIdGateway<Entity> getByIdRepository;
 
         public DeleteEntityInteractor(
-            IValidator<DeleteEntityCommand> validator,
+            IValidator<DeleteEntityRequestModel> validator,
             IDeleteGateway<Entity> repository,
             IGetByIdGateway<Entity> getByIdRepository)
         {
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Entities
             this.getByIdRepository = getByIdRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(DeleteEntityCommand requestModel)
+        public async Task<Response> ExecuteUseCase(DeleteEntityRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

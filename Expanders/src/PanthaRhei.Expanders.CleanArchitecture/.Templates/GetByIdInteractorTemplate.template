@@ -1,6 +1,7 @@
 {{-
 name = "Get" + entity.name;
 class_name = name + "Interactor";
+class_postfix = "ByIdRequestModel"
 -}}
 using System;
 using System.Collections.Generic;
@@ -14,20 +15,20 @@ using {{entity.callsite}};
 
 namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
 {
-    internal class {{class_name}} : IInteractor<{{name}}ByIdQuery>
+    internal class {{class_name}} : IInteractor<{{name}}{{class_postfix}}>
     {
-        private readonly IValidator<{{name}}ByIdQuery> validator;
+        private readonly IValidator<{{name}}{{class_postfix}}> validator;
         private readonly IGetByIdGateway<{{entity.name}}> repository;
 
         public {{class_name}}(
-            IValidator<{{name}}ByIdQuery> validator,
+            IValidator<{{name}}{{class_postfix}}> validator,
             IGetByIdGateway<{{entity.name}}> repository)
         {
             this.validator = validator;
             this.repository = repository;
         }
 
-        public Task<Response> ExecuteUseCase({{name}}ByIdQuery model)
+        public Task<Response> ExecuteUseCase({{name}}{{class_postfix}} model)
         {
             return Task.Run(() =>
             {

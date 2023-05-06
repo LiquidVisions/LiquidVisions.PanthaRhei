@@ -5,16 +5,16 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Relationships
 {
-    internal class GetRelationshipsBoundary : IBoundary<GetRelationshipsQuery>
+    internal class GetRelationshipsBoundary : IBoundary<GetRelationshipsRequestModel>
     {
-        private readonly IInteractor<GetRelationshipsQuery> interactor;
+        private readonly IInteractor<GetRelationshipsRequestModel> interactor;
 
-        public GetRelationshipsBoundary(IInteractor<GetRelationshipsQuery> interactor)
+        public GetRelationshipsBoundary(IInteractor<GetRelationshipsRequestModel> interactor)
         {
             this.interactor = interactor;
         }
 
-        public async Task Execute(GetRelationshipsQuery requestModel, IPresenter presenter) =>
+        public async Task Execute(GetRelationshipsRequestModel requestModel, IPresenter presenter) =>
             presenter.Response = await interactor.ExecuteUseCase(requestModel);
     }
 }
