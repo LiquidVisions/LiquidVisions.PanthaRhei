@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Expanders
 {
-    internal class DeleteExpanderValidator : AbstractValidator<DeleteExpanderCommand>, IValidator<DeleteExpanderCommand>
+    internal class DeleteExpanderValidator : AbstractValidator<DeleteExpanderRequestModel>, IValidator<DeleteExpanderRequestModel>
     {
         public DeleteExpanderValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Expanders
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(DeleteExpanderCommand objectToValidate) => 
+        public new Response Validate(DeleteExpanderRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

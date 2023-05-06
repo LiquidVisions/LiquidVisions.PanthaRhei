@@ -1,8 +1,5 @@
 {{-
-model_type = "Command"
-if action == "Get" || action == "GetById"
-    model_type = "Query"
-end
+model_type = "RequestModel"
 
 class_name = action + entity.name + model_type
 if(action == "Get")

@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Entities
 {
-    internal class DeleteEntityValidator : AbstractValidator<DeleteEntityCommand>, IValidator<DeleteEntityCommand>
+    internal class DeleteEntityValidator : AbstractValidator<DeleteEntityRequestModel>, IValidator<DeleteEntityRequestModel>
     {
         public DeleteEntityValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Entities
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(DeleteEntityCommand objectToValidate) => 
+        public new Response Validate(DeleteEntityRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

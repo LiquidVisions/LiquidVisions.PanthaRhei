@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.ConnectionStr
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.ConnectionStrings
 {
-    internal class DeleteConnectionStringValidator : AbstractValidator<DeleteConnectionStringCommand>, IValidator<DeleteConnectionStringCommand>
+    internal class DeleteConnectionStringValidator : AbstractValidator<DeleteConnectionStringRequestModel>, IValidator<DeleteConnectionStringRequestModel>
     {
         public DeleteConnectionStringValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.ConnectionSt
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(DeleteConnectionStringCommand objectToValidate) => 
+        public new Response Validate(DeleteConnectionStringRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

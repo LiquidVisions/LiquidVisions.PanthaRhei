@@ -8,15 +8,15 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.ConnectionStrings
 {
-    internal class CreateConnectionStringInteractor : IInteractor<CreateConnectionStringCommand>
+    internal class CreateConnectionStringInteractor : IInteractor<CreateConnectionStringRequestModel>
     {
-        private readonly IValidator<CreateConnectionStringCommand> validator;
-        private readonly IMapper<CreateConnectionStringCommand, ConnectionString> mapper;
+        private readonly IValidator<CreateConnectionStringRequestModel> validator;
+        private readonly IMapper<CreateConnectionStringRequestModel, ConnectionString> mapper;
         private readonly ICreateGateway<ConnectionString> repository;
 
         public CreateConnectionStringInteractor(
-            IValidator<CreateConnectionStringCommand> validator,
-            IMapper<CreateConnectionStringCommand, ConnectionString> mapper,
+            IValidator<CreateConnectionStringRequestModel> validator,
+            IMapper<CreateConnectionStringRequestModel, ConnectionString> mapper,
             ICreateGateway<ConnectionString> gateway)
         {
             this.validator = validator;
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.ConnectionS
             repository = gateway;
         }
 
-        public async Task<Response> ExecuteUseCase(CreateConnectionStringCommand requestModel)
+        public async Task<Response> ExecuteUseCase(CreateConnectionStringRequestModel requestModel)
         {
             Response result = validator.Validate(requestModel);
             if (result.IsValid)

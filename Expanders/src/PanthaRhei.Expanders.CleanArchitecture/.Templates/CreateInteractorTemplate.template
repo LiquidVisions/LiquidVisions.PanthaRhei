@@ -1,6 +1,7 @@
 {{-
 name = "Create" + entity.name;
 class_name = name + "Interactor";
+class_postfix = "RequestModel"
 -}}
 using System;
 using System.Threading.Tasks;
@@ -12,15 +13,15 @@ using {{entity.callsite}};
 
 namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
 {
-    internal class {{class_name}} : IInteractor<{{name}}Command>
+    internal class {{class_name}} : IInteractor<{{name}}{{class_postfix}}>
     {
-        private readonly IValidator<{{name}}Command> validator;
-        private readonly IMapper<{{name}}Command, {{entity.name}}> mapper;
+        private readonly IValidator<{{name}}{{class_postfix}}> validator;
+        private readonly IMapper<{{name}}{{class_postfix}}, {{entity.name}}> mapper;
         private readonly ICreateGateway<{{entity.name}}> repository;
 
         public {{class_name}}(
-            IValidator<{{name}}Command> validator,
-            IMapper<{{name}}Command, {{entity.name}}> mapper,
+            IValidator<{{name}}{{class_postfix}}> validator,
+            IMapper<{{name}}{{class_postfix}}, {{entity.name}}> mapper,
             ICreateGateway<{{entity.name}}> gateway)
         {
             this.validator = validator;
@@ -28,7 +29,7 @@ namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
             repository = gateway;
         }
 
-        public async Task<Response> ExecuteUseCase({{name}}Command requestModel)
+        public async Task<Response> ExecuteUseCase({{name}}{{class_postfix}} requestModel)
         {
             Response result = validator.Validate(requestModel);
             if (result.IsValid)

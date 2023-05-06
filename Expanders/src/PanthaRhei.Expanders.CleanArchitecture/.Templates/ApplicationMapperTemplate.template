@@ -1,5 +1,5 @@
 {{-
-model_name = action+entity.name+"Command";
+model_name = action+entity.name+"RequestModel";
 -}}
 using {{component_fullname component 'RequestModels' entity.name | pluralize}};
 using {{entity.callsite}};

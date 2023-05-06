@@ -56,9 +56,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         public static string ToFileName(string action, Entity entity) =>
             action switch
             {
-                "Get" => $"Get{entity.Name.Pluralize()}Query",
-                "GetById" => $"Get{entity.Name}ByIdQuery",
-                _ => $"{action}{entity.Name}Command"
+                "Get" => $"Get{entity.Name.Pluralize()}RequestModel",
+                "GetById" => $"Get{entity.Name}ByIdRequestModel",
+                _ => $"{action}{entity.Name}RequestModel"
             };
 
         public void Execute()

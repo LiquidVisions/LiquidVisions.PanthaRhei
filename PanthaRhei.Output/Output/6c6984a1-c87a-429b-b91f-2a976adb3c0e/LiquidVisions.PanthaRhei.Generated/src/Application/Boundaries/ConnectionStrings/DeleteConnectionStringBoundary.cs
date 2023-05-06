@@ -5,16 +5,16 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.ConnectionStr
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries.ConnectionStrings
 {
-    internal class DeleteConnectionStringBoundary : IBoundary<DeleteConnectionStringCommand>
+    internal class DeleteConnectionStringBoundary : IBoundary<DeleteConnectionStringRequestModel>
     {
-        private readonly IInteractor<DeleteConnectionStringCommand> interactor;
+        private readonly IInteractor<DeleteConnectionStringRequestModel> interactor;
 
-        public DeleteConnectionStringBoundary(IInteractor<DeleteConnectionStringCommand> interactor)
+        public DeleteConnectionStringBoundary(IInteractor<DeleteConnectionStringRequestModel> interactor)
         {
             this.interactor = interactor;
         }
 
-        public async Task Execute(DeleteConnectionStringCommand requestModel, IPresenter presenter) =>
+        public async Task Execute(DeleteConnectionStringRequestModel requestModel, IPresenter presenter) =>
             presenter.Response = await interactor.ExecuteUseCase(requestModel);
     }
 }

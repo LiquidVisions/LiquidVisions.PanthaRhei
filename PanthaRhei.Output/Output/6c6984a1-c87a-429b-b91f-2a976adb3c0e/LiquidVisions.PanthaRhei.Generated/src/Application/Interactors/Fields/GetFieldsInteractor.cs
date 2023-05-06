@@ -10,20 +10,20 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Fields
 {
-    internal class GetFieldsInteractor : IInteractor<GetFieldsQuery>
+    internal class GetFieldsInteractor : IInteractor<GetFieldsRequestModel>
     {
-        private readonly IValidator<GetFieldsQuery> validator;
+        private readonly IValidator<GetFieldsRequestModel> validator;
         private readonly IGetGateway<Field> repository;
 
         public GetFieldsInteractor(
-            IValidator<GetFieldsQuery> validator,
+            IValidator<GetFieldsRequestModel> validator,
             IGetGateway<Field> repository)
         {
             this.validator = validator;
             this.repository = repository;
         }
 
-        public Task<Response> ExecuteUseCase(GetFieldsQuery model)
+        public Task<Response> ExecuteUseCase(GetFieldsRequestModel model)
         {
             return Task.Run(() =>
             {

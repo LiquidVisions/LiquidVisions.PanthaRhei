@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationships
 {
-    internal class DeleteRelationshipValidator : AbstractValidator<DeleteRelationshipCommand>, IValidator<DeleteRelationshipCommand>
+    internal class DeleteRelationshipValidator : AbstractValidator<DeleteRelationshipRequestModel>, IValidator<DeleteRelationshipRequestModel>
     {
         public DeleteRelationshipValidator()
         {
@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Validators.Relationship
             #endregion ns-custom-validations
         }
 
-        public new Response Validate(DeleteRelationshipCommand objectToValidate) => 
+        public new Response Validate(DeleteRelationshipRequestModel objectToValidate) => 
             base.Validate(objectToValidate)
                 .ToResponse();
     }

@@ -5,16 +5,16 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Fields;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Fields
 {
-    internal class DeleteFieldBoundary : IBoundary<DeleteFieldCommand>
+    internal class DeleteFieldBoundary : IBoundary<DeleteFieldRequestModel>
     {
-        private readonly IInteractor<DeleteFieldCommand> interactor;
+        private readonly IInteractor<DeleteFieldRequestModel> interactor;
 
-        public DeleteFieldBoundary(IInteractor<DeleteFieldCommand> interactor)
+        public DeleteFieldBoundary(IInteractor<DeleteFieldRequestModel> interactor)
         {
             this.interactor = interactor;
         }
 
-        public async Task Execute(DeleteFieldCommand requestModel, IPresenter presenter) =>
+        public async Task Execute(DeleteFieldRequestModel requestModel, IPresenter presenter) =>
             presenter.Response = await interactor.ExecuteUseCase(requestModel);
     }
 }

@@ -8,14 +8,14 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Relationships
 {
-    internal class DeleteRelationshipInteractor : IInteractor<DeleteRelationshipCommand>
+    internal class DeleteRelationshipInteractor : IInteractor<DeleteRelationshipRequestModel>
     {
-        private readonly IValidator<DeleteRelationshipCommand> validator;
+        private readonly IValidator<DeleteRelationshipRequestModel> validator;
         private readonly IDeleteGateway<Relationship> repository;
         private readonly IGetByIdGateway<Relationship> getByIdRepository;
 
         public DeleteRelationshipInteractor(
-            IValidator<DeleteRelationshipCommand> validator,
+            IValidator<DeleteRelationshipRequestModel> validator,
             IDeleteGateway<Relationship> repository,
             IGetByIdGateway<Relationship> getByIdRepository)
         {
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Relationshi
             this.getByIdRepository = getByIdRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(DeleteRelationshipCommand requestModel)
+        public async Task<Response> ExecuteUseCase(DeleteRelationshipRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

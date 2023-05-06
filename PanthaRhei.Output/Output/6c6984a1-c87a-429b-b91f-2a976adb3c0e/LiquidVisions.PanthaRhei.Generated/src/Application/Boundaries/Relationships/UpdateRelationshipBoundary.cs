@@ -5,16 +5,16 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Relationships
 {
-    internal class UpdateRelationshipBoundary : IBoundary<UpdateRelationshipCommand>
+    internal class UpdateRelationshipBoundary : IBoundary<UpdateRelationshipRequestModel>
     {
-        private readonly IInteractor<UpdateRelationshipCommand> interactor;
+        private readonly IInteractor<UpdateRelationshipRequestModel> interactor;
 
-        public UpdateRelationshipBoundary(IInteractor<UpdateRelationshipCommand> interactor)
+        public UpdateRelationshipBoundary(IInteractor<UpdateRelationshipRequestModel> interactor)
         {
             this.interactor = interactor;
         }
 
-        public async Task Execute(UpdateRelationshipCommand requestModel, IPresenter presenter) =>
+        public async Task Execute(UpdateRelationshipRequestModel requestModel, IPresenter presenter) =>
             presenter.Response = await interactor.ExecuteUseCase(requestModel);
     }
 }

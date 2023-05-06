@@ -5,16 +5,16 @@ using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Boundaries.Relationships
 {
-    internal class DeleteRelationshipBoundary : IBoundary<DeleteRelationshipCommand>
+    internal class DeleteRelationshipBoundary : IBoundary<DeleteRelationshipRequestModel>
     {
-        private readonly IInteractor<DeleteRelationshipCommand> interactor;
+        private readonly IInteractor<DeleteRelationshipRequestModel> interactor;
 
-        public DeleteRelationshipBoundary(IInteractor<DeleteRelationshipCommand> interactor)
+        public DeleteRelationshipBoundary(IInteractor<DeleteRelationshipRequestModel> interactor)
         {
             this.interactor = interactor;
         }
 
-        public async Task Execute(DeleteRelationshipCommand requestModel, IPresenter presenter) =>
+        public async Task Execute(DeleteRelationshipRequestModel requestModel, IPresenter presenter) =>
             presenter.Response = await interactor.ExecuteUseCase(requestModel);
     }
 }

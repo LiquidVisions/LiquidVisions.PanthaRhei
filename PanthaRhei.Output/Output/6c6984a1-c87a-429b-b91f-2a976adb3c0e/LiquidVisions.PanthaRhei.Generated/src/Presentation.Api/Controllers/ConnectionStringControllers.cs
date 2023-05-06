@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapCreateConnectionString(this WebApplication app)
         {
-            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateConnectionStringCommand model, IBoundary<CreateConnectionStringCommand> boundary, ICreateConnectionStringPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateConnectionStringRequestModel model, IBoundary<CreateConnectionStringRequestModel> boundary, ICreateConnectionStringPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -55,9 +55,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetConnectionString(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetConnectionStringByIdQuery> boundary, IGetByIdConnectionStringPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetConnectionStringByIdRequestModel> boundary, IGetByIdConnectionStringPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new GetConnectionStringByIdQuery { Id = id }, presenter);
+                await boundary.Execute(new GetConnectionStringByIdRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
             
@@ -71,9 +71,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetConnectionStrings(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetConnectionStringsQuery> boudary, IGetConnectionStringsPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetConnectionStringsRequestModel> boudary, IGetConnectionStringsPresenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new GetConnectionStringsQuery(), presenter);
+                await boudary.Execute(new GetConnectionStringsRequestModel(), presenter);
                 return presenter.GetResult(request);
             });
 
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapUpdateConnectionString(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateConnectionStringCommand model, IBoundary<UpdateConnectionStringCommand> boundary, IUpdateConnectionStringPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateConnectionStringRequestModel model, IBoundary<UpdateConnectionStringRequestModel> boundary, IUpdateConnectionStringPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -103,9 +103,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapDeleteConnectionString(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteConnectionStringCommand> boundary, IDeleteConnectionStringPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteConnectionStringRequestModel> boundary, IDeleteConnectionStringPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new DeleteConnectionStringCommand { Id = id }, presenter);
+                await boundary.Execute(new DeleteConnectionStringRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
 

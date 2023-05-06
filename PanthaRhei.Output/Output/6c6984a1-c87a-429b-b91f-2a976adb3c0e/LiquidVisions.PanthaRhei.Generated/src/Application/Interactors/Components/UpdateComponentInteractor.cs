@@ -8,16 +8,16 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Components
 {
-    internal class UpdateComponentInteractor : IInteractor<UpdateComponentCommand>
+    internal class UpdateComponentInteractor : IInteractor<UpdateComponentRequestModel>
     {
-        private readonly IValidator<UpdateComponentCommand> validator;
-        private readonly IMapper<UpdateComponentCommand, Component> mapper;
+        private readonly IValidator<UpdateComponentRequestModel> validator;
+        private readonly IMapper<UpdateComponentRequestModel, Component> mapper;
         private readonly IUpdateGateway<Component> repository;
         private readonly IGetByIdGateway<Component> getRepository;
 
         public UpdateComponentInteractor(
-            IValidator<UpdateComponentCommand> validator,
-            IMapper<UpdateComponentCommand, Component> mapper,
+            IValidator<UpdateComponentRequestModel> validator,
+            IMapper<UpdateComponentRequestModel, Component> mapper,
             IUpdateGateway<Component> repository,
             IGetByIdGateway<Component> getRepository)
         {
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.Components
             this.getRepository = getRepository;
         }
 
-        public async Task<Response> ExecuteUseCase(UpdateComponentCommand requestModel)
+        public async Task<Response> ExecuteUseCase(UpdateComponentRequestModel requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)

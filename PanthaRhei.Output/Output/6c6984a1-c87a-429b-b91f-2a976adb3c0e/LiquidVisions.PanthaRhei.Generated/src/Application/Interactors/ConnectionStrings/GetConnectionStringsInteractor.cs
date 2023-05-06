@@ -10,20 +10,20 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.ConnectionStrings
 {
-    internal class GetConnectionStringsInteractor : IInteractor<GetConnectionStringsQuery>
+    internal class GetConnectionStringsInteractor : IInteractor<GetConnectionStringsRequestModel>
     {
-        private readonly IValidator<GetConnectionStringsQuery> validator;
+        private readonly IValidator<GetConnectionStringsRequestModel> validator;
         private readonly IGetGateway<ConnectionString> repository;
 
         public GetConnectionStringsInteractor(
-            IValidator<GetConnectionStringsQuery> validator,
+            IValidator<GetConnectionStringsRequestModel> validator,
             IGetGateway<ConnectionString> repository)
         {
             this.validator = validator;
             this.repository = repository;
         }
 
-        public Task<Response> ExecuteUseCase(GetConnectionStringsQuery model)
+        public Task<Response> ExecuteUseCase(GetConnectionStringsRequestModel model)
         {
             return Task.Run(() =>
             {

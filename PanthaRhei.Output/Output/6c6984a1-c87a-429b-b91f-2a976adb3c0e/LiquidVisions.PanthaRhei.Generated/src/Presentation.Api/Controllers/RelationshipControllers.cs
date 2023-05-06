@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapCreateRelationship(this WebApplication app)
         {
-            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateRelationshipCommand model, IBoundary<CreateRelationshipCommand> boundary, ICreateRelationshipPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (CreateRelationshipRequestModel model, IBoundary<CreateRelationshipRequestModel> boundary, ICreateRelationshipPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -55,9 +55,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetRelationship(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetRelationshipByIdQuery> boundary, IGetByIdRelationshipPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<GetRelationshipByIdRequestModel> boundary, IGetByIdRelationshipPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new GetRelationshipByIdQuery { Id = id }, presenter);
+                await boundary.Execute(new GetRelationshipByIdRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
             
@@ -71,9 +71,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapGetRelationships(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetRelationshipsQuery> boudary, IGetRelationshipsPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<GetRelationshipsRequestModel> boudary, IGetRelationshipsPresenter presenter, HttpRequest request) =>
             {
-                await boudary.Execute(new GetRelationshipsQuery(), presenter);
+                await boudary.Execute(new GetRelationshipsRequestModel(), presenter);
                 return presenter.GetResult(request);
             });
 
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapUpdateRelationship(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateRelationshipCommand model, IBoundary<UpdateRelationshipCommand> boundary, IUpdateRelationshipPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (UpdateRelationshipRequestModel model, IBoundary<UpdateRelationshipRequestModel> boundary, IUpdateRelationshipPresenter presenter, HttpRequest request) =>
             {
                 await boundary.Execute(model, presenter);
                 return presenter.GetResult(request);
@@ -103,9 +103,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         private static WebApplication MapDeleteRelationship(this WebApplication app)
         {
-            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteRelationshipCommand> boundary, IDeleteRelationshipPresenter presenter, HttpRequest request) =>
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{{id:Guid}}", async (Guid id, IBoundary<DeleteRelationshipRequestModel> boundary, IDeleteRelationshipPresenter presenter, HttpRequest request) =>
             {
-                await boundary.Execute(new DeleteRelationshipCommand { Id = id }, presenter);
+                await boundary.Execute(new DeleteRelationshipRequestModel { Id = id }, presenter);
                 return presenter.GetResult(request);
             });
 

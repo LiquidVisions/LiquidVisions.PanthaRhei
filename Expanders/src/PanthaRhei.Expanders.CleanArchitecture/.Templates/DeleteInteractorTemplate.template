@@ -1,6 +1,7 @@
 {{-
 name = "Delete" + entity.name;
 class_name = name + "Interactor";
+class_postfix = "RequestModel"
 -}}
 using System;
 using System.Threading.Tasks;
@@ -12,14 +13,14 @@ using {{entity.callsite}};
 
 namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
 {
-    internal class {{class_name}} : IInteractor<{{name}}Command>
+    internal class {{class_name}} : IInteractor<{{name}}{{class_postfix}}>
     {
-        private readonly IValidator<{{name}}Command> validator;
+        private readonly IValidator<{{name}}{{class_postfix}}> validator;
         private readonly IDeleteGateway<{{entity.name}}> repository;
         private readonly IGetByIdGateway<{{entity.name}}> getByIdRepository;
 
         public {{class_name}}(
-            IValidator<{{name}}Command> validator,
+            IValidator<{{name}}{{class_postfix}}> validator,
             IDeleteGateway<{{entity.name}}> repository,
             IGetByIdGateway<{{entity.name}}> getByIdRepository)
         {
@@ -28,7 +29,7 @@ namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
             this.getByIdRepository = getByIdRepository;
         }
 
-        public async Task<Response> ExecuteUseCase({{name}}Command requestModel)
+        public async Task<Response> ExecuteUseCase({{name}}{{class_postfix}} requestModel)
         {
             Response response = validator.Validate(requestModel);
             if (response.IsValid)
