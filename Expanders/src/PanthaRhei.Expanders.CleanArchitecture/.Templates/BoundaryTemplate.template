@@ -4,7 +4,7 @@ if action_type == "Get"
     name = entity.name | pluralize
 end
 
-model_type = "RequestModel"
+model_type = get_postfix "RequestModel"
 
 class_name = action_type + name + "Boundary"
 model_name = action_type + name + model_type

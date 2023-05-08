@@ -1,7 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Parameters;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {
@@ -25,6 +28,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         {
             DependencyManager.AddTransient(typeof(IProjectAgentInteractor), typeof(ProjectAgentInteractor));
             DependencyManager.AddTransient(typeof(IProjectTemplateInteractor), typeof(DotNetTemplateInteractor));
+
+            DependencyManager.AddTransient(typeof(IElementTemplateParameters), typeof(RequestModelTemplateParameters));
+            //DependencyManager.AddTransient(typeof(IElementTemplateParameters[]), typeof(IEnumerable<IElementTemplateParameters>));
 
             base.Register();
         }

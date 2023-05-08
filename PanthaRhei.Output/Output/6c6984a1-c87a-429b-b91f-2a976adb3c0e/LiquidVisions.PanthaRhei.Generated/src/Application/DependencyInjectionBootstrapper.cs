@@ -61,200 +61,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddExpander();
             services.AddConnectionString();
             services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
             return services;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         private static IServiceCollection AddField(this IServiceCollection services)
         {
@@ -284,8 +92,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateFieldRequestModel>, UpdateFieldValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateFieldRequestModel, Field>, CreateFieldRequestModelRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateFieldRequestModel, Field>, UpdateFieldRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<CreateFieldRequestModel, Field>, CreateFieldRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateFieldRequestModel, Field>, UpdateFieldRequestModelMapper>();
 
             return services;
         }
@@ -318,8 +126,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateAppRequestModel>, UpdateAppValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateAppRequestModel, App>, CreateAppRequestModelRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateAppRequestModel, App>, UpdateAppRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<CreateAppRequestModel, App>, CreateAppRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateAppRequestModel, App>, UpdateAppRequestModelMapper>();
 
             return services;
         }
@@ -352,8 +160,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdatePackageRequestModel>, UpdatePackageValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreatePackageRequestModel, Package>, CreatePackageRequestModelRequestModelMapper>();
-            services.AddTransient<IMapper<UpdatePackageRequestModel, Package>, UpdatePackageRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<CreatePackageRequestModel, Package>, CreatePackageRequestModelMapper>();
+            services.AddTransient<IMapper<UpdatePackageRequestModel, Package>, UpdatePackageRequestModelMapper>();
 
             return services;
         }
@@ -386,8 +194,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateEntityRequestModel>, UpdateEntityValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateEntityRequestModel, Entity>, CreateEntityRequestModelRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateEntityRequestModel, Entity>, UpdateEntityRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<CreateEntityRequestModel, Entity>, CreateEntityRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateEntityRequestModel, Entity>, UpdateEntityRequestModelMapper>();
 
             return services;
         }
@@ -420,8 +228,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateComponentRequestModel>, UpdateComponentValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateComponentRequestModel, Component>, CreateComponentRequestModelRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateComponentRequestModel, Component>, UpdateComponentRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<CreateComponentRequestModel, Component>, CreateComponentRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateComponentRequestModel, Component>, UpdateComponentRequestModelMapper>();
 
             return services;
         }
@@ -454,8 +262,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateExpanderRequestModel>, UpdateExpanderValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateExpanderRequestModel, Expander>, CreateExpanderRequestModelRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateExpanderRequestModel, Expander>, UpdateExpanderRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<CreateExpanderRequestModel, Expander>, CreateExpanderRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateExpanderRequestModel, Expander>, UpdateExpanderRequestModelMapper>();
 
             return services;
         }
@@ -488,8 +296,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateConnectionStringRequestModel>, UpdateConnectionStringValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateConnectionStringRequestModel, ConnectionString>, CreateConnectionStringRequestModelRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateConnectionStringRequestModel, ConnectionString>, UpdateConnectionStringRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<CreateConnectionStringRequestModel, ConnectionString>, CreateConnectionStringRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateConnectionStringRequestModel, ConnectionString>, UpdateConnectionStringRequestModelMapper>();
 
             return services;
         }
@@ -522,8 +330,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddTransient<IValidator<UpdateRelationshipRequestModel>, UpdateRelationshipValidator>();
 
             // MAPPERS
-            services.AddTransient<IMapper<CreateRelationshipRequestModel, Relationship>, CreateRelationshipRequestModelRequestModelMapper>();
-            services.AddTransient<IMapper<UpdateRelationshipRequestModel, Relationship>, UpdateRelationshipRequestModelRequestModelMapper>();
+            services.AddTransient<IMapper<CreateRelationshipRequestModel, Relationship>, CreateRelationshipRequestModelMapper>();
+            services.AddTransient<IMapper<UpdateRelationshipRequestModel, Relationship>, UpdateRelationshipRequestModelMapper>();
 
             return services;
         }

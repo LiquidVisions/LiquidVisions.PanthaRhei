@@ -1,7 +1,7 @@
 {{-
 name = "Create" + entity.name;
 class_name = name + "Interactor";
-class_postfix = "RequestModel"
+class_postfix = get_postfix "RequestModel"
 -}}
 using System;
 using System.Threading.Tasks;

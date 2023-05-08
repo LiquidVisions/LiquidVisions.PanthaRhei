@@ -16,6 +16,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
         private readonly ITemplateLoaderInteractor templateLoader;
         private readonly IFile fileService;
         private readonly IDirectory directoryService;
+        private readonly ScriptObject scriptObject;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScribanTemplateInteractor"/> class.
@@ -27,12 +28,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
             templateLoader = dependencyFactory.Get<ITemplateLoaderInteractor>();
             fileService = dependencyFactory.Get<IFile>();
             directoryService = dependencyFactory.Get<IDirectory>();
+            scriptObject = dependencyFactory.Get<ScriptObject>();
         }
 
         /// <inheritdoc/>
         public string Render(string fullTemplatePath, object model)
         {
-            CustomScripts scriptObject = new();
             scriptObject.Import(model);
 
             string template = templateLoader.Load(fullTemplatePath);

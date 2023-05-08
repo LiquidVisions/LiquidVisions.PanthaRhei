@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Fields
 {
-    internal class UpdateFieldRequestModelRequestModelMapper : IMapper<UpdateFieldRequestModel, Field>
+    internal class UpdateFieldRequestModelMapper : IMapper<UpdateFieldRequestModel, Field>
     {
         public void Map(UpdateFieldRequestModel source, Field target)
         {

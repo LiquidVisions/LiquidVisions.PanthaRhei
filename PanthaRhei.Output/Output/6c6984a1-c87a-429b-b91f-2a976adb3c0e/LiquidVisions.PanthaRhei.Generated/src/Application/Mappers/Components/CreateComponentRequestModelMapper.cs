@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Components
 {
-    internal class CreateComponentRequestModelRequestModelMapper : IMapper<CreateComponentRequestModel, Component>
+    internal class CreateComponentRequestModelMapper : IMapper<CreateComponentRequestModel, Component>
     {
         public void Map(CreateComponentRequestModel source, Component target)
         {
