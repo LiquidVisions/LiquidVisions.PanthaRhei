@@ -1,9 +1,9 @@
-﻿using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Fields;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Fields;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Fields
 {
-    internal class CreateFieldRequestModelRequestModelMapper : IMapper<CreateFieldRequestModel, Field>
+    internal class CreateFieldRequestModelMapper : IMapper<CreateFieldRequestModel, Field>
     {
         public void Map(CreateFieldRequestModel source, Field target)
         {

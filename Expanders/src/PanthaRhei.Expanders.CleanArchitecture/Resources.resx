@@ -219,6 +219,12 @@
   <data name="RepositoryTemplate" xml:space="preserve">
     <value>RepositoryTemplate</value>
   </data>
+  <data name="RequestModelElementType" xml:space="preserve">
+    <value>RequestModel</value>
+  </data>
+  <data name="RequestModelNamePostfix" xml:space="preserve">
+    <value>RequestModel</value>
+  </data>
   <data name="RequestModelsFolder" xml:space="preserve">
     <value>RequestModels</value>
   </data>

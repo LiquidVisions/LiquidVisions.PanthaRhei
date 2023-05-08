@@ -1,9 +1,9 @@
-﻿using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Relationships;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Relationships
 {
-    internal class UpdateRelationshipRequestModelRequestModelMapper : IMapper<UpdateRelationshipRequestModel, Relationship>
+    internal class UpdateRelationshipRequestModelMapper : IMapper<UpdateRelationshipRequestModel, Relationship>
     {
         public void Map(UpdateRelationshipRequestModel source, Relationship target)
         {

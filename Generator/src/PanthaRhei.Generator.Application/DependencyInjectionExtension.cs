@@ -9,6 +9,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using Microsoft.Extensions.DependencyInjection;
+using Scriban.Runtime;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application 
 {
@@ -37,7 +38,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         private static IServiceCollection AddTemplateInteractors(this IServiceCollection services)
         {
             services.AddTransient<ITemplateInteractor, ScribanTemplateInteractor>()
-                .AddTransient<ITemplateLoaderInteractor, TemplateLoaderInteractor>();
+                .AddTransient<ITemplateLoaderInteractor, TemplateLoaderInteractor>()
+                .AddTransient<ScriptObject, CustomScripts>();
 
             return services;
         }
