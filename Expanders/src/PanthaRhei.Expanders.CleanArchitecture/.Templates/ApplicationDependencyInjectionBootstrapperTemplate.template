@@ -4,6 +4,7 @@ p = get_postfix 'RequestModel'
         private static IServiceCollection Add{{entity.name}}(this IServiceCollection services)
         {
             // CREATE {{entity.name | string.upcase}}
+
             services.AddTransient<IInteractor<Create{{entity.name}}{{p}}>, Create{{entity.name}}Interactor>();
             services.AddTransient<IBoundary<Create{{entity.name}}{{p}}>, Create{{entity.name}}Boundary>();
             services.AddTransient<IValidator<Create{{entity.name}}{{p}}>, Create{{entity.name}}Validator>();
