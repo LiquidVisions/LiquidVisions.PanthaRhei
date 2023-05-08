@@ -1,9 +1,9 @@
-﻿using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Entities;
+using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.Entities;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.Entities
 {
-    internal class UpdateEntityRequestModelRequestModelMapper : IMapper<UpdateEntityRequestModel, Entity>
+    internal class UpdateEntityRequestModelMapper : IMapper<UpdateEntityRequestModel, Entity>
     {
         public void Map(UpdateEntityRequestModel source, Entity target)
         {

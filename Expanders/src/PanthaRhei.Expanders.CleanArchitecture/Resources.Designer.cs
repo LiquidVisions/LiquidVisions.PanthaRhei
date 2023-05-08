@@ -367,6 +367,24 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RequestModel.
+        /// </summary>
+        public static string RequestModelElementType {
+            get {
+                return ResourceManager.GetString("RequestModelElementType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RequestModel.
+        /// </summary>
+        public static string RequestModelNamePostfix {
+            get {
+                return ResourceManager.GetString("RequestModelNamePostfix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RequestModels.
         /// </summary>
         public static string RequestModelsFolder {

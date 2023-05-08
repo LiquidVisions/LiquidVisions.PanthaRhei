@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using Pluralize.NET.Core;
 using Scriban.Runtime;
 
@@ -8,6 +10,21 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates
     public class CustomScripts : ScriptObject
     {
         private static readonly Pluralizer pluralizer = new();
+        private static readonly Dictionary<string, IElementTemplateParameters> elementTemplateParameters = new();
+
+        public CustomScripts(IEnumerable<IElementTemplateParameters> parameters)
+        {
+            foreach(var par in parameters)
+            {
+                if(!elementTemplateParameters.ContainsKey(par.ElementType))
+                {
+                    elementTemplateParameters.Add(par.ElementType, par);
+                }
+            }
+        }
+
+        public static string GetPostfix(string elementType)
+            => elementTemplateParameters[elementType].NamePostfix;
 
         public static string Pluralize(string name)
             => pluralizer.Pluralize(name);
