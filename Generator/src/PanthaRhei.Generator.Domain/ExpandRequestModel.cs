@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Text;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 
@@ -68,6 +69,17 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         {
             get => Path.Combine(Root, outputFolder, AppId.ToString());
             set => outputFolder = value;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"{nameof(ConnectionString)} = {ConnectionString}");
+            sb.AppendLine($"{nameof(AppId)} = {AppId}");
+            sb.AppendLine($"{nameof(GenerationMode)} = {GenerationMode}");
+            sb.AppendLine($"{nameof(Clean)} = {Clean}");
+            
+            return sb.ToString();
         }
     }
 }

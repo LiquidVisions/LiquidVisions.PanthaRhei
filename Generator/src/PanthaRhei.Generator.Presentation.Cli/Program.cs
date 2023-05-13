@@ -68,6 +68,8 @@ cmd.OnExecute(() =>
 
     provider.GetService<IExpandBoundary>()
         .Execute();
+
+    System.Console.ReadLine();
 });
 
 return cmd.Execute(args);
