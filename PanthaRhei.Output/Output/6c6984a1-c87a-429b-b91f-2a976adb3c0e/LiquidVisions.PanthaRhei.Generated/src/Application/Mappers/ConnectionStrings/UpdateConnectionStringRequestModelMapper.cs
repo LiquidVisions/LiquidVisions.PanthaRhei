@@ -1,4 +1,4 @@
-using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.ConnectionStrings;
+﻿using LiquidVisions.PanthaRhei.Generated.Application.RequestModels.ConnectionStrings;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Generated.Application.Mappers.ConnectionStrings
