@@ -61,204 +61,13 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
             services.AddExpander();
             services.AddConnectionString();
             services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
-            services.AddField();
-            services.AddApp();
-            services.AddPackage();
-            services.AddEntity();
-            services.AddComponent();
-            services.AddExpander();
-            services.AddConnectionString();
-            services.AddRelationship();
             return services;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         private static IServiceCollection AddField(this IServiceCollection services)
         {
             // CREATE FIELD
+
             services.AddTransient<IInteractor<CreateFieldRequestModel>, CreateFieldInteractor>();
             services.AddTransient<IBoundary<CreateFieldRequestModel>, CreateFieldBoundary>();
             services.AddTransient<IValidator<CreateFieldRequestModel>, CreateFieldValidator>();
@@ -293,6 +102,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddApp(this IServiceCollection services)
         {
             // CREATE APP
+
             services.AddTransient<IInteractor<CreateAppRequestModel>, CreateAppInteractor>();
             services.AddTransient<IBoundary<CreateAppRequestModel>, CreateAppBoundary>();
             services.AddTransient<IValidator<CreateAppRequestModel>, CreateAppValidator>();
@@ -327,6 +137,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddPackage(this IServiceCollection services)
         {
             // CREATE PACKAGE
+
             services.AddTransient<IInteractor<CreatePackageRequestModel>, CreatePackageInteractor>();
             services.AddTransient<IBoundary<CreatePackageRequestModel>, CreatePackageBoundary>();
             services.AddTransient<IValidator<CreatePackageRequestModel>, CreatePackageValidator>();
@@ -361,6 +172,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddEntity(this IServiceCollection services)
         {
             // CREATE ENTITY
+
             services.AddTransient<IInteractor<CreateEntityRequestModel>, CreateEntityInteractor>();
             services.AddTransient<IBoundary<CreateEntityRequestModel>, CreateEntityBoundary>();
             services.AddTransient<IValidator<CreateEntityRequestModel>, CreateEntityValidator>();
@@ -395,6 +207,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddComponent(this IServiceCollection services)
         {
             // CREATE COMPONENT
+
             services.AddTransient<IInteractor<CreateComponentRequestModel>, CreateComponentInteractor>();
             services.AddTransient<IBoundary<CreateComponentRequestModel>, CreateComponentBoundary>();
             services.AddTransient<IValidator<CreateComponentRequestModel>, CreateComponentValidator>();
@@ -429,6 +242,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddExpander(this IServiceCollection services)
         {
             // CREATE EXPANDER
+
             services.AddTransient<IInteractor<CreateExpanderRequestModel>, CreateExpanderInteractor>();
             services.AddTransient<IBoundary<CreateExpanderRequestModel>, CreateExpanderBoundary>();
             services.AddTransient<IValidator<CreateExpanderRequestModel>, CreateExpanderValidator>();
@@ -463,6 +277,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddConnectionString(this IServiceCollection services)
         {
             // CREATE CONNECTIONSTRING
+
             services.AddTransient<IInteractor<CreateConnectionStringRequestModel>, CreateConnectionStringInteractor>();
             services.AddTransient<IBoundary<CreateConnectionStringRequestModel>, CreateConnectionStringBoundary>();
             services.AddTransient<IValidator<CreateConnectionStringRequestModel>, CreateConnectionStringValidator>();
@@ -497,6 +312,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application
         private static IServiceCollection AddRelationship(this IServiceCollection services)
         {
             // CREATE RELATIONSHIP
+
             services.AddTransient<IInteractor<CreateRelationshipRequestModel>, CreateRelationshipInteractor>();
             services.AddTransient<IBoundary<CreateRelationshipRequestModel>, CreateRelationshipBoundary>();
             services.AddTransient<IValidator<CreateRelationshipRequestModel>, CreateRelationshipValidator>();
