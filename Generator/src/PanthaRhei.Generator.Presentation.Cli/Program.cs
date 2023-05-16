@@ -8,6 +8,7 @@ using LiquidVisions.PanthaRhei.Generator.Infrastructure;
 using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using LiquidVisions.PanthaRhei.Generator.Presentation.Cli;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 var cmd = new CommandLineApplication();
@@ -46,10 +47,15 @@ var reseed = cmd.Option<bool>(
 
 cmd.OnExecute(() =>
 {
+    var connectionString = new ConfigurationBuilder()
+        .AddUserSecrets<Program>()
+        .Build()
+        .GetConnectionString(dbOption.Value());
+
     ExpandRequestModel expandRequestModel = new ExpandRequestModel
     {
         AppId = Guid.Parse(appOption.Value()),
-        ConnectionString = dbOption.Value(),
+        ConnectionString = connectionString,
         ReSeed = reseed.HasValue(),
         Root = rootOption.Value(),
         Clean = cleanModeOption.HasValue(),

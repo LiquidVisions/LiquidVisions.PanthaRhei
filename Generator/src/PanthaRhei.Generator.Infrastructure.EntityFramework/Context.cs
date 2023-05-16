@@ -1,9 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic.FileIO;
 
 namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
 {
@@ -74,10 +77,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         {
             if (!optionsBuilder.IsConfigured)
             {
+                var builder = new ConfigurationBuilder()
+                    .AddUserSecrets<Context>();
+                var configurationRoot = builder.Build();
+
+                string connectionString = configurationRoot.GetConnectionString("PanthaRheiDev");
+
                 optionsBuilder
                     .UseLoggerFactory(ContextExtensions.GetLoggerFactory())
                     .EnableSensitiveDataLogging()
-                    .UseSqlServer(@"Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=1qJ4AFcHyb7QL4gM!5n2vk2@^$%U;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                    .UseSqlServer(connectionString);
             }
         }
 
