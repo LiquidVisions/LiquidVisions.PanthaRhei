@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // act
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
@@ -86,7 +86,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void CanExecute_ShouldBeFalse(GenerationModes mode, bool expectedResult)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.GenerationMode).Returns(mode);
+            fakes.GenerationOptions.Setup(x => x.GenerationMode).Returns(mode);
 
             // act
             // assert

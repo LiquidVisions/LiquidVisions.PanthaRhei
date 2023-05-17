@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     {
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly CleanArchitectureExpander expander;
         private readonly App app;
         private readonly Component infrastructureComponent;
@@ -36,14 +36,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
 
             infrastructureComponent = Expander.Model.GetComponentByName(Resources.EntityFramework);
             domainComponent = Expander.Model.GetComponentByName(Resources.Domain);
 
-            fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.EntityDatabaseConfigurationTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.EntityDatabaseConfigurationTemplate);
             string componentOutputPath = projectAgent.GetComponentOutputFolder(infrastructureComponent);
             targetFolderPath = Path.Combine(componentOutputPath, Resources.InfrastructureConfigurationFolder);
         }
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public void Execute()

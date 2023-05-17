@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
         private readonly IGetGateway<Harvest> harvestGateway;
         private readonly IWriterInteractor writer;
         private readonly string folder;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionRejuvenatorInteractor{TExpander}"/> class.
@@ -28,16 +28,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
         public RegionRejuvenatorInteractor(IDependencyFactoryInteractor dependencyFactory)
             : base(dependencyFactory)
         {
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
 
             directoryService = dependencyFactory.Get<IDirectory>();
             harvestGateway = dependencyFactory.Get<IGetGateway<Harvest>>();
             writer = dependencyFactory.Get<IWriterInteractor>();
-            folder = Path.Combine(expandRequestModel.HarvestFolder, Expander.Model.Name);
+            folder = Path.Combine(options.HarvestFolder, Expander.Model.Name);
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => !expandRequestModel.GenerationMode.HasFlag(GenerationModes.Deploy) && directoryService.Exists(folder);
+        public override bool CanExecute => !options.GenerationMode.HasFlag(GenerationModes.Deploy) && directoryService.Exists(folder);
 
         /// <inheritdoc/>
         protected override string Extension => Resources.RegionHarvesterExtensionFile;

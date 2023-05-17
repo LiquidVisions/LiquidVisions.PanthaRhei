@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
         private readonly ISeederInteractor seederInteractor;
         private readonly ILogger logger;
         private readonly ILogger exceptionLogger;
-        private readonly ExpandRequestModel requestModel;
+        private readonly GenerationOptions options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandBoundary"/> class.
@@ -31,13 +31,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
                 .Get<ILogManager>()
                 .GetExceptionLogger();
 
-            requestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
         }
 
         /// <inheritdoc/>
         public void Execute()
         {
-            logger.Info(requestModel.ToString());
+            logger.Info(options.ToString());
 
             if(!TrySeed())
             {

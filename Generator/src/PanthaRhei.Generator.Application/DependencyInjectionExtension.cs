@@ -1,13 +1,18 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 using Scriban.Runtime;
 
@@ -23,10 +28,27 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
         /// Adds the dependencies of the project to the dependency inversion object.
         /// </summary>
         /// <param name="services"><seealso cref="IServiceCollection"/></param>
+        /// <param name="requestModel"><seealso cref="ExpandOptionsRequestModel"/></param>
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
-        public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
+        public static IServiceCollection AddApplicationLayer(this IServiceCollection services, ExpandOptionsRequestModel requestModel)
         {
-            return services.AddTransient<ICodeGeneratorBuilderInteractor, CodeGeneratorBuilderInteractor>()
+            GenerationOptions options = new()
+            {
+                AppId = requestModel.AppId,
+                Clean = requestModel.Clean,
+                ConnectionString = requestModel.ConnectionString,
+                ExpandersFolder = requestModel.ExpandersFolder,
+                GenerationMode = Enum.Parse<GenerationModes>(requestModel.GenerationMode),
+                HarvestFolder = requestModel.HarvestFolder,
+                OutputFolder = requestModel.OutputFolder,
+                ReSeed = requestModel.ReSeed,
+                Root = requestModel.Root,
+            };
+
+            return services.AddDomainLayer(options)
+                .AddInfrastructureLayer()
+                .AddEntityFrameworkLayer()
+                .AddTransient<ICodeGeneratorBuilderInteractor, CodeGeneratorBuilderInteractor>()
                 .AddTransient<IEntitiesToSeedGateway, EntitiesToSeedGateway>()
                 .AddTransient<ICodeGeneratorInteractor, CodeGeneratorInteractor>()
                 .AddInitializers()

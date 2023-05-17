@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
@@ -31,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogger>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 
@@ -40,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
         {
             // arrange
             string expectedCommandLineParameters = "CustomCommandLineParameters";
-            string expectedOutputFolder = Path.Combine(fakes.Parameters.Object.OutputFolder, CleanArchitectureFakes.DefaultAppFullName);
+            string expectedOutputFolder = Path.Combine(fakes.GenerationOptions.Object.OutputFolder, CleanArchitectureFakes.DefaultAppFullName);
 
             // act
             interactor.CreateNew(expectedCommandLineParameters);

@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     public class ExpandValidatorsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly App app;
@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
@@ -45,7 +45,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries).ToList();
             component = expander.Model.GetComponentByName(Resources.Application);
             fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
-            fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.ValidatorTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.ValidatorTemplate);
         }
 
         public int Order => 6;
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         public void Execute()
         {

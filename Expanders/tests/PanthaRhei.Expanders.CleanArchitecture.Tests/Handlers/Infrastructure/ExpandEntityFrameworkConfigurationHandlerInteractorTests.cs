@@ -2,6 +2,7 @@
 using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastructure;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
@@ -36,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
@@ -68,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         public void CanExecute_ShouldBeFalse(GenerationModes mode, bool expectedResult)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.GenerationMode).Returns(mode);
+            fakes.GenerationOptions.Setup(x => x.GenerationMode).Returns(mode);
 
             // act
             // assert
@@ -81,8 +82,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         public void CanExecute_ShouldOnlyBeTrueWhenCleanParameterIsSetToTrue(bool clean, bool expectedResult)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.GenerationMode).Returns(GenerationModes.Default);
-            fakes.Parameters.Setup(x => x.Clean).Returns(clean);
+            fakes.GenerationOptions.Setup(x => x.GenerationMode).Returns(GenerationModes.Default);
+            fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
 
             // act
             // assert
@@ -93,7 +94,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         public void Execute_ShouldCreateAndSaveTemplate()
         {
             // arrange
-            string expectedTemplateBaseBath = Path.Combine(fakes.Parameters.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.InfrastructureDependencyInjectionBootstrapperTemplate}.template");
+            string expectedTemplateBaseBath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.InfrastructureDependencyInjectionBootstrapperTemplate}.template");
             string expectedRenderResult = "ExpectedRenderResult";
             fakes.ITemplateInteractor.Setup(x => x.Render(expectedTemplateBaseBath, It.Is<object>(x => x.GetHashCode() == new { Entity = fakes.ExpectedEntity }.GetHashCode()))).Returns(expectedRenderResult);
 

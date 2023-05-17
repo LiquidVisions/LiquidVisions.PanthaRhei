@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Boundaries
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ISeederInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogger>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogManager>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 

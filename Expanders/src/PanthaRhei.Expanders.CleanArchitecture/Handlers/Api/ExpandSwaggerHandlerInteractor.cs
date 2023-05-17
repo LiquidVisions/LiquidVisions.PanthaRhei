@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     public class ExpandSwaggerHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly CleanArchitectureExpander expander;
 
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         public ExpandSwaggerHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
         {
             writer = dependencyFactory.Get<IWriterInteractor>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             this.expander = expander;
         }
@@ -35,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public void Execute()

@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     {
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly App app;
         private readonly Generator.Domain.Entities.Component component;
         private readonly Generator.Domain.Entities.Component applicationComponent;
@@ -35,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
 
             component = expander.Model.GetComponentByName(Resources.EntityFramework);
@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             fullPathToRepositoryFolder = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.RepositoryFolder);
             directory = dependencyFactory.Get<IDirectory>();
 
-            fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.RepositoryTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.RepositoryTemplate);
         }
 
         public int Order => 11;
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public void Execute()

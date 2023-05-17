@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
 
         private static IServiceCollection AddLogging(this IServiceCollection services)
         {
-            ExpandRequestModel requestModel = services.BuildServiceProvider().GetService<ExpandRequestModel>();
+            GenerationOptions requestModel = services.BuildServiceProvider().GetService<GenerationOptions>();
             var logManager = new LogManager(requestModel);
 
             services.AddSingleton<ILogManager>(logManager);

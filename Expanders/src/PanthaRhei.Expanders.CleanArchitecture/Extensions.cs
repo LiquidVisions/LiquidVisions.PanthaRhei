@@ -9,7 +9,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     {
         private static readonly Pluralizer pluralizer = new();
 
-        internal static string GetPathToTemplate(this Expander expander, ExpandRequestModel expandRequestModel, string templateName)
+        internal static string GetPathToTemplate(this Expander expander, GenerationOptions expandRequestModel, string templateName)
         {
             return Path.Combine(expandRequestModel.ExpandersFolder, expander.Name, expander.TemplateFolder, $"{templateName}.template");
         }
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
             return result;
         }
 
-        internal static bool CanExecuteDefaultAndExtend(this ExpandRequestModel expandRequestModel)
+        internal static bool CanExecuteDefaultAndExtend(this GenerationOptions expandRequestModel)
         {
             return expandRequestModel.GenerationMode.HasFlag(GenerationModes.Default)
                 || expandRequestModel.GenerationMode.HasFlag(GenerationModes.Extend);

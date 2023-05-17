@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     /// <summary>
     /// Global requestmodel for the generation operations.
     /// </summary>
-    public class ExpandRequestModel
+    public class GenerationOptions
     {
         private string harvestFolder = "Harvest";
         private string expanderFolder = "Expanders";

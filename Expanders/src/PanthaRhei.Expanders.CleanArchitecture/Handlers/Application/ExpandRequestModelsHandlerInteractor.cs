@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     public class ExpandRequestModelsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly App app;
@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
@@ -51,7 +51,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         public static string ToFileName(string action, Entity entity) =>
             action switch
@@ -70,7 +70,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
                 foreach (string action in actions)
                 {
-                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.RequestModelTemplate);
+                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.RequestModelTemplate);
                     string fullPathToFile = Path.Combine(endpointFolder, $"{ToFileName(action, entity)}.cs");
                     object templateModel = new
                     {

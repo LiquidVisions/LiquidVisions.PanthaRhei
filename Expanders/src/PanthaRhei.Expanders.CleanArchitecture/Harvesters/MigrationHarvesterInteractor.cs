@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
     {
         private readonly string migrationsFolder;
         private readonly ICreateGateway<Harvest> gateway;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly CleanArchitectureExpander expander;
         private readonly IFile file;
         private readonly IDirectory directory;
@@ -28,12 +28,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
         public MigrationHarvesterInteractor(IDependencyFactoryInteractor factory)
         {
             gateway = factory.Get<ICreateGateway<Harvest>>();
-            expandRequestModel = factory.Get<ExpandRequestModel>();
+            options = factory.Get<GenerationOptions>();
             expander = factory.Get<CleanArchitectureExpander>();
             file = factory.Get<IFile>();
             directory = factory.Get<IDirectory>();
 
-            migrationsFolder = System.IO.Path.Combine(expandRequestModel.OutputFolder, Resources.InfrastructureMigrationsFolder);
+            migrationsFolder = System.IO.Path.Combine(options.OutputFolder, Resources.InfrastructureMigrationsFolder);
         }
 
         /// <inheritdoc/>

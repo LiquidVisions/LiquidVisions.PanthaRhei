@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
     internal class HarvestRepository : ICreateGateway<Harvest>, IGetGateway<Harvest>
     {
         private readonly IHarvestSerializerInteractor serializer;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions expandRequestModel;
         private readonly App app;
         private readonly IDeserializerInteractor<Harvest> deserializer;
         private readonly IFile file;
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
             file = dependencyFactory.Get<IFile>();
             deserializer = dependencyFactory.Get<IDeserializerInteractor<Harvest>>();
             serializer = dependencyFactory.Get<IHarvestSerializerInteractor>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            expandRequestModel = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
         }
 

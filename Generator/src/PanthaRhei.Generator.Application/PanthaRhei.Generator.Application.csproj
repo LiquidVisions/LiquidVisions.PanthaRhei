@@ -22,9 +22,16 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj" />
-	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj" />
-	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj" />
+	  <ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj">
+	    <PrivateAssets>all</PrivateAssets>
+	  </ProjectReference>
+	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj">
+	    <PrivateAssets>all</PrivateAssets>
+	  </ProjectReference>
+	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj">
+	    <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Generator.Application.Tests" />

@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         private readonly ICommandLineInteractor commandLine;
         private readonly IProjectAgentInteractor agentInteractor;
         private readonly ILogger logger;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly App app;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         {
             commandLine = dependencyFactory.Get<ICommandLineInteractor>();
             logger = dependencyFactory.Get<ILogger>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             agentInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
         }
@@ -35,13 +35,13 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// <summary>
         /// Creates a .csproj with the dotnet new command and and adds it to the solution.
         /// </summary>
-        /// <param name="commandParameters">The dotnet cli command expandRequestModel.</param>
+        /// <param name="commandParameters">The dotnet cli command options.</param>
         public virtual void CreateNew(string commandParameters)
         {
             string name = app.Name;
             string ns = app.FullName;
 
-            string outputFolder = Path.Combine(expandRequestModel.OutputFolder, ns);
+            string outputFolder = Path.Combine(options.OutputFolder, ns);
 
             logger.Info($"Creating directory {outputFolder}");
             commandLine.Start($"mkdir {outputFolder}");

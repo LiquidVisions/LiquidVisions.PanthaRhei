@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void CanExecute_ShouldBeFalse(GenerationModes mode, bool expectedResult)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.GenerationMode).Returns(mode);
+            fakes.GenerationOptions.Setup(x => x.GenerationMode).Returns(mode);
 
             // act
             // assert
@@ -79,8 +79,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void CanExecute_ShouldOnlyBeTrueWhenCleanParameterIsSetToTrue(bool clean, bool expectedResult)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.GenerationMode).Returns(GenerationModes.Default);
-            fakes.Parameters.Setup(x => x.Clean).Returns(clean);
+            fakes.GenerationOptions.Setup(x => x.GenerationMode).Returns(GenerationModes.Default);
+            fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
 
             // act
             // assert
@@ -93,7 +93,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             string componentPath = "C:\\Some\\Folder\\Path";
             string endpointPath = Path.Combine(componentPath, CleanArchitectureResources.EndpointFolder);
-            string expextedFullPathToTemplate = Path.Combine(Extensions.GetPathToTemplate(fakes.CleanArchitectureExpander.Object.Model, fakes.Parameters.Object, CleanArchitectureResources.EndpointTemplate));
+            string expextedFullPathToTemplate = Path.Combine(Extensions.GetPathToTemplate(fakes.CleanArchitectureExpander.Object.Model, fakes.GenerationOptions.Object, CleanArchitectureResources.EndpointTemplate));
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(componentPath);
 
             var expectedTemplateParameters = new

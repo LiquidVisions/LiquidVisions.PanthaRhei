@@ -8,7 +8,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Tests.Logging
 {
     public class LogManagerTests
     {
-        private readonly LogManager logManager = new(new ExpandRequestModel { Root = "C:\\Some\\Root\\Path" });
+        private readonly LogManager logManager = new(new GenerationOptions { Root = "C:\\Some\\Root\\Path" });
 
         [Fact]
         public void Logger_ShouldBeOfCorrectType()
