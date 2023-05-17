@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
@@ -73,12 +76,17 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{nameof(ConnectionString)} = {ConnectionString}");
-            sb.AppendLine($"{nameof(AppId)} = {AppId}");
-            sb.AppendLine($"{nameof(GenerationMode)} = {GenerationMode}");
-            sb.AppendLine($"{nameof(Clean)} = {Clean}");
-            
+            StringBuilder sb = new();
+            sb.Append("CommandParameters")
+                .AppendLine(" { ");
+
+            this.GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .ToList()
+                .ForEach(property => sb.AppendLine($" \"{property.Name}\": \"{property.GetValue(this)}\", "));
+
+            sb.AppendLine("}");
+
             return sb.ToString();
         }
     }
