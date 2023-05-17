@@ -28,9 +28,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         {
             DependencyManager.AddTransient(typeof(IProjectAgentInteractor), typeof(ProjectAgentInteractor));
             DependencyManager.AddTransient(typeof(IProjectTemplateInteractor), typeof(DotNetTemplateInteractor));
-
             DependencyManager.AddTransient(typeof(IElementTemplateParameters), typeof(RequestModelTemplateParameters));
-            //DependencyManager.AddTransient(typeof(IElementTemplateParameters[]), typeof(IEnumerable<IElementTemplateParameters>));
 
             base.Register();
         }

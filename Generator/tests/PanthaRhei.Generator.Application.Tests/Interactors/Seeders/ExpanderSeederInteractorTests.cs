@@ -76,7 +76,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
         {
             // arrange
             App app = new();
-            Mock<IExpanderInteractor> mockedExpanderInteractor = new Mock<IExpanderInteractor>();
+            Mock<IExpanderInteractor> mockedExpanderInteractor = new();
             mockedExpanderInteractor.Setup(x => x.Name).Returns("RandomName");
             mockedExpanderInteractor.Setup(x => x.Order).Returns(2);
             fakes.IExpanderPluginLoaderInteractor.Setup(x => x.ShallowLoadAllExpanders(fakes.Parameters.Object.ExpandersFolder)).Returns(new List<IExpanderInteractor> { mockedExpanderInteractor.Object });

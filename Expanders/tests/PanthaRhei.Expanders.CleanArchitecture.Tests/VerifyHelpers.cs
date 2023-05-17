@@ -6,8 +6,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
     {
         public static bool AreEqualObjects(object expected, object actual)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            JsonSerializerSettings settings = new()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            };
             var expectedJson = JsonConvert.SerializeObject(expected, settings);
             var actualJson = JsonConvert.SerializeObject(actual, settings);
 

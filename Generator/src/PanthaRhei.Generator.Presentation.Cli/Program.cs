@@ -52,7 +52,7 @@ cmd.OnExecute(() =>
         .Build()
         .GetConnectionString(dbOption.Value());
 
-    ExpandRequestModel expandRequestModel = new ExpandRequestModel
+    ExpandRequestModel expandRequestModel = new()
     {
         AppId = Guid.Parse(appOption.Value()),
         ConnectionString = connectionString,

@@ -17,12 +17,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         private readonly string outputFolder;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly List<Entity> allEntities;
-        private readonly App app;
 
         public ExpandRepositoryHandlerInteractorTests()
         {
             allEntities = fakes.GetValidEntities();
-            app = fakes.SetupApp(allEntities);
             fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.InfrastructureComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(allEntities);
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);

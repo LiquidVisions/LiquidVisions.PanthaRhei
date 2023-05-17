@@ -33,11 +33,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
         /// <inheritdoc/>
         public ICodeGeneratorInteractor Build()
         {
-            App app = gateway.GetById(expandRequestModel.AppId);
-            if (app == null)
-            {
-                throw new CodeGenerationException($"No application model available with the provided Id {expandRequestModel.AppId}.");
-            }
+            App app = gateway.GetById(expandRequestModel.AppId) ?? throw new CodeGenerationException($"No application model available with the provided Id {expandRequestModel.AppId}.");
 
             pluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
             dependencyManager.AddSingleton(app);

@@ -23,7 +23,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
         /// <param name="name">The name of the logger.</param>
         internal Logger(string name)
         {
-
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException(nameof(name));

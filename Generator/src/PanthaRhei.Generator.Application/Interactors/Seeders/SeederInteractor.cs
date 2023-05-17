@@ -6,7 +6,6 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-
     internal class SeederInteractor : ISeederInteractor
     {
         private readonly ExpandRequestModel expandRequestModel;

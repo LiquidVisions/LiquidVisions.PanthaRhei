@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
@@ -94,6 +95,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             return app;
         }
 
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "No static methods")]
         internal List<Entity> GetValidEntities()
         {
             List<Entity> entities = new()

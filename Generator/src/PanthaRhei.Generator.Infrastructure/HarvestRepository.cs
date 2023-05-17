@@ -19,7 +19,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
         private readonly IDeserializerInteractor<Harvest> deserializer;
         private readonly IFile file;
 
-
         public HarvestRepository(IDependencyFactoryInteractor dependencyFactory)
         {
             file = dependencyFactory.Get<IFile>();

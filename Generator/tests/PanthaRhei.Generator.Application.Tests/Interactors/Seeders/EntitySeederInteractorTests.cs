@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Generator.Application.Tests.Mocks;
@@ -183,10 +184,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
                 .Returns(types);
         }
 
+        [SuppressMessage("Minor Code Smell", "S2094:Classes should not be empty", Justification = "Used for testing")]
+        [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "suppress")]
         protected class ProptectedClass
         {
         }
 
+        [SuppressMessage("Minor Code Smell", "S2094:Classes should not be empty", Justification = "Used for testing")]
+        [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "suppress")]
         private class PrivateClass
         {
         }

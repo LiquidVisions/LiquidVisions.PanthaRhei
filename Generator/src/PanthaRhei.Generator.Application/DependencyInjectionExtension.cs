@@ -11,7 +11,7 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using Microsoft.Extensions.DependencyInjection;
 using Scriban.Runtime;
 
-namespace LiquidVisions.PanthaRhei.Generator.Application 
+namespace LiquidVisions.PanthaRhei.Generator.Application
 {
     /// <summary>
     /// DependencyInjection extensions for the application library.
@@ -64,7 +64,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
             services.AddTransient<IEntitySeederInteractor<App>, AppSeederInteractor>()
                 .AddTransient<IEntitySeederInteractor<App>, ExpanderSeederInteractor>()
                 .AddTransient<IEntitySeederInteractor<App>, EntitySeederInteractor>()
-                //.AddTransient<ISeederInteractor<App>, PackageSeederInteractor>()
                 .AddTransient<IEntitySeederInteractor<App>, FieldSeederInteractor>()
                 .AddTransient<IEntitySeederInteractor<App>, ComponentSeederInteractor>()
                 .AddTransient<IEntitySeederInteractor<App>, ConnectionStringsSeederInteractor>()

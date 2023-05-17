@@ -75,7 +75,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
 
                     return true;
                 }
-
             }
             catch (CodeGenerationException ex)
             {
