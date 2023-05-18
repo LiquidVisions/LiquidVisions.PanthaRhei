@@ -11,8 +11,6 @@ using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Generator.Infrastructure;
-using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 using Scriban.Runtime;
 
@@ -46,8 +44,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
             };
 
             return services.AddDomainLayer(options)
-                .AddInfrastructureLayer()
-                .AddEntityFrameworkLayer()
                 .AddTransient<ICodeGeneratorBuilderInteractor, CodeGeneratorBuilderInteractor>()
                 .AddTransient<IEntitiesToSeedGateway, EntitiesToSeedGateway>()
                 .AddTransient<ICodeGeneratorInteractor, CodeGeneratorInteractor>()

@@ -3,6 +3,8 @@ using System;
 using LiquidVisions.PanthaRhei.Generator.Application;
 using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using LiquidVisions.PanthaRhei.Generator.Presentation.Cli;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Configuration;
@@ -44,7 +46,7 @@ var reseed = cmd.Option<bool>(
 
 cmd.OnExecute(() =>
 {
-    ExpandOptionsRequestModel expandRequestModel = new()
+    ExpandOptionsRequestModel requestModel = new()
     {
         AppId = Guid.Parse(appOption.Value()),
         ReSeed = reseed.HasValue(),
@@ -58,7 +60,7 @@ cmd.OnExecute(() =>
     };
 
     var provider = new ServiceCollection()
-        .AddApplicationLayer(expandRequestModel)
+        .AddPresentationLayer(requestModel)
         .BuildServiceProvider();
 
     provider.GetService<IExpandBoundary>()

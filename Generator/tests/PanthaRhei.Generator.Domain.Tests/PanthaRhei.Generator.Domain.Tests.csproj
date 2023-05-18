@@ -7,7 +7,10 @@
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
-
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="coverlet.msbuild" Version="3.2.0">
 		  <PrivateAssets>all</PrivateAssets>

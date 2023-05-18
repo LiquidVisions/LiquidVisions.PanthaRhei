@@ -32,7 +32,9 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj" />
+	  <ProjectReference Include="..\PanthaRhei.Generator.Application\PanthaRhei.Generator.Application.csproj">
+	    <PrivateAssets></PrivateAssets>
+	  </ProjectReference>
 	</ItemGroup>
 
 </Project>

@@ -45,6 +45,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\PanthaRhei.Generator.Application\PanthaRhei.Generator.Application.csproj" />
+		<ProjectReference Include="..\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj" />
+		<ProjectReference Include="..\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="NLog.config">

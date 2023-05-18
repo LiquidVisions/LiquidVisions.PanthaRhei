@@ -23,14 +23,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj">
-	    <PrivateAssets>all</PrivateAssets>
-	  </ProjectReference>
-	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj">
-	    <PrivateAssets>all</PrivateAssets>
-	  </ProjectReference>
-	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj">
-	    <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	    <PrivateAssets></PrivateAssets>
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
