@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Harvest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Path>C:\Dev\LiquidVisions.PanthaRhei\PanthaRhei.Output\Output\6c6984a1-c87a-429b-b91f-2a976adb3c0e\LiquidVisions.PanthaRhei.Generated\src\Domain\Entities\App.cs</Path>
+  <Items>
+    <HarvestItem>
+      <Content><![CDATA[
+// Dit is een test
+]]></Content>
+      <Tag><![CDATA[namespaces
+]]></Tag>
+    </HarvestItem>
+  </Items>
+</Harvest>

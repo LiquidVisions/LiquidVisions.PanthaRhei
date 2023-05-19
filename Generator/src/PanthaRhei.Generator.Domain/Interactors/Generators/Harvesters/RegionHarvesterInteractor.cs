@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         }
 
         /// <inheritdoc/>
-        public bool CanExecute => !options.Modes.HasFlag(GenerationModes.Harvest)
+        public bool CanExecute => options.Modes.HasFlag(GenerationModes.Harvest)
             && directory.Exists(options.OutputFolder);
 
         public TExpander Expander => expander;

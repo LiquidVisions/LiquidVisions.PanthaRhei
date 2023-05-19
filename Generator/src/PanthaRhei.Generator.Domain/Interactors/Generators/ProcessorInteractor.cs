@@ -59,9 +59,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators
         public ICommandLineInteractor CommandLine => commandLine;
 
         /// <summary>
-        /// Gets the <seealso cref="Parameters"/>.
+        /// Gets the <seealso cref="Options"/>.
         /// </summary>
-        public GenerationOptions Parameters => options;
+        public GenerationOptions Options => options;
 
         /// <inheritdoc/>
         public abstract void Execute();

@@ -37,5 +37,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
         /// Harvest generation mode.
         /// </summary>
         Harvest = 16,
+
+        /// <summary>
+        /// Rejuvenate mode.
+        /// </summary>
+        Rejuvenate = 32,
+
+        /// <summary>
+        /// Runs the generated project
+        /// </summary>
+        Run = 64,
     }
 }

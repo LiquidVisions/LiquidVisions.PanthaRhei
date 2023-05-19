@@ -33,11 +33,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
             directoryService = dependencyFactory.Get<IDirectory>();
             harvestGateway = dependencyFactory.Get<IGetGateway<Harvest>>();
             writer = dependencyFactory.Get<IWriterInteractor>();
-            folder = Path.Combine(options.HarvestFolder, Expander.Model.Name);
+            folder = Path.Combine(options.HarvestFolder, App.FullName);
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => !options.Modes.HasFlag(GenerationModes.Deploy) && directoryService.Exists(folder);
+        public override bool CanExecute => options.Modes.HasFlag(GenerationModes.Rejuvenate)
+            && directoryService.Exists(folder);
 
         /// <inheritdoc/>
         protected override string Extension => Resources.RegionHarvesterExtensionFile;

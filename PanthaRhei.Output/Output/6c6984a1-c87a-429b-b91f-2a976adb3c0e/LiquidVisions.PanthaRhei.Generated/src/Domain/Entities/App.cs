@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 #region ns-custom-namespaces
+// Dit is een test
 #endregion ns-custom-namespaces
 
 namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
