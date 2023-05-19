@@ -15,5 +15,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
 		public virtual Entity WithForeignEntity { get; set; }
 		public virtual string WithCardinality { get; set; }
 		public virtual bool Required { get; set; }
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
 	}
 }

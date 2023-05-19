@@ -13,5 +13,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
 		public virtual int Order { get; set; }
 		public virtual List<App> Apps { get; set; }
 		public virtual List<Component> Components { get; set; }
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
 	}
 }

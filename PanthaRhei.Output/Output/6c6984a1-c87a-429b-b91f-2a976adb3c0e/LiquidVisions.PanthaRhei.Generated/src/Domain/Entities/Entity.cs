@@ -18,5 +18,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
 		public virtual List<Field> ReferencedIn { get; set; }
 		public virtual List<Relationship> Relations { get; set; }
 		public virtual List<Relationship> IsForeignEntityOf { get; set; }
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
 	}
 }

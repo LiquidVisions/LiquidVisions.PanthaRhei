@@ -24,5 +24,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
 		public bool IsIndex { get; set; }
 		public virtual List<Relationship> RelationshipKeys { get; set; }
 		public virtual List<Relationship> IsForeignEntityKeyOf { get; set; }
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
 	}
 }
