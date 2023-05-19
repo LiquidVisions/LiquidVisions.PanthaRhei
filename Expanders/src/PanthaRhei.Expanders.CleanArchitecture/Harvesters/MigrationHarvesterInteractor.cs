@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
@@ -37,7 +38,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
         }
 
         /// <inheritdoc/>
-        public bool CanExecute => directory.Exists(migrationsFolder);
+        public bool CanExecute => options.Modes.HasFlag(GenerationModes.Harvest)
+            && directory.Exists(migrationsFolder);
 
         public CleanArchitectureExpander Expander => expander;
 

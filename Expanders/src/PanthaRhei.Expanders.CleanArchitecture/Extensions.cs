@@ -29,8 +29,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 
         internal static bool CanExecuteDefaultAndExtend(this GenerationOptions expandRequestModel)
         {
-            return expandRequestModel.GenerationMode.HasFlag(GenerationModes.Default)
-                || expandRequestModel.GenerationMode.HasFlag(GenerationModes.Extend);
+            return expandRequestModel.Modes.HasFlag(GenerationModes.Default)
+                || expandRequestModel.Modes.HasFlag(GenerationModes.Extend);
         }
 
         internal static string ToFileName(this Entity entity, string action, string postfix) =>

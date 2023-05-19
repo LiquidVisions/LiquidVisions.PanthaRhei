@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuv
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => !options.GenerationMode.HasFlag(GenerationModes.Deploy) && directoryService.Exists(folder);
+        public override bool CanExecute => !options.Modes.HasFlag(GenerationModes.Deploy) && directoryService.Exists(folder);
 
         /// <inheritdoc/>
         protected override string Extension => Resources.RegionHarvesterExtensionFile;

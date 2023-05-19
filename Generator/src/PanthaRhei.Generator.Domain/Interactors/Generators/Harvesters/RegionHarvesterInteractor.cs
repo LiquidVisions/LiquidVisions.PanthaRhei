@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         }
 
         /// <inheritdoc/>
-        public bool CanExecute => !options.GenerationMode.HasFlag(GenerationModes.Deploy)
+        public bool CanExecute => !options.Modes.HasFlag(GenerationModes.Harvest)
             && directory.Exists(options.OutputFolder);
 
         public TExpander Expander => expander;
@@ -45,7 +45,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
         /// <inheritdoc/>
         public void Execute()
         {
-            string[] filePaths = directory.GetFiles(options.OutputFolder, "*.cs", System.IO.SearchOption.AllDirectories);
+            string[] filePaths = directory.GetFiles(options.OutputFolder, "*.cs", SearchOption.AllDirectories);
 
             ExecuteAllFiles(filePaths);
         }

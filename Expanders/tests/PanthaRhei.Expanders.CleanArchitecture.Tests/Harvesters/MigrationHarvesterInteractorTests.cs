@@ -4,6 +4,7 @@ using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
@@ -45,19 +46,21 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
         }
 
         [Theory]
-        [InlineData(true, true)]
-        [InlineData(false, false)]
-        public void CanExecute_ShouldValidate(bool folderExists, bool canExecuteResult)
+        [InlineData(GenerationModes.Harvest, true, true)]
+        [InlineData(GenerationModes.Harvest | GenerationModes.Default, true, true)]
+        [InlineData(GenerationModes.Default, true, false)]
+        [InlineData(GenerationModes.Harvest, false, false)]
+        public void CanExecute_ShouldValidate(GenerationModes modes, bool folderExists, bool canExecuteResult)
         {
             // arranges
             fakes.IDirectory.Setup(x => x.Exists(expectedMigrationsFolder)).Returns(folderExists);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(modes);
 
             // act
             bool result = interactor.CanExecute;
 
             // assert
-            fakes.IDirectory.Verify(x => x.Exists(expectedMigrationsFolder), Times.Once);
-            fakes.GenerationOptions.Verify(x => x.GenerationMode, Times.Never);
+            fakes.GenerationOptions.Verify(x => x.Modes, Times.Once);
             Assert.Equal(canExecuteResult, result);
         }
 

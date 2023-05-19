@@ -29,8 +29,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Entities
         Deploy = 4,
 
         /// <summary>
-        /// Mograte generation mode.
+        /// Migrate generation mode.
         /// </summary>
         Migrate = 8,
+
+        /// <summary>
+        /// Harvest generation mode.
+        /// </summary>
+        Harvest = 16,
     }
 }

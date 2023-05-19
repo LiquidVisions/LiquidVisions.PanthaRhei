@@ -71,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void CanExecute_ShouldBeFalse(GenerationModes mode, bool expectedResult)
         {
             // arrange
-            fakes.GenerationOptions.Setup(x => x.GenerationMode).Returns(mode);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(mode);
 
             // act
             // assert
@@ -84,7 +84,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void CanExecute_ShouldOnlyBeTrueWhenCleanParameterIsSetToTrue(bool clean, bool expectedResult)
         {
             // arrange
-            fakes.GenerationOptions.Setup(x => x.GenerationMode).Returns(GenerationModes.Default);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
             fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
 
             // act

@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application
                 Clean = requestModel.Clean,
                 ConnectionString = requestModel.ConnectionString,
                 ExpandersFolder = requestModel.ExpandersFolder,
-                GenerationMode = Enum.Parse<GenerationModes>(requestModel.GenerationMode),
+                Modes = Enum.Parse<GenerationModes>(requestModel.GenerationMode),
                 HarvestFolder = requestModel.HarvestFolder,
                 OutputFolder = requestModel.OutputFolder,
                 ReSeed = requestModel.ReSeed,

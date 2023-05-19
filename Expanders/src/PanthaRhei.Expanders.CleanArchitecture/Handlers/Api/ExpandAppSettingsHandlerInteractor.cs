@@ -47,8 +47,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => options.GenerationMode.HasFlag(GenerationModes.Default)
-            || options.GenerationMode.HasFlag(GenerationModes.Extend);
+        public bool CanExecute => options.Modes.HasFlag(GenerationModes.Default)
+            || options.Modes.HasFlag(GenerationModes.Extend);
 
         /// <inheritdoc/>
         public void Execute()

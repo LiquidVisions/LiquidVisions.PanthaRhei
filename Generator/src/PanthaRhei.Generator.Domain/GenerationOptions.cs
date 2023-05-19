@@ -33,13 +33,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// </summary>
         public virtual bool ReSeed { get; set; } = false;
 
+        /// <summary>
+        /// Gets or sets the name of the connectionstring.
+        /// </summary>
         public virtual string ConnectionString { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating the RunMode value.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual GenerationModes GenerationMode { get; set; }
+        public virtual GenerationModes Modes { get; set; }
 
         /// <summary>
         /// Gets or sets the root for the generator process.

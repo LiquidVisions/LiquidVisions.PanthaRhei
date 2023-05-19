@@ -51,7 +51,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
         public void CanExecute_ShouldBeFalse(GenerationModes mode)
         {
             // arrange
-            fakes.GenerationOptions.Setup(x => x.GenerationMode).Returns(mode);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(mode);
 
             // act
             bool result = interactor.CanExecute;

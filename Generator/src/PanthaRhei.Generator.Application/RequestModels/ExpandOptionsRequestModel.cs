@@ -23,6 +23,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.RequestModels
         /// </summary>
         public virtual bool ReSeed { get; set; } = false;
 
+        /// <summary>
+        /// Gets or sets the name of the connectionstring.
+        /// </summary>
         public virtual string ConnectionString { get; set; }
 
         /// <summary>
