@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -15,9 +14,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     /// </summary>
     public class GenerationOptions
     {
-        private string harvestFolder = "Harvest";
-        private string expanderFolder = "Expanders";
-        private string outputFolder = "Output";
+        private string harvestFolder = Resources.DefaultHarvestFolder;
+        private string expanderFolder = Resources.DefaultExpanderFolder;
+        private string outputFolder = Resources.DefaultOutputFolder;
 
         /// <summary>
         /// Gets or sets the AppId parameter.

@@ -9,9 +9,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     {
         private static readonly Pluralizer pluralizer = new();
 
-        internal static string GetPathToTemplate(this Expander expander, GenerationOptions expandRequestModel, string templateName)
+        internal static string GetPathToTemplate(this Expander expander, GenerationOptions options, string templateName)
         {
-            return Path.Combine(expandRequestModel.ExpandersFolder, expander.Name, expander.TemplateFolder, $"{templateName}.template");
+            return Path.Combine(options.ExpandersFolder, expander.Name, expander.TemplateFolder, $"{templateName}.template");
         }
 
         internal static string Pluralize(this string str) => pluralizer.Pluralize(str);
