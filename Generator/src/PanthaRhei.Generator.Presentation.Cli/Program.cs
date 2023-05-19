@@ -1,10 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
-using LiquidVisions.PanthaRhei.Generator.Application;
 using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Infrastructure;
-using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using LiquidVisions.PanthaRhei.Generator.Presentation.Cli;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Configuration;

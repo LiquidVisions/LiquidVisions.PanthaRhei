@@ -12,7 +12,8 @@ namespace NS.Presentation.Api
     {
         public static IServiceCollection AddApi(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddApplicationLayer()
+            services.AddUserSecrets<Program>()
+                .AddApplicationLayer()
                 .AddDomainLayer()
                 .AddInfrastructureLayer(configuration.GetConnectionString("DefaultConnectionString"));
 
