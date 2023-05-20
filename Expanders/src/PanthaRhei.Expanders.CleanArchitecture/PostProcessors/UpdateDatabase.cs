@@ -10,8 +10,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
     /// </summary>
     public class UpdateDatabase : PostProcessorInteractor<CleanArchitectureExpander>
     {
-        private readonly IProjectAgentInteractor projectAgentInteractor;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateDatabase"/> class.
         /// </summary>
@@ -19,7 +17,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         public UpdateDatabase(IDependencyFactoryInteractor factory)
             : base(factory)
         {
-            projectAgentInteractor = factory.Get<IProjectAgentInteractor>();
         }
 
         /// <inheritdoc/>
@@ -28,9 +25,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         /// <inheritdoc/>
         public override void Execute()
         {
-            Component component = Expander.Model.GetComponentByName(Resources.EntityFramework);
+            Component component = Expander.GetComponentByName(Resources.EntityFramework);
 
-            CommandLine.Start("dotnet ef database update", projectAgentInteractor.GetComponentOutputFolder(component));
+            CommandLine.Start("dotnet ef database update", Expander.GetComponentOutputFolder(component));
         }
     }
 }

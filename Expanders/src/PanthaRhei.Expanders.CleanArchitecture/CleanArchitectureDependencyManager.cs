@@ -26,7 +26,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 
         public override void Register()
         {
-            DependencyManager.AddTransient(typeof(IProjectAgentInteractor), typeof(ProjectAgentInteractor));
             DependencyManager.AddTransient(typeof(IProjectTemplateInteractor), typeof(DotNetTemplateInteractor));
             DependencyManager.AddTransient(typeof(IElementTemplateParameters), typeof(RequestModelTemplateParameters));
 

@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api
         {
             services.AddApplicationLayer()
                 .AddDomainLayer()
-                .AddInfrastructureLayer(configuration.GetConnectionString("DefaultConnectionString"));
+                .AddInfrastructureLayer(configuration.GetConnectionString("PanthaRheiProd"));
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

@@ -16,7 +16,6 @@ namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
 		public virtual List<ConnectionString> ConnectionStrings { get; set; }
 
 		#region ns-custom-fields
-        public string DitIsEenNaam { get; set; }
 		#endregion ns-custom-fields
 	}
 }

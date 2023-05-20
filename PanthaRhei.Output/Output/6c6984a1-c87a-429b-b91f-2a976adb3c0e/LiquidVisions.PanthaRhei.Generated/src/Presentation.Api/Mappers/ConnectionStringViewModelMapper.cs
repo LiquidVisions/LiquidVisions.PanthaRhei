@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
             target.Id = source.Id;
             target.Name = source.Name;
             target.Definition = source.Definition;
-            target.App = new AppViewModelMapper().Map(source.App);
+            target.App = source.App != null ? new AppViewModelMapper().Map(source.App) : null;
         }
 
         public ConnectionStringViewModel Map(ConnectionString source)

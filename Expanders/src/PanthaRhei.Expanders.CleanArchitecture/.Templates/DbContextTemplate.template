@@ -15,10 +15,8 @@ namespace {{ name_space }}
         });
 
         {{~for entity in entities~}}
-        {{~if entity.is_data_element~}}
-        public DbSet<{{ entity.name }}> {{ entity.pluralized_name }} { get; set; }
+        public DbSet<{{ entity.name }}> {{ pluralize entity.name }} { get; set; }
         
-        {{~end~}}
         {{~end~}}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

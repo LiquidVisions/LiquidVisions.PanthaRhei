@@ -12,8 +12,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
             target.Id = source.Id;
             target.Name = source.Name;
             target.Description = source.Description;
-            target.Packages = source.Packages.Select(x => new PackageViewModelMapper().Map(x)).ToList();
-            target.Expander = new ExpanderViewModelMapper().Map(source.Expander);
+            target.Packages = source?.Packages?.Select(x => new PackageViewModelMapper().Map(x)).ToList();
+            target.Expander = source.Expander != null ? new ExpanderViewModelMapper().Map(source.Expander) : null;
         }
 
         public ComponentViewModel Map(Component source)

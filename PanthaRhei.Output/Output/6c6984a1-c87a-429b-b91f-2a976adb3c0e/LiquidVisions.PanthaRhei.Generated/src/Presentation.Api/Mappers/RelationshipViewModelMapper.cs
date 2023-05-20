@@ -10,11 +10,11 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
         public void Map(Relationship source, RelationshipViewModel target)
         {
             target.Id = source.Id;
-            target.Key = new FieldViewModelMapper().Map(source.Key);
-            target.Entity = new EntityViewModelMapper().Map(source.Entity);
+            target.Key = source.Key != null ? new FieldViewModelMapper().Map(source.Key) : null;
+            target.Entity = source.Entity != null ? new EntityViewModelMapper().Map(source.Entity) : null;
             target.Cardinality = source.Cardinality;
-            target.WithForeignEntityKey = new FieldViewModelMapper().Map(source.WithForeignEntityKey);
-            target.WithForeignEntity = new EntityViewModelMapper().Map(source.WithForeignEntity);
+            target.WithForeignEntityKey = source.WithForeignEntityKey != null ? new FieldViewModelMapper().Map(source.WithForeignEntityKey) : null;
+            target.WithForeignEntity = source.WithForeignEntity != null ? new EntityViewModelMapper().Map(source.WithForeignEntity) : null;
             target.WithCardinality = source.WithCardinality;
             target.Required = source.Required;
         }

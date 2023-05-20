@@ -12,10 +12,9 @@ namespace NS.Presentation.Api
     {
         public static IServiceCollection AddApi(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddUserSecrets<Program>()
-                .AddApplicationLayer()
+            services.AddApplicationLayer()
                 .AddDomainLayer()
-                .AddInfrastructureLayer(configuration.GetConnectionString("DefaultConnectionString"));
+                .AddInfrastructureLayer(configuration.GetConnectionString("CONNECTION_STRING_PLACEHOLDER"));
 
             return services;
         }

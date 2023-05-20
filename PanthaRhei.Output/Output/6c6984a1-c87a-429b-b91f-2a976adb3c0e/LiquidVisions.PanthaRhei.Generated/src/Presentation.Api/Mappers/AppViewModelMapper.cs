@@ -12,9 +12,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
             target.Id = source.Id;
             target.Name = source.Name;
             target.FullName = source.FullName;
-            target.Expanders = source.Expanders.Select(x => new ExpanderViewModelMapper().Map(x)).ToList();
-            target.Entities = source.Entities.Select(x => new EntityViewModelMapper().Map(x)).ToList();
-            target.ConnectionStrings = source.ConnectionStrings.Select(x => new ConnectionStringViewModelMapper().Map(x)).ToList();
+            target.Expanders = source?.Expanders?.Select(x => new ExpanderViewModelMapper().Map(x)).ToList();
+            target.Entities = source?.Entities?.Select(x => new EntityViewModelMapper().Map(x)).ToList();
+            target.ConnectionStrings = source?.ConnectionStrings?.Select(x => new ConnectionStringViewModelMapper().Map(x)).ToList();
         }
 
         public AppViewModel Map(App source)

@@ -20,12 +20,12 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
             target.Order = source.Order;
             target.Size = source.Size;
             target.Required = source.Required;
-            target.Reference = new EntityViewModelMapper().Map(source.Reference);
-            target.Entity = new EntityViewModelMapper().Map(source.Entity);
+            target.Reference = source.Reference != null ? new EntityViewModelMapper().Map(source.Reference) : null;
+            target.Entity = source.Entity != null ? new EntityViewModelMapper().Map(source.Entity) : null;
             target.IsKey = source.IsKey;
             target.IsIndex = source.IsIndex;
-            target.RelationshipKeys = source.RelationshipKeys.Select(x => new RelationshipViewModelMapper().Map(x)).ToList();
-            target.IsForeignEntityKeyOf = source.IsForeignEntityKeyOf.Select(x => new RelationshipViewModelMapper().Map(x)).ToList();
+            target.RelationshipKeys = source?.RelationshipKeys?.Select(x => new RelationshipViewModelMapper().Map(x)).ToList();
+            target.IsForeignEntityKeyOf = source?.IsForeignEntityKeyOf?.Select(x => new RelationshipViewModelMapper().Map(x)).ToList();
         }
 
         public FieldViewModel Map(Field source)

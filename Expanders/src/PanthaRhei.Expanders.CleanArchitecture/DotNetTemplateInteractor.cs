@@ -14,10 +14,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     internal class DotNetTemplateInteractor : IProjectTemplateInteractor
     {
         private readonly ICommandLineInteractor commandLine;
-        private readonly IProjectAgentInteractor agentInteractor;
         private readonly ILogger logger;
         private readonly GenerationOptions options;
         private readonly App app;
+        private readonly CleanArchitectureExpander expander;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DotNetTemplateInteractor"/> class.
@@ -29,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
             logger = dependencyFactory.Get<ILogger>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
-            agentInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
+            expander = dependencyFactory.Get<CleanArchitectureExpander>();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 
         public void ApplyPackageOnComponent(Component component, Package package)
         {
-            string fullPathToProject = agentInteractor.GetComponentProjectFile(component);
+            string fullPathToProject = expander.GetComponentProjectFile(component);
 
             logger.Info($"Adding nuget package {package.Name} to {fullPathToProject}");
 

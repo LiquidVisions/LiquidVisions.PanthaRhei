@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
             target.Name = source.Name;
             target.TemplateFolder = source.TemplateFolder;
             target.Order = source.Order;
-            target.Apps = source.Apps.Select(x => new AppViewModelMapper().Map(x)).ToList();
-            target.Components = source.Components.Select(x => new ComponentViewModelMapper().Map(x)).ToList();
+            target.Apps = source?.Apps?.Select(x => new AppViewModelMapper().Map(x)).ToList();
+            target.Components = source?.Components?.Select(x => new ComponentViewModelMapper().Map(x)).ToList();
         }
 
         public ExpanderViewModel Map(Expander source)

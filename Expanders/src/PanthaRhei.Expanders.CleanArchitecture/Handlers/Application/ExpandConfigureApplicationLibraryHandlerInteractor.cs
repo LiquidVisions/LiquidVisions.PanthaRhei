@@ -14,7 +14,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     public class ExpandConfigureApplicationLibraryHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly GenerationOptions options;
         private readonly App app;
@@ -33,16 +32,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             this.expander = expander;
 
             writer = dependencyFactory.Get<IWriterInteractor>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
 
-            component = Expander.Model.GetComponentByName(Resources.Application);
+            component = Expander.GetComponentByName(Resources.Application);
 
             fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.ApplicationDependencyInjectionBootstrapperTemplate);
 
-            string fullPathToComponent = projectAgent.GetComponentOutputFolder(component);
+            string fullPathToComponent = expander.GetComponentOutputFolder(component);
             fullPathToBootstrapperFile = Path.Combine(fullPathToComponent, Resources.DependencyInjectionBootstrapperFile);
         }
 

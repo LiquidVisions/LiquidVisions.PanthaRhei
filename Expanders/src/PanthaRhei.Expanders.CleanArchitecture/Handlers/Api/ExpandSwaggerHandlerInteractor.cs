@@ -13,7 +13,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     {
         private readonly IWriterInteractor writer;
         private readonly GenerationOptions options;
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly CleanArchitectureExpander expander;
 
         /// <summary>
@@ -25,7 +24,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         {
             writer = dependencyFactory.Get<IWriterInteractor>();
             options = dependencyFactory.Get<GenerationOptions>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             this.expander = expander;
         }
 
@@ -43,9 +41,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             string matchServices = "return services;";
             string matchApp = "app.Run();";
 
-            Component component = Expander.Model.GetComponentByName(Resources.Api);
+            Component component = Expander.GetComponentByName(Resources.Api);
 
-            string path = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
+            string path = System.IO.Path.Combine(expander.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
 
             writer.Load(path);
 

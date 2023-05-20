@@ -14,7 +14,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     public class ExpandEntityFrameworkConfigurationHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly GenerationOptions options;
         private readonly App app;
@@ -31,13 +30,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             this.expander = expander;
 
             writer = dependencyFactory.Get<IWriterInteractor>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
 
-            Component component = Expander.Model.GetComponentByName(Resources.EntityFramework);
-            string componentOutputPath = projectAgent.GetComponentOutputFolder(component);
+            Component component = Expander.GetComponentByName(Resources.EntityFramework);
+            string componentOutputPath = expander.GetComponentOutputFolder(component);
             fullPathToBootstrapperFile = Path.Combine(componentOutputPath, Resources.DependencyInjectionBootstrapperFile);
         }
 

@@ -13,7 +13,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     /// </summary>
     public class ExpandViewModelsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly App app;
         private readonly GenerationOptions options;
@@ -32,14 +31,13 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
             options = dependencyFactory.Get<GenerationOptions>();
             directory = dependencyFactory.Get<IDirectory>();
 
-            component = Expander.Model.GetComponentByName(Resources.Api);
-            string fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
+            component = expander.GetComponentByName(Resources.Api);
+            string fullPathToComponentOutput = expander.GetComponentOutputFolder(component);
             viewModelsFolder = Path.Combine(fullPathToComponentOutput, Resources.ViewModelsFolder);
             fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.ViewModelTemplate);
         }

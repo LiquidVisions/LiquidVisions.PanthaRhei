@@ -23,7 +23,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Do
         {
             rootFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.DomainEntityFolder);
 
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.DomainComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
@@ -35,11 +34,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Do
             // act
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]

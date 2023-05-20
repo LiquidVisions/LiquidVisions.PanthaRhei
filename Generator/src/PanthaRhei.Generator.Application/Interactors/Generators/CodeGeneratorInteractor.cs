@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
             {
                 expander.Harvest();
 
-                Clean();
+                Clean(expander);
 
                 expander.PreProcess();
                 expander.Expand();
@@ -39,10 +39,12 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
             }
         }
 
-        private void Clean()
+        private void Clean(IExpanderInteractor expander)
         {
             if (options.Clean)
             {
+                expander.Clean();
+
                 directory.Delete(options.OutputFolder);
             }
         }

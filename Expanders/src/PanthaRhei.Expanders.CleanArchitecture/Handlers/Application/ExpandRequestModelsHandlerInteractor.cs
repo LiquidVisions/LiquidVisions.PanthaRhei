@@ -15,7 +15,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     {
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly App app;
         private readonly IDirectory directory;
@@ -34,14 +33,13 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             this.expander = expander;
 
             options = dependencyFactory.Get<GenerationOptions>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
 
             actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
-            component = expander.Model.GetComponentByName(Resources.Application);
-            fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
+            component = expander.GetComponentByName(Resources.Application);
+            fullPathToComponentOutput = expander.GetComponentOutputFolder(component);
             destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.RequestModelsFolder);
         }
 

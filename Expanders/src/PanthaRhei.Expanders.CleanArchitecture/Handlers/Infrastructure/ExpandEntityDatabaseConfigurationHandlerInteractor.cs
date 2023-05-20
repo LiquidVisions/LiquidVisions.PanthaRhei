@@ -14,7 +14,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     /// </summary>
     public class ExpandEntityDatabaseConfigurationHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly GenerationOptions options;
         private readonly CleanArchitectureExpander expander;
@@ -34,17 +33,16 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         {
             this.expander = expander;
 
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
 
-            infrastructureComponent = Expander.Model.GetComponentByName(Resources.EntityFramework);
-            domainComponent = Expander.Model.GetComponentByName(Resources.Domain);
+            infrastructureComponent = Expander.GetComponentByName(Resources.EntityFramework);
+            domainComponent = Expander.GetComponentByName(Resources.Domain);
 
             fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.EntityDatabaseConfigurationTemplate);
-            string componentOutputPath = projectAgent.GetComponentOutputFolder(infrastructureComponent);
+            string componentOutputPath = expander.GetComponentOutputFolder(infrastructureComponent);
             targetFolderPath = Path.Combine(componentOutputPath, Resources.InfrastructureConfigurationFolder);
         }
 
@@ -83,7 +81,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
                     Keys = keys,
                 };
 
-                string savePath = Path.Combine(projectAgent.GetComponentOutputFolder(infrastructureComponent), Resources.InfrastructureConfigurationFolder, $"{entity.Name}Configuration.cs");
+                string savePath = Path.Combine(expander.GetComponentOutputFolder(infrastructureComponent), Resources.InfrastructureConfigurationFolder, $"{entity.Name}Configuration.cs");
                 templateService.RenderAndSave(fullPathToTemplate, modelTemplate, savePath);
             }
         }

@@ -12,7 +12,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     /// </summary>
     public class ExpandDatabaseContextHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly GenerationOptions options;
         private readonly App app;
@@ -29,13 +28,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         {
             this.expander = expander;
 
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
 
-            domain = Expander.Model.GetComponentByName(Resources.Domain);
-            infrastructure = Expander.Model.GetComponentByName(Resources.EntityFramework);
+            domain = Expander.GetComponentByName(Resources.Domain);
+            infrastructure = Expander.GetComponentByName(Resources.EntityFramework);
         }
 
         public int Order => 9;
@@ -58,7 +56,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             };
 
             string fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.DbContextTemplate);
-            string fullPathToComponent = projectAgent.GetComponentOutputFolder(infrastructure);
+            string fullPathToComponent = expander.GetComponentOutputFolder(infrastructure);
             string path = System.IO.Path.Combine(fullPathToComponent, "Context.cs");
 
             templateService.RenderAndSave(fullPathToTemplate, templateModel, path);

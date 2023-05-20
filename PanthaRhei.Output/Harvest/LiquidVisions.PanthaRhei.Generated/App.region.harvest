@@ -9,11 +9,5 @@
       <Tag><![CDATA[namespaces
 ]]></Tag>
     </HarvestItem>
-    <HarvestItem>
-      <Content><![CDATA[
-        public string DitIsEenNaam { get; set; }
-        ]]></Content>
-      <Tag><![CDATA[fields]]></Tag>
-    </HarvestItem>
   </Items>
 </Harvest>

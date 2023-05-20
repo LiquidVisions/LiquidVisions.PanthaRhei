@@ -20,7 +20,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public ExpandSwaggerHandlerInteractorTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpanderInteractor.Object, fakes.IDependencyFactoryInteractor.Object);
+            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -31,8 +31,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
         }
 
         [Fact]
@@ -87,8 +86,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
         public void Execute_ShouldAddSwaggerToConfiguration()
         {
             // arrange
-            string expectedComponentOutputPath = "C:\\Some\\Component\\Output\\Folder";
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.ApiComponent.Object)).Returns(expectedComponentOutputPath);
+            string expectedComponentOutputPath = fakes.ExpectedCompontentOutputFolder;
             string expectedMatch1 = "return services;";
             string expectedMatch2 = "app.Run();";
             string expectedPathToBootstrapperFile = Path.Combine(expectedComponentOutputPath, CleanArchitectureResources.DependencyInjectionBootstrapperFile);

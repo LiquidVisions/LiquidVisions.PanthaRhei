@@ -14,6 +14,22 @@ namespace LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework
             builder.AddConsole();
         });
 
+        public DbSet<Field> Fields { get; set; }
+        
+        public DbSet<App> Apps { get; set; }
+        
+        public DbSet<Package> Packages { get; set; }
+        
+        public DbSet<Entity> Entities { get; set; }
+        
+        public DbSet<Component> Components { get; set; }
+        
+        public DbSet<Expander> Expanders { get; set; }
+        
+        public DbSet<ConnectionString> ConnectionStrings { get; set; }
+        
+        public DbSet<Relationship> Relationships { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -21,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework
                 optionsBuilder
                     .UseLoggerFactory(loggerFactory)
                     .EnableSensitiveDataLogging()
-                    .UseSqlServer(@"PUT_YOUR_CONNECTIONSTRING_HERE");
+                    .UseSqlServer(@"Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Dev;Persist Security Info=False;User ID=gerco.koks;Password=1qJ4AFcHyb7QL4gM!5n2vk2@^$%U;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 

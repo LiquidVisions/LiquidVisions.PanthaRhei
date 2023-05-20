@@ -22,7 +22,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         public ExpandEntityDatabaseConfigurationHandlerInteractorTests()
         {
             allEntities = fakes.GetValidEntities();
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.InfrastructureComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(allEntities);
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
@@ -33,12 +32,11 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]
@@ -107,7 +105,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             foreach (Entity entity in allEntities)
             {
                 string fullSavePath = Path.Combine(
-                    fakes.IProjectAgentInteractor.Object.GetComponentOutputFolder(fakes.InfrastructureComponent.Object),
+                    fakes.CleanArchitectureExpander.Object.GetComponentOutputFolder(fakes.InfrastructureComponent.Object),
                     Expanders.CleanArchitecture.Resources.InfrastructureConfigurationFolder,
                     $"{entity.Name}Configuration.cs");
 
