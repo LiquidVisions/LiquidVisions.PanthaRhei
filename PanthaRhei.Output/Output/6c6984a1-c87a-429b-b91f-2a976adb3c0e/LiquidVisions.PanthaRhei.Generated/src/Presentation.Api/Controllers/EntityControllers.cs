@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         public static IServiceCollection AddEntityElements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<Entity, EntityViewModel>, EntityViewModelMapper>();
+            //services.AddTransient<IMapper<Entity, EntityViewModel>, EntityViewModelMapper>();
             services.AddTransient<ICreateEntityPresenter, CreateEntityPresenter>();
             services.AddTransient<IGetByIdEntityPresenter, GetByIdEntityPresenter>();
             services.AddTransient<IGetEntitiesPresenter, GetEntitiesPresenter>();

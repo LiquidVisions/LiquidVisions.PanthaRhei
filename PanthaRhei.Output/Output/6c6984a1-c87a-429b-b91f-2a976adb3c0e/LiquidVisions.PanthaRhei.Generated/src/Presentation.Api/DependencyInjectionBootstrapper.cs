@@ -12,9 +12,12 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api
     {
         public static IServiceCollection AddApi(this IServiceCollection services, IConfiguration configuration)
         {
+
             services.AddApplicationLayer()
                 .AddDomainLayer()
                 .AddInfrastructureLayer(configuration.GetConnectionString("PanthaRheiProd"));
+
+            services.AddAutoMapper(typeof(Program));
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

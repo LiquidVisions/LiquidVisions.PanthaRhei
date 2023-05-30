@@ -4,10 +4,12 @@
 		<AssemblyName>LiquidVisions.PanthaRhei.Generated.Api</AssemblyName>
 		<RootNamespace>LiquidVisions.PanthaRhei.Generated.Api</RootNamespace>
 		<TargetFramework>net7.0</TargetFramework>
-	  <UserSecretsId>ea34e73e-9cae-4463-b225-2e2240287205</UserSecretsId>
+	  <UserSecretsId>4376146d-1c48-4b32-af22-2fab0b1a1584</UserSecretsId>
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />

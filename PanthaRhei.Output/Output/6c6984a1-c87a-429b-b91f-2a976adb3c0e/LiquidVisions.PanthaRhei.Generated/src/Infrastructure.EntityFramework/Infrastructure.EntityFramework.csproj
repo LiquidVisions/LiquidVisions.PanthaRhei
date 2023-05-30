@@ -4,7 +4,7 @@
 		<AssemblyName>LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework</AssemblyName>
 		<RootNamespace>LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework</RootNamespace>
 		<TargetFramework>net7.0</TargetFramework>
-	  <UserSecretsId>f5580620-0f2c-40de-9485-8d298c4ba57f</UserSecretsId>
+	  <UserSecretsId>36bd2025-1d83-44aa-b0b8-2daf61c90acc</UserSecretsId>
   </PropertyGroup>
 
 	<ItemGroup>

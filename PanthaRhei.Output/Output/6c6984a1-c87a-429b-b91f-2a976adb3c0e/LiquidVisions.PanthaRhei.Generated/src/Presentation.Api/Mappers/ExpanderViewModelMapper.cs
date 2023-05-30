@@ -2,28 +2,21 @@
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 using System.Linq;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class ExpanderViewModelMapper : IMapper<Expander, ExpanderViewModel>
+    public class ExpanderViewModelMapper : Profile
     {
-        public void Map(Expander source, ExpanderViewModel target)
+        public ExpanderViewModelMapper()
         {
-            target.Id = source.Id;
-            target.Name = source.Name;
-            target.TemplateFolder = source.TemplateFolder;
-            target.Order = source.Order;
-            target.Apps = source?.Apps?.Select(x => new AppViewModelMapper().Map(x)).ToList();
-            target.Components = source?.Components?.Select(x => new ComponentViewModelMapper().Map(x)).ToList();
-        }
-
-        public ExpanderViewModel Map(Expander source)
-        {
-			ExpanderViewModel target = new();
-
-            Map(source, target);
-
-            return target;
+            CreateMap<Expander, ExpanderViewModel>()
+                .ForMember(target => target.Id, x => x.MapFrom(source => source.Id))
+                .ForMember(target => target.Name, x => x.MapFrom(source => source.Name))
+                .ForMember(target => target.TemplateFolder, x => x.MapFrom(source => source.TemplateFolder))
+                .ForMember(target => target.Order, x => x.MapFrom(source => source.Order))
+                .ForMember(target => target.Apps, x => x.MapFrom(source => source.Apps))
+                .ForMember(target => target.Components, x => x.MapFrom(source => source.Components));
         }
     }
 }

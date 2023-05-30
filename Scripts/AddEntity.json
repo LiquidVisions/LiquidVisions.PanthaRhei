@@ -1,0 +1,47 @@
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "name": "Task",
+  "callsite": "LiquidVisions.PanthaRhei.Generated.Domain.Entities",
+  "type": "class",
+  "modifier": "public",
+  "behaviour": null,
+  "app": {
+    "id": "6c6984a1-c87a-429b-b91f-2a976adb3c0e"
+  },
+  "fields": [
+    {
+      "id": "3B223FF0-9D86-43EE-8777-15CA0296CAFF",
+      "name": "Id",
+      "returnType": "Guid",
+      "isCollection": false,
+      "modifier": "public",
+      "getModifier": "public",
+      "setModifier": "public",
+      "behaviour": "virtual",
+      "order": 0,
+      "size": null,
+      "required": true,
+      "reference": null,
+      "entity": null,
+      "isKey": true,
+      "isIndex": true
+    },
+    {
+      "id": "EED58D42-59E7-46B3-B326-221D06885E8E",
+      "name": "Name",
+      "returnType": "string",
+      "isCollection": false,
+      "modifier": "public",
+      "getModifier": "public",
+      "setModifier": "public",
+      "behaviour": "virtual",
+      "order": 1,
+      "size": 32,
+      "required": true,
+      "reference": null,
+      "entity": null,
+      "isKey": true,
+      "isIndex": true
+    }
+  ]
+}

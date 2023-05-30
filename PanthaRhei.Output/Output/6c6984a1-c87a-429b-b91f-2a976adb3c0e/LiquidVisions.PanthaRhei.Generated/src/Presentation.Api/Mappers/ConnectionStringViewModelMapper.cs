@@ -2,26 +2,19 @@
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 using System.Linq;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class ConnectionStringViewModelMapper : IMapper<ConnectionString, ConnectionStringViewModel>
+    public class ConnectionStringViewModelMapper : Profile
     {
-        public void Map(ConnectionString source, ConnectionStringViewModel target)
+        public ConnectionStringViewModelMapper()
         {
-            target.Id = source.Id;
-            target.Name = source.Name;
-            target.Definition = source.Definition;
-            target.App = source.App != null ? new AppViewModelMapper().Map(source.App) : null;
-        }
-
-        public ConnectionStringViewModel Map(ConnectionString source)
-        {
-			ConnectionStringViewModel target = new();
-
-            Map(source, target);
-
-            return target;
+            CreateMap<ConnectionString, ConnectionStringViewModel>()
+                .ForMember(target => target.Id, x => x.MapFrom(source => source.Id))
+                .ForMember(target => target.Name, x => x.MapFrom(source => source.Name))
+                .ForMember(target => target.Definition, x => x.MapFrom(source => source.Definition))
+                .ForMember(target => target.App, x => x.MapFrom(source => source.App));
         }
     }
 }

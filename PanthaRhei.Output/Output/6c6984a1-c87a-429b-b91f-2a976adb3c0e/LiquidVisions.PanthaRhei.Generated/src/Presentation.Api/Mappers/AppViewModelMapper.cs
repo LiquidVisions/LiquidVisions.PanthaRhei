@@ -2,28 +2,21 @@
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 using System.Linq;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class AppViewModelMapper : IMapper<App, AppViewModel>
+    public class AppViewModelMapper : Profile
     {
-        public void Map(App source, AppViewModel target)
+        public AppViewModelMapper()
         {
-            target.Id = source.Id;
-            target.Name = source.Name;
-            target.FullName = source.FullName;
-            target.Expanders = source?.Expanders?.Select(x => new ExpanderViewModelMapper().Map(x)).ToList();
-            target.Entities = source?.Entities?.Select(x => new EntityViewModelMapper().Map(x)).ToList();
-            target.ConnectionStrings = source?.ConnectionStrings?.Select(x => new ConnectionStringViewModelMapper().Map(x)).ToList();
-        }
-
-        public AppViewModel Map(App source)
-        {
-			AppViewModel target = new();
-
-            Map(source, target);
-
-            return target;
+            CreateMap<App, AppViewModel>()
+                .ForMember(target => target.Id, x => x.MapFrom(source => source.Id))
+                .ForMember(target => target.Name, x => x.MapFrom(source => source.Name))
+                .ForMember(target => target.FullName, x => x.MapFrom(source => source.FullName))
+                .ForMember(target => target.Expanders, x => x.MapFrom(source => source.Expanders))
+                .ForMember(target => target.Entities, x => x.MapFrom(source => source.Entities))
+                .ForMember(target => target.ConnectionStrings, x => x.MapFrom(source => source.ConnectionStrings));
         }
     }
 }

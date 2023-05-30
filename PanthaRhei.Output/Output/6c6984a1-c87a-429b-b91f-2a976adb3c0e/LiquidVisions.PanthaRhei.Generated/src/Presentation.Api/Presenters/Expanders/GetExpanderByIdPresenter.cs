@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Expanders
 {
@@ -14,9 +15,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Expande
 
     public class GetByIdExpanderPresenter : IGetByIdExpanderPresenter
     {
-        private readonly IMapper<Expander, ExpanderViewModel> mapper;
+        private readonly IMapper mapper;
 
-        public GetByIdExpanderPresenter(IMapper<Expander, ExpanderViewModel> mapper)
+        public GetByIdExpanderPresenter(IMapper mapper)
         {
             this.mapper = mapper;
         }
@@ -33,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Expande
             };
 
             return Response.IsValid ?
-                Results.Json(mapper.Map(Response.GetParameter<Expander>()), options, "application/json", 200) :
+                Results.Json(mapper.Map<ExpanderViewModel>(Response.GetParameter<Expander>()), options, "application/json", 200) :
                 Response.ToWebApiResult(request);
         }
     }

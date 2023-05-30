@@ -2,30 +2,23 @@
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 using System.Linq;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class RelationshipViewModelMapper : IMapper<Relationship, RelationshipViewModel>
+    public class RelationshipViewModelMapper : Profile
     {
-        public void Map(Relationship source, RelationshipViewModel target)
+        public RelationshipViewModelMapper()
         {
-            target.Id = source.Id;
-            target.Key = source.Key != null ? new FieldViewModelMapper().Map(source.Key) : null;
-            target.Entity = source.Entity != null ? new EntityViewModelMapper().Map(source.Entity) : null;
-            target.Cardinality = source.Cardinality;
-            target.WithForeignEntityKey = source.WithForeignEntityKey != null ? new FieldViewModelMapper().Map(source.WithForeignEntityKey) : null;
-            target.WithForeignEntity = source.WithForeignEntity != null ? new EntityViewModelMapper().Map(source.WithForeignEntity) : null;
-            target.WithCardinality = source.WithCardinality;
-            target.Required = source.Required;
-        }
-
-        public RelationshipViewModel Map(Relationship source)
-        {
-			RelationshipViewModel target = new();
-
-            Map(source, target);
-
-            return target;
+            CreateMap<Relationship, RelationshipViewModel>()
+                .ForMember(target => target.Id, x => x.MapFrom(source => source.Id))
+                .ForMember(target => target.Key, x => x.MapFrom(source => source.Key))
+                .ForMember(target => target.Entity, x => x.MapFrom(source => source.Entity))
+                .ForMember(target => target.Cardinality, x => x.MapFrom(source => source.Cardinality))
+                .ForMember(target => target.WithForeignEntityKey, x => x.MapFrom(source => source.WithForeignEntityKey))
+                .ForMember(target => target.WithForeignEntity, x => x.MapFrom(source => source.WithForeignEntity))
+                .ForMember(target => target.WithCardinality, x => x.MapFrom(source => source.WithCardinality))
+                .ForMember(target => target.Required, x => x.MapFrom(source => source.Required));
         }
     }
 }

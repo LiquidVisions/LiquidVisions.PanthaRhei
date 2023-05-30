@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Fields
 {
@@ -14,9 +15,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Fields
 
     public class CreateFieldPresenter : ICreateFieldPresenter
     {
-        private readonly IMapper<Field, FieldViewModel> mapper;
+        private readonly IMapper mapper;
 
-        public CreateFieldPresenter(IMapper<Field, FieldViewModel> mapper)
+        public CreateFieldPresenter(IMapper mapper)
         {
             this.mapper = mapper;
         }
@@ -27,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Fields
         {
 
             return Response.IsValid ?
-                Results.Created($"//{mapper.Map(Response.GetParameter<Field>()).Id}", mapper.Map(Response.GetParameter<Field>())) :
+                Results.Created($"//{mapper.Map<FieldViewModel>(Response.GetParameter<Field>()).Id}", mapper.Map<FieldViewModel>(Response.GetParameter<Field>())) :
                 Response.ToWebApiResult(request);
         }
     }

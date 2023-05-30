@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Application.Interactors.ConnectionS
                     result.SetParameter(entity);
 
                     int repositoryResult = await repository.Create(entity);
-                    if (repositoryResult != 1)
+                    if (repositoryResult < 1)
                     {
                         result.AddError(ErrorCodes.InternalServerError, $"Failed to create {nameof(ConnectionString)}.");
                         return result;

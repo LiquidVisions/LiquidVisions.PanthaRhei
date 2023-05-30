@@ -247,7 +247,7 @@
     <value>Mappers</value>
   </data>
   <data name="ViewModelMapperTemplate" xml:space="preserve">
-    <value>ViewModelMapperTemplate</value>
+    <value>ViewModelAutoMapperTemplate</value>
   </data>
   <data name="ViewModelsFolder" xml:space="preserve">
     <value>ViewModels</value>
