@@ -9,6 +9,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Tests
     internal class InfrastructureFakes : Fakes
     {
         public Mock<IDeserializerInteractor<Harvest>> IHarvestDeserializerInteractor { get; } = new();
+        
+        public Mock<ISerializerInteractor<Harvest>> ISerializerInteractor { get; } = new();
 
         public Mock<IHarvestSerializerInteractor> IHarvestSerializerInteractor { get; } = new();
 
@@ -69,6 +71,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Tests
 
             IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializerInteractor>()).Returns(IHarvestSerializerInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IDeserializerInteractor<Harvest>>()).Returns(IHarvestDeserializerInteractor.Object);
+            IDependencyFactoryInteractor.Setup(x => x.Get<ISerializerInteractor<Harvest>>()).Returns(ISerializerInteractor.Object);
         }
     }
 }
