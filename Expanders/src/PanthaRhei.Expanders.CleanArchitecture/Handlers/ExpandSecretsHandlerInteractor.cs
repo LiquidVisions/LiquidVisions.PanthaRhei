@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
 
         public int Order => 16;
 
-        public string Name => nameof(ExpandAppSettingsHandlerInteractor);
+        public string Name => nameof(ExpandSecretsHandlerInteractor);
 
         public CleanArchitectureExpander Expander => expander;
 

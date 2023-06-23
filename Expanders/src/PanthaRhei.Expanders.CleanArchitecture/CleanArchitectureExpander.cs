@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
                     }
                     catch(Exception e)
                     {
-                        Logger.Fatal("Failed to remove secret, but still continuing: ", e.Message);
+                        Logger.Fatal("Failed to remove secret, but still continuing: ", e);
                     }
                 }
             }

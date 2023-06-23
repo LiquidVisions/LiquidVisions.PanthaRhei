@@ -54,6 +54,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
             CleanArchitectureExpanderModel.Setup(x => x.TemplateFolder).Returns(".Templates");
             CleanArchitectureExpanderModel.Setup(x => x.Name).Returns("CleanArchitecture");
+            CleanArchitectureExpanderModel.Setup(x => x.Order).Returns(2);
 
             InfrastructureComponent.Setup(x => x.Name).Returns(Resources.EntityFramework);
             DomainComponent.Setup(x => x.Name).Returns(Resources.Domain);
