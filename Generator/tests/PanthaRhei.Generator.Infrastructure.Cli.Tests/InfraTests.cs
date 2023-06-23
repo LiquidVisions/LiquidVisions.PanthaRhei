@@ -1,8 +1,8 @@
 ﻿using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework.Tests
+namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Console.Tests
 {
-    public class EfTests
+    public class InfraTests
     {
         [Fact]
         public void Test()
