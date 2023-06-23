@@ -16,8 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     public class ExpandBoundariesHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
-        private readonly ExpandRequestModel expandRequestModel;
-        private readonly IProjectAgentInteractor projectAgent;
+        private readonly GenerationOptions options;
         private readonly ITemplateInteractor templateService;
         private readonly App app;
         private readonly IDirectory directory;
@@ -37,16 +36,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
+            options = dependencyFactory.Get<GenerationOptions>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
 
             actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries).ToList();
-            component = expander.Model.GetComponentByName(Resources.Application);
-            fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
-            fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.BoundaryTemplate);
+            component = expander.GetComponentByName(Resources.Application);
+            fullPathToComponentOutput = expander.GetComponentOutputFolder(component);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.BoundaryTemplate);
             destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.ApplicationBoundariesFolder);
         }
 
@@ -56,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         public void Execute()
         {

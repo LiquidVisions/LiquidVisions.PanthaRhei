@@ -15,15 +15,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// Adds the dependencies of the project to the dependency inversion object.
         /// </summary>
         /// <param name="services"><seealso cref="IServiceCollection"/></param>
-        /// <param name="expanderRequestModel"><seealso cref="ExpandRequestModel"/></param>
+        /// <param name="options"><seealso cref="GenerationOptions"/></param>
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
-        public static IServiceCollection AddDomainLayer(this IServiceCollection services, ExpandRequestModel expanderRequestModel)
+        public static IServiceCollection AddDomainLayer(this IServiceCollection services, GenerationOptions options)
         {
             var container = new DependencyManagerInteractor(services);
 
             return services.AddSingleton<IDependencyManagerInteractor>(container)
                 .AddSingleton<IDependencyFactoryInteractor>(container)
-                .AddSingleton(expanderRequestModel)
+                .AddSingleton(options)
                 .AddInitializers();
         }
 

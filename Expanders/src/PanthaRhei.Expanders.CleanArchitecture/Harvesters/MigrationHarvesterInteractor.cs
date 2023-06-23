@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
@@ -16,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
     {
         private readonly string migrationsFolder;
         private readonly ICreateGateway<Harvest> gateway;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly CleanArchitectureExpander expander;
         private readonly IFile file;
         private readonly IDirectory directory;
@@ -28,16 +29,17 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
         public MigrationHarvesterInteractor(IDependencyFactoryInteractor factory)
         {
             gateway = factory.Get<ICreateGateway<Harvest>>();
-            expandRequestModel = factory.Get<ExpandRequestModel>();
+            options = factory.Get<GenerationOptions>();
             expander = factory.Get<CleanArchitectureExpander>();
             file = factory.Get<IFile>();
             directory = factory.Get<IDirectory>();
 
-            migrationsFolder = System.IO.Path.Combine(expandRequestModel.OutputFolder, Resources.InfrastructureMigrationsFolder);
+            migrationsFolder = System.IO.Path.Combine(options.OutputFolder, Resources.InfrastructureMigrationsFolder);
         }
 
         /// <inheritdoc/>
-        public bool CanExecute => directory.Exists(migrationsFolder);
+        public bool CanExecute => options.Modes.HasFlag(GenerationModes.Harvest)
+            && directory.Exists(migrationsFolder);
 
         public CleanArchitectureExpander Expander => expander;
 

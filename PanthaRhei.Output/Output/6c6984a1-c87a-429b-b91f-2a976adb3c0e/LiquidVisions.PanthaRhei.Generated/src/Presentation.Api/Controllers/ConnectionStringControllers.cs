@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         public static IServiceCollection AddConnectionStringElements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<ConnectionString, ConnectionStringViewModel>, ConnectionStringViewModelMapper>();
+            //services.AddTransient<IMapper<ConnectionString, ConnectionStringViewModel>, ConnectionStringViewModelMapper>();
             services.AddTransient<ICreateConnectionStringPresenter, CreateConnectionStringPresenter>();
             services.AddTransient<IGetByIdConnectionStringPresenter, GetByIdConnectionStringPresenter>();
             services.AddTransient<IGetConnectionStringsPresenter, GetConnectionStringsPresenter>();

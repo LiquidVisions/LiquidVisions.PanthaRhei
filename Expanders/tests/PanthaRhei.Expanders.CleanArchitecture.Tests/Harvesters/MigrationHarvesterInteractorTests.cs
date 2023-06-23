@@ -2,7 +2,9 @@
 using System.Linq;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
+using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
@@ -26,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
 
             interactor = new MigrationHarvesterInteractor(fakes.IDependencyFactoryInteractor.Object);
 
-            expectedMigrationsFolder = System.IO.Path.Combine(fakes.Parameters.Object.OutputFolder, CleanArchitectureResources.InfrastructureMigrationsFolder);
+            expectedMigrationsFolder = System.IO.Path.Combine(fakes.GenerationOptions.Object.OutputFolder, CleanArchitectureResources.InfrastructureMigrationsFolder);
         }
 
         [Fact]
@@ -37,26 +39,28 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Harvest>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
         }
 
         [Theory]
-        [InlineData(true, true)]
-        [InlineData(false, false)]
-        public void CanExecute_ShouldValidate(bool folderExists, bool canExecuteResult)
+        [InlineData(GenerationModes.Harvest, true, true)]
+        [InlineData(GenerationModes.Harvest | GenerationModes.Default, true, true)]
+        [InlineData(GenerationModes.Default, true, false)]
+        [InlineData(GenerationModes.Harvest, false, false)]
+        public void CanExecute_ShouldValidate(GenerationModes modes, bool folderExists, bool canExecuteResult)
         {
             // arranges
             fakes.IDirectory.Setup(x => x.Exists(expectedMigrationsFolder)).Returns(folderExists);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(modes);
 
             // act
             bool result = interactor.CanExecute;
 
             // assert
-            fakes.IDirectory.Verify(x => x.Exists(expectedMigrationsFolder), Times.Once);
-            fakes.Parameters.Verify(x => x.GenerationMode, Times.Never);
+            fakes.GenerationOptions.Verify(x => x.Modes, Times.Once);
             Assert.Equal(canExecuteResult, result);
         }
 
@@ -65,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
         {
             // arrange
             string basePath = "C:\\Path\\To\\Some";
-            fakes.Parameters.Setup(x => x.HarvestFolder).Returns("C:\\Output\\SomeHarvestFolder");
+            fakes.GenerationOptions.Setup(x => x.HarvestFolder).Returns("C:\\Output\\SomeHarvestFolder");
             string sourceFile1 = $"{basePath}\\SourceFile1";
             string sourceFile2 = $"{basePath}\\SourceFile2";
 

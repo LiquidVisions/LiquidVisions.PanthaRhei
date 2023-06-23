@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using AutoMapper;
 
 namespace {{component_fullname component 'Presenters' entity.name | pluralize}}
 {
@@ -25,9 +26,9 @@ namespace {{component_fullname component 'Presenters' entity.name | pluralize}}
     public class {{action}}{{name}}Presenter : I{{action}}{{name}}Presenter
     {
         {{~if action != "Delete"~}}
-        private readonly IMapper<{{entity.name}}, {{entity.name}}ViewModel> mapper;
+        private readonly IMapper mapper;
 
-        public {{action}}{{name}}Presenter(IMapper<{{entity.name}}, {{entity.name}}ViewModel> mapper)
+        public {{action}}{{name}}Presenter(IMapper mapper)
         {
             this.mapper = mapper;
         }{{~end}}
@@ -52,13 +53,13 @@ namespace {{component_fullname component 'Presenters' entity.name | pluralize}}
 
             return Response.IsValid ?
                 {{~if(action == "Create")~}}
-                Results.Created($"/{{entity.pluralized_name | string.downcase}}/{mapper.Map(Response.GetParameter<{{entity.name}}>()).Id}", mapper.Map(Response.GetParameter<{{entity.name}}>())) :
+                Results.Created($"/{{entity.pluralized_name | string.downcase}}/{mapper.Map<{{entity.name}}ViewModel>(Response.GetParameter<{{entity.name}}>()).Id}", mapper.Map<{{entity.name}}ViewModel>(Response.GetParameter<{{entity.name}}>())) :
                 {{~else if(action == "Get")~}}
-                Results.Json(Response.GetParameter<List<{{entity.name}}>>().Select(x => mapper.Map(x)), options, "application/json", 200) :
+                Results.Json(Response.GetParameter<List<{{entity.name}}>>().Select(x => mapper.Map<{{entity.name}}ViewModel>(x)), options, "application/json", 200) :
                 {{~else if(action == "Update")~}}
-                Results.Ok(mapper.Map(Response.GetParameter<{{entity.name}}>())) :
+                Results.Ok(mapper.Map<{{entity.name}}ViewModel>(Response.GetParameter<{{entity.name}}>())) :
                 {{~else if(action == "GetById" || action == "Update")~}}
-                Results.Json(mapper.Map(Response.GetParameter<{{entity.name}}>()), options, "application/json", 200) :
+                Results.Json(mapper.Map<{{entity.name}}ViewModel>(Response.GetParameter<{{entity.name}}>()), options, "application/json", 200) :
                 {{~else if action == "Delete"~}}
                 Results.Ok() :
                 {{~end~}}

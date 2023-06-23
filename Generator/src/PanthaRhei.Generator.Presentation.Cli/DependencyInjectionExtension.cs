@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+using LiquidVisions.PanthaRhei.Generator.Application;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure;
+using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Generator.Presentation.Cli
@@ -13,9 +15,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Presentation.Cli
         /// Adds the dependencies of the project to the dependency inversion object.
         /// </summary>
         /// <param name="services"><seealso cref="IServiceCollection"/></param>
+        /// <param name="model"><seealso cref="ExpandOptionsRequestModel"/></param>
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
-        public static IServiceCollection AddConsole(this IServiceCollection services)
+        public static IServiceCollection AddPresentationLayer(this IServiceCollection services, ExpandOptionsRequestModel model)
         {
+            services.AddApplicationLayer(model)
+                .AddInfrastructureLayer()
+                .AddEntityFrameworkLayer();
+
             return services;
         }
     }

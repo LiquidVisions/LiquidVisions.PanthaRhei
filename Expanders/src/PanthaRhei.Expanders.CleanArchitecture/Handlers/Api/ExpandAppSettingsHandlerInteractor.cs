@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
@@ -14,13 +16,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// </summary>
     public class ExpandAppSettingsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly CleanArchitectureExpander expander;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly IFile file;
+        private readonly IWriterInteractor writer;
         private readonly Component component;
         private readonly App app;
         private readonly string fullPathToAppSettingsJson;
+        private readonly string bootstrapFile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandAppSettingsHandlerInteractor"/> class.
@@ -31,14 +34,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         {
             this.expander = expander;
 
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             file = dependencyFactory.Get<IFile>();
+            writer = dependencyFactory.Get<IWriterInteractor>();
 
-            component = Expander.Model.GetComponentByName(Resources.Api);
-            string fullPathToApiComponent = projectAgent.GetComponentOutputFolder(component);
+            component = Expander.GetComponentByName(Resources.Api);
+            string fullPathToApiComponent = expander.GetComponentOutputFolder(component);
             fullPathToAppSettingsJson = System.IO.Path.Combine(fullPathToApiComponent, Resources.AppSettingsJson);
+            bootstrapFile = Path.Combine(fullPathToApiComponent, Resources.DependencyInjectionBootstrapperFile);
         }
 
         public int Order => 13;
@@ -47,8 +51,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.GenerationMode.HasFlag(GenerationModes.Default)
-            || expandRequestModel.GenerationMode.HasFlag(GenerationModes.Extend);
+        public bool CanExecute => options.Modes.HasFlag(GenerationModes.Default)
+            || options.Modes.HasFlag(GenerationModes.Extend);
 
         /// <inheritdoc/>
         public void Execute()
@@ -62,13 +66,17 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
                 app.ConnectionStrings
                     .ToList()
-                    .ForEach(x => connectionStringObject.Add(x.Name, x.Definition));
+                    .ForEach(x => connectionStringObject.Add(x.Name, "CONNECTIONSTRING_IS_USER-SECRET"));
 
                 jsonObject.Add("ConnectionStrings", connectionStringObject);
 
                 string result = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
                 file.WriteAllText(fullPathToAppSettingsJson, result);
             }
+
+            writer.Load(bootstrapFile);
+            writer.Replace("CONNECTION_STRING_PLACEHOLDER", app.ConnectionStrings.Single().Name);
+            writer.Save(bootstrapFile);
         }
     }
 }

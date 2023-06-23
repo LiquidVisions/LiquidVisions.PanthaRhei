@@ -158,12 +158,26 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure
             int endIndex = IndexOf(endMatch);
 
             int count = endIndex - 1 - beginIndex;
-
             lines.RemoveRange(beginIndex + 1, count);
 
             logger.Trace($"Writing {replaceValue} to file.");
-            int padCount = lines[beginIndex].TakeWhile(char.IsWhiteSpace).Count();
-            replaceValue = replaceValue.PadLeft(padCount + replaceValue.Length, ' ');
+
+            string line = lines[beginIndex];
+            int padCount = line.TakeWhile(char.IsWhiteSpace).Count();
+            int total = 0;
+            for (int i = 0; i < padCount; i++)
+            {
+                if (line[i] == '\t')
+                {
+                    total += 4;
+                }
+                else
+                {
+                    total += 1;
+                }
+            }
+
+            replaceValue = replaceValue.PadLeft(total + replaceValue.Length, ' ');
             lines.Insert(beginIndex + 1, replaceValue);
         }
 

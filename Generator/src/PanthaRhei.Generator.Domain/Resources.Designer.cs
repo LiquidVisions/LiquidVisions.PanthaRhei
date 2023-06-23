@@ -61,7 +61,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server=tcp:liquidvisions.database.windows.net,1433;Initial Catalog=PantaRhei.Prod;Persist Security Info=False;User ID=gerco.koks;Password=4cZ#Lsojpc75;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;.
+        ///   Looks up a localized string similar to PUT_YOUR_CONNECTIONSTRING_HERE.
         /// </summary>
         public static string ConnectionStringDefintion {
             get {
@@ -70,11 +70,38 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DefaultConnectionString.
+        ///   Looks up a localized string similar to PanthaRheiProd.
         /// </summary>
         public static string ConnectionStringName {
             get {
                 return ResourceManager.GetString("ConnectionStringName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expanders.
+        /// </summary>
+        public static string DefaultExpanderFolder {
+            get {
+                return ResourceManager.GetString("DefaultExpanderFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Harvest.
+        /// </summary>
+        public static string DefaultHarvestFolder {
+            get {
+                return ResourceManager.GetString("DefaultHarvestFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string DefaultOutputFolder {
+            get {
+                return ResourceManager.GetString("DefaultOutputFolder", resourceCulture);
             }
         }
         

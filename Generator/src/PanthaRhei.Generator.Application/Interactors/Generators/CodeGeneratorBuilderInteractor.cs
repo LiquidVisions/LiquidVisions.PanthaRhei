@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
     internal class CodeGeneratorBuilderInteractor : ICodeGeneratorBuilderInteractor
     {
         private readonly IGetGateway<App> gateway;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly IExpanderPluginLoaderInteractor pluginLoader;
         private readonly IDependencyManagerInteractor dependencyManager;
         private readonly IDependencyFactoryInteractor dependencyFactory;
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
         public CodeGeneratorBuilderInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
             gateway = dependencyFactory.Get<IGetGateway<App>>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
             dependencyManager = dependencyFactory.Get<IDependencyManagerInteractor>();
             this.dependencyFactory = dependencyFactory;
@@ -33,11 +33,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators
         /// <inheritdoc/>
         public ICodeGeneratorInteractor Build()
         {
-            App app = gateway.GetById(expandRequestModel.AppId);
-            if (app == null)
-            {
-                throw new CodeGenerationException($"No application model available with the provided Id {expandRequestModel.AppId}.");
-            }
+            App app = gateway.GetById(options.AppId) ?? throw new CodeGenerationException($"No application model available with the provided Id {options.AppId}.");
 
             pluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
             dependencyManager.AddSingleton(app);

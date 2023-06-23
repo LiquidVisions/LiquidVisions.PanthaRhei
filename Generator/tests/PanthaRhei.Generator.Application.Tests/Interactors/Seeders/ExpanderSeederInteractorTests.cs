@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
@@ -37,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<Expander>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Expander>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IExpanderPluginLoaderInteractor>(), Times.Once);
         }
 
@@ -76,16 +77,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
         {
             // arrange
             App app = new();
-            Mock<IExpanderInteractor> mockedExpanderInteractor = new Mock<IExpanderInteractor>();
+            Mock<IExpanderInteractor> mockedExpanderInteractor = new();
             mockedExpanderInteractor.Setup(x => x.Name).Returns("RandomName");
             mockedExpanderInteractor.Setup(x => x.Order).Returns(2);
-            fakes.IExpanderPluginLoaderInteractor.Setup(x => x.ShallowLoadAllExpanders(fakes.Parameters.Object.ExpandersFolder)).Returns(new List<IExpanderInteractor> { mockedExpanderInteractor.Object });
+            fakes.IExpanderPluginLoaderInteractor.Setup(x => x.ShallowLoadAllExpanders(fakes.GenerationOptions.Object.ExpandersFolder)).Returns(new List<IExpanderInteractor> { mockedExpanderInteractor.Object });
 
             // act
             interactor.Seed(app);
 
             // assert
-            fakes.IExpanderPluginLoaderInteractor.Verify(x => x.ShallowLoadAllExpanders(fakes.Parameters.Object.ExpandersFolder), Times.Once);
+            fakes.IExpanderPluginLoaderInteractor.Verify(x => x.ShallowLoadAllExpanders(fakes.GenerationOptions.Object.ExpandersFolder), Times.Once);
             Assert.Single(app.Expanders);
             Assert.Same(app.Expanders.Single().Apps.Single(), app);
             createGateWay.Verify(x => x.Create(It.IsAny<Expander>()), Times.Once);

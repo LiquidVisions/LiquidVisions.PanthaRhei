@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         public static IServiceCollection AddFieldElements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<Field, FieldViewModel>, FieldViewModelMapper>();
+            //services.AddTransient<IMapper<Field, FieldViewModel>, FieldViewModelMapper>();
             services.AddTransient<ICreateFieldPresenter, CreateFieldPresenter>();
             services.AddTransient<IGetByIdFieldPresenter, GetByIdFieldPresenter>();
             services.AddTransient<IGetFieldsPresenter, GetFieldsPresenter>();

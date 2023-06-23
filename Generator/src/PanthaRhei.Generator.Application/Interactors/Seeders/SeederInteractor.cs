@@ -6,19 +6,18 @@ using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-
     internal class SeederInteractor : ISeederInteractor
     {
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly List<IEntitySeederInteractor<App>> seeders;
 
         public SeederInteractor(IDependencyFactoryInteractor dependencyFactory)
         {
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             seeders = dependencyFactory.GetAll<IEntitySeederInteractor<App>>().ToList();
         }
 
-        public bool CanExecute => expandRequestModel.ReSeed;
+        public bool CanExecute => options.ReSeed;
 
         public void Execute()
         {

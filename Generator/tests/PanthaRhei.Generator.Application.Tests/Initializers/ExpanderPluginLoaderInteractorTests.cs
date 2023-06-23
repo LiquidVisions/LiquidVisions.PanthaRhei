@@ -32,23 +32,23 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Initializers
 
             interactor = new ExpanderPluginLoaderInteractor(fakes.IDependencyFactoryInteractor.Object);
 
-            fakes.IFile.Setup(x => x.GetDirectory(fakes.Parameters.Object.ExpandersFolder)).Returns(@"C:\Some\Fake\");
+            fakes.IFile.Setup(x => x.GetDirectory(fakes.GenerationOptions.Object.ExpandersFolder)).Returns(@"C:\Some\Fake\");
             fakes.IAssemblyContextInteractor.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);
-            fakes.IDirectory.Setup(x => x.GetFiles(System.IO.Path.Combine(fakes.Parameters.Object.ExpandersFolder, expanderName), searchPattern, System.IO.SearchOption.TopDirectoryOnly)).Returns(new string[] { pluginAssembly });
+            fakes.IDirectory.Setup(x => x.GetFiles(System.IO.Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expanderName), searchPattern, System.IO.SearchOption.TopDirectoryOnly)).Returns(new string[] { pluginAssembly });
         }
 
         [Fact]
         public void Load_RootFolderDoesNotContainPluginAssemblies_ShouldThrowException()
         {
             // arrange
-            fakes.IDirectory.Setup(x => x.GetFiles(System.IO.Path.Combine(fakes.Parameters.Object.ExpandersFolder, expanderName), searchPattern, System.IO.SearchOption.TopDirectoryOnly)).Returns(Array.Empty<string>());
+            fakes.IDirectory.Setup(x => x.GetFiles(System.IO.Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expanderName), searchPattern, System.IO.SearchOption.TopDirectoryOnly)).Returns(Array.Empty<string>());
 
             // act
             void Action() => interactor.LoadAllRegisteredPluginsAndBootstrap(app);
 
             // assert
             InitializationException ex = Assert.Throws<InitializationException>(Action);
-            Assert.Equal($"No plugin assembly detected in '{System.IO.Path.Combine(fakes.Parameters.Object.ExpandersFolder, expanderName)}'. The plugin assembly should match the following '{searchPattern}' pattern", ex.Message);
+            Assert.Equal($"No plugin assembly detected in '{System.IO.Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expanderName)}'. The plugin assembly should match the following '{searchPattern}' pattern", ex.Message);
         }
 
         [Fact]

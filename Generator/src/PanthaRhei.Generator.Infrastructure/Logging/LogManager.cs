@@ -15,11 +15,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Logging
     {
         private static readonly ConcurrentDictionary<string, ILogger> loggerCache = new();
         private static readonly IEnumerable<string> loggerNames = new List<string> { Loggers.DefaultLogger, Loggers.ExceptionLogger, Loggers.AuthenticationLogger };
-        private readonly ExpandRequestModel requestModel;
+        private readonly GenerationOptions requestModel;
 
-        public LogManager(ExpandRequestModel requestModel)
+        public LogManager(GenerationOptions options)
         {
-            this.requestModel = requestModel;
+            this.requestModel = options;
         }
 
         /// <summary>

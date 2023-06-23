@@ -18,7 +18,7 @@ namespace {{component_fullname component 'Controllers'}}
 
         public static IServiceCollection Add{{entity.name}}Elements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<{{entity.name}}, {{entity.name}}ViewModel>, {{entity.name}}ViewModelMapper>();
+            //services.AddTransient<IMapper<{{entity.name}}, {{entity.name}}ViewModel>, {{entity.name}}ViewModelMapper>();
             services.AddTransient<ICreate{{entity.name}}Presenter, Create{{entity.name}}Presenter>();
             services.AddTransient<IGetById{{entity.name}}Presenter, GetById{{entity.name}}Presenter>();
             services.AddTransient<IGet{{entity.name | pluralize}}Presenter, Get{{entity.name | pluralize}}Presenter>();

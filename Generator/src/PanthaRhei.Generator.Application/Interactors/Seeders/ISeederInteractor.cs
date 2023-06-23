@@ -2,7 +2,7 @@
 
 namespace LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders
 {
-    internal interface ISeederInteractor : IExecutionInteractor 
+    internal interface ISeederInteractor : IExecutionInteractor
     {
     }
 }

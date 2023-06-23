@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Entities
 {
@@ -14,9 +15,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Entitie
 
     public class CreateEntityPresenter : ICreateEntityPresenter
     {
-        private readonly IMapper<Entity, EntityViewModel> mapper;
+        private readonly IMapper mapper;
 
-        public CreateEntityPresenter(IMapper<Entity, EntityViewModel> mapper)
+        public CreateEntityPresenter(IMapper mapper)
         {
             this.mapper = mapper;
         }
@@ -27,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Entitie
         {
 
             return Response.IsValid ?
-                Results.Created($"//{mapper.Map(Response.GetParameter<Entity>()).Id}", mapper.Map(Response.GetParameter<Entity>())) :
+                Results.Created($"//{mapper.Map<EntityViewModel>(Response.GetParameter<Entity>()).Id}", mapper.Map<EntityViewModel>(Response.GetParameter<Entity>())) :
                 Response.ToWebApiResult(request);
         }
     }

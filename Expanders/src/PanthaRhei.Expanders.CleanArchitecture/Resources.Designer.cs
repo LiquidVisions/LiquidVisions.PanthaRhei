@@ -448,7 +448,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ViewModelMapperTemplate.
+        ///   Looks up a localized string similar to ViewModelAutoMapperTemplate.
         /// </summary>
         public static string ViewModelMapperTemplate {
             get {

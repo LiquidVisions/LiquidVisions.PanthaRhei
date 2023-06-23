@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
@@ -39,7 +40,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Expander>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<Expander>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IExpanderPluginLoaderInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
             fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
@@ -79,7 +80,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // assert
             App app = new();
             string folder = "Expanders";
-            fakes.Parameters.Setup(x => x.ExpandersFolder).Returns(folder);
+            fakes.GenerationOptions.Setup(x => x.ExpandersFolder).Returns(folder);
             mockedPluginLoader.Setup(x => x.ShallowLoadAllExpanders(folder))
                 .Returns(new List<IExpanderInteractor> { GetMockedIExpanderInteractor() });
 

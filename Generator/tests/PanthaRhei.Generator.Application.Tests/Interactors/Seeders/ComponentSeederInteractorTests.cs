@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
@@ -34,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Component>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<Component>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
@@ -81,8 +82,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
                 Expanders = new List<Expander> { expander1, expander2, },
             };
 
-            string actualTemplatePathExpander1 = Path.Combine(fakes.Parameters.Object.ExpandersFolder, expander1.Name, expander1.TemplateFolder);
-            string actualTemplatePathExpander2 = Path.Combine(fakes.Parameters.Object.ExpandersFolder, expander2.Name, expander2.TemplateFolder);
+            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, expander1.TemplateFolder);
+            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, expander2.TemplateFolder);
 
             fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(false);
             fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(false);
@@ -108,8 +109,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
                 Expanders = new List<Expander> { expander1, expander2, },
             };
 
-            string actualTemplatePathExpander1 = Path.Combine(fakes.Parameters.Object.ExpandersFolder, expander1.Name, expander1.TemplateFolder);
-            string actualTemplatePathExpander2 = Path.Combine(fakes.Parameters.Object.ExpandersFolder, expander2.Name, expander2.TemplateFolder);
+            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, expander1.TemplateFolder);
+            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, expander2.TemplateFolder);
 
             fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(true);
             fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(true);

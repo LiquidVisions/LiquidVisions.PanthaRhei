@@ -42,7 +42,7 @@ namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
                     result.SetParameter(entity);
 
                     int repositoryResult = await repository.Create(entity);
-                    if (repositoryResult != 1)
+                    if (repositoryResult < 1)
                     {
                         result.AddError(ErrorCodes.InternalServerError, $"Failed to create {nameof({{entity.name}})}.");
                         return result;

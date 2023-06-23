@@ -11,5 +11,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
 		public virtual string Name { get; set; }
 		public virtual string Definition { get; set; }
 		public virtual App App { get; set; }
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
 	}
 }

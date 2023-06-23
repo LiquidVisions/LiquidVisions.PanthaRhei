@@ -30,14 +30,14 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostP
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => Parameters.Clean;
+        public override bool CanExecute => Options.Clean;
 
         /// <summary>
         /// Installs the dotnet templates that are part of the <see cref="IExpanderInteractor"/>.
         /// </summary>
         public override void Execute()
         {
-            string templatePath = Path.Combine(Parameters.ExpandersFolder, Expander.Model.Name, Expander.Model.TemplateFolder);
+            string templatePath = Path.Combine(Options.ExpandersFolder, Expander.Model.Name, Expander.Model.TemplateFolder);
 
             string[] dotnetTemplateDirectories = directoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
             foreach (string dotnetTemplateDirectory in dotnetTemplateDirectories)

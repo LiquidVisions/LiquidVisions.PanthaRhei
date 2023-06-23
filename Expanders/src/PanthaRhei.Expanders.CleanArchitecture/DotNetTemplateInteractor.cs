@@ -14,10 +14,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     internal class DotNetTemplateInteractor : IProjectTemplateInteractor
     {
         private readonly ICommandLineInteractor commandLine;
-        private readonly IProjectAgentInteractor agentInteractor;
         private readonly ILogger logger;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly App app;
+        private readonly CleanArchitectureExpander expander;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DotNetTemplateInteractor"/> class.
@@ -27,21 +27,21 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         {
             commandLine = dependencyFactory.Get<ICommandLineInteractor>();
             logger = dependencyFactory.Get<ILogger>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
-            agentInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
+            expander = dependencyFactory.Get<CleanArchitectureExpander>();
         }
 
         /// <summary>
         /// Creates a .csproj with the dotnet new command and and adds it to the solution.
         /// </summary>
-        /// <param name="commandParameters">The dotnet cli command expandRequestModel.</param>
+        /// <param name="commandParameters">The dotnet cli command options.</param>
         public virtual void CreateNew(string commandParameters)
         {
             string name = app.Name;
             string ns = app.FullName;
 
-            string outputFolder = Path.Combine(expandRequestModel.OutputFolder, ns);
+            string outputFolder = Path.Combine(options.OutputFolder, ns);
 
             logger.Info($"Creating directory {outputFolder}");
             commandLine.Start($"mkdir {outputFolder}");
@@ -52,7 +52,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 
         public void ApplyPackageOnComponent(Component component, Package package)
         {
-            string fullPathToProject = agentInteractor.GetComponentProjectFile(component);
+            string fullPathToProject = expander.GetComponentProjectFile(component);
 
             logger.Info($"Adding nuget package {package.Name} to {fullPathToProject}");
 

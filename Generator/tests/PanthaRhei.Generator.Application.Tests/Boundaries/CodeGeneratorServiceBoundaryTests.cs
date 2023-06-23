@@ -2,6 +2,7 @@
 using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using LiquidVisions.PanthaRhei.Generator.Tests;
 using Moq;
@@ -32,7 +33,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Boundaries
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ISeederInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogger>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogManager>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 
         [Fact]

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
@@ -33,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
 
@@ -47,16 +48,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
         public void Clean_ShouldRunExactTimes(bool clean, int times)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.Clean)
+            fakes.GenerationOptions.Setup(x => x.Clean)
                 .Returns(clean);
 
             // act
             interactor.Execute();
 
             // assert
-            fakes.Parameters.Verify(x => x.Clean, Times.Once);
-            fakes.Parameters.Verify(x => x.OutputFolder, Times.Exactly(times));
-            fakes.IDirectory.Verify(x => x.Delete(fakes.Parameters.Object.OutputFolder), Times.Exactly(times));
+            fakes.GenerationOptions.Verify(x => x.Clean, Times.Once);
+            fakes.GenerationOptions.Verify(x => x.OutputFolder, Times.Exactly(times));
+            fakes.IDirectory.Verify(x => x.Delete(fakes.GenerationOptions.Object.OutputFolder), Times.Exactly(times));
         }
 
         [Fact]

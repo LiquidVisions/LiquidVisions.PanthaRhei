@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
@@ -21,8 +20,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.Serialization
 
         public void Serialize(Harvest harvest, string fullPath)
         {
-            bool serialize = File.Exists(fullPath) && !harvest.Items.Any();
-            serialize |= harvest.Items.Any();
+            bool serialize = file.Exists(fullPath);
+            serialize &= harvest.Items.Any();
             if (serialize)
             {
                 string dir = file.GetDirectory(fullPath);

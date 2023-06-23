@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework
             services.AddDbContext<Context>(options =>
             {
                 options.UseSqlServer(connectionString);
-                options.UseLazyLoadingProxies();
+                // options.UseLazyLoadingProxies();
                 #if DEBUG
                 options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
                 options.EnableSensitiveDataLogging();

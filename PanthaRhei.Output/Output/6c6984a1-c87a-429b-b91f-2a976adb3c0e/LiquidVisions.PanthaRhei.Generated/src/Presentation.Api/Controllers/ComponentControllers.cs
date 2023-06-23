@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         public static IServiceCollection AddComponentElements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<Component, ComponentViewModel>, ComponentViewModelMapper>();
+            //services.AddTransient<IMapper<Component, ComponentViewModel>, ComponentViewModelMapper>();
             services.AddTransient<ICreateComponentPresenter, CreateComponentPresenter>();
             services.AddTransient<IGetByIdComponentPresenter, GetByIdComponentPresenter>();
             services.AddTransient<IGetComponentsPresenter, GetComponentsPresenter>();

@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         public static IServiceCollection AddPackageElements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<Package, PackageViewModel>, PackageViewModelMapper>();
+            //services.AddTransient<IMapper<Package, PackageViewModel>, PackageViewModelMapper>();
             services.AddTransient<ICreatePackagePresenter, CreatePackagePresenter>();
             services.AddTransient<IGetByIdPackagePresenter, GetByIdPackagePresenter>();
             services.AddTransient<IGetPackagesPresenter, GetPackagesPresenter>();

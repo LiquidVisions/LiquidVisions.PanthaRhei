@@ -24,16 +24,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddEntityFrameworkLayer(this IServiceCollection services)
         {
-            ExpandRequestModel expandRequestModel = services.BuildServiceProvider().GetService<ExpandRequestModel>();
+            GenerationOptions options = services.BuildServiceProvider().GetService<GenerationOptions>();
 
             services.AddScoped<DbContext, Context>();
-            services.AddDbContext<Context>(options =>
+            services.AddDbContext<Context>(x =>
             {
-                options.UseSqlServer(expandRequestModel.ConnectionString);
-                options.UseLazyLoadingProxies();
+                x.UseSqlServer(options.ConnectionString);
+                x.UseLazyLoadingProxies();
 #if DEBUG
-                options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
-                options.EnableSensitiveDataLogging();
+                x.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
+                x.EnableSensitiveDataLogging();
 #endif
             });
 
