@@ -58,10 +58,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Tests
         {
             ILogManager.Setup(x => x.GetExceptionLogger()).Returns(ILogger.Object);
             ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Returns(ICodeGeneratorInteractor.Object);
-            GenerationOptions.Setup(x => x.Root).Returns("C:\\Some\\Root\\Folder\\");
-            GenerationOptions.Setup(x => x.OutputFolder).Returns("C:\\Some\\Root\\OutputFolder\\");
-            GenerationOptions.Setup(x => x.ExpandersFolder).Returns("C:\\Some\\Root\\Expanders\\");
-            GenerationOptions.Setup(x => x.HarvestFolder).Returns("C:\\Some\\Root\\HarvestFolder\\");
+            GenerationOptions.Setup(x => x.Root).Returns("C:\\Some\\Root\\Folder");
+            GenerationOptions.Setup(x => x.OutputFolder).Returns("C:\\Some\\Root\\OutputFolder");
+            GenerationOptions.Setup(x => x.ExpandersFolder).Returns("C:\\Some\\Root\\Expanders");
+            GenerationOptions.Setup(x => x.HarvestFolder).Returns("C:\\Some\\Root\\HarvestFolder");
         }
 
         public virtual void ConfigureIDependencyFactoryInteractor()
