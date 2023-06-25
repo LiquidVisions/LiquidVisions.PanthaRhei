@@ -6,6 +6,14 @@
 		<RootNamespace>LiquidVisions.PanthaRhei.Domain</RootNamespace>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<NeutralLanguage>en</NeutralLanguage>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>flux</ToolCommandName>
+		<PackageId>LiquidVisions.PanthaRhei.Core</PackageId>
+		<Title>PanthaRhei.Core</Title>
+		<Authors>Gerco Koks</Authors>
+		<Company>LiquidVisions</Company>
+		<Product>PanthaRhei</Product>
+		<Version>0.1.0</Version>
 	</PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
