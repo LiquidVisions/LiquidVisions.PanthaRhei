@@ -46,5 +46,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         /// Executes the expander PreProcessing.
         /// </summary>
         void PreProcess();
+
+        /// <summary>
+        /// Executes the expander Clean processing.
+        /// </summary>
+        void Clean();
     }
 }

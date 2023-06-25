@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using Moq;
@@ -28,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
             // act
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectTemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
         }
 
@@ -50,7 +51,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
         public void CanExecute_ShouldBeFalse(GenerationModes mode)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.GenerationMode).Returns(mode);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(mode);
 
             // act
             bool result = interactor.CanExecute;
@@ -65,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
         public void CanExecute_ShouldOnlyBeTrueWhenCleanParameterIsSetToTrue(bool clean, bool expectedResult)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.Clean).Returns(clean);
+            fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
 
             // act
             bool result = interactor.CanExecute;

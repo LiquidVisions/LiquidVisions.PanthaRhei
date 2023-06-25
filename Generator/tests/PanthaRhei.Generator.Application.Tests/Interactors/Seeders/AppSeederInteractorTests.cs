@@ -1,5 +1,6 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
@@ -32,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<App>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<App>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
             fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
@@ -75,13 +76,13 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Seede
             Guid appId = Guid.NewGuid();
             App app = new();
 
-            fakes.Parameters.Setup(x => x.AppId).Returns(appId);
+            fakes.GenerationOptions.Setup(x => x.AppId).Returns(appId);
 
             // act
             interactor.Seed(app);
 
             // assert
-            fakes.Parameters.Verify(x => x.AppId, Times.Once);
+            fakes.GenerationOptions.Verify(x => x.AppId, Times.Once);
             mockedCreateGateway.Verify(x => x.Create(app), Times.Once);
             Assert.Equal(actualName, app.Name);
             Assert.Equal(actualFullName, app.FullName);

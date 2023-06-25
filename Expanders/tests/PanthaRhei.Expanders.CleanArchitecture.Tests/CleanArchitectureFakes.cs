@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
@@ -9,8 +10,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 {
     public class CleanArchitectureFakes : Fakes
     {
-        public Mock<CleanArchitectureExpander> CleanArchitectureExpanderInteractor { get; } = new();
-
         public Mock<Component> InfrastructureComponent { get; } = new();
 
         public Mock<Component> DomainComponent { get; } = new();
@@ -22,8 +21,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
         public Mock<Expander> CleanArchitectureExpanderModel { get; } = new();
 
         public Mock<CleanArchitectureExpander> CleanArchitectureExpander { get; } = new();
-
-        public Mock<IProjectAgentInteractor> IProjectAgentInteractor { get; } = new();
 
         public Mock<IHarvestSerializerInteractor> IHarvestSerializerInteractor { get; } = new();
 
@@ -44,9 +41,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             IDependencyFactoryInteractor.Setup(x => x.Get<IProjectTemplateInteractor>())
                 .Returns(IProjectTemplateInteractor.Object);
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectAgentInteractor>())
-                .Returns(IProjectAgentInteractor.Object);
-
             IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializerInteractor>())
                 .Returns(IHarvestSerializerInteractor.Object);
         }
@@ -55,13 +49,13 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
         {
             SetupApp(entities, new List<Expander> { CleanArchitectureExpanderModel.Object });
 
-            CleanArchitectureExpanderInteractor.Setup(x => x.Name).Returns(nameof(CleanArchitectureExpanderInteractor));
-            CleanArchitectureExpanderInteractor.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
+            CleanArchitectureExpander.Setup(x => x.Name).Returns(nameof(CleanArchitectureExpander));
+            CleanArchitectureExpander.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
 
             CleanArchitectureExpanderModel.Setup(x => x.TemplateFolder).Returns(".Templates");
             CleanArchitectureExpanderModel.Setup(x => x.Name).Returns("CleanArchitecture");
+            CleanArchitectureExpanderModel.Setup(x => x.Order).Returns(2);
 
-            InfrastructureComponent.Setup(x => x.Name).Returns(Resources.EntityFramework);
             InfrastructureComponent.Setup(x => x.Name).Returns(Resources.EntityFramework);
             DomainComponent.Setup(x => x.Name).Returns(Resources.Domain);
             ApiComponent.Setup(x => x.Name).Returns(Resources.Api);
@@ -78,6 +72,16 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
             CleanArchitectureExpander.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<CleanArchitectureExpander>()).Returns(CleanArchitectureExpander.Object);
+
+            CleanArchitectureExpander.Setup(x => x.GetComponentByName(Resources.Api)).Returns(ApiComponent.Object);
+            CleanArchitectureExpander.Setup(x => x.GetComponentByName(Resources.EntityFramework)).Returns(InfrastructureComponent.Object);
+            CleanArchitectureExpander.Setup(x => x.GetComponentByName(Resources.Domain)).Returns(DomainComponent.Object);
+            CleanArchitectureExpander.Setup(x => x.GetComponentByName(Resources.Application)).Returns(ApplicationComponent.Object);
+
+            CleanArchitectureExpander.Setup(x => x.GetComponentOutputFolder(ApiComponent.Object)).Returns(this.ExpectedCompontentOutputFolder);
+            CleanArchitectureExpander.Setup(x => x.GetComponentOutputFolder(InfrastructureComponent.Object)).Returns(this.ExpectedCompontentOutputFolder);
+            CleanArchitectureExpander.Setup(x => x.GetComponentOutputFolder(DomainComponent.Object)).Returns(this.ExpectedCompontentOutputFolder);
+            CleanArchitectureExpander.Setup(x => x.GetComponentOutputFolder(ApplicationComponent.Object)).Returns(this.ExpectedCompontentOutputFolder);
         }
 
         internal App SetupApp(List<Expander> expanders = null)
@@ -94,6 +98,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             return app;
         }
 
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "No static methods")]
         internal List<Entity> GetValidEntities()
         {
             List<Entity> entities = new()

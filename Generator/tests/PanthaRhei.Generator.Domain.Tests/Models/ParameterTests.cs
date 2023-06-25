@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Tests.Models
 {
     public class ParameterTests
     {
-        private readonly ExpandRequestModel model;
+        private readonly GenerationOptions model;
         private readonly string root = @"C:\Root";
 
         public ParameterTests()

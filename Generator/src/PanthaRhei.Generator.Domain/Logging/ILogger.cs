@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Logging
         void Trace(string message);
 
         /// <summary>
-        /// Writes the diagnostic message at the Trace level using the specified expandRequestModel.
+        /// Writes the diagnostic message at the Trace level using the specified options.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Logging
         void Debug(string message);
 
         /// <summary>
-        /// Writes the diagnostic message at the Debug level using the specified expandRequestModel.
+        /// Writes the diagnostic message at the Debug level using the specified options.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>
@@ -40,7 +40,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Logging
         void Info(string message);
 
         /// <summary>
-        /// Writes the diagnostic message at the Info level using the specified expandRequestModel.
+        /// Writes the diagnostic message at the Info level using the specified options.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Logging
         void Warn(string message);
 
         /// <summary>
-        /// Writes the diagnostic message at the Warn level using the specified expandRequestModel.
+        /// Writes the diagnostic message at the Warn level using the specified options.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>
@@ -81,7 +81,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Logging
         void Fatal(string message);
 
         /// <summary>
-        /// Writes the diagnostic message at the Fatal level using the specified expandRequestModel.
+        /// Writes the diagnostic message at the Fatal level using the specified options.
         /// </summary>
         /// <param name="message">A string containing format items.</param>
         /// <param name="args">Arguments to format.</param>

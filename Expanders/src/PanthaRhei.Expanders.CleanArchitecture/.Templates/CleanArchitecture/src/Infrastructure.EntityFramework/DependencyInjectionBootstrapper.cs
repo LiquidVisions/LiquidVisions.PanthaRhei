@@ -19,7 +19,7 @@ namespace NS.Infrastructure.EntityFramework
             services.AddDbContext<Context>(options =>
             {
                 options.UseSqlServer(connectionString);
-                options.UseLazyLoadingProxies();
+                // options.UseLazyLoadingProxies();
                 //-:cnd:noEmit
 #if DEBUG
                 options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));

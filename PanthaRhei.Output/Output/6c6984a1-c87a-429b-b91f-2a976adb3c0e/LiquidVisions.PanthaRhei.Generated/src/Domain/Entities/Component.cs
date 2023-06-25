@@ -12,5 +12,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
 		public virtual string Description { get; set; }
 		public virtual List<Package> Packages { get; set; }
 		public virtual Expander Expander { get; set; }
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
 	}
 }

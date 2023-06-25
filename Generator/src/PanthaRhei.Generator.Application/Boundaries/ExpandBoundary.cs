@@ -1,6 +1,7 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Generator.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 
@@ -15,6 +16,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
         private readonly ISeederInteractor seederInteractor;
         private readonly ILogger logger;
         private readonly ILogger exceptionLogger;
+        private readonly GenerationOptions options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandBoundary"/> class.
@@ -28,11 +30,15 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
             exceptionLogger = dependencyFactory
                 .Get<ILogManager>()
                 .GetExceptionLogger();
+
+            options = dependencyFactory.Get<GenerationOptions>();
         }
 
         /// <inheritdoc/>
         public void Execute()
         {
+            logger.Info(options.ToString());
+
             if(!TrySeed())
             {
                 TryExpand();
@@ -65,10 +71,10 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Boundaries
                 if (seederInteractor.CanExecute)
                 {
                     seederInteractor.Execute();
+                    logger.Info("Successfully completed the seeding generation process.");
+
                     return true;
                 }
-
-                logger.Info("Successfully completed the seeding generation process.");
             }
             catch (CodeGenerationException ex)
             {

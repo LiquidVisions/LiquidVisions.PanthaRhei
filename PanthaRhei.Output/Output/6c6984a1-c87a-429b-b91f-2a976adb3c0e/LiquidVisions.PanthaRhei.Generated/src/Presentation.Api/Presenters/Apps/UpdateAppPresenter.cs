@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Apps
 {
@@ -14,9 +15,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Apps
 
     public class UpdateAppPresenter : IUpdateAppPresenter
     {
-        private readonly IMapper<App, AppViewModel> mapper;
+        private readonly IMapper mapper;
 
-        public UpdateAppPresenter(IMapper<App, AppViewModel> mapper)
+        public UpdateAppPresenter(IMapper mapper)
         {
             this.mapper = mapper;
         }
@@ -27,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Apps
         {
 
             return Response.IsValid ?
-                Results.Ok(mapper.Map(Response.GetParameter<App>())) :
+                Results.Ok(mapper.Map<AppViewModel>(Response.GetParameter<App>())) :
                 Response.ToWebApiResult(request);
         }
     }

@@ -15,10 +15,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     public class ExpandEndpointsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly CleanArchitectureExpander expander;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly IDirectory directory;
         private readonly App app;
 
@@ -31,9 +30,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         {
             this.expander = expander;
 
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             directory = dependencyFactory.Get<IDirectory>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             writer = dependencyFactory.Get<IWriterInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
@@ -45,17 +43,17 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public virtual void Execute()
         {
-            Component component = Expander.Model.GetComponentByName(Resources.Api);
+            Component component = Expander.GetComponentByName(Resources.Api);
 
-            string folder = IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.EndpointFolder);
+            string folder = IO.Path.Combine(expander.GetComponentOutputFolder(component), Resources.EndpointFolder);
             directory.Create(folder);
 
-            string fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.EndpointTemplate);
+            string fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.EndpointTemplate);
 
             foreach (Entity entity in app.Entities)
             {
@@ -67,7 +65,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         private void ModifyBootstrapperFile(Component component, Entity entity)
         {
-            string bootstrapperFile = IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
+            string bootstrapperFile = IO.Path.Combine(expander.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
 
             writer.Load(bootstrapperFile);
 
@@ -84,7 +82,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         private void GenerateAndSaveOutput(Component component, string destinationFolder, Entity endpoint, string fullPathToTemplate)
         {
-            Component applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
+            Component applicationComponent = Expander.GetComponentByName(Resources.Application);
 
             var templateModel = new
             {

@@ -14,10 +14,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     public class ExpandPresentersHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly App app;
         private readonly IDirectory directory;
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
         private readonly string[] requestActions;
         private readonly Component component;
@@ -34,20 +33,19 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         {
             this.expander = expander;
 
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
 
             requestActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
 
-            component = Expander.Model.GetComponentByName(Resources.Api);
-            applicationComponent = Expander.Model.GetComponentByName(Resources.Application);
+            component = Expander.GetComponentByName(Resources.Api);
+            applicationComponent = Expander.GetComponentByName(Resources.Application);
 
-            string projectOutputFolder = projectAgent.GetComponentOutputFolder(component);
+            string projectOutputFolder = expander.GetComponentOutputFolder(component);
             destinationFolder = Path.Combine(projectOutputFolder, Resources.PresentersFolder);
-            fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.PresenterTemplate);
+            fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.PresenterTemplate);
         }
 
         public int Order => 14;
@@ -56,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         public void Execute()
         {

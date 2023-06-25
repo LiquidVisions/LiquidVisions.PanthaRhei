@@ -1,11 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
-using LiquidVisions.PanthaRhei.Generator.Application;
 using LiquidVisions.PanthaRhei.Generator.Application.Boundaries;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Infrastructure;
-using LiquidVisions.PanthaRhei.Generator.Infrastructure.EntityFramework;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Generator.Presentation.Cli;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +26,7 @@ var appOption = cmd.Option(
     "The id of the app.",
     CommandOptionType.SingleValue);
 
-var runModeOption = cmd.Option<GenerationModes>(
+var runModeOption = cmd.Option(
     "--mode",
     "The run mode determines the expander and handers that will be executed.",
     CommandOptionType.SingleValue);
@@ -47,29 +43,21 @@ var reseed = cmd.Option<bool>(
 
 cmd.OnExecute(() =>
 {
-    var connectionString = new ConfigurationBuilder()
-        .AddUserSecrets<Program>()
-        .Build()
-        .GetConnectionString(dbOption.Value());
-
-    ExpandRequestModel expandRequestModel = new ExpandRequestModel
+    ExpandOptionsRequestModel requestModel = new()
     {
         AppId = Guid.Parse(appOption.Value()),
-        ConnectionString = connectionString,
         ReSeed = reseed.HasValue(),
         Root = rootOption.Value(),
         Clean = cleanModeOption.HasValue(),
-        GenerationMode = runModeOption.ParsedValue == GenerationModes.None
-            ? GenerationModes.Default
-            : runModeOption.ParsedValue,
+        GenerationMode = runModeOption.Value(),
+        ConnectionString = new ConfigurationBuilder()
+            .AddUserSecrets<Program>()
+            .Build()
+            .GetConnectionString(dbOption.Value()),
     };
 
     var provider = new ServiceCollection()
-        .AddConsole()
-        .AddDomainLayer(expandRequestModel)
-        .AddApplicationLayer()
-        .AddEntityFrameworkLayer()
-        .AddInfrastructureLayer()
+        .AddPresentationLayer(requestModel)
         .BuildServiceProvider();
 
     provider.GetService<IExpandBoundary>()

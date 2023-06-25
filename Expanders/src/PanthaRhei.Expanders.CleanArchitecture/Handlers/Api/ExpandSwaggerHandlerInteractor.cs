@@ -12,8 +12,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     public class ExpandSwaggerHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
-        private readonly ExpandRequestModel expandRequestModel;
-        private readonly IProjectAgentInteractor projectAgent;
+        private readonly GenerationOptions options;
         private readonly CleanArchitectureExpander expander;
 
         /// <summary>
@@ -24,8 +23,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         public ExpandSwaggerHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
         {
             writer = dependencyFactory.Get<IWriterInteractor>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
+            options = dependencyFactory.Get<GenerationOptions>();
             this.expander = expander;
         }
 
@@ -35,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public void Execute()
@@ -43,9 +41,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             string matchServices = "return services;";
             string matchApp = "app.Run();";
 
-            Component component = Expander.Model.GetComponentByName(Resources.Api);
+            Component component = Expander.GetComponentByName(Resources.Api);
 
-            string path = System.IO.Path.Combine(projectAgent.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
+            string path = System.IO.Path.Combine(expander.GetComponentOutputFolder(component), Resources.DependencyInjectionBootstrapperFile);
 
             writer.Load(path);
 

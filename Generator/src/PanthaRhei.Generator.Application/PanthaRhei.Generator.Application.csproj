@@ -11,8 +11,8 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.0.0.68202">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -22,9 +22,9 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj" />
-	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure.EntityFramework\PanthaRhei.Generator.Infrastructure.EntityFramework.csproj" />
-	  <ProjectReference Include="..\PanthaRhei.Generator.Infrastructure\PanthaRhei.Generator.Infrastructure.csproj" />
+	  <ProjectReference Include="..\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj">
+	    <PrivateAssets></PrivateAssets>
+	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Generator.Application.Tests" />

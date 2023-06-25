@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Controllers
 
         public static IServiceCollection AddRelationshipElements(this IServiceCollection services)
         {
-            services.AddTransient<IMapper<Relationship, RelationshipViewModel>, RelationshipViewModelMapper>();
+            //services.AddTransient<IMapper<Relationship, RelationshipViewModel>, RelationshipViewModelMapper>();
             services.AddTransient<ICreateRelationshipPresenter, CreateRelationshipPresenter>();
             services.AddTransient<IGetByIdRelationshipPresenter, GetByIdRelationshipPresenter>();
             services.AddTransient<IGetRelationshipsPresenter, GetRelationshipsPresenter>();

@@ -14,6 +14,22 @@ namespace LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework
             builder.AddConsole();
         });
 
+        public DbSet<Field> Fields { get; set; }
+        
+        public DbSet<App> Apps { get; set; }
+        
+        public DbSet<Package> Packages { get; set; }
+        
+        public DbSet<Entity> Entities { get; set; }
+        
+        public DbSet<Component> Components { get; set; }
+        
+        public DbSet<Expander> Expanders { get; set; }
+        
+        public DbSet<ConnectionString> ConnectionStrings { get; set; }
+        
+        public DbSet<Relationship> Relationships { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

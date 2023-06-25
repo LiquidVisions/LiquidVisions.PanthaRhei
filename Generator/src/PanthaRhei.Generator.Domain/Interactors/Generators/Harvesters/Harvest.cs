@@ -11,7 +11,6 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harve
 
         public Harvest()
         {
-
         }
 
         public Harvest(string type)

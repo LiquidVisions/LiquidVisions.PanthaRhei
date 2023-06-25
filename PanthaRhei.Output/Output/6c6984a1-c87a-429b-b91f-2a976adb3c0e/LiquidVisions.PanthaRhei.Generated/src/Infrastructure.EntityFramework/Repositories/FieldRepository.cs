@@ -18,7 +18,6 @@ namespace LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework
 
         public async Task<int> Update(Field entity)
         {
-            
             context.Set<Field>().Add(entity);
             context.Entry(entity).State = EntityState.Modified;
             #region ns-custom-update
@@ -29,13 +28,26 @@ namespace LiquidVisions.PanthaRhei.Generated.Infrastructure.EntityFramework
 
         public async Task<int> Create(Field entity)
         {
+            entity.Entity = context.Entities.Single(x => x.Id == entity.Entity.Id);
+            entity.Reference = context.Entities.Single(x => x.Id == entity.Reference.Id);
+            
             context.Set<Field>().Add(entity);
             context.Entry(entity).State = EntityState.Added;
 
             #region ns-custom-create
             #endregion ns-custom-create
 
-            return await context.SaveChangesAsync();
+            try
+            {
+                int result = await context.SaveChangesAsync();
+
+                return result;
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            
             
         }
 

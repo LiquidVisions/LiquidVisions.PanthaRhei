@@ -2,39 +2,32 @@
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 using System.Linq;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class FieldViewModelMapper : IMapper<Field, FieldViewModel>
+    public class FieldViewModelMapper : Profile
     {
-        public void Map(Field source, FieldViewModel target)
+        public FieldViewModelMapper()
         {
-            target.Id = source.Id;
-            target.Name = source.Name;
-            target.ReturnType = source.ReturnType;
-            target.IsCollection = source.IsCollection;
-            target.Modifier = source.Modifier;
-            target.GetModifier = source.GetModifier;
-            target.SetModifier = source.SetModifier;
-            target.Behaviour = source.Behaviour;
-            target.Order = source.Order;
-            target.Size = source.Size;
-            target.Required = source.Required;
-            target.Reference = new EntityViewModelMapper().Map(source.Reference);
-            target.Entity = new EntityViewModelMapper().Map(source.Entity);
-            target.IsKey = source.IsKey;
-            target.IsIndex = source.IsIndex;
-            target.RelationshipKeys = source.RelationshipKeys.Select(x => new RelationshipViewModelMapper().Map(x)).ToList();
-            target.IsForeignEntityKeyOf = source.IsForeignEntityKeyOf.Select(x => new RelationshipViewModelMapper().Map(x)).ToList();
-        }
-
-        public FieldViewModel Map(Field source)
-        {
-			FieldViewModel target = new();
-
-            Map(source, target);
-
-            return target;
+            CreateMap<Field, FieldViewModel>()
+                .ForMember(target => target.Id, x => x.MapFrom(source => source.Id))
+                .ForMember(target => target.Name, x => x.MapFrom(source => source.Name))
+                .ForMember(target => target.ReturnType, x => x.MapFrom(source => source.ReturnType))
+                .ForMember(target => target.IsCollection, x => x.MapFrom(source => source.IsCollection))
+                .ForMember(target => target.Modifier, x => x.MapFrom(source => source.Modifier))
+                .ForMember(target => target.GetModifier, x => x.MapFrom(source => source.GetModifier))
+                .ForMember(target => target.SetModifier, x => x.MapFrom(source => source.SetModifier))
+                .ForMember(target => target.Behaviour, x => x.MapFrom(source => source.Behaviour))
+                .ForMember(target => target.Order, x => x.MapFrom(source => source.Order))
+                .ForMember(target => target.Size, x => x.MapFrom(source => source.Size))
+                .ForMember(target => target.Required, x => x.MapFrom(source => source.Required))
+                .ForMember(target => target.Reference, x => x.MapFrom(source => source.Reference))
+                .ForMember(target => target.Entity, x => x.MapFrom(source => source.Entity))
+                .ForMember(target => target.IsKey, x => x.MapFrom(source => source.IsKey))
+                .ForMember(target => target.IsIndex, x => x.MapFrom(source => source.IsIndex))
+                .ForMember(target => target.RelationshipKeys, x => x.MapFrom(source => source.RelationshipKeys))
+                .ForMember(target => target.IsForeignEntityKeyOf, x => x.MapFrom(source => source.IsForeignEntityKeyOf));
         }
     }
 }

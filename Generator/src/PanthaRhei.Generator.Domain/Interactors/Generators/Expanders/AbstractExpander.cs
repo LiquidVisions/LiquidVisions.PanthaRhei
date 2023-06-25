@@ -36,8 +36,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
             this.dependencyFactory = dependencyFactory;
 
             logger = this.dependencyFactory.Get<ILogger>();
-            Model = dependencyFactory.Get<App>()
-                .Expanders
+            App = dependencyFactory.Get<App>();
+            Model = App.Expanders
                 .Single(x => x.Name == Name);
         }
 
@@ -54,6 +54,8 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
         /// Gets the Model of the <seealso cref="AbstractExpander{TExpander}" /> as a <seealso cref="Expand"/>.
         /// </summary>
         public virtual Expander Model { get; }
+
+        public virtual App App { get; }
 
         public virtual int Order => Model == null ? GetOrder() : Model.Order;
 
@@ -172,6 +174,9 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expan
                 handler.Execute();
             }
         }
+
+        /// <inheritdoc/>
+        public abstract void Clean();
 
         /// <summary>
         /// Gets the order of the expander.

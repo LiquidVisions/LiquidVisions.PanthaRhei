@@ -9,7 +9,7 @@ on:
 jobs:
   test:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -25,12 +25,10 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     
-    - name: Test
-      run: dotnet test /p:CollectCoverage=true  /p:CoverletOutput=../CoverageResults/ /p:MergeWith="../CoverageResults/coverage.json" /p:CoverletOutputFormat=\"cobertura,json\" -m:1
-    
-    - name: Codecov
-      uses: codecov/codecov-action@v3.1.1
+    - name: Run Unit Tests with Code Coverage
+      run: dotnet test --collect:"XPlat Code Coverage"
+
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v2
       with:
-        # Repository upload token - get it from codecov.io. Required only for private repositories
         token: ${{ secrets.CODECOV_TOKEN }}
-        verbose: true

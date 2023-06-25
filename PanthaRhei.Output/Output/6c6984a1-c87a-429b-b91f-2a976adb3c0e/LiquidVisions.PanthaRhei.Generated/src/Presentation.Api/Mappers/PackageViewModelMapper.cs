@@ -2,26 +2,19 @@
 using LiquidVisions.PanthaRhei.Generated.Application.Mappers;
 using LiquidVisions.PanthaRhei.Generated.Domain.Entities;
 using System.Linq;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Mappers
 {
-    public class PackageViewModelMapper : IMapper<Package, PackageViewModel>
+    public class PackageViewModelMapper : Profile
     {
-        public void Map(Package source, PackageViewModel target)
+        public PackageViewModelMapper()
         {
-            target.Id = source.Id;
-            target.Name = source.Name;
-            target.Version = source.Version;
-            target.Component = new ComponentViewModelMapper().Map(source.Component);
-        }
-
-        public PackageViewModel Map(Package source)
-        {
-			PackageViewModel target = new();
-
-            Map(source, target);
-
-            return target;
+            CreateMap<Package, PackageViewModel>()
+                .ForMember(target => target.Id, x => x.MapFrom(source => source.Id))
+                .ForMember(target => target.Name, x => x.MapFrom(source => source.Name))
+                .ForMember(target => target.Version, x => x.MapFrom(source => source.Version))
+                .ForMember(target => target.Component, x => x.MapFrom(source => source.Component));
         }
     }
 }

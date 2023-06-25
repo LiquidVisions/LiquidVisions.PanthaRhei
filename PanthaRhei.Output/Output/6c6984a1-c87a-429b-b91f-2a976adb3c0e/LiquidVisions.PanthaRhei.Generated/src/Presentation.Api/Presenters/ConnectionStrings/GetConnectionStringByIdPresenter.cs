@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.ConnectionStrings
 {
@@ -14,9 +15,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Connect
 
     public class GetByIdConnectionStringPresenter : IGetByIdConnectionStringPresenter
     {
-        private readonly IMapper<ConnectionString, ConnectionStringViewModel> mapper;
+        private readonly IMapper mapper;
 
-        public GetByIdConnectionStringPresenter(IMapper<ConnectionString, ConnectionStringViewModel> mapper)
+        public GetByIdConnectionStringPresenter(IMapper mapper)
         {
             this.mapper = mapper;
         }
@@ -33,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Connect
             };
 
             return Response.IsValid ?
-                Results.Json(mapper.Map(Response.GetParameter<ConnectionString>()), options, "application/json", 200) :
+                Results.Json(mapper.Map<ConnectionStringViewModel>(Response.GetParameter<ConnectionString>()), options, "application/json", 200) :
                 Response.ToWebApiResult(request);
         }
     }

@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastructure;
+using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Generator.Domain;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Generator.Domain.IO;
@@ -20,7 +22,6 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         public ExpandEntityDatabaseConfigurationHandlerInteractorTests()
         {
             allEntities = fakes.GetValidEntities();
-            fakes.IProjectAgentInteractor.Setup(x => x.GetComponentOutputFolder(fakes.InfrastructureComponent.Object)).Returns(fakes.ExpectedCompontentOutputFolder);
             fakes.MockCleanArchitectureExpander(allEntities);
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
         }
@@ -31,12 +32,11 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectAgentInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<Generator.Domain.ExpandRequestModel>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         public void CanExecute_ShouldBeFalse(GenerationModes mode, bool expectedResult)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.GenerationMode).Returns(mode);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(mode);
 
             // act
             // assert
@@ -79,8 +79,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
         public void CanExecute_ShouldOnlyBeTrueWhenCleanParameterIsSetToTrue(bool clean, bool expectedResult)
         {
             // arrange
-            fakes.Parameters.Setup(x => x.GenerationMode).Returns(GenerationModes.Default);
-            fakes.Parameters.Setup(x => x.Clean).Returns(clean);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
+            fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
 
             // act
             // assert
@@ -93,20 +93,20 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             // arranges
             App app = fakes.SetupApp();
             string ns = fakes.InfrastructureComponent.Object.GetComponentNamespace(app);
-            string entityNs = fakes.DomainComponent.Object.GetComponentNamespace(app, Resources.DomainEntityFolder);
+            string entityNs = fakes.DomainComponent.Object.GetComponentNamespace(app, Expanders.CleanArchitecture.Resources.DomainEntityFolder);
 
             // act
             handler.Execute();
 
             // assert
-            fakes.IDirectory.Verify(x => x.Create(Path.Combine(fakes.ExpectedCompontentOutputFolder, Resources.InfrastructureConfigurationFolder)), Times.Once);
+            fakes.IDirectory.Verify(x => x.Create(Path.Combine(fakes.ExpectedCompontentOutputFolder, Expanders.CleanArchitecture.Resources.InfrastructureConfigurationFolder)), Times.Once);
             fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(allEntities.Count));
 
             foreach (Entity entity in allEntities)
             {
                 string fullSavePath = Path.Combine(
-                    fakes.IProjectAgentInteractor.Object.GetComponentOutputFolder(fakes.InfrastructureComponent.Object),
-                    Resources.InfrastructureConfigurationFolder,
+                    fakes.CleanArchitectureExpander.Object.GetComponentOutputFolder(fakes.InfrastructureComponent.Object),
+                    Expanders.CleanArchitecture.Resources.InfrastructureConfigurationFolder,
                     $"{entity.Name}Configuration.cs");
 
                 var indexes = entity.Fields.Where(x => x.IsIndex).Select(x => x.Name).ToArray();

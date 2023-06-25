@@ -14,9 +14,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     public class ExpandEntityFrameworkConfigurationHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
-        private readonly IProjectAgentInteractor projectAgent;
         private readonly ITemplateInteractor templateService;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly App app;
         private readonly string fullPathToBootstrapperFile;
         private readonly CleanArchitectureExpander expander;
@@ -31,13 +30,12 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
             this.expander = expander;
 
             writer = dependencyFactory.Get<IWriterInteractor>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
 
-            Component component = Expander.Model.GetComponentByName(Resources.EntityFramework);
-            string componentOutputPath = projectAgent.GetComponentOutputFolder(component);
+            Component component = Expander.GetComponentByName(Resources.EntityFramework);
+            string componentOutputPath = expander.GetComponentOutputFolder(component);
             fullPathToBootstrapperFile = Path.Combine(componentOutputPath, Resources.DependencyInjectionBootstrapperFile);
         }
 
@@ -47,7 +45,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         /// <inheritdoc/>
         public void Execute()
@@ -56,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
 
             foreach (Entity entity in app.Entities)
             {
-                string fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.InfrastructureDependencyInjectionBootstrapperTemplate);
+                string fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.InfrastructureDependencyInjectionBootstrapperTemplate);
                 string result = templateService.Render(fullPathToTemplate, new { Entity = entity });
 
                 writer.AddOrReplaceMethod(result);

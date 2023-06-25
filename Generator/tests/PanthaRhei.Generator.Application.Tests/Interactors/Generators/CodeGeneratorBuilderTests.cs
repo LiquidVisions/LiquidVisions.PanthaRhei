@@ -26,7 +26,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
         {
             // arrange
             Guid id = Guid.NewGuid();
-            fakes.Parameters.Setup(x => x.AppId).Returns(id);
+            fakes.GenerationOptions.Setup(x => x.AppId).Returns(id);
             mockedGetGateway.Setup(x => x.GetById(id)).Returns((App)null);
 
             // act
@@ -42,7 +42,7 @@ namespace LiquidVisions.PanthaRhei.Generator.Application.Tests.Interactors.Gener
         {
             // arrange
             Guid id = Guid.NewGuid();
-            fakes.Parameters.Setup(x => x.AppId).Returns(id);
+            fakes.GenerationOptions.Setup(x => x.AppId).Returns(id);
             App app = new();
             mockedGetGateway.Setup(x => x.GetById(id)).Returns(app);
             fakes.IDependencyManagerInteractor.Setup(x => x.Build()).Returns(fakes.IDependencyFactoryInteractor.Object);

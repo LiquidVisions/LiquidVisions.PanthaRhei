@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
 using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
 
@@ -9,11 +12,11 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
     /// <summary>
     /// Global requestmodel for the generation operations.
     /// </summary>
-    public class ExpandRequestModel
+    public class GenerationOptions
     {
-        private string harvestFolder = "Harvest";
-        private string expanderFolder = "Expanders";
-        private string outputFolder = "Output";
+        private string harvestFolder = Resources.DefaultHarvestFolder;
+        private string expanderFolder = Resources.DefaultExpanderFolder;
+        private string outputFolder = Resources.DefaultOutputFolder;
 
         /// <summary>
         /// Gets or sets the AppId parameter.
@@ -30,13 +33,16 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         /// </summary>
         public virtual bool ReSeed { get; set; } = false;
 
+        /// <summary>
+        /// Gets or sets the name of the connectionstring.
+        /// </summary>
         public virtual string ConnectionString { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating the RunMode value.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual GenerationModes GenerationMode { get; set; }
+        public virtual GenerationModes Modes { get; set; }
 
         /// <summary>
         /// Gets or sets the root for the generator process.
@@ -68,6 +74,22 @@ namespace LiquidVisions.PanthaRhei.Generator.Domain
         {
             get => Path.Combine(Root, outputFolder, AppId.ToString());
             set => outputFolder = value;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+            sb.Append("CommandParameters")
+                .AppendLine(" { ");
+
+            this.GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .ToList()
+                .ForEach(property => sb.AppendLine($" \"{property.Name}\": \"{property.GetValue(this)}\", "));
+
+            sb.AppendLine("}");
+
+            return sb.ToString();
         }
     }
 }

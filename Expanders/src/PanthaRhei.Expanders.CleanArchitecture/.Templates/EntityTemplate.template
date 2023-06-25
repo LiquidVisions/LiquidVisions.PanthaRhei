@@ -52,5 +52,8 @@ namespace {{entity.callsite}}
 		{{~for field in entity.fields | array.sort 'order'~}}
 		{{GetPropertySignature field}}
 		{{~end~}}
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
 	}
 }

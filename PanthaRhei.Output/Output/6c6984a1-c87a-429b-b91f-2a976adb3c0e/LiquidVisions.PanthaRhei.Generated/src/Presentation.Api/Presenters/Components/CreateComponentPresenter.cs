@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using AutoMapper;
 
 namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Components
 {
@@ -14,9 +15,9 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Compone
 
     public class CreateComponentPresenter : ICreateComponentPresenter
     {
-        private readonly IMapper<Component, ComponentViewModel> mapper;
+        private readonly IMapper mapper;
 
-        public CreateComponentPresenter(IMapper<Component, ComponentViewModel> mapper)
+        public CreateComponentPresenter(IMapper mapper)
         {
             this.mapper = mapper;
         }
@@ -27,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Generated.Presentation.Api.Presenters.Compone
         {
 
             return Response.IsValid ?
-                Results.Created($"//{mapper.Map(Response.GetParameter<Component>()).Id}", mapper.Map(Response.GetParameter<Component>())) :
+                Results.Created($"//{mapper.Map<ComponentViewModel>(Response.GetParameter<Component>()).Id}", mapper.Map<ComponentViewModel>(Response.GetParameter<Component>())) :
                 Response.ToWebApiResult(request);
         }
     }

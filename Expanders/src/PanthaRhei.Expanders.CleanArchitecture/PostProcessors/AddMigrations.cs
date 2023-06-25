@@ -11,8 +11,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
     /// </summary>
     public class AddMigrations : PostProcessorInteractor<CleanArchitectureExpander>
     {
-        private readonly IProjectAgentInteractor projectAgentInteractor;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AddMigrations"/> class.
         /// </summary>
@@ -20,7 +18,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         public AddMigrations(IDependencyFactoryInteractor factory)
             : base(factory)
         {
-            projectAgentInteractor = factory.Get<IProjectAgentInteractor>();
         }
 
         /// <summary>
@@ -29,7 +26,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         /// AND
         /// <seealso cref="App"/> should have been changed, checked by a checksum on previous generation cycle.
         /// </summary>
-        public override bool CanExecute => Parameters.GenerationMode.HasFlag(GenerationModes.Migrate);
+        public override bool CanExecute => Options.Modes.HasFlag(GenerationModes.Migrate);
 
         /// <summary>
         /// Executes the dotnet ef migrations add cli command. Generated filenames are prefixed with 'NSCSharpGenerated'.
@@ -38,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         {
             string name = $"{App.Name}Generated_{DateTime.Now.Ticks}";
 
-            string outputFolder = projectAgentInteractor.GetComponentOutputFolder(Expander.Model.GetComponentByName(Resources.EntityFramework));
+            string outputFolder = Expander.GetComponentOutputFolder(Expander.GetComponentByName(Resources.EntityFramework));
 
             CommandLine.Start($"dotnet ef migrations add {name}", outputFolder);
         }

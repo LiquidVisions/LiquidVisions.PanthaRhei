@@ -9,9 +9,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     {
         private static readonly Pluralizer pluralizer = new();
 
-        internal static string GetPathToTemplate(this Expander expander, ExpandRequestModel expandRequestModel, string templateName)
+        internal static string GetPathToTemplate(this Expander expander, GenerationOptions options, string templateName)
         {
-            return Path.Combine(expandRequestModel.ExpandersFolder, expander.Name, expander.TemplateFolder, $"{templateName}.template");
+            return Path.Combine(options.ExpandersFolder, expander.Name, expander.TemplateFolder, $"{templateName}.template");
         }
 
         internal static string Pluralize(this string str) => pluralizer.Pluralize(str);
@@ -27,10 +27,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
             return result;
         }
 
-        internal static bool CanExecuteDefaultAndExtend(this ExpandRequestModel expandRequestModel)
+        internal static bool CanExecuteDefaultAndExtend(this GenerationOptions expandRequestModel)
         {
-            return expandRequestModel.GenerationMode.HasFlag(GenerationModes.Default)
-                || expandRequestModel.GenerationMode.HasFlag(GenerationModes.Extend);
+            return expandRequestModel.Modes.HasFlag(GenerationModes.Default)
+                || expandRequestModel.Modes.HasFlag(GenerationModes.Extend);
         }
 
         internal static string ToFileName(this Entity entity, string action, string postfix) =>

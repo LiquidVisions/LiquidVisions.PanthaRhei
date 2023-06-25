@@ -13,5 +13,8 @@ namespace LiquidVisions.PanthaRhei.Generated.Domain.Entities
 		public virtual List<Expander> Expanders { get; set; }
 		public virtual List<Entity> Entities { get; set; }
 		public virtual List<ConnectionString> ConnectionStrings { get; set; }
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
 	}
 }

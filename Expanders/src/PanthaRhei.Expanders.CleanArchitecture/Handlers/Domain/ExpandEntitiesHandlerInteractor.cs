@@ -14,8 +14,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
     public class ExpandEntitiesHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly ITemplateInteractor templateService;
-        private readonly IProjectAgentInteractor projectInteractor;
-        private readonly ExpandRequestModel expandRequestModel;
+        private readonly GenerationOptions options;
         private readonly App app;
         private readonly Component domain;
         private readonly string entitiesFolder;
@@ -33,20 +32,19 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
             this.expander = expander;
 
             templateService = dependencyFactory.Get<ITemplateInteractor>();
-            projectInteractor = dependencyFactory.Get<IProjectAgentInteractor>();
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
+            options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
 
-            domain = Expander.Model.GetComponentByName(Resources.Domain);
-            templateFolder = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.EntityTemplate);
-            string componentFolder = projectInteractor.GetComponentOutputFolder(domain);
+            domain = Expander.GetComponentByName(Resources.Domain);
+            templateFolder = Expander.Model.GetPathToTemplate(options, Resources.EntityTemplate);
+            string componentFolder = expander.GetComponentOutputFolder(domain);
             entitiesFolder = Path.Combine(componentFolder, Resources.DomainEntityFolder);
         }
 
         public int Order => 2;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         public string Name => nameof(ExpandEntitiesHandlerInteractor);
 

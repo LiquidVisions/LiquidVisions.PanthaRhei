@@ -14,8 +14,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     public class ExpandRequestModelsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
-        private readonly ExpandRequestModel expandRequestModel;
-        private readonly IProjectAgentInteractor projectAgent;
+        private readonly GenerationOptions options;
         private readonly ITemplateInteractor templateService;
         private readonly App app;
         private readonly IDirectory directory;
@@ -33,15 +32,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            expandRequestModel = dependencyFactory.Get<ExpandRequestModel>();
-            projectAgent = dependencyFactory.Get<IProjectAgentInteractor>();
+            options = dependencyFactory.Get<GenerationOptions>();
             templateService = dependencyFactory.Get<ITemplateInteractor>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
 
             actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
-            component = expander.Model.GetComponentByName(Resources.Application);
-            fullPathToComponentOutput = projectAgent.GetComponentOutputFolder(component);
+            component = expander.GetComponentByName(Resources.Application);
+            fullPathToComponentOutput = expander.GetComponentOutputFolder(component);
             destinationFolder = Path.Combine(fullPathToComponentOutput, Resources.RequestModelsFolder);
         }
 
@@ -51,7 +49,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => expandRequestModel.CanExecuteDefaultAndExtend();
+        public bool CanExecute => options.CanExecuteDefaultAndExtend();
 
         public static string ToFileName(string action, Entity entity) =>
             action switch
@@ -70,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
                 foreach (string action in actions)
                 {
-                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(expandRequestModel, Resources.RequestModelTemplate);
+                    string fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.RequestModelTemplate);
                     string fullPathToFile = Path.Combine(endpointFolder, $"{ToFileName(action, entity)}.cs");
                     object templateModel = new
                     {
