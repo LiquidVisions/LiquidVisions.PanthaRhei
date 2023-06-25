@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
 {

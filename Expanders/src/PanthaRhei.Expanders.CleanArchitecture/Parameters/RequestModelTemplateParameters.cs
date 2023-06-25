@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+﻿using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Parameters
 {

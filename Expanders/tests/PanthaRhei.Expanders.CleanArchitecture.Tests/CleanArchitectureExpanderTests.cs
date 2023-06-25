@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
+﻿using System.Collections.Generic;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.PostProcessors;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Preprocessors;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Rejuvenator;
+using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Preprocessors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuvenator;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 {
     public class CleanArchitectureExpanderTests
     {

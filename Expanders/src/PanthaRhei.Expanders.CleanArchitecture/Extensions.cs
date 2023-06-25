@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using Pluralize.NET.Core;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture

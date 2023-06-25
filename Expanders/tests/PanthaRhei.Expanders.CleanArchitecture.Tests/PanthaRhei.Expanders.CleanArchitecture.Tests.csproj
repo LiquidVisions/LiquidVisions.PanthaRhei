@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<AssemblyName>LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Tests</AssemblyName>
-		<RootNamespace>LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests</RootNamespace>
+		<RootNamespace>LiquidVisions.PanthaRhei.CleanArchitecture.Tests</RootNamespace>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
@@ -34,8 +34,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Generator\tests\PanthaRhei.Generator.Tests\PanthaRhei.Generator.Tests.csproj" />
+	  <ProjectReference Include="..\..\..\tests\PanthaRhei.Tests\PanthaRhei.Tests.csproj" />
 	  <ProjectReference Include="..\..\src\PanthaRhei.Expanders.CleanArchitecture\PanthaRhei.Expanders.CleanArchitecture.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="PostPorcessors\" />
 	</ItemGroup>
 
 </Project>

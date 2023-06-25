@@ -1,14 +1,14 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors;
+using LiquidVisions.PanthaRhei.Domain.IO;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Api
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
 {
     public class ExpandAppSettingsHandlerInteractorTests
     {

@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+﻿using LiquidVisions.PanthaRhei.Domain.Entities;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {

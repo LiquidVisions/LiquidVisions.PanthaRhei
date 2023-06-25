@@ -1,8 +1,8 @@
 ﻿using System;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.PostProcessors;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
 {

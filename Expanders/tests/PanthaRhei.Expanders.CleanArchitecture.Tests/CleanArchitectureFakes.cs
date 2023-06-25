@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Tests;
+using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 {
     public class CleanArchitectureFakes : Fakes
     {

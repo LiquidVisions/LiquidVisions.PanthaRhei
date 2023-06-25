@@ -1,9 +1,9 @@
 ﻿using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.PostPorcessors
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.PostPorcessors
 {
     public class AddMigrationsTests
     {

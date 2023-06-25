@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuvenator;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Rejuvenator;
+using LiquidVisions.PanthaRhei.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
 {

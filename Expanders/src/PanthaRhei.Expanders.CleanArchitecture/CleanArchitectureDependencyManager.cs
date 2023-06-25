@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Parameters;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {

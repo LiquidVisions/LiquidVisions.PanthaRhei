@@ -1,14 +1,14 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
+using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors;
+using LiquidVisions.PanthaRhei.Domain.Logging;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 {
     public class DotNetTemplateInteractorTests
     {

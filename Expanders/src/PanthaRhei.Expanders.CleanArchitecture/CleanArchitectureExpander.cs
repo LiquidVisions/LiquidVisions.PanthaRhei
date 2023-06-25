@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {

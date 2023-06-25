@@ -1,10 +1,10 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Domain.IO;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
 {

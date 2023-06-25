@@ -15,7 +15,7 @@
 
 						<Functions>
 							<Exclude>
-								<Function>^PanthaRhei.Generator.Infrastructure.EntityFramework\.Migrations\..*</Function>
+								<Function>^PanthaRhei.Infrastructure.EntityFramework\.Migrations\..*</Function>
 							</Exclude>
 						</Functions>
 						

@@ -3,15 +3,15 @@ using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastructure;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Domain.IO;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Infrastructure
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructure
 {
     public class ExpandEntityDatabaseConfigurationHandlerInteractorTests
     {

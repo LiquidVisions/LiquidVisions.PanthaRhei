@@ -1,7 +1,7 @@
 ﻿using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Parameters;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 {
     public class RequestModelTemplateParametersTests
     {

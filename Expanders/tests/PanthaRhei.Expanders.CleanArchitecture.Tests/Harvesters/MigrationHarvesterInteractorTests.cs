@@ -1,18 +1,16 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters;
+using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
 {
     public class MigrationHarvesterInteractorTests
     {
