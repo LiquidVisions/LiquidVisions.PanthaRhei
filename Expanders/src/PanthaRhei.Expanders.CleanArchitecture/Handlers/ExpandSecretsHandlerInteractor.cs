@@ -20,8 +20,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// Initializes a new instance of the <see cref="ExpandSecretsHandlerInteractor"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public ExpandSecretsHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public ExpandSecretsHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
             this.expander = expander;
 

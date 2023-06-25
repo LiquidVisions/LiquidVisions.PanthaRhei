@@ -23,8 +23,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators
         /// <summary>
         /// Initializes a new instance of the <see cref="ProcessorInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        protected ProcessorInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        protected ProcessorInteractor(IDependencyFactory dependencyFactory)
         {
             app = dependencyFactory.Get<App>();
             commandLine = dependencyFactory.Get<ICommandLineInteractor>();

@@ -5,7 +5,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies
     /// <summary>
     /// Specifies an interface for an agnostic Dependency registrations.
     /// </summary>
-    public interface IDependencyManagerInteractor
+    public interface IDependencyManager
     {
         /// <summary>
         /// Adds a singleton service of the type specified in TService with an instance specified
@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies
         /// <summary>
         /// Builds the Dependency container.
         /// </summary>
-        /// <returns><seealso cref="IDependencyFactoryInteractor"/></returns>
-        IDependencyFactoryInteractor Build();
+        /// <returns><seealso cref="IDependencyFactory"/></returns>
+        IDependencyFactory Build();
     }
 }

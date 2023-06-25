@@ -17,8 +17,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// Initializes a new instance of the <see cref="CleanArchitectureDependencyManager"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="Expander"/></param>
-        /// <param name="dependencyManager"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public CleanArchitectureDependencyManager(Expander expander, IDependencyManagerInteractor dependencyManager)
+        /// <param name="dependencyManager"><seealso cref="IDependencyFactory"/></param>
+        public CleanArchitectureDependencyManager(Expander expander, IDependencyManager dependencyManager)
             : base(expander, dependencyManager)
         {
         }

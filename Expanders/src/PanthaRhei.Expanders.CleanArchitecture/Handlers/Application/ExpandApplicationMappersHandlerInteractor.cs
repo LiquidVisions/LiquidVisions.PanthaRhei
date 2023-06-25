@@ -27,8 +27,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         /// Initializes a new instance of the <see cref="ExpandApplicationMappersHandlerInteractor"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public ExpandApplicationMappersHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public ExpandApplicationMappersHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
             this.expander = expander;
 

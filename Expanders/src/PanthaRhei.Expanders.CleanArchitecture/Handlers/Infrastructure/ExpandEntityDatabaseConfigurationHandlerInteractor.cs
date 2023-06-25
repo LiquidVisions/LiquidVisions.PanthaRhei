@@ -28,8 +28,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         /// Initializes a new instance of the <see cref="ExpandEntityDatabaseConfigurationHandlerInteractor"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public ExpandEntityDatabaseConfigurationHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public ExpandEntityDatabaseConfigurationHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
             this.expander = expander;
 

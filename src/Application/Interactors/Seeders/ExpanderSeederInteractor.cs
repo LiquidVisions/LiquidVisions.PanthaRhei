@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
         private readonly ICreateGateway<Expander> createGateway;
         private readonly IDeleteGateway<Expander> deleteGateway;
 
-        public ExpanderSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
+        public ExpanderSeederInteractor(IDependencyFactory dependencyFactory)
         {
             pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
             options = dependencyFactory.Get<GenerationOptions>();

@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         where TExpander : class, IExpanderInteractor
     {
         private readonly ILogger logger;
-        private readonly IDependencyFactoryInteractor dependencyFactory;
+        private readonly IDependencyFactory dependencyFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpander{TExpander}"/> class.
@@ -30,8 +30,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpander{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        protected AbstractExpander(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        protected AbstractExpander(IDependencyFactory dependencyFactory)
         {
             this.dependencyFactory = dependencyFactory;
 

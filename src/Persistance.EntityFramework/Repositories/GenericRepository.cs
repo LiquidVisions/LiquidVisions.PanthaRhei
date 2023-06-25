@@ -10,9 +10,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
         where TEntity : class
     {
         private readonly Context context;
-        private readonly IDependencyFactoryInteractor dependencyFactory;
+        private readonly IDependencyFactory dependencyFactory;
 
-        public GenericRepository(IDependencyFactoryInteractor dependencyFactory)
+        public GenericRepository(IDependencyFactory dependencyFactory)
         {
             context = dependencyFactory.Get<Context>();
             this.dependencyFactory = dependencyFactory;

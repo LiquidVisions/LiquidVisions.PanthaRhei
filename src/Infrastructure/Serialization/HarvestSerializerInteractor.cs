@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
         private readonly IFile file;
         private readonly IDirectory directory;
 
-        public HarvestSerializerInteractor(IDependencyFactoryInteractor dependencyFactory)
+        public HarvestSerializerInteractor(IDependencyFactory dependencyFactory)
         {
             file = dependencyFactory.Get<IFile>();
             directory = dependencyFactory.Get<IDirectory>();

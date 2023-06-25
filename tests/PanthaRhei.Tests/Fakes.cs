@@ -20,9 +20,9 @@ namespace LiquidVisions.PanthaRhei.Tests
             ConfigureIDependencyFactoryInteractor();
         }
 
-        public Mock<IDependencyFactoryInteractor> IDependencyFactoryInteractor { get; } = new();
+        public Mock<IDependencyFactory> IDependencyFactoryInteractor { get; } = new();
 
-        public Mock<IDependencyManagerInteractor> IDependencyManagerInteractor { get; } = new();
+        public Mock<IDependencyManager> IDependencyManagerInteractor { get; } = new();
 
         public Mock<ICodeGeneratorBuilderInteractor> ICodeGeneratorBuilderInteractor { get; } = new();
 
@@ -69,14 +69,14 @@ namespace LiquidVisions.PanthaRhei.Tests
             IDependencyFactoryInteractor.Setup(x => x.Get<ILogger>()).Returns(ILogger.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<ILogManager>()).Returns(ILogManager.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<ICodeGeneratorInteractor>()).Returns(ICodeGeneratorInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IDependencyManagerInteractor>()).Returns(IDependencyManagerInteractor.Object);
+            IDependencyFactoryInteractor.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManagerInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<ICodeGeneratorBuilderInteractor>()).Returns(ICodeGeneratorBuilderInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IFile>()).Returns(IFile.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IDirectory>()).Returns(IDirectory.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<GenerationOptions>()).Returns(GenerationOptions.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IAssemblyContextInteractor>()).Returns(IAssemblyContextInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IObjectActivatorInteractor>()).Returns(IObjectActivatorInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IDependencyManagerInteractor>()).Returns(IDependencyManagerInteractor.Object);
+            IDependencyFactoryInteractor.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManagerInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IAssemblyManagerInteractor>()).Returns(IAssemblyManagerInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IExpanderPluginLoaderInteractor>()).Returns(IExpanderPluginLoaderInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IWriterInteractor>()).Returns(IWriterInteractor.Object);

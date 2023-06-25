@@ -8,11 +8,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
 {
     public class DependencyInjectionContainerTests
     {
-        private readonly DependencyManagerInteractor container;
+        private readonly DependencyManager container;
 
         public DependencyInjectionContainerTests()
         {
-            container = new DependencyManagerInteractor(new ServiceCollection());
+            container = new DependencyManager(new ServiceCollection());
         }
 
         [Fact]

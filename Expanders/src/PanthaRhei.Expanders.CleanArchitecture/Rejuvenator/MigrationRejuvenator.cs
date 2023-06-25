@@ -22,8 +22,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
         /// <summary>
         /// Initializes a new instance of the <see cref="MigrationRejuvenator"/> class.
         /// </summary>
-        /// <param name="factory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public MigrationRejuvenator(IDependencyFactoryInteractor factory)
+        /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
+        public MigrationRejuvenator(IDependencyFactory factory)
             : base(factory)
         {
             GenerationOptions options = factory.Get<GenerationOptions>();

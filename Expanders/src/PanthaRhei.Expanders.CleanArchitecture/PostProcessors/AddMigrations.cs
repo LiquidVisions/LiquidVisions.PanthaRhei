@@ -14,8 +14,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         /// <summary>
         /// Initializes a new instance of the <see cref="AddMigrations"/> class.
         /// </summary>
-        /// <param name="factory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public AddMigrations(IDependencyFactoryInteractor factory)
+        /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
+        public AddMigrations(IDependencyFactory factory)
             : base(factory)
         {
         }

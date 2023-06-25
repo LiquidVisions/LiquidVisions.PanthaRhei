@@ -14,19 +14,19 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Generators
         private readonly IGetGateway<App> gateway;
         private readonly GenerationOptions options;
         private readonly IExpanderPluginLoaderInteractor pluginLoader;
-        private readonly IDependencyManagerInteractor dependencyManager;
-        private readonly IDependencyFactoryInteractor dependencyFactory;
+        private readonly IDependencyManager dependencyManager;
+        private readonly IDependencyFactory dependencyFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeGeneratorBuilderInteractor"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public CodeGeneratorBuilderInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public CodeGeneratorBuilderInteractor(IDependencyFactory dependencyFactory)
         {
             gateway = dependencyFactory.Get<IGetGateway<App>>();
             options = dependencyFactory.Get<GenerationOptions>();
             pluginLoader = dependencyFactory.Get<IExpanderPluginLoaderInteractor>();
-            dependencyManager = dependencyFactory.Get<IDependencyManagerInteractor>();
+            dependencyManager = dependencyFactory.Get<IDependencyManager>();
             this.dependencyFactory = dependencyFactory;
         }
 

@@ -20,8 +20,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.PostProcessors
         /// <summary>
         /// Initializes a new instance of the <see cref="UnInstallDotNetTemplateInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public UnInstallDotNetTemplateInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public UnInstallDotNetTemplateInteractor(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
             commandLine = dependencyFactory.Get<ICommandLineInteractor>();

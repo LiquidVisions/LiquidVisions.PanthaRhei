@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
         private readonly IDirectory directoryService;
         private readonly GenerationOptions options;
 
-        public PackageSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
+        public PackageSeederInteractor(IDependencyFactory dependencyFactory)
         {
             createGateway = dependencyFactory.Get<ICreateGateway<Package>>();
             deleteGateway = dependencyFactory.Get<IDeleteGateway<Package>>();

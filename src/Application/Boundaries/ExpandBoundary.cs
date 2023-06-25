@@ -21,8 +21,8 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandBoundary"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
-        public ExpandBoundary(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
+        public ExpandBoundary(IDependencyFactory dependencyFactory)
         {
             builder = dependencyFactory.Get<ICodeGeneratorBuilderInteractor>();
             seederInteractor = dependencyFactory.Get<ISeederInteractor>();

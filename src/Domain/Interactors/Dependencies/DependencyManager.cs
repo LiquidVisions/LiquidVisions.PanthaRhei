@@ -7,16 +7,16 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies
     /// <summary>
     /// The <see cref="IServiceCollection">dependency container</see>.
     /// </summary>
-    internal class DependencyManagerInteractor : IDependencyFactoryInteractor, IDependencyManagerInteractor
+    internal class DependencyManager : IDependencyFactory, IDependencyManager
     {
         private readonly IServiceCollection serviceCollection;
         private IServiceProvider provider;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyManagerInteractor"/> class.
+        /// Initializes a new instance of the <see cref="DependencyManager"/> class.
         /// </summary>
         /// <param name="serviceCollection">The <see cref="IServiceCollection"/>.</param>
-        public DependencyManagerInteractor(IServiceCollection serviceCollection)
+        public DependencyManager(IServiceCollection serviceCollection)
         {
             this.serviceCollection = serviceCollection;
         }
@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies
         }
 
         /// <inheritdoc/>
-        public IDependencyFactoryInteractor Build()
+        public IDependencyFactory Build()
         {
             provider = serviceCollection.BuildServiceProvider();
 

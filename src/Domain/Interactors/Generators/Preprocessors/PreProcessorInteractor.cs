@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Preprocessors
         /// <summary>
         /// Initializes a new instance of the <see cref="PreProcessorInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        protected PreProcessorInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        protected PreProcessorInteractor(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
         }

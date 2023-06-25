@@ -21,8 +21,8 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Templates
         /// <summary>
         /// Initializes a new instance of the <see cref="ScribanTemplateInteractor"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
-        public ScribanTemplateInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
+        public ScribanTemplateInteractor(IDependencyFactory dependencyFactory)
         {
             logger = dependencyFactory.Get<ILogger>();
             templateLoader = dependencyFactory.Get<ITemplateLoaderInteractor>();

@@ -22,8 +22,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// <summary>
         /// Initializes a new instance of the <see cref="DotNetTemplateInteractor"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public DotNetTemplateInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public DotNetTemplateInteractor(IDependencyFactory dependencyFactory)
         {
             commandLine = dependencyFactory.Get<ICommandLineInteractor>();
             logger = dependencyFactory.Get<ILogger>();

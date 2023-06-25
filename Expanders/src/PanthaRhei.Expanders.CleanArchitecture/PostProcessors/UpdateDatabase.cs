@@ -12,8 +12,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateDatabase"/> class.
         /// </summary>
-        /// <param name="factory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public UpdateDatabase(IDependencyFactoryInteractor factory)
+        /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
+        public UpdateDatabase(IDependencyFactory factory)
             : base(factory)
         {
         }

@@ -17,8 +17,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Rejuvenator
         /// <summary>
         /// Initializes a new instance of the <see cref="RejuvenatorInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        protected RejuvenatorInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        protected RejuvenatorInteractor(IDependencyFactory dependencyFactory)
         {
             app = dependencyFactory.Get<App>();
             expander = dependencyFactory.Get<TExpander>();

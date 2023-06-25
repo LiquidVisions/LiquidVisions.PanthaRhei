@@ -17,8 +17,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// Initializes a new instance of the <see cref="CreateDotNetProjectHandlerInteractor "/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public CreateDotNetProjectHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public CreateDotNetProjectHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
             projectTemplateInteractor = dependencyFactory.Get<IProjectTemplateInteractor>();
             options = dependencyFactory.Get<GenerationOptions>();

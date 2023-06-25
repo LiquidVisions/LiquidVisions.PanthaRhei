@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Generators
         private readonly GenerationOptions options;
         private readonly IDirectory directory;
 
-        public CodeGeneratorInteractor(IDependencyFactoryInteractor dependencyFactory)
+        public CodeGeneratorInteractor(IDependencyFactory dependencyFactory)
         {
             options = dependencyFactory.Get<GenerationOptions>();
             directory = dependencyFactory.Get<IDirectory>();

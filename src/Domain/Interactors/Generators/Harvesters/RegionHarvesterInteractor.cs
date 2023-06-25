@@ -26,8 +26,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionHarvesterInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyProvider"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public RegionHarvesterInteractor(IDependencyFactoryInteractor dependencyProvider)
+        /// <param name="dependencyProvider"><seealso cref="IDependencyFactory"/></param>
+        public RegionHarvesterInteractor(IDependencyFactory dependencyProvider)
         {
             options = dependencyProvider.Get<GenerationOptions>();
             directory = dependencyProvider.Get<IDirectory>();

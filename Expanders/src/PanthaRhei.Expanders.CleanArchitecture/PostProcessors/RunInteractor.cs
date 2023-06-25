@@ -9,8 +9,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         /// <summary>
         /// Initializes a new instance of the <see cref="RunInteractor "/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public RunInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public RunInteractor(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
         }

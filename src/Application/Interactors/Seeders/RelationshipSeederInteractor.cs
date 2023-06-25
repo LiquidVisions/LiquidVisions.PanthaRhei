@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
         private readonly IDeleteGateway<Relationship> deleteGateway;
         private readonly IModelConfiguration modelConfiguration;
 
-        public RelationshipSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
+        public RelationshipSeederInteractor(IDependencyFactory dependencyFactory)
         {
             createGateway = dependencyFactory.Get<ICreateGateway<Relationship>>();
             deleteGateway = dependencyFactory.Get<IDeleteGateway<Relationship>>();

@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
         private readonly GenerationOptions options;
         private readonly List<IEntitySeederInteractor<App>> seeders;
 
-        public SeederInteractor(IDependencyFactoryInteractor dependencyFactory)
+        public SeederInteractor(IDependencyFactory dependencyFactory)
         {
             options = dependencyFactory.Get<GenerationOptions>();
             seeders = dependencyFactory.GetAll<IEntitySeederInteractor<App>>().ToList();

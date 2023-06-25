@@ -14,8 +14,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.PostProcessors
         /// <summary>
         /// Initializes a new instance of the <see cref="PostProcessorInteractor{TExpander}"/> class.
         /// </summary>
-        /// <param name="dependencyProvider"><seealso cref="IDependencyFactoryInteractor"/></param>
-        protected PostProcessorInteractor(IDependencyFactoryInteractor dependencyProvider)
+        /// <param name="dependencyProvider"><seealso cref="IDependencyFactory"/></param>
+        protected PostProcessorInteractor(IDependencyFactory dependencyProvider)
             : base(dependencyProvider)
         {
         }

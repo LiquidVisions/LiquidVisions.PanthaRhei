@@ -17,8 +17,8 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Templates
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateLoaderInteractor"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/>.</param>
-        public TemplateLoaderInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
+        public TemplateLoaderInteractor(IDependencyFactory dependencyFactory)
         {
             fileService = dependencyFactory.Get<IFile>();
             logger = dependencyFactory.Get<ILogger>();

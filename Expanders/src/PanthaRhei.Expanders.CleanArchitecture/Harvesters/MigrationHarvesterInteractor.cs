@@ -25,8 +25,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
         /// <summary>
         /// Initializes a new instance of the <see cref="MigrationHarvesterInteractor"/> class.
         /// </summary>
-        /// <param name="factory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public MigrationHarvesterInteractor(IDependencyFactoryInteractor factory)
+        /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
+        public MigrationHarvesterInteractor(IDependencyFactory factory)
         {
             gateway = factory.Get<ICreateGateway<Harvest>>();
             options = factory.Get<GenerationOptions>();

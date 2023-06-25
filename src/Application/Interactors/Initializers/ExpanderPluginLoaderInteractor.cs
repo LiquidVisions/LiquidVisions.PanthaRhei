@@ -24,20 +24,20 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Initializers
         private readonly IAssemblyContextInteractor assemblyContext;
         private readonly ILogger logger;
         private readonly IObjectActivatorInteractor activator;
-        private readonly IDependencyManagerInteractor dependencyManager;
+        private readonly IDependencyManager dependencyManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpanderPluginLoaderInteractor"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public ExpanderPluginLoaderInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public ExpanderPluginLoaderInteractor(IDependencyFactory dependencyFactory)
         {
             options = dependencyFactory.Get<GenerationOptions>();
             directoryService = dependencyFactory.Get<IDirectory>();
             assemblyContext = dependencyFactory.Get<IAssemblyContextInteractor>();
             logger = dependencyFactory.Get<ILogger>();
             activator = dependencyFactory.Get<IObjectActivatorInteractor>();
-            dependencyManager = dependencyFactory.Get<IDependencyManagerInteractor>();
+            dependencyManager = dependencyFactory.Get<IDependencyManager>();
         }
 
         /// <inheritdoc/>

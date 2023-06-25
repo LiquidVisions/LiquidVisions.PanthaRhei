@@ -21,7 +21,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         where TExpander : class, IExpanderInteractor
     {
         private readonly Expander expander;
-        private readonly IDependencyManagerInteractor dependencyManager;
+        private readonly IDependencyManager dependencyManager;
         private readonly ILogger logger;
         private readonly IAssemblyManagerInteractor assemblyManager;
 
@@ -29,11 +29,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         /// Initializes a new instance of the <see cref="AbstractExpanderDependencyManagerInteractor{TExpander}"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="Model"/></param>
-        /// <param name="dependencyManager"><seealso cref="IDependencyFactoryInteractor"/></param>
-        protected AbstractExpanderDependencyManagerInteractor(Expander expander, IDependencyManagerInteractor dependencyManager)
+        /// <param name="dependencyManager"><seealso cref="IDependencyFactory"/></param>
+        protected AbstractExpanderDependencyManagerInteractor(Expander expander, IDependencyManager dependencyManager)
         {
             this.dependencyManager = dependencyManager;
-            IDependencyFactoryInteractor dependencyFactory = this.dependencyManager.Build();
+            IDependencyFactory dependencyFactory = this.dependencyManager.Build();
 
             this.expander = expander;
             logger = dependencyFactory.Get<ILogger>();
@@ -41,10 +41,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IDependencyManagerInteractor"/>.
+        /// Gets the <seealso cref="IDependencyManager"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        protected IDependencyManagerInteractor DependencyManager => dependencyManager;
+        protected IDependencyManager DependencyManager => dependencyManager;
 
         /// <summary>
         /// Gets the <seealso cref="Model"/>.

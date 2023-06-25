@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
         private readonly ICreateGateway<ConnectionString> createGateway;
         private readonly IDeleteGateway<ConnectionString> deleteGateway;
 
-        public ConnectionStringsSeederInteractor(IDependencyFactoryInteractor dependencyFactory)
+        public ConnectionStringsSeederInteractor(IDependencyFactory dependencyFactory)
         {
             createGateway = dependencyFactory.Get<ICreateGateway<ConnectionString>>();
             deleteGateway = dependencyFactory.Get<IDeleteGateway<ConnectionString>>();

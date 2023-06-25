@@ -30,8 +30,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// <summary>
         /// Initializes a new instance of the <see cref="CleanArchitectureExpander"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public CleanArchitectureExpander(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public CleanArchitectureExpander(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
             commandLine = dependencyFactory.Get<ICommandLineInteractor>();

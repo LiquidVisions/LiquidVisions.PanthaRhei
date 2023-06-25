@@ -19,8 +19,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// Initializes a new instance of the <see cref="ExpandSwaggerHandlerInteractor"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="CleanArchitectureExpander"/></param>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public ExpandSwaggerHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public ExpandSwaggerHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
             writer = dependencyFactory.Get<IWriterInteractor>();
             options = dependencyFactory.Get<GenerationOptions>();
