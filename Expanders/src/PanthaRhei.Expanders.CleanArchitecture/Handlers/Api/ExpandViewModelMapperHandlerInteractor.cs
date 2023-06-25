@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// <summary>
     /// Generates the mappers for the viewmodels.
     /// </summary>
-    public class ExpandViewModelMapperHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandViewModelMapperHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly ITemplateInteractor templateService;
         private readonly CleanArchitectureExpander expander;

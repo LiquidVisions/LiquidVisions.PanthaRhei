@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Generators
     /// </summary>
     internal sealed class CodeGeneratorInteractor : ICodeGeneratorInteractor
     {
-        private readonly IEnumerable<IExpanderInteractor> expanders;
+        private readonly IEnumerable<IExpander> expanders;
         private readonly GenerationOptions options;
         private readonly IDirectory directory;
 
@@ -20,13 +20,13 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Generators
         {
             options = dependencyFactory.Get<GenerationOptions>();
             directory = dependencyFactory.Get<IDirectory>();
-            expanders = dependencyFactory.GetAll<IExpanderInteractor>();
+            expanders = dependencyFactory.GetAll<IExpander>();
         }
 
         /// <inheritdoc/>
         public void Execute()
         {
-            foreach (IExpanderInteractor expander in expanders.OrderBy(x => x.Model.Order))
+            foreach (IExpander expander in expanders.OrderBy(x => x.Model.Order))
             {
                 expander.Harvest();
 
@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Generators
             }
         }
 
-        private void Clean(IExpanderInteractor expander)
+        private void Clean(IExpander expander)
         {
             if (options.Clean)
             {

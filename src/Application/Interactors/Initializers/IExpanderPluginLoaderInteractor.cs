@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Initializers
         /// Executes the loading command.
         /// </summary>
         /// <param name="path">Path to the expander folder.</param>
-        /// <returns>A list of <seealso cref="IExpanderInteractor"/>.</returns>
-        List<IExpanderInteractor> ShallowLoadAllExpanders(string path);
+        /// <returns>A list of <seealso cref="IExpander"/>.</returns>
+        List<IExpander> ShallowLoadAllExpanders(string path);
     }
 }

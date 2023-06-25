@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     /// <summary>
     /// Generates the mappers for the application models.
     /// </summary>
-    public class ExpandApplicationMappersHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandApplicationMappersHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;

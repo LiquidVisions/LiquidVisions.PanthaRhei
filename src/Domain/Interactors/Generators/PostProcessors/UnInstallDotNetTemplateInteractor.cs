@@ -7,11 +7,11 @@ using LiquidVisions.PanthaRhei.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.PostProcessors
 {
     /// <summary>
-    /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpanderInteractor"/>.
+    /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpander"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A specific type of <see cref="IExpanderInteractor"/>.</typeparam>
+    /// <typeparam name="TExpander">A specific type of <see cref="IExpander"/>.</typeparam>
     internal sealed class UnInstallDotNetTemplateInteractor<TExpander> : PostProcessorInteractor<TExpander>
-        where TExpander : class, IExpanderInteractor
+        where TExpander : class, IExpander
     {
         private readonly ICommandLineInteractor commandLine;
         private readonly IDirectory directoryService;
@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.PostProcessors
         public override bool Enabled => Options.Clean;
 
         /// <summary>
-        /// Installs the dotnet templates that are part of the <see cref="IExpanderInteractor"/>.
+        /// Installs the dotnet templates that are part of the <see cref="IExpander"/>.
         /// </summary>
         public override void Execute()
         {

@@ -7,9 +7,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Rejuvenator
     /// <summary>
     /// An abstract implementation of the <see cref="IRejuvenatorInteractor{TExpander}"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
+    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
     public abstract class RejuvenatorInteractor<TExpander> : IRejuvenatorInteractor<TExpander>
-        where TExpander : class, IExpanderInteractor
+        where TExpander : class, IExpander
     {
         private readonly TExpander expander;
         private readonly App app;

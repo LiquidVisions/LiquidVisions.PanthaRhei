@@ -14,15 +14,15 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
     {
         private readonly CodeGeneratorInteractor interactor;
         private readonly Fakes fakes = new();
-        private readonly Mock<IExpanderInteractor> mockedIExpanderInteractor = new();
+        private readonly Mock<IExpander> mockedIExpanderInteractor = new();
 
         public CodeGeneratorInteractorTests()
         {
             mockedIExpanderInteractor.Setup(x => x.Model).Returns(new Expander());
 
             fakes.IDependencyFactoryInteractor
-                .Setup(x => x.GetAll<IExpanderInteractor>())
-                .Returns(new List<IExpanderInteractor> { mockedIExpanderInteractor.Object });
+                .Setup(x => x.GetAll<IExpander>())
+                .Returns(new List<IExpander> { mockedIExpanderInteractor.Object });
 
             interactor = new CodeGeneratorInteractor(fakes.IDependencyFactoryInteractor.Object);
         }
@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
 
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IExpanderInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IExpander>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Exactly(1));
         }
 

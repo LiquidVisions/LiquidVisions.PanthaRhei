@@ -9,7 +9,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// <summary>
     /// Adds swagger capabilities to the outputted project.
     /// </summary>
-    public class ExpandSwaggerHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandSwaggerHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
         private readonly GenerationOptions options;

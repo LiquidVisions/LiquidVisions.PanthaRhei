@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     /// <summary>
     /// Generates the ViewModels for the <seealso cref="Entity">Entities</seealso>.
     /// </summary>
-    public class ExpandViewModelsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandViewModelsHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly ITemplateInteractor templateService;
         private readonly App app;

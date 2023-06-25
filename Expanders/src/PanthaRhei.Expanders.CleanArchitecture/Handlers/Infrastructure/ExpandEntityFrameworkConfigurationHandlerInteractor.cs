@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     /// <summary>
     /// Configures the dependency inversion container of the Infrastructure library.
     /// </summary>
-    public class ExpandEntityFrameworkConfigurationHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandEntityFrameworkConfigurationHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
         private readonly ITemplateInteractor templateService;

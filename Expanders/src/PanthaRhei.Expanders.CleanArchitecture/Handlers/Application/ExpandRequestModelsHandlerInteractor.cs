@@ -9,9 +9,9 @@ using LiquidVisions.PanthaRhei.Domain.IO;
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application
 {
     /// <summary>
-    /// a <seealso cref="IExpanderHandlerInteractor{CleanArchitectureExpander}"/> that adds the request models to the output project.
+    /// a <seealso cref="IExpanderTask{CleanArchitectureExpander}"/> that adds the request models to the output project.
     /// </summary>
-    public class ExpandRequestModelsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandRequestModelsHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;

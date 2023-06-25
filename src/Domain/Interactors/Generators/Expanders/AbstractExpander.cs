@@ -11,11 +11,11 @@ using LiquidVisions.PanthaRhei.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
 {
     /// <summary>
-    /// An abstract implementation of the <see cref="IExpanderInteractor"/>.
+    /// An abstract implementation of the <see cref="IExpander"/>.
     /// </summary>
-    /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
-    public abstract class AbstractExpander<TExpander> : IExpanderInteractor
-        where TExpander : class, IExpanderInteractor
+    /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
+    public abstract class AbstractExpander<TExpander> : IExpander
+        where TExpander : class, IExpander
     {
         private readonly ILogger logger;
         private readonly IDependencyFactory dependencyFactory;
@@ -60,12 +60,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         public virtual int Order => Model == null ? GetOrder() : Model.Order;
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderHandlerInteractor{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderTask{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderHandlerInteractor{TExpander}"/>.</returns>
-        public virtual IEnumerable<IExpanderHandlerInteractor<TExpander>> GetHandlers()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderTask{TExpander}"/>.</returns>
+        public virtual IEnumerable<IExpanderTask<TExpander>> GetHandlers()
         {
-            IEnumerable<IExpanderHandlerInteractor<TExpander>> handlers = dependencyFactory.GetAll<IExpanderHandlerInteractor<TExpander>>();
+            IEnumerable<IExpanderTask<TExpander>> handlers = dependencyFactory.GetAll<IExpanderTask<TExpander>>();
 
             return handlers;
         }
@@ -119,7 +119,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         {
             Logger.Trace($"Expanding expander {Name}");
 
-            foreach (IExpanderHandlerInteractor<TExpander> handler in GetHandlers()
+            foreach (IExpanderTask<TExpander> handler in GetHandlers()
                 .Where(x => x.Enabled)
                 .OrderBy(x => x.Order))
             {

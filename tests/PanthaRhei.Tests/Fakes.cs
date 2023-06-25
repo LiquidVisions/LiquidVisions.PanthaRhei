@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Tests
 
         public Mock<GenerationOptions> GenerationOptions { get; } = new();
 
-        public Mock<IExpanderDependencyManagerInteractor> IExpanderDependencyManagerInteractor { get; } = new();
+        public Mock<IExpanderDependencyManager> IExpanderDependencyManagerInteractor { get; } = new();
 
         public Mock<IExpanderPluginLoaderInteractor> IExpanderPluginLoaderInteractor { get; } = new();
 

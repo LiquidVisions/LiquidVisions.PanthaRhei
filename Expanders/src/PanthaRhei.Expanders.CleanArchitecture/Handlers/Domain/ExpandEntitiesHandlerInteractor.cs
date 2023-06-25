@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
     /// <summary>
     /// Generates the <seealso cref="Entity">Entities</seealso>.
     /// </summary>
-    public class ExpandEntitiesHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandEntitiesHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly ITemplateInteractor templateService;
         private readonly GenerationOptions options;

@@ -14,11 +14,11 @@ using LiquidVisions.PanthaRhei.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
 {
     /// <summary>
-    /// Represents an abstract implementation of <seealso cref="IExpanderDependencyManagerInteractor"/> that allows dependency registration as part of a <seealso cref="IExpanderInteractor"/>.
+    /// Represents an abstract implementation of <seealso cref="IExpanderDependencyManager"/> that allows dependency registration as part of a <seealso cref="IExpander"/>.
     /// </summary>
-    /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
-    public abstract class AbstractExpanderDependencyManagerInteractor<TExpander> : IExpanderDependencyManagerInteractor
-        where TExpander : class, IExpanderInteractor
+    /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
+    public abstract class AbstractExpanderDependencyManager<TExpander> : IExpanderDependencyManager
+        where TExpander : class, IExpander
     {
         private readonly Expander expander;
         private readonly IDependencyManager dependencyManager;
@@ -26,11 +26,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         private readonly IAssemblyManagerInteractor assemblyManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AbstractExpanderDependencyManagerInteractor{TExpander}"/> class.
+        /// Initializes a new instance of the <see cref="AbstractExpanderDependencyManager{TExpander}"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="Model"/></param>
         /// <param name="dependencyManager"><seealso cref="IDependencyFactory"/></param>
-        protected AbstractExpanderDependencyManagerInteractor(Expander expander, IDependencyManager dependencyManager)
+        protected AbstractExpanderDependencyManager(Expander expander, IDependencyManager dependencyManager)
         {
             this.dependencyManager = dependencyManager;
             IDependencyFactory dependencyFactory = this.dependencyManager.Build();
@@ -138,7 +138,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         }
 
         /// <summary>
-        /// Register all <seealso cref="IExpanderHandlerInteractor{TExpander}"/> that are loaded in the <paramref name="assembly"/>.
+        /// Register all <seealso cref="IExpanderTask{TExpander}"/> that are loaded in the <paramref name="assembly"/>.
         /// </summary>
         /// <param name="assembly"><seealso cref="Assembly"/></param>
         public virtual void RegisterHandlers(Assembly assembly)
@@ -146,24 +146,24 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
             var listOfHandlers = assembly
                 .GetExportedTypes()
                 .Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.GetInterfaces().Contains(typeof(IExpanderHandlerInteractor<TExpander>)))
+                .Where(x => x.GetInterfaces().Contains(typeof(IExpanderTask<TExpander>)))
                 .ToList();
 
             if (!listOfHandlers.Any())
             {
-                logger.Warn($"Expander '{expander.Name}' does not have any {nameof(IExpanderHandlerInteractor<IExpanderInteractor>)} implememntations.");
+                logger.Warn($"Expander '{expander.Name}' does not have any {nameof(IExpanderTask<IExpander>)} implememntations.");
                 return;
             }
 
             foreach (Type handlerType in listOfHandlers)
             {
-                dependencyManager.AddTransient(typeof(IExpanderHandlerInteractor<TExpander>), handlerType);
-                logger.Trace($"Registered {typeof(IExpanderHandlerInteractor<TExpander>)} to match {handlerType} in the dependency container.");
+                dependencyManager.AddTransient(typeof(IExpanderTask<TExpander>), handlerType);
+                logger.Trace($"Registered {typeof(IExpanderTask<TExpander>)} to match {handlerType} in the dependency container.");
             }
         }
 
         /// <summary>
-        /// Register all <seealso cref="IExpanderInteractor"/> that are loaded in the <paramref name="assembly"/>.
+        /// Register all <seealso cref="IExpander"/> that are loaded in the <paramref name="assembly"/>.
         /// </summary>
         /// <param name="assembly"><seealso cref="Assembly"/></param>
         public virtual void RegisterExpander(Assembly assembly)
@@ -172,15 +172,15 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
             {
                 Type expanderType = assembly.GetExportedTypes()
                     .Where(x => x.IsClass && !x.IsAbstract)
-                    .Single(x => x.GetInterfaces().Contains(typeof(IExpanderInteractor)));
+                    .Single(x => x.GetInterfaces().Contains(typeof(IExpander)));
 
-                dependencyManager.AddTransient(typeof(IExpanderInteractor), expanderType);
+                dependencyManager.AddTransient(typeof(IExpander), expanderType);
                 dependencyManager.AddTransient(expanderType, expanderType);
-                logger.Trace($"Registered {expanderType} to match {typeof(IExpanderInteractor)} in the dependency container.");
+                logger.Trace($"Registered {expanderType} to match {typeof(IExpander)} in the dependency container.");
             }
             catch (InvalidOperationException exception)
             {
-                throw new InitializationException($"Unable to load plugin '{expander.Name}'. No valid {nameof(IExpanderInteractor)} derivatives found. The derivatives should be a non-abstract class.", exception);
+                throw new InitializationException($"Unable to load plugin '{expander.Name}'. No valid {nameof(IExpander)} derivatives found. The derivatives should be a non-abstract class.", exception);
             }
         }
     }

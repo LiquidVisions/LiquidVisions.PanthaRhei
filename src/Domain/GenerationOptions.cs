@@ -50,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Domain
         public virtual string Root { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of the folder where the <seealso cref="IExpanderInteractor">Expanders</seealso> are located.
+        /// Gets or sets the location of the folder where the <seealso cref="IExpander">Expanders</seealso> are located.
         /// </summary>
         public virtual string ExpandersFolder
         {

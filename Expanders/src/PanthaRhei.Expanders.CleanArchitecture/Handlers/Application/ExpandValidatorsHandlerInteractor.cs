@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     /// <summary>
     /// Generates validator classes.
     /// </summary>
-    public class ExpandValidatorsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandValidatorsHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;

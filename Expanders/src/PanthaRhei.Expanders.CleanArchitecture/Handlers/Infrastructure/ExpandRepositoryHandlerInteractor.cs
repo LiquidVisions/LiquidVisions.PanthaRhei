@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     /// <summary>
     /// Generates the DbContext class into the Infrastructure library.
     /// </summary>
-    public class ExpandRepositoryHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandRepositoryHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly ITemplateInteractor templateService;
         private readonly GenerationOptions options;

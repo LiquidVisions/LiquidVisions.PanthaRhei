@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// <summary>
     /// Add presenters classes to the output.
     /// </summary>
-    public class ExpandPresentersHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandPresentersHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;

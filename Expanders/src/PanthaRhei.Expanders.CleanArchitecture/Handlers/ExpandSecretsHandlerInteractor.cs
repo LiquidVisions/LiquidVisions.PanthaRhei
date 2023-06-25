@@ -9,7 +9,7 @@ using LiquidVisions.PanthaRhei.Domain.Interactors.Generators;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
 {
-    public class ExpandSecretsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandSecretsHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;

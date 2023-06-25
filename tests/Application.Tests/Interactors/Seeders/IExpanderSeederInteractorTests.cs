@@ -82,7 +82,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             string folder = "Expanders";
             fakes.GenerationOptions.Setup(x => x.ExpandersFolder).Returns(folder);
             mockedPluginLoader.Setup(x => x.ShallowLoadAllExpanders(folder))
-                .Returns(new List<IExpanderInteractor> { GetMockedIExpanderInteractor() });
+                .Returns(new List<IExpander> { GetMockedIExpanderInteractor() });
 
             // act
             interactor.Seed(app);
@@ -99,9 +99,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
                 x.TemplateFolder == ".Templates")), Times.Once);
         }
 
-        private static IExpanderInteractor GetMockedIExpanderInteractor()
+        private static IExpander GetMockedIExpanderInteractor()
         {
-            Mock<IExpanderInteractor> mock = new();
+            Mock<IExpander> mock = new();
             mock.Setup(x => x.Name).Returns("Name");
             mock.Setup(x => x.Order).Returns(1);
 

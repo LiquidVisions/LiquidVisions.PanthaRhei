@@ -91,7 +91,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
             // arrange
             string path = "C:\\Some\\Fake\\";
 
-            Mock<IExpanderInteractor> mockedIExpanderInteractor = new();
+            Mock<IExpander> mockedIExpanderInteractor = new();
 
             mockedAssembly
                 .Setup(x => x.GetExportedTypes())
@@ -110,7 +110,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
                 .Returns(fakes.IExpanderDependencyManagerInteractor.Object);
 
             // act
-            List<IExpanderInteractor> result = interactor.ShallowLoadAllExpanders(path);
+            List<IExpander> result = interactor.ShallowLoadAllExpanders(path);
 
             // assert
             fakes.IObjectActivatorInteractor.Verify(x => x.CreateInstance(It.IsAny<Type>()), Times.Once);

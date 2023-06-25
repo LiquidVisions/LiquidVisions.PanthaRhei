@@ -9,7 +9,7 @@ using LiquidVisions.PanthaRhei.Domain.Logging;
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {
     /// <summary>
-    /// Concrete implementation of <seealso cref="IProcessorInteractor"/>.
+    /// Concrete implementation of <seealso cref="IProcessor"/>.
     /// </summary>
     internal class DotNetTemplateInteractor : IProjectTemplateInteractor
     {

@@ -8,10 +8,10 @@ using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Parameters;
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {
     /// <summary>
-    /// Represents an implementation of <seealso cref="IExpanderDependencyManagerInteractor"/> that allows dependency registration as part of a <seealso cref="CleanArchitectureExpander"/>.
+    /// Represents an implementation of <seealso cref="IExpanderDependencyManager"/> that allows dependency registration as part of a <seealso cref="CleanArchitectureExpander"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class CleanArchitectureDependencyManager : AbstractExpanderDependencyManagerInteractor<CleanArchitectureExpander>
+    public class CleanArchitectureDependencyManager : AbstractExpanderDependencyManager<CleanArchitectureExpander>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CleanArchitectureDependencyManager"/> class.

@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     /// <summary>
     /// Generates Fluid database configuration based on <seealso cref="Entity">Entities</seealso> into the Infrastructure library class.
     /// </summary>
-    public class ExpandEntityDatabaseConfigurationHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandEntityDatabaseConfigurationHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly ITemplateInteractor templateService;
         private readonly GenerationOptions options;

@@ -5,15 +5,15 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
     /// <summary>
     /// Specifies the interface of an expander.
     /// </summary>
-    public interface IExpanderInteractor
+    public interface IExpander
     {
         /// <summary>
-        /// Gets the Name of the <see cref="IExpanderInteractor"/>.
+        /// Gets the Name of the <see cref="IExpander"/>.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// Gets the Order in which the <seealso cref="IExpanderInteractor"/> should be executed.
+        /// Gets the Order in which the <seealso cref="IExpander"/> should be executed.
         /// </summary>
         int Order { get; }
 
@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
         Expander Model { get; }
 
         /// <summary>
-        /// Executes the <see cref="IExpanderInteractor"/>.
+        /// Executes the <see cref="IExpander"/>.
         /// </summary>
         void Expand();
 

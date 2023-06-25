@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// <summary>
     /// Performs the required modifications to the appsettings.config.
     /// </summary>
-    public class ExpandAppSettingsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandAppSettingsHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;

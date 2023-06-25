@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     /// <summary>
     /// Configures the dependency inversion container of the Application library.
     /// </summary>
-    public class ExpandConfigureApplicationLibraryHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandConfigureApplicationLibraryHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
         private readonly ITemplateInteractor templateService;

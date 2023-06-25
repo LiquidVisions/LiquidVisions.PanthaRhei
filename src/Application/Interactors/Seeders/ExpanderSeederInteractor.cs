@@ -30,8 +30,8 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
 
         public void Seed(App app)
         {
-            List<IExpanderInteractor> expanders = pluginLoader.ShallowLoadAllExpanders(options.ExpandersFolder);
-            foreach (IExpanderInteractor exp in expanders)
+            List<IExpander> expanders = pluginLoader.ShallowLoadAllExpanders(options.ExpandersFolder);
+            foreach (IExpander exp in expanders)
             {
                 Expander expander = new()
                 {

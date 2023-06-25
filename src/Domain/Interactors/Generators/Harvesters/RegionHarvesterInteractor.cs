@@ -12,9 +12,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters
     /// <summary>
     /// An abstract implementation of the <see cref="IHarvesterInteractor{TExpander}"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpanderInteractor"/>.</typeparam>
+    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
     internal sealed class RegionHarvesterInteractor<TExpander> : IHarvesterInteractor<TExpander>
-        where TExpander : class, IExpanderInteractor
+        where TExpander : class, IExpander
     {
         private readonly string regexPattern = @"#region ns-custom-(?'tag'.*)(?'content'(?s).*?)#endregion ns-custom-(?'tag'.*)";
         private readonly GenerationOptions options;

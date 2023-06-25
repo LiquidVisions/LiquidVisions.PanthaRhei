@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// <summary>
     /// Adds an endpoint to the API.
     /// </summary>
-    public class ExpandEndpointsHandlerInteractor : IExpanderHandlerInteractor<CleanArchitectureExpander>
+    public class ExpandEndpointsHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
         private readonly IWriterInteractor writer;
         private readonly ITemplateInteractor templateService;
