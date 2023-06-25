@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
         /// Gets a value indicating whether the <seealso cref="RejuvenatorInteractor{TExpander}"/> can be executed.
         /// Prerequisit is that the harvest folder should exist.
         /// </summary>
-        public override bool CanExecute => directoryService.Exists(folder);
+        public override bool Enabled => directoryService.Exists(folder);
 
         /// <inheritdoc/>
         protected override string Extension => Resources.MigrationHarvesterExtensionFile;

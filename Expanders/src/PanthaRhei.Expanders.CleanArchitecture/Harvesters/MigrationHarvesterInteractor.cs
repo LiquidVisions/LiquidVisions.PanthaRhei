@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
         }
 
         /// <inheritdoc/>
-        public bool CanExecute => options.Modes.HasFlag(GenerationModes.Harvest)
+        public bool Enabled => options.Modes.HasFlag(GenerationModes.Harvest)
             && directory.Exists(migrationsFolder);
 
         public CleanArchitectureExpander Expander => expander;

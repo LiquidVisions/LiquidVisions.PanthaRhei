@@ -120,7 +120,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
             Logger.Trace($"Expanding expander {Name}");
 
             foreach (IExpanderHandlerInteractor<TExpander> handler in GetHandlers()
-                .Where(x => x.CanExecute)
+                .Where(x => x.Enabled)
                 .OrderBy(x => x.Order))
             {
                 handler.Execute();
@@ -133,7 +133,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
             Logger.Trace($"Harvesting expander {Name} for expander {typeof(TExpander).Name}");
 
             IEnumerable<IHarvesterInteractor<TExpander>> selectedHarvestHandlers = GetHarvesters();
-            foreach (var handler in selectedHarvestHandlers.Where(x => x.CanExecute))
+            foreach (var handler in selectedHarvestHandlers.Where(x => x.Enabled))
             {
                 handler.Execute();
             }
@@ -145,7 +145,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
             Logger.Trace($"Rejuvenating expander {Name}");
 
             var selectedRejuvenateHandlers = GetRejuvenators();
-            foreach (var handler in selectedRejuvenateHandlers.Where(x => x.CanExecute))
+            foreach (var handler in selectedRejuvenateHandlers.Where(x => x.Enabled))
             {
                 handler.Execute();
             }
@@ -157,7 +157,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
             Logger.Trace($"PostProcessing expander {Name}");
 
             var selectedPostProcessHandlers = GetPostProcessor();
-            foreach (var handler in selectedPostProcessHandlers.Where(x => x.CanExecute))
+            foreach (var handler in selectedPostProcessHandlers.Where(x => x.Enabled))
             {
                 handler.Execute();
             }
@@ -169,7 +169,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders
             Logger.Trace($"PreProcessing expander {Name}");
 
             var selectedPrePocessors = GetPreProcessor();
-            foreach (var handler in selectedPrePocessors.Where(x => x.CanExecute))
+            foreach (var handler in selectedPrePocessors.Where(x => x.Enabled))
             {
                 handler.Execute();
             }

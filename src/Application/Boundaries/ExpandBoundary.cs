@@ -68,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
         {
             try
             {
-                if (seederInteractor.CanExecute)
+                if (seederInteractor.Enabled)
                 {
                     seederInteractor.Execute();
                     logger.Info("Successfully completed the seeding generation process.");

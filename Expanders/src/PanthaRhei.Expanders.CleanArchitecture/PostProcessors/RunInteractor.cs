@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
 
         public string Name => nameof(RunInteractor);
 
-        public override bool CanExecute => Options.Modes.HasFlag(GenerationModes.Run);
+        public override bool Enabled => Options.Modes.HasFlag(GenerationModes.Run);
 
         public override void Execute()
         {

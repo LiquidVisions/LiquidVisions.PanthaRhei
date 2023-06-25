@@ -26,7 +26,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         }
 
         /// <inheritdoc/>
-        public bool CanExecute => options.Clean;
+        public bool Enabled => options.Clean;
 
         public virtual int Order => 1;
 

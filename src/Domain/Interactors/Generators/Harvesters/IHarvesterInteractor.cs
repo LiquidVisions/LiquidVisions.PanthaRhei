@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters
     /// Specifies an interface that executes Harvesters.
     /// </summary>
     /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
-    public interface IHarvesterInteractor<out TExpander> : IExecutionInteractor
+    public interface IHarvesterInteractor<out TExpander> : ICommand
         where TExpander : class, IExpanderInteractor
     {
         /// <summary>

@@ -41,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators
         public TExpander Expander => expander;
 
         /// <inheritdoc/>
-        public abstract bool CanExecute { get; }
+        public abstract bool Enabled { get; }
 
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.

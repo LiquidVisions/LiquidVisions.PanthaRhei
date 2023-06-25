@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
         public void Execute_ShouldVerify()
         {
             // arrange
-            mockedSeederInteractor.Setup(x => x.CanExecute).Returns(false);
+            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act
             service.Execute();
@@ -41,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             string exceptionMessage = "Dit is an exception message";
             CodeGenerationException exception = new(exceptionMessage);
             fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
-            mockedSeederInteractor.Setup(x => x.CanExecute).Returns(false);
+            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act
             service.Execute();
@@ -57,7 +57,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             string exceptionMessage = "Dit is an exception message";
             InvalidOperationException exception = new(exceptionMessage);
             fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
-            mockedSeederInteractor.Setup(x => x.CanExecute).Returns(false);
+            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act
             service.Execute();
@@ -73,7 +73,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             string exceptionMessage = "Dit is an exception message";
             CodeGenerationException exception = new(exceptionMessage);
             mockedSeederInteractor.Setup(x => x.Execute()).Throws(exception);
-            mockedSeederInteractor.Setup(x => x.CanExecute).Returns(true);
+            mockedSeederInteractor.Setup(x => x.Enabled).Returns(true);
 
             // act
             service.Execute();
@@ -89,7 +89,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             string exceptionMessage = "Dit is an exception message";
             InvalidOperationException exception = new(exceptionMessage);
             mockedSeederInteractor.Setup(x => x.Execute()).Throws(exception);
-            mockedSeederInteractor.Setup(x => x.CanExecute).Returns(true);
+            mockedSeederInteractor.Setup(x => x.Enabled).Returns(true);
 
             // act
             service.Execute();

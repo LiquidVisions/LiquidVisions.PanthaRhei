@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Rejuvenator
         }
 
         /// <inheritdoc/>
-        public abstract bool CanExecute { get; }
+        public abstract bool Enabled { get; }
 
         /// <inheritdoc/>
         public App App => app;

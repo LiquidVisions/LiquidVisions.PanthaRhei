@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.PostProcessors
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => Options.Clean;
+        public override bool Enabled => Options.Clean;
 
         /// <summary>
         /// Installs the dotnet templates that are part of the <see cref="IExpanderInteractor"/>.

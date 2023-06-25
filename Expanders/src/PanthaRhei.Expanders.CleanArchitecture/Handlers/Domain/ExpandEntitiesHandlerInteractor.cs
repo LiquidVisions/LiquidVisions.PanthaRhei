@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
 
         public int Order => 2;
 
-        public bool CanExecute => options.CanExecuteDefaultAndExtend();
+        public bool Enabled => options.CanExecuteDefaultAndExtend();
 
         public string Name => nameof(ExpandEntitiesHandlerInteractor);
 

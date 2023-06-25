@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => Options.Modes.HasFlag(GenerationModes.Migrate);
+        public override bool Enabled => Options.Modes.HasFlag(GenerationModes.Migrate);
 
         /// <inheritdoc/>
         public override void Execute()

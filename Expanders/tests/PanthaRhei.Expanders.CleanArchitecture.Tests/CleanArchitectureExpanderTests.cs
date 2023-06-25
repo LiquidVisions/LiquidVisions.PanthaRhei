@@ -122,7 +122,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         {
             // arrange
             Mock<IExpanderHandlerInteractor<CleanArchitectureExpander>> mockExpander = new();
-            mockExpander.Setup(x => x.CanExecute).Returns(true);
+            mockExpander.Setup(x => x.Enabled).Returns(true);
 
             fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IExpanderHandlerInteractor<CleanArchitectureExpander>>()).Returns(new List<IExpanderHandlerInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
 
@@ -139,7 +139,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         {
             // arrange
             Mock<IHarvesterInteractor<CleanArchitectureExpander>> mockExpander = new();
-            mockExpander.Setup(x => x.CanExecute).Returns(true);
+            mockExpander.Setup(x => x.Enabled).Returns(true);
 
             fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IHarvesterInteractor<CleanArchitectureExpander>>()).Returns(new List<IHarvesterInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
 
@@ -156,7 +156,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         {
             // arrange
             Mock<IRejuvenatorInteractor<CleanArchitectureExpander>> mockExpander = new();
-            mockExpander.Setup(x => x.CanExecute).Returns(true);
+            mockExpander.Setup(x => x.Enabled).Returns(true);
 
             fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IRejuvenatorInteractor<CleanArchitectureExpander>>()).Returns(new List<IRejuvenatorInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
 
@@ -173,7 +173,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         {
             // arrange
             Mock<IPreProcessorInteractor<CleanArchitectureExpander>> mockExpander = new();
-            mockExpander.Setup(x => x.CanExecute).Returns(true);
+            mockExpander.Setup(x => x.Enabled).Returns(true);
 
             fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IPreProcessorInteractor<CleanArchitectureExpander>>()).Returns(new List<IPreProcessorInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
 
@@ -190,7 +190,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         {
             // arrange
             Mock<IPostProcessorInteractor<CleanArchitectureExpander>> mockExpander = new();
-            mockExpander.Setup(x => x.CanExecute).Returns(true);
+            mockExpander.Setup(x => x.Enabled).Returns(true);
 
             fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IPostProcessorInteractor<CleanArchitectureExpander>>()).Returns(new List<IPostProcessorInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
 

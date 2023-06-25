@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             fakes.GenerationOptions.Setup(x => x.Modes).Returns(mode);
 
             // act
-            bool result = interactor.CanExecute;
+            bool result = interactor.Enabled;
 
             // assert
             Assert.False(result);
@@ -69,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
 
             // act
-            bool result = interactor.CanExecute;
+            bool result = interactor.Enabled;
 
             // assert
             Assert.Equal(expectedResult, result);

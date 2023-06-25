@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
             fakes.GenerationOptions.Setup(x => x.Modes).Returns(modes);
 
             // act
-            bool result = interactor.CanExecute;
+            bool result = interactor.Enabled;
 
             // assert
             fakes.GenerationOptions.Verify(x => x.Modes, Times.Once);

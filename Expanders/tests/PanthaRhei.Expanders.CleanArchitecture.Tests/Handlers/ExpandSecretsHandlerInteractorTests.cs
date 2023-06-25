@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
 
             // act
             // assert
-            Assert.Equal(expectedResult, interactor.CanExecute);
+            Assert.Equal(expectedResult, interactor.Enabled);
         }
 
         [Fact]

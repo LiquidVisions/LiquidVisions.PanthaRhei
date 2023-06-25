@@ -41,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void Execute_ShouldBuildCodeGeneratorAndExecute()
         {
             // arrange
-            mockedSeederInteractor.Setup(x => x.CanExecute).Returns(false);
+            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act
             boundary.Execute();
@@ -58,7 +58,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             string exceptionMessage = "Random Exception Message";
             var exception = new CodeGenerationException(exceptionMessage);
             fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
-            mockedSeederInteractor.Setup(x => x.CanExecute).Returns(false);
+            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act
             boundary.Execute();
@@ -74,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             string exceptionMessage = "Random Exception Message";
             Exception exception = new(exceptionMessage);
             fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
-            mockedSeederInteractor.Setup(x => x.CanExecute).Returns(false);
+            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act
             boundary.Execute();

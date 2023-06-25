@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators
     /// Specifies the interface of an expander handler.
     /// </summary>
     /// <typeparam name="TExpander"><seealso cref="IExpanderInteractor"/></typeparam>
-    public interface IExpanderHandlerInteractor<out TExpander> : IExecutionInteractor
+    public interface IExpanderHandlerInteractor<out TExpander> : ICommand
         where TExpander : class, IExpanderInteractor
     {
         /// <summary>

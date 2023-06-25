@@ -73,7 +73,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
 
             // act
             // assert
-            Assert.Equal(expectedResult, handler.CanExecute);
+            Assert.Equal(expectedResult, handler.Enabled);
         }
 
         [Theory]
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
 
             // act
             // assert
-            Assert.Equal(expectedResult, handler.CanExecute);
+            Assert.Equal(expectedResult, handler.Enabled);
         }
 
         [Fact]

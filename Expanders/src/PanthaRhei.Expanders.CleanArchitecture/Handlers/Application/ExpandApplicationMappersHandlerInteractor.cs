@@ -52,7 +52,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
 
         public CleanArchitectureExpander Expander => expander;
 
-        public bool CanExecute => options.CanExecuteDefaultAndExtend();
+        public bool Enabled => options.CanExecuteDefaultAndExtend();
 
         public void Execute()
         {

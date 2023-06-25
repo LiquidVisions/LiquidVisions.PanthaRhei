@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
             seeders = dependencyFactory.GetAll<IEntitySeederInteractor<App>>().ToList();
         }
 
-        public bool CanExecute => options.ReSeed;
+        public bool Enabled => options.ReSeed;
 
         public void Execute()
         {

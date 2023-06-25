@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Rejuvenator
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => options.Modes.HasFlag(GenerationModes.Rejuvenate)
+        public override bool Enabled => options.Modes.HasFlag(GenerationModes.Rejuvenate)
             && directoryService.Exists(folder);
 
         /// <inheritdoc/>
