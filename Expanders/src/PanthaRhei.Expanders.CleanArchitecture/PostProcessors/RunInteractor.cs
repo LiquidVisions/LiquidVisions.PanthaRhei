@@ -4,7 +4,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
 {
-    public class RunInteractor : PostProcessorInteractor<CleanArchitectureExpander>
+    public class RunInteractor : PostProcessor<CleanArchitectureExpander>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RunInteractor "/> class.

@@ -5,9 +5,9 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
 {
     /// <summary>
-    /// A <seealso cref="PostProcessorInteractor{TExpander}"/> updates database based on entityframework specifications.
+    /// A <seealso cref="PostProcessor{TExpander}"/> updates database based on entityframework specifications.
     /// </summary>
-    public class UpdateDatabase : PostProcessorInteractor<CleanArchitectureExpander>
+    public class UpdateDatabase : PostProcessor<CleanArchitectureExpander>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateDatabase"/> class.

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Domain;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Infrastructure.IO;
@@ -30,11 +30,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                 .AddSingleton<IDirectory>(new DirectoryService())
                 .AddTransient<ICommandLineInteractor, CommandLine>()
                 .AddTransient<IWriterInteractor, ClassWriter>()
-                .AddTransient<IHarvestSerializerInteractor, HarvestSerializerInteractor>()
+                .AddTransient<IHarvestSerializer, HarvestSerializerInteractor>()
                 .AddTransient<IDeserializerInteractor<Harvest>, SerializerInteractor<Harvest>>()
                 .AddTransient<ISerializerInteractor<Harvest>, SerializerInteractor<Harvest>>()
-                .AddTransient<IGetGateway<Harvest>, HarvestRepository>()
-                .AddTransient<ICreateGateway<Harvest>, HarvestRepository>();
+                .AddTransient<IGetRepository<Harvest>, HarvestRepository>()
+                .AddTransient<ICreateRepository<Harvest>, HarvestRepository>();
         }
 
         private static IServiceCollection AddLogging(this IServiceCollection services)

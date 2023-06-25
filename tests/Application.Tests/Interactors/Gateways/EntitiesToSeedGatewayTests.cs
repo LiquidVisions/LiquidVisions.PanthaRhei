@@ -1,5 +1,5 @@
 ﻿using System;
-using LiquidVisions.PanthaRhei.Application.Interactors.Gateways;
+using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Gateways

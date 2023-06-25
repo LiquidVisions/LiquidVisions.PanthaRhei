@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using LiquidVisions.PanthaRhei.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
@@ -14,16 +14,16 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
     public class ComponentSeederInteractorTests
     {
         private readonly Fakes fakes = new();
-        private readonly ComponentSeederInteractor interactor;
-        private readonly Mock<ICreateGateway<Component>> mockedCreateGateway = new();
-        private readonly Mock<IDeleteGateway<Component>> mockedDeleteGateway = new();
+        private readonly ComponentSeeder interactor;
+        private readonly Mock<ICreateRepository<Component>> mockedCreateGateway = new();
+        private readonly Mock<IDeleteRepository<Component>> mockedDeleteGateway = new();
 
         public ComponentSeederInteractorTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<Component>>()).Returns(mockedCreateGateway.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteGateway<Component>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateRepository<Component>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteRepository<Component>>()).Returns(mockedDeleteGateway.Object);
 
-            interactor = new ComponentSeederInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ComponentSeeder(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -32,8 +32,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Component>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<Component>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<Component>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteRepository<Component>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualBasic.FileIO;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 {

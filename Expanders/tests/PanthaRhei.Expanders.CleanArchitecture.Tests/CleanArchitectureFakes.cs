@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 
         public Mock<CleanArchitectureExpander> CleanArchitectureExpander { get; } = new();
 
-        public Mock<IHarvestSerializerInteractor> IHarvestSerializerInteractor { get; } = new();
+        public Mock<IHarvestSerializer> IHarvestSerializerInteractor { get; } = new();
 
         public string ExpectedCompontentOutputFolder { get; } = "C:\\Some\\Component\\Output\\Path";
 
@@ -41,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             IDependencyFactoryInteractor.Setup(x => x.Get<IProjectTemplateInteractor>())
                 .Returns(IProjectTemplateInteractor.Object);
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializerInteractor>())
+            IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializer>())
                 .Returns(IHarvestSerializerInteractor.Object);
         }
 

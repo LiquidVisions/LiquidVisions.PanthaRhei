@@ -1,7 +1,7 @@
 ﻿using System;
-using LiquidVisions.PanthaRhei.Application.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
@@ -10,15 +10,15 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
 {
     public class CodeGeneratorBuilderTests
     {
-        private readonly CodeGeneratorBuilderInteractor interactor;
-        private readonly Mock<IGetGateway<App>> mockedGetGateway = new();
+        private readonly CodeGeneratorBuilder interactor;
+        private readonly Mock<IGetRepository<App>> mockedGetGateway = new();
         private readonly Fakes fakes = new();
 
         public CodeGeneratorBuilderTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IGetGateway<App>>()).Returns(mockedGetGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IGetRepository<App>>()).Returns(mockedGetGateway.Object);
 
-            interactor = new CodeGeneratorBuilderInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new CodeGeneratorBuilder(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]

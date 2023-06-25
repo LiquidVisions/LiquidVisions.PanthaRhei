@@ -5,7 +5,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
 {
-    public class HarvestSerializerInteractor : IHarvestSerializerInteractor
+    public class HarvestSerializerInteractor : IHarvestSerializer
     {
         private readonly ISerializerInteractor<Harvest> serializer;
         private readonly IFile file;

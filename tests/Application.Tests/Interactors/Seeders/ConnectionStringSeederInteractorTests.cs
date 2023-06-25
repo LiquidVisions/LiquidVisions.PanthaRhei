@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using LiquidVisions.PanthaRhei.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
@@ -12,20 +12,20 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
     public class ConnectionStringSeederInteractorTests
     {
         private readonly Fakes fakes = new();
-        private readonly ConnectionStringsSeederInteractor interactor;
-        private readonly Mock<ICreateGateway<ConnectionString>> mockedCreateGateway = new();
-        private readonly Mock<IDeleteGateway<ConnectionString>> mockedDeleteGateway = new();
+        private readonly ConnectionStringsSeeder interactor;
+        private readonly Mock<ICreateRepository<ConnectionString>> mockedCreateGateway = new();
+        private readonly Mock<IDeleteRepository<ConnectionString>> mockedDeleteGateway = new();
 
         public ConnectionStringSeederInteractorTests()
         {
             fakes.IDependencyFactoryInteractor
-                .Setup(x => x.Get<ICreateGateway<ConnectionString>>())
+                .Setup(x => x.Get<ICreateRepository<ConnectionString>>())
                 .Returns(mockedCreateGateway.Object);
             fakes.IDependencyFactoryInteractor
-                .Setup(x => x.Get<IDeleteGateway<ConnectionString>>())
+                .Setup(x => x.Get<IDeleteRepository<ConnectionString>>())
                 .Returns(mockedDeleteGateway.Object);
 
-            interactor = new ConnectionStringsSeederInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ConnectionStringsSeeder(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -34,8 +34,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<ConnectionString>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<ConnectionString>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteRepository<ConnectionString>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<ConnectionString>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
             fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }

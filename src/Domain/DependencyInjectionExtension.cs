@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Domain
         private static IServiceCollection AddInitializers(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IAssemblyManagerInteractor, AssemblyManagerInteractor>();
+                .AddSingleton<IAssemblyManager, AssemblyManager>();
         }
     }
 }

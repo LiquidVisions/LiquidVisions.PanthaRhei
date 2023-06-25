@@ -3,10 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
@@ -25,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         private readonly Expander expander;
         private readonly IDependencyManager dependencyManager;
         private readonly ILogger logger;
-        private readonly IAssemblyManagerInteractor assemblyManager;
+        private readonly IAssemblyManager assemblyManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpanderDependencyManager{TExpander}"/> class.
@@ -39,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
 
             this.expander = expander;
             logger = dependencyFactory.Get<ILogger>();
-            assemblyManager = dependencyFactory.Get<IAssemblyManagerInteractor>();
+            assemblyManager = dependencyFactory.Get<IAssemblyManager>();
         }
 
         /// <summary>
@@ -74,15 +72,15 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         }
 
         /// <summary>
-        /// Registers all <seealso cref="RejuvenatorInteractor{TExpander}">Rejuvenators</seealso>.
+        /// Registers all <seealso cref="Rejuvenator{TExpander}">Rejuvenators</seealso>.
         /// </summary>
-        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="RejuvenatorInteractor{TExpander}">types</seealso> that should be registered.</param>
+        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="Rejuvenator{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterRejuvenators(Assembly assembly)
         {
-            dependencyManager.AddTransient(typeof(IRejuvenatorInteractor<TExpander>), typeof(RegionRejuvenatorInteractor<TExpander>));
-            logger.Debug($"Registered rejuvenator {typeof(IRejuvenatorInteractor<TExpander>)} to match {nameof(RegionRejuvenatorInteractor<TExpander>)} in the dependency container.");
+            dependencyManager.AddTransient(typeof(IRejuvenator<TExpander>), typeof(RegionRejuvenator<TExpander>));
+            logger.Debug($"Registered rejuvenator {typeof(IRejuvenator<TExpander>)} to match {nameof(RegionRejuvenator<TExpander>)} in the dependency container.");
 
-            RegisterFromAssembly(assembly, typeof(IRejuvenatorInteractor<TExpander>));
+            RegisterFromAssembly(assembly, typeof(IRejuvenator<TExpander>));
         }
 
         /// <summary>
@@ -104,39 +102,39 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         }
 
         /// <summary>
-        /// Registers all <seealso cref="IHarvesterInteractor{TExpander}">Harvesters</seealso>.
+        /// Registers all <seealso cref="IHarvester{TExpander}">Harvesters</seealso>.
         /// </summary>
-        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="IHarvesterInteractor{TExpander}">types</seealso> that should be registered.</param>
+        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="IHarvester{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterHarvesters(Assembly assembly)
         {
-            dependencyManager.AddTransient(typeof(IHarvesterInteractor<TExpander>), typeof(RegionHarvesterInteractor<TExpander>));
-            logger.Debug($"Registered harvester {typeof(IHarvesterInteractor<TExpander>)} to match {nameof(RegionHarvesterInteractor<TExpander>)} in the dependency container.");
+            dependencyManager.AddTransient(typeof(IHarvester<TExpander>), typeof(RegionHarvester<TExpander>));
+            logger.Debug($"Registered harvester {typeof(IHarvester<TExpander>)} to match {nameof(RegionHarvester<TExpander>)} in the dependency container.");
 
-            RegisterFromAssembly(assembly, typeof(IHarvesterInteractor<TExpander>));
+            RegisterFromAssembly(assembly, typeof(IHarvester<TExpander>));
         }
 
         /// <summary>
-        /// Registers all <seealso cref="PostProcessorInteractor{TExpander}">PostProcessor</seealso>.
+        /// Registers all <seealso cref="PostProcessor{TExpander}">PostProcessor</seealso>.
         /// </summary>
-        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="PostProcessorInteractor{TExpander}">types</seealso> that should be registered.</param>
+        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="PostProcessor{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterPostProcessors(Assembly assembly)
         {
-            logger.Debug($"Registering {nameof(UnInstallDotNetTemplateInteractor<TExpander>)} as a {nameof(IPostProcessorInteractor<TExpander>)}");
-            dependencyManager.AddTransient(typeof(IPostProcessorInteractor<TExpander>), typeof(UnInstallDotNetTemplateInteractor<TExpander>));
+            logger.Debug($"Registering {nameof(UnInstallDotNetTemplate<TExpander>)} as a {nameof(IPostProcessor<TExpander>)}");
+            dependencyManager.AddTransient(typeof(IPostProcessor<TExpander>), typeof(UnInstallDotNetTemplate<TExpander>));
 
-            RegisterFromAssembly(assembly, typeof(IPostProcessorInteractor<TExpander>));
+            RegisterFromAssembly(assembly, typeof(IPostProcessor<TExpander>));
         }
 
         /// <summary>
-        /// Registers all <seealso cref="PreProcessorInteractor{TExpander}">PreProcessors</seealso>.
+        /// Registers all <seealso cref="PreProcessor{TExpander}">PreProcessors</seealso>.
         /// </summary>
-        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="PreProcessorInteractor{TExpander}">types</seealso> that should be registered.</param>
+        /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="PreProcessor{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterPreProcessors(Assembly assembly)
         {
-            logger.Debug($"Registering {nameof(InstallDotNetTemplateInteractor<TExpander>)} as a {nameof(IPreProcessorInteractor<TExpander>)}");
-            dependencyManager.AddTransient(typeof(IPreProcessorInteractor<TExpander>), typeof(InstallDotNetTemplateInteractor<TExpander>));
+            logger.Debug($"Registering {nameof(InstallDotNetTemplate<TExpander>)} as a {nameof(IPreProcessor<TExpander>)}");
+            dependencyManager.AddTransient(typeof(IPreProcessor<TExpander>), typeof(InstallDotNetTemplate<TExpander>));
 
-            RegisterFromAssembly(assembly, typeof(IPreProcessorInteractor<TExpander>));
+            RegisterFromAssembly(assembly, typeof(IPreProcessor<TExpander>));
         }
 
         /// <summary>

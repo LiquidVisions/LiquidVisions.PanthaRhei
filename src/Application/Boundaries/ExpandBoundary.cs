@@ -1,6 +1,6 @@
 ﻿using System;
-using LiquidVisions.PanthaRhei.Application.Interactors.Generators;
-using LiquidVisions.PanthaRhei.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
+using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
@@ -12,8 +12,8 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
     /// </summary>
     internal class ExpandBoundary : IExpandBoundary
     {
-        private readonly ICodeGeneratorBuilderInteractor builder;
-        private readonly ISeederInteractor seederInteractor;
+        private readonly ICodeGeneratorBuilder builder;
+        private readonly ISeeder seederInteractor;
         private readonly ILogger logger;
         private readonly ILogger exceptionLogger;
         private readonly GenerationOptions options;
@@ -24,8 +24,8 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
         public ExpandBoundary(IDependencyFactory dependencyFactory)
         {
-            builder = dependencyFactory.Get<ICodeGeneratorBuilderInteractor>();
-            seederInteractor = dependencyFactory.Get<ISeederInteractor>();
+            builder = dependencyFactory.Get<ICodeGeneratorBuilder>();
+            seederInteractor = dependencyFactory.Get<ISeeder>();
             logger = dependencyFactory.Get<ILogger>();
             exceptionLogger = dependencyFactory
                 .Get<ILogManager>()

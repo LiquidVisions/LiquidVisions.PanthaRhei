@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Infrastructure.Serialization;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure
 {
-    internal class HarvestRepository : ICreateGateway<Harvest>, IGetGateway<Harvest>
+    internal class HarvestRepository : ICreateRepository<Harvest>, IGetRepository<Harvest>
     {
-        private readonly IHarvestSerializerInteractor serializer;
+        private readonly IHarvestSerializer serializer;
         private readonly GenerationOptions expandRequestModel;
         private readonly App app;
         private readonly IDeserializerInteractor<Harvest> deserializer;
@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             file = dependencyFactory.Get<IFile>();
             deserializer = dependencyFactory.Get<IDeserializerInteractor<Harvest>>();
-            serializer = dependencyFactory.Get<IHarvestSerializerInteractor>();
+            serializer = dependencyFactory.Get<IHarvestSerializer>();
             expandRequestModel = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
         }

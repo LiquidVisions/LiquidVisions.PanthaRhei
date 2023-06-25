@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters;
@@ -17,12 +17,12 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
         private readonly CleanArchitectureFakes fakes = new();
         private readonly MigrationHarvesterInteractor interactor;
         private readonly string expectedMigrationsFolder;
-        private readonly Mock<ICreateGateway<Harvest>> mockedICreateGateWay = new();
+        private readonly Mock<ICreateRepository<Harvest>> mockedICreateGateWay = new();
 
         public MigrationHarvesterInteractorTests()
         {
             fakes.MockCleanArchitectureExpander();
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<Harvest>>()).Returns(mockedICreateGateWay.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateRepository<Harvest>>()).Returns(mockedICreateGateWay.Object);
 
             interactor = new MigrationHarvesterInteractor(fakes.IDependencyFactoryInteractor.Object);
 
@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
             // act
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Harvest>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<Harvest>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);

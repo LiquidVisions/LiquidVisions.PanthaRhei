@@ -1,8 +1,8 @@
 ﻿using System;
-using LiquidVisions.PanthaRhei.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
@@ -12,16 +12,16 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
     public class AppSeederInteractorTests
     {
         private readonly Fakes fakes = new();
-        private readonly AppSeederInteractor interactor;
-        private readonly Mock<ICreateGateway<App>> mockedCreateGateway = new();
-        private readonly Mock<IDeleteGateway<App>> mockedDeleteGateway = new();
+        private readonly AppSeeder interactor;
+        private readonly Mock<ICreateRepository<App>> mockedCreateGateway = new();
+        private readonly Mock<IDeleteRepository<App>> mockedDeleteGateway = new();
 
         public AppSeederInteractorTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<App>>()).Returns(mockedCreateGateway.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteGateway<App>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateRepository<App>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteRepository<App>>()).Returns(mockedDeleteGateway.Object);
 
-            interactor = new AppSeederInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new AppSeeder(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -30,8 +30,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<App>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<App>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<App>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteRepository<App>>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
             fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);

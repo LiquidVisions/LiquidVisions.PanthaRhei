@@ -1,7 +1,7 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Application.Boundaries;
-using LiquidVisions.PanthaRhei.Application.Interactors.Generators;
-using LiquidVisions.PanthaRhei.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
+using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Tests;
@@ -14,11 +14,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
     {
         private readonly Fakes fakes = new();
         private readonly ExpandBoundary boundary;
-        private readonly Mock<ISeederInteractor> mockedSeederInteractor = new();
+        private readonly Mock<ISeeder> mockedSeederInteractor = new();
 
         public CodeGeneratorServiceBoundaryTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ISeederInteractor>()).Returns(mockedSeederInteractor.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ISeeder>()).Returns(mockedSeederInteractor.Object);
             fakes.ILogManager.Setup(x => x.GetExceptionLogger()).Returns(fakes.ILogger.Object);
             boundary = new ExpandBoundary(fakes.IDependencyFactoryInteractor.Object);
         }
@@ -29,8 +29,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICodeGeneratorBuilderInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ISeederInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICodeGeneratorBuilder>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ISeeder>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogger>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogManager>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);

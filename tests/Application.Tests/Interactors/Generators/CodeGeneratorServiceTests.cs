@@ -1,7 +1,7 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Application.Boundaries;
-using LiquidVisions.PanthaRhei.Application.Interactors.Generators;
-using LiquidVisions.PanthaRhei.Application.Interactors.Seeders;
+using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
+using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
@@ -12,11 +12,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
     {
         private readonly Fakes fakes = new();
         private readonly ExpandBoundary service;
-        private readonly Mock<ISeederInteractor> mockedSeederInteractor = new();
+        private readonly Mock<ISeeder> mockedSeederInteractor = new();
 
         public CodeGeneratorServiceTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ISeederInteractor>()).Returns(mockedSeederInteractor.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ISeeder>()).Returns(mockedSeederInteractor.Object);
             service = new ExpandBoundary(fakes.IDependencyFactoryInteractor.Object);
         }
 

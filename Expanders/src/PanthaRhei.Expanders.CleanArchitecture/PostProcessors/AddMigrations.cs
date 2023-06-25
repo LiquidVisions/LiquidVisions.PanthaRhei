@@ -7,9 +7,9 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
 {
     /// <summary>
-    /// A <seealso cref="PostProcessorInteractor{TExpander}"/> that handles EntityFramework migrations.
+    /// A <seealso cref="PostProcessor{TExpander}"/> that handles EntityFramework migrations.
     /// </summary>
-    public class AddMigrations : PostProcessorInteractor<CleanArchitectureExpander>
+    public class AddMigrations : PostProcessor<CleanArchitectureExpander>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AddMigrations"/> class.
@@ -21,7 +21,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
         }
 
         /// <summary>
-        /// Gets a value indicating whether the <seealso cref="PostProcessorInteractor{TExpander}"/> can be executed.
+        /// Gets a value indicating whether the <seealso cref="PostProcessor{TExpander}"/> can be executed.
         /// <seealso cref="GenerationModes"/> should be <seealso cref="GenerationModes.Deploy"/>.
         /// AND
         /// <seealso cref="App"/> should have been changed, checked by a checksum on previous generation cycle.

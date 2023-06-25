@@ -81,7 +81,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             expander.GetHarvesters();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IHarvesterInteractor<CleanArchitectureExpander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IHarvester<CleanArchitectureExpander>>(), Times.Once);
         }
 
         [Fact]
@@ -92,7 +92,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             expander.GetPostProcessor();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IPostProcessorInteractor<CleanArchitectureExpander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IPostProcessor<CleanArchitectureExpander>>(), Times.Once);
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             expander.GetPreProcessor();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IPreProcessorInteractor<CleanArchitectureExpander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IPreProcessor<CleanArchitectureExpander>>(), Times.Once);
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             expander.GetRejuvenators();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IRejuvenatorInteractor<CleanArchitectureExpander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IRejuvenator<CleanArchitectureExpander>>(), Times.Once);
         }
 
         [Fact]
@@ -138,16 +138,16 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         public void Harvest_ShouldVerify()
         {
             // arrange
-            Mock<IHarvesterInteractor<CleanArchitectureExpander>> mockExpander = new();
+            Mock<IHarvester<CleanArchitectureExpander>> mockExpander = new();
             mockExpander.Setup(x => x.Enabled).Returns(true);
 
-            fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IHarvesterInteractor<CleanArchitectureExpander>>()).Returns(new List<IHarvesterInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
+            fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IHarvester<CleanArchitectureExpander>>()).Returns(new List<IHarvester<CleanArchitectureExpander>>() { mockExpander.Object });
 
             // act
             expander.Harvest();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IHarvesterInteractor<CleanArchitectureExpander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IHarvester<CleanArchitectureExpander>>(), Times.Once);
             mockExpander.Verify(x => x.Execute());
         }
 
@@ -155,16 +155,16 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         public void Rejuvenate_ShouldVerify()
         {
             // arrange
-            Mock<IRejuvenatorInteractor<CleanArchitectureExpander>> mockExpander = new();
+            Mock<IRejuvenator<CleanArchitectureExpander>> mockExpander = new();
             mockExpander.Setup(x => x.Enabled).Returns(true);
 
-            fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IRejuvenatorInteractor<CleanArchitectureExpander>>()).Returns(new List<IRejuvenatorInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
+            fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IRejuvenator<CleanArchitectureExpander>>()).Returns(new List<IRejuvenator<CleanArchitectureExpander>>() { mockExpander.Object });
 
             // act
             expander.Rejuvenate();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IRejuvenatorInteractor<CleanArchitectureExpander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IRejuvenator<CleanArchitectureExpander>>(), Times.Once);
             mockExpander.Verify(x => x.Execute());
         }
 
@@ -172,16 +172,16 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         public void PreProcess_ShouldVerify()
         {
             // arrange
-            Mock<IPreProcessorInteractor<CleanArchitectureExpander>> mockExpander = new();
+            Mock<IPreProcessor<CleanArchitectureExpander>> mockExpander = new();
             mockExpander.Setup(x => x.Enabled).Returns(true);
 
-            fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IPreProcessorInteractor<CleanArchitectureExpander>>()).Returns(new List<IPreProcessorInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
+            fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IPreProcessor<CleanArchitectureExpander>>()).Returns(new List<IPreProcessor<CleanArchitectureExpander>>() { mockExpander.Object });
 
             // act
             expander.PreProcess();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IPreProcessorInteractor<CleanArchitectureExpander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IPreProcessor<CleanArchitectureExpander>>(), Times.Once);
             mockExpander.Verify(x => x.Execute());
         }
 
@@ -189,16 +189,16 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         public void PostProcess_ShouldVerify()
         {
             // arrange
-            Mock<IPostProcessorInteractor<CleanArchitectureExpander>> mockExpander = new();
+            Mock<IPostProcessor<CleanArchitectureExpander>> mockExpander = new();
             mockExpander.Setup(x => x.Enabled).Returns(true);
 
-            fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IPostProcessorInteractor<CleanArchitectureExpander>>()).Returns(new List<IPostProcessorInteractor<CleanArchitectureExpander>>() { mockExpander.Object });
+            fakes.IDependencyFactoryInteractor.Setup(x => x.GetAll<IPostProcessor<CleanArchitectureExpander>>()).Returns(new List<IPostProcessor<CleanArchitectureExpander>>() { mockExpander.Object });
 
             // act
             expander.PostProcess();
 
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IPostProcessorInteractor<CleanArchitectureExpander>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IPostProcessor<CleanArchitectureExpander>>(), Times.Once);
             mockExpander.Verify(x => x.Execute());
         }
 

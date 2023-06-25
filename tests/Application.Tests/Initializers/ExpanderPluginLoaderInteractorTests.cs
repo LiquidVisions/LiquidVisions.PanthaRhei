@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using LiquidVisions.PanthaRhei.Application.Interactors.Initializers;
+using LiquidVisions.PanthaRhei.Application.Usecases.Initializers;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
@@ -20,7 +20,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         private readonly string pluginAssembly = @"C:\Some\Fake\Plugin.Expanders.Assembly.dll";
 
         private readonly Fakes fakes = new();
-        private readonly ExpanderPluginLoaderInteractor interactor;
+        private readonly ExpanderPluginLoader interactor;
         private readonly Mock<Assembly> mockedAssembly = new();
         private readonly App app;
 
@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
 
             fakes.IAssemblyContextInteractor.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);
 
-            interactor = new ExpanderPluginLoaderInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ExpanderPluginLoader(fakes.IDependencyFactoryInteractor.Object);
 
             fakes.IFile.Setup(x => x.GetDirectory(fakes.GenerationOptions.Object.ExpandersFolder)).Returns(@"C:\Some\Fake\");
             fakes.IAssemblyContextInteractor.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);

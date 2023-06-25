@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 
         public Mock<ISerializerInteractor<Harvest>> ISerializerInteractor { get; } = new();
 
-        public Mock<IHarvestSerializerInteractor> IHarvestSerializerInteractor { get; } = new();
+        public Mock<IHarvestSerializer> IHarvestSerializerInteractor { get; } = new();
 
         /// <summary>
         /// Gets a mock of an empy class file as a <see cref="string"/>.
@@ -68,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             base.ConfigureIDependencyFactoryInteractor();
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializerInteractor>()).Returns(IHarvestSerializerInteractor.Object);
+            IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializer>()).Returns(IHarvestSerializerInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<IDeserializerInteractor<Harvest>>()).Returns(IHarvestDeserializerInteractor.Object);
             IDependencyFactoryInteractor.Setup(x => x.Get<ISerializerInteractor<Harvest>>()).Returns(ISerializerInteractor.Object);
         }

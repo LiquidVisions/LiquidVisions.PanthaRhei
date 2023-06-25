@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LiquidVisions.PanthaRhei.Application.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
 {
     public class CodeGeneratorInteractorTests
     {
-        private readonly CodeGeneratorInteractor interactor;
+        private readonly CodeGenerator interactor;
         private readonly Fakes fakes = new();
         private readonly Mock<IExpander> mockedIExpanderInteractor = new();
 
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
                 .Setup(x => x.GetAll<IExpander>())
                 .Returns(new List<IExpander> { mockedIExpanderInteractor.Object });
 
-            interactor = new CodeGeneratorInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new CodeGenerator(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]

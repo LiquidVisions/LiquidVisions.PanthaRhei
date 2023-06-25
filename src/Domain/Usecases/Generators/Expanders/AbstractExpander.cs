@@ -71,45 +71,45 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvesterInteractor{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvester{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvesterInteractor{TExpander}"/>.</returns>
-        public virtual IEnumerable<IHarvesterInteractor<TExpander>> GetHarvesters()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvester{TExpander}"/>.</returns>
+        public virtual IEnumerable<IHarvester<TExpander>> GetHarvesters()
         {
-            IEnumerable<IHarvesterInteractor<TExpander>> harvesters = dependencyFactory.GetAll<IHarvesterInteractor<TExpander>>();
+            IEnumerable<IHarvester<TExpander>> harvesters = dependencyFactory.GetAll<IHarvester<TExpander>>();
 
             return harvesters;
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessorInteractor{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessor{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessorInteractor{TExpander}"/>.</returns>
-        public virtual IEnumerable<IPostProcessorInteractor<TExpander>> GetPostProcessor()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessor{TExpander}"/>.</returns>
+        public virtual IEnumerable<IPostProcessor<TExpander>> GetPostProcessor()
         {
-            IEnumerable<IPostProcessorInteractor<TExpander>> postProcessors = dependencyFactory.GetAll<IPostProcessorInteractor<TExpander>>();
+            IEnumerable<IPostProcessor<TExpander>> postProcessors = dependencyFactory.GetAll<IPostProcessor<TExpander>>();
 
             return postProcessors;
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessorInteractor{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessor{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessorInteractor{TExpander}"/>.</returns>
-        public virtual IEnumerable<IPreProcessorInteractor<TExpander>> GetPreProcessor()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessor{TExpander}"/>.</returns>
+        public virtual IEnumerable<IPreProcessor<TExpander>> GetPreProcessor()
         {
-            IEnumerable<IPreProcessorInteractor<TExpander>> preProcessors = dependencyFactory.GetAll<IPreProcessorInteractor<TExpander>>();
+            IEnumerable<IPreProcessor<TExpander>> preProcessors = dependencyFactory.GetAll<IPreProcessor<TExpander>>();
 
             return preProcessors;
         }
 
         /// <summary>
-        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenatorInteractor{TExpander}"/>.
+        /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenator{TExpander}"/>.
         /// </summary>e
-        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenatorInteractor{TExpander}"/>.</returns>
-        public virtual IEnumerable<IRejuvenatorInteractor<TExpander>> GetRejuvenators()
+        /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenator{TExpander}"/>.</returns>
+        public virtual IEnumerable<IRejuvenator<TExpander>> GetRejuvenators()
         {
-            IEnumerable<IRejuvenatorInteractor<TExpander>> rejuvenators = dependencyFactory.GetAll<IRejuvenatorInteractor<TExpander>>();
+            IEnumerable<IRejuvenator<TExpander>> rejuvenators = dependencyFactory.GetAll<IRejuvenator<TExpander>>();
 
             return rejuvenators;
         }
@@ -132,7 +132,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         {
             Logger.Trace($"Harvesting expander {Name} for expander {typeof(TExpander).Name}");
 
-            IEnumerable<IHarvesterInteractor<TExpander>> selectedHarvestHandlers = GetHarvesters();
+            IEnumerable<IHarvester<TExpander>> selectedHarvestHandlers = GetHarvesters();
             foreach (var handler in selectedHarvestHandlers.Where(x => x.Enabled))
             {
                 handler.Execute();

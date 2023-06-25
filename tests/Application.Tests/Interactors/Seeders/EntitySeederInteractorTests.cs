@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Application.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Application.Tests.Mocks;
+using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
@@ -14,18 +14,18 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
     public class EntitySeederInteractorTests
     {
         private readonly Fakes fakes = new();
-        private readonly EntitySeederInteractor interactor;
-        private readonly Mock<IDeleteGateway<Entity>> mockedDeleteGateway = new();
-        private readonly Mock<ICreateGateway<Entity>> mockedCreateGateway = new();
-        private readonly Mock<IEntitiesToSeedGateway> mockedEntityToSeedGateway = new();
+        private readonly EntitySeeder interactor;
+        private readonly Mock<IDeleteRepository<Entity>> mockedDeleteGateway = new();
+        private readonly Mock<ICreateRepository<Entity>> mockedCreateGateway = new();
+        private readonly Mock<IEntitiesToSeedRepository> mockedEntityToSeedGateway = new();
 
         public EntitySeederInteractorTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<Entity>>()).Returns(mockedCreateGateway.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteGateway<Entity>>()).Returns(mockedDeleteGateway.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IEntitiesToSeedGateway>()).Returns(mockedEntityToSeedGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateRepository<Entity>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteRepository<Entity>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IEntitiesToSeedRepository>()).Returns(mockedEntityToSeedGateway.Object);
 
-            interactor = new EntitySeederInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new EntitySeeder(fakes.IDependencyFactoryInteractor.Object);
         }
 
         [Fact]
@@ -34,9 +34,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteGateway<Entity>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Entity>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IEntitiesToSeedGateway>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteRepository<Entity>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<Entity>>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IEntitiesToSeedRepository>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
             fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }

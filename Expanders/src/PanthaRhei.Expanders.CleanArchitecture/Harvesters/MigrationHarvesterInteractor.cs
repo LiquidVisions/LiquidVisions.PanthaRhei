@@ -3,20 +3,20 @@ using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
 {
     /// <summary>
-    /// A <seealso cref="IHarvesterInteractor{TExpander}"/> responsible for harvesting the migration files.
+    /// A <seealso cref="IHarvester{TExpander}"/> responsible for harvesting the migration files.
     /// </summary>
-    public class MigrationHarvesterInteractor : IHarvesterInteractor<CleanArchitectureExpander>
+    public class MigrationHarvesterInteractor : IHarvester<CleanArchitectureExpander>
     {
         private readonly string migrationsFolder;
-        private readonly ICreateGateway<Harvest> gateway;
+        private readonly ICreateRepository<Harvest> gateway;
         private readonly GenerationOptions options;
         private readonly CleanArchitectureExpander expander;
         private readonly IFile file;
@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
         /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
         public MigrationHarvesterInteractor(IDependencyFactory factory)
         {
-            gateway = factory.Get<ICreateGateway<Harvest>>();
+            gateway = factory.Get<ICreateRepository<Harvest>>();
             options = factory.Get<GenerationOptions>();
             expander = factory.Get<CleanArchitectureExpander>();
             file = factory.Get<IFile>();

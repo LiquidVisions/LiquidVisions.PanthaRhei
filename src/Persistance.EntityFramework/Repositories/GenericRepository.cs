@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
 {
-    internal class GenericRepository<TEntity> : ICreateGateway<TEntity>, IGetGateway<TEntity>, IUpdateGateway<TEntity>, IDeleteGateway<TEntity>
+    internal class GenericRepository<TEntity> : ICreateRepository<TEntity>, IGetRepository<TEntity>, IUpdateRepository<TEntity>, IDeleteRepository<TEntity>
         where TEntity : class
     {
         private readonly Context context;

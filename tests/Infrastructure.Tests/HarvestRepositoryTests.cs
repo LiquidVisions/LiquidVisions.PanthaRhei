@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // assert
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeserializerInteractor<Harvest>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IHarvestSerializerInteractor>(), Times.Once);
+            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IHarvestSerializer>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
             fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));

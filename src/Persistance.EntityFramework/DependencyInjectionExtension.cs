@@ -2,7 +2,7 @@
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Gateways;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -48,10 +48,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
             string ns = typeof(Entity).Namespace;
 
             var repositoryType = typeof(GenericRepository<>);
-            var getGatewayType = typeof(IGetGateway<>);
-            var deleteGatewayType = typeof(IDeleteGateway<>);
-            var updateGatewayType = typeof(IUpdateGateway<>);
-            var createGatewayType = typeof(ICreateGateway<>);
+            var getGatewayType = typeof(IGetRepository<>);
+            var deleteGatewayType = typeof(IDeleteRepository<>);
+            var updateGatewayType = typeof(IUpdateRepository<>);
+            var createGatewayType = typeof(ICreateRepository<>);
 
             var entityTypes = typeof(Entity).Assembly.GetTypes()
                 .Where(x => x.IsClass && x.Namespace == ns);
