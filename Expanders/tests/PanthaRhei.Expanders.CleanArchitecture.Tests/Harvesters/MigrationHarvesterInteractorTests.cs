@@ -1,32 +1,30 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
 using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
 {
     public class MigrationHarvesterInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly MigrationHarvesterInteractor interactor;
+        private readonly MigrationHarvester interactor;
         private readonly string expectedMigrationsFolder;
-        private readonly Mock<ICreateGateway<Harvest>> mockedICreateGateWay = new();
+        private readonly Mock<ICreateRepository<Harvest>> mockedICreateGateWay = new();
 
         public MigrationHarvesterInteractorTests()
         {
             fakes.MockCleanArchitectureExpander();
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateGateway<Harvest>>()).Returns(mockedICreateGateWay.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Harvest>>()).Returns(mockedICreateGateWay.Object);
 
-            interactor = new MigrationHarvesterInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new MigrationHarvester(fakes.IDependencyFactory.Object);
 
             expectedMigrationsFolder = System.IO.Path.Combine(fakes.GenerationOptions.Object.OutputFolder, CleanArchitectureResources.InfrastructureMigrationsFolder);
         }
@@ -37,12 +35,12 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateGateway<Harvest>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Harvest>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
         }
 
         [Theory]
@@ -57,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Harvesters
             fakes.GenerationOptions.Setup(x => x.Modes).Returns(modes);
 
             // act
-            bool result = interactor.CanExecute;
+            bool result = interactor.Enabled;
 
             // assert
             fakes.GenerationOptions.Verify(x => x.Modes, Times.Once);

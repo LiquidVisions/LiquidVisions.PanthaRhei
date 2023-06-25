@@ -33,13 +33,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Generator\src\PanthaRhei.Generator.Domain\PanthaRhei.Generator.Domain.csproj">
-			<Private>false</Private>
-			<ExcludeAssets>runtime</ExcludeAssets>
-		</ProjectReference>
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Update="Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -57,5 +50,9 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Tests" />
 		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\src\Domain\Domain.csproj" />
 	</ItemGroup>
 </Project>

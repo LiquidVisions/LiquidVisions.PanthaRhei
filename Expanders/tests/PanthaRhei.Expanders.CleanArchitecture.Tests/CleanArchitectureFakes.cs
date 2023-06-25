@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Tests;
+using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 {
     public class CleanArchitectureFakes : Fakes
     {
@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
         public Mock<CleanArchitectureExpander> CleanArchitectureExpander { get; } = new();
 
-        public Mock<IHarvestSerializerInteractor> IHarvestSerializerInteractor { get; } = new();
+        public Mock<IHarvestSerializer> IHarvestSerializerInteractor { get; } = new();
 
         public string ExpectedCompontentOutputFolder { get; } = "C:\\Some\\Component\\Output\\Path";
 
@@ -32,16 +32,16 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
         internal static string DefaultAppFullName { get; } = "LiquidVisions.Tests";
 
-        internal Mock<IProjectTemplateInteractor> IProjectTemplateInteractor { get; } = new();
+        internal Mock<IProjectTemplate> IProjectTemplateInteractor { get; } = new();
 
-        public override void ConfigureIDependencyFactoryInteractor()
+        public override void ConfigureIDependencyFactory()
         {
-            base.ConfigureIDependencyFactoryInteractor();
+            base.ConfigureIDependencyFactory();
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectTemplateInteractor>())
+            IDependencyFactory.Setup(x => x.Get<IProjectTemplate>())
                 .Returns(IProjectTemplateInteractor.Object);
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializerInteractor>())
+            IDependencyFactory.Setup(x => x.Get<IHarvestSerializer>())
                 .Returns(IHarvestSerializerInteractor.Object);
         }
 
@@ -71,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
                 });
 
             CleanArchitectureExpander.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<CleanArchitectureExpander>()).Returns(CleanArchitectureExpander.Object);
+            IDependencyFactory.Setup(x => x.Get<CleanArchitectureExpander>()).Returns(CleanArchitectureExpander.Object);
 
             CleanArchitectureExpander.Setup(x => x.GetComponentByName(Resources.Api)).Returns(ApiComponent.Object);
             CleanArchitectureExpander.Setup(x => x.GetComponentByName(Resources.EntityFramework)).Returns(InfrastructureComponent.Object);
@@ -93,7 +93,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
         {
             App app = GetDefaultApp(entities, expanders);
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<App>()).Returns(app);
+            IDependencyFactory.Setup(x => x.Get<App>()).Returns(app);
 
             return app;
         }

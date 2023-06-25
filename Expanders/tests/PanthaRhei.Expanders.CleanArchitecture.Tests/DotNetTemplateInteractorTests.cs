@@ -1,25 +1,25 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Logging;
+using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Logging;
 using Moq;
 using Xunit;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 {
     public class DotNetTemplateInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly DotNetTemplateInteractor interactor;
+        private readonly DotNetTemplate interactor;
 
         public DotNetTemplateInteractorTests()
         {
             fakes.MockCleanArchitectureExpander();
 
-            interactor = new(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -28,12 +28,12 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICommandLineInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogger>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.Get<ICommandLine>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 
         [Fact]
@@ -48,10 +48,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
             // assert
             fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedOutputFolder}"), Times.Once);
-            fakes.ICommandLineInteractor.Verify(x => x.Start($"mkdir {expectedOutputFolder}"), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"mkdir {expectedOutputFolder}"), Times.Once);
 
             fakes.ILogger.Verify(x => x.Info($"Creating {CleanArchitectureFakes.DefaultAppName} @ {expectedOutputFolder}"), Times.Once);
-            fakes.ICommandLineInteractor.Verify(x => x.Start($"dotnet new {expectedCommandLineParameters} --NAME {CleanArchitectureFakes.DefaultAppName} --ns {CleanArchitectureFakes.DefaultAppFullName}", expectedOutputFolder), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet new {expectedCommandLineParameters} --NAME {CleanArchitectureFakes.DefaultAppName} --ns {CleanArchitectureFakes.DefaultAppFullName}", expectedOutputFolder), Times.Once);
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
 
             // assert
             fakes.ILogger.Verify(x => x.Info($"Adding nuget package {package.Name} to {expectedFullPathToProject}"), Times.Once);
-            fakes.ICommandLineInteractor.Verify(x => x.Start($"dotnet add \"{expectedFullPathToProject}\" package \"{expectedPackageName}\" --version {expectedPackageVersion} -n"), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet add \"{expectedFullPathToProject}\" package \"{expectedPackageName}\" --version {expectedPackageVersion} -n"), Times.Once);
         }
     }
 }

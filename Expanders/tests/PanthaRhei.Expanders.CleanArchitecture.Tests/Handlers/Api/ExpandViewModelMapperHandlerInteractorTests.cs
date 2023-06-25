@@ -2,26 +2,26 @@
 using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.IO;
 using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Api
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
 {
     public class ExpandViewModelMapperHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly ExpandViewModelMapperHandlerInteractor handler;
+        private readonly ExpandViewModelMapperTask handler;
 
         public ExpandViewModelMapperHandlerInteractorTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
+            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -30,12 +30,12 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ITemplate>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
 
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandViewModelMapperHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandViewModelMapperTask), handler.Name);
         }
 
         [Theory]
@@ -69,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
 
             // act
             // assert
-            Assert.Equal(expectedResult, handler.CanExecute);
+            Assert.Equal(expectedResult, handler.Enabled);
         }
 
         [Theory]
@@ -83,7 +83,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
 
             // act
             // assert
-            Assert.Equal(expectedResult, handler.CanExecute);
+            Assert.Equal(expectedResult, handler.Enabled);
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
 
             // assert
             fakes.IDirectory.Verify(x => x.Create(expectedViewModelFolder), Times.Once);
-            fakes.ITemplateInteractor.Verify(
+            fakes.ITemplate.Verify(
                 x => x.RenderAndSave(
                     expectedTemplatePath,
                     It.Is<object>(x => x.GetHashCode() == new

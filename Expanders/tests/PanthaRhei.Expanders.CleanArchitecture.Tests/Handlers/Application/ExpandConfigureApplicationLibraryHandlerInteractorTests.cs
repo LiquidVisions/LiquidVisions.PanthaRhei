@@ -2,27 +2,27 @@
 using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Application;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Application
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
 {
     public class ExpandConfigureApplicationLibraryHandlerInteractorTests
     {
-        private readonly ExpandConfigureApplicationLibraryHandlerInteractor handler;
+        private readonly ExpandConfigureApplicationLibraryTask handler;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly string expectedRenderResult = "JustAFakeRenderedResult";
 
         public ExpandConfigureApplicationLibraryHandlerInteractorTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
+            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -31,11 +31,11 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactory.Verify(x => x.Get<IWriter>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ITemplate>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandConfigureApplicationLibraryHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandConfigureApplicationLibraryTask), handler.Name);
         }
 
         [Theory]
@@ -69,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
 
             // act
             // assert
-            Assert.Equal(expectedResult, handler.CanExecute);
+            Assert.Equal(expectedResult, handler.Enabled);
         }
 
         [Theory]
@@ -83,7 +83,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
 
             // act
             // assert
-            Assert.Equal(expectedResult, handler.CanExecute);
+            Assert.Equal(expectedResult, handler.Enabled);
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
                 fakes.CleanArchitectureExpander.Object.Model.TemplateFolder,
                 $"{CleanArchitectureResources.ApplicationDependencyInjectionBootstrapperTemplate}.template");
 
-            fakes.ITemplateInteractor.Setup(
+            fakes.ITemplate.Setup(
                 x => x.Render(
                     expectedFullPathToTemplate,
                     It.Is<object>(x => x.GetHashCode() == new { Entity = fakes.ExpectedEntity }.GetHashCode())))
@@ -109,19 +109,19 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Ap
             handler.Execute();
 
             // assert
-            fakes.IWriterInteractor.Verify(x => x.Load(expectedFullPathToBootstrapperFile), Times.Once);
+            fakes.IWriter.Verify(x => x.Load(expectedFullPathToBootstrapperFile), Times.Once);
 
-            fakes.ITemplateInteractor.Verify(x => x.Render(expectedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == new { Entity = fakes.ExpectedEntity }.GetHashCode())), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddOrReplaceMethod(expectedRenderResult), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Mappers.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.RequestModels.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Validators.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Gateways"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.AddNameSpace(It.IsAny<string>()), Times.Exactly(6));
+            fakes.ITemplate.Verify(x => x.Render(expectedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == new { Entity = fakes.ExpectedEntity }.GetHashCode())), Times.Once);
+            fakes.IWriter.Verify(x => x.AddOrReplaceMethod(expectedRenderResult), Times.Once);
+            fakes.IWriter.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriter.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Boundaries.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriter.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Mappers.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriter.Verify(x => x.AddNameSpace($"{expectedNameSpace}.RequestModels.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriter.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Validators.{fakes.ExpectedEntity.Name.Pluralize()}"), Times.Once);
+            fakes.IWriter.Verify(x => x.AddNameSpace($"{expectedNameSpace}.Gateways"), Times.Once);
+            fakes.IWriter.Verify(x => x.AddNameSpace(It.IsAny<string>()), Times.Exactly(6));
 
-            fakes.IWriterInteractor.Verify(x => x.Save(expectedFullPathToBootstrapperFile), Times.Once);
+            fakes.IWriter.Verify(x => x.Save(expectedFullPathToBootstrapperFile), Times.Once);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 {
     internal static class VerifyHelpers
     {

@@ -1,44 +1,44 @@
 ﻿using System.IO;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Harvesters;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Rejuvenator;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
 {
     /// <summary>
-    /// A <seealso cref="RejuvenatorInteractor{TExpander}"/> that handles EntityFramework migrations.
+    /// A <seealso cref="Rejuvenator{TExpander}"/> that handles EntityFramework migrations.
     /// </summary>
-    public class MigrationRejuvenator : RejuvenatorInteractor<CleanArchitectureExpander>
+    public class MigrationRejuvenator : Rejuvenator<CleanArchitectureExpander>
     {
         private readonly IDirectory directoryService;
-        private readonly IGetGateway<Harvest> getGateway;
+        private readonly IGetRepository<Harvest> getGateway;
         private readonly IFile fileService;
         private readonly string folder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MigrationRejuvenator"/> class.
         /// </summary>
-        /// <param name="factory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public MigrationRejuvenator(IDependencyFactoryInteractor factory)
+        /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
+        public MigrationRejuvenator(IDependencyFactory factory)
             : base(factory)
         {
             GenerationOptions options = factory.Get<GenerationOptions>();
 
             directoryService = factory.Get<IDirectory>();
-            getGateway = factory.Get<IGetGateway<Harvest>>();
+            getGateway = factory.Get<IGetRepository<Harvest>>();
             fileService = factory.Get<IFile>();
             folder = Path.Combine(options.HarvestFolder, Expander.Model.Name);
         }
 
         /// <summary>
-        /// Gets a value indicating whether the <seealso cref="RejuvenatorInteractor{TExpander}"/> can be executed.
+        /// Gets a value indicating whether the <seealso cref="Rejuvenator{TExpander}"/> can be executed.
         /// Prerequisit is that the harvest folder should exist.
         /// </summary>
-        public override bool CanExecute => directoryService.Exists(folder);
+        public override bool Enabled => directoryService.Exists(folder);
 
         /// <inheritdoc/>
         protected override string Extension => Resources.MigrationHarvesterExtensionFile;

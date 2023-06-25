@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
 {
     public class CreateDotNetProjectHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly CreateDotNetProjectHandlerInteractor interactor;
+        private readonly CreateDotNetProjectTask interactor;
 
         public CreateDotNetProjectHandlerInteractorTests()
         {
-            fakes.ConfigureIDependencyFactoryInteractor();
+            fakes.ConfigureIDependencyFactory();
 
-            interactor = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
+            interactor = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -28,9 +28,9 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IProjectTemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.Get<IProjectTemplate>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
             fakes.GenerationOptions.Setup(x => x.Modes).Returns(mode);
 
             // act
-            bool result = interactor.CanExecute;
+            bool result = interactor.Enabled;
 
             // assert
             Assert.False(result);
@@ -69,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
             fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
 
             // act
-            bool result = interactor.CanExecute;
+            bool result = interactor.Enabled;
 
             // assert
             Assert.Equal(expectedResult, result);
@@ -83,7 +83,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers
             string name = interactor.Name;
 
             // assert
-            Assert.Equal(nameof(CreateDotNetProjectHandlerInteractor), name);
+            Assert.Equal(nameof(CreateDotNetProjectTask), name);
         }
 
         [Fact]

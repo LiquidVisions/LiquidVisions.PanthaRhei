@@ -1,23 +1,23 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors;
+﻿using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
 {
-    public class RunInteractor : PostProcessorInteractor<CleanArchitectureExpander>
+    public class RunInteractor : PostProcessor<CleanArchitectureExpander>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RunInteractor "/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public RunInteractor(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public RunInteractor(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
         }
 
         public string Name => nameof(RunInteractor);
 
-        public override bool CanExecute => Options.Modes.HasFlag(GenerationModes.Run);
+        public override bool Enabled => Options.Modes.HasFlag(GenerationModes.Run);
 
         public override void Execute()
         {

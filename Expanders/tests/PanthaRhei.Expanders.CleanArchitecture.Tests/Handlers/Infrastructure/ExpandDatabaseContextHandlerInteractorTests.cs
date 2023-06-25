@@ -2,25 +2,25 @@
 using System.IO;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastructure;
-using LiquidVisions.PanthaRhei.Generator.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.Infrastructure
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructure
 {
     public class ExpandDatabaseContextHandlerInteractorTests
     {
-        private readonly ExpandDatabaseContextHandlerInteractor handler;
+        private readonly ExpandDatabaseContextTask handler;
         private readonly CleanArchitectureFakes fakes = new();
 
         public ExpandDatabaseContextHandlerInteractorTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
+            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -29,10 +29,10 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.Get<ITemplate>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandDatabaseContextHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandDatabaseContextTask), handler.Name);
         }
 
         [Theory]
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
 
             // act
             // assert
-            Assert.Equal(expectedResult, handler.CanExecute);
+            Assert.Equal(expectedResult, handler.Enabled);
         }
 
         [Theory]
@@ -80,7 +80,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
 
             // act
             // assert
-            Assert.Equal(expectedResult, handler.CanExecute);
+            Assert.Equal(expectedResult, handler.Enabled);
         }
 
         [Fact]
@@ -100,8 +100,8 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.Handlers.In
 
             Assert.Equal(new { entities = expectedListOfEntities }.GetHashCode(), new { entities = app.Entities }.GetHashCode());
 
-            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Once);
-            fakes.ITemplateInteractor.Verify(
+            fakes.ITemplate.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Once);
+            fakes.ITemplate.Verify(
                 x => x.RenderAndSave(
                     expectedTemplateBaseBath,
                     It.IsAny<object>(), // Bug in the system where a collection in anonymous object is not correctly validated.

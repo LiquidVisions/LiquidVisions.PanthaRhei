@@ -1,32 +1,32 @@
 ﻿using System;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
 {
     /// <summary>
-    /// A <seealso cref="PostProcessorInteractor{TExpander}"/> that handles EntityFramework migrations.
+    /// A <seealso cref="PostProcessor{TExpander}"/> that handles EntityFramework migrations.
     /// </summary>
-    public class AddMigrations : PostProcessorInteractor<CleanArchitectureExpander>
+    public class AddMigrations : PostProcessor<CleanArchitectureExpander>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AddMigrations"/> class.
         /// </summary>
-        /// <param name="factory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public AddMigrations(IDependencyFactoryInteractor factory)
+        /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
+        public AddMigrations(IDependencyFactory factory)
             : base(factory)
         {
         }
 
         /// <summary>
-        /// Gets a value indicating whether the <seealso cref="PostProcessorInteractor{TExpander}"/> can be executed.
+        /// Gets a value indicating whether the <seealso cref="PostProcessor{TExpander}"/> can be executed.
         /// <seealso cref="GenerationModes"/> should be <seealso cref="GenerationModes.Deploy"/>.
         /// AND
         /// <seealso cref="App"/> should have been changed, checked by a checksum on previous generation cycle.
         /// </summary>
-        public override bool CanExecute => Options.Modes.HasFlag(GenerationModes.Migrate);
+        public override bool Enabled => Options.Modes.HasFlag(GenerationModes.Migrate);
 
         /// <summary>
         /// Executes the dotnet ef migrations add cli command. Generated filenames are prefixed with 'NSCSharpGenerated'.

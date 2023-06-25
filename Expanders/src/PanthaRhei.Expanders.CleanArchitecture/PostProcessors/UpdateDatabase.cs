@@ -1,26 +1,25 @@
-﻿using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.PostProcessors;
+﻿using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors
 {
     /// <summary>
-    /// A <seealso cref="PostProcessorInteractor{TExpander}"/> updates database based on entityframework specifications.
+    /// A <seealso cref="PostProcessor{TExpander}"/> updates database based on entityframework specifications.
     /// </summary>
-    public class UpdateDatabase : PostProcessorInteractor<CleanArchitectureExpander>
+    public class UpdateDatabase : PostProcessor<CleanArchitectureExpander>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateDatabase"/> class.
         /// </summary>
-        /// <param name="factory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public UpdateDatabase(IDependencyFactoryInteractor factory)
+        /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
+        public UpdateDatabase(IDependencyFactory factory)
             : base(factory)
         {
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute => Options.Modes.HasFlag(GenerationModes.Migrate);
+        public override bool Enabled => Options.Modes.HasFlag(GenerationModes.Migrate);
 
         /// <inheritdoc/>
         public override void Execute()

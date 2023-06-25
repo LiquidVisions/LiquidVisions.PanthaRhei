@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Generator.Domain;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Generator.Domain.Interactors.Generators.Expanders;
-using LiquidVisions.PanthaRhei.Generator.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {
@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     /// </summary>
     public class CleanArchitectureExpander : AbstractExpander<CleanArchitectureExpander>
     {
-        private readonly ICommandLineInteractor commandLine;
+        private readonly ICommandLine commandLine;
         private readonly GenerationOptions options;
         private readonly IDirectory directory;
 
@@ -30,11 +30,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// <summary>
         /// Initializes a new instance of the <see cref="CleanArchitectureExpander"/> class.
         /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactoryInteractor"/></param>
-        public CleanArchitectureExpander(IDependencyFactoryInteractor dependencyFactory)
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+        public CleanArchitectureExpander(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
             options = dependencyFactory.Get<GenerationOptions>();
             directory = dependencyFactory.Get<IDirectory>();
         }

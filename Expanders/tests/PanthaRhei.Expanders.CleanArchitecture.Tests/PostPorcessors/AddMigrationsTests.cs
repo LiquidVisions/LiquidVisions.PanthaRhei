@@ -1,9 +1,9 @@
 ﻿using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.PostProcessors;
-using LiquidVisions.PanthaRhei.Generator.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using Moq;
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.PostPorcessors
+namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.PostPorcessors
 {
     public class AddMigrationsTests
     {
@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.PostPorcess
         public AddMigrationsTests()
         {
             fakes.MockCleanArchitectureExpander();
-            interactor = new(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new(fakes.IDependencyFactory.Object);
         }
 
         [Theory]
@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.PostPorcess
             fakes.GenerationOptions.Setup(x => x.Modes).Returns(modes);
 
             // act
-            bool result = interactor.CanExecute;
+            bool result = interactor.Enabled;
 
             // assert
             fakes.GenerationOptions.Verify(x => x.Modes, Times.Once);
@@ -47,7 +47,7 @@ namespace LiquidVisions.PanthaRhei.Generator.CleanArchitecture.Tests.PostPorcess
             interactor.Execute();
 
             // assert
-            fakes.ICommandLineInteractor.Verify(x => x.Start(It.Is<string>(s => s.StartsWith("dotnet ef migrations add ")), "C:\\Some\\Component\\Output\\Path"), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start(It.Is<string>(s => s.StartsWith("dotnet ef migrations add ")), "C:\\Some\\Component\\Output\\Path"), Times.Once);
         }
     }
 }
