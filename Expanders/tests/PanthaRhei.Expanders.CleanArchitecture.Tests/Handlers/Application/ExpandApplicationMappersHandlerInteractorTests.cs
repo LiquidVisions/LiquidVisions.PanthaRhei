@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
     public class ExpandApplicationMappersHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly ExpandApplicationMappersHandlerInteractor handler;
+        private readonly ExpandApplicationMappersTask handler;
 
         public ExpandApplicationMappersHandlerInteractorTests()
         {
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandApplicationMappersHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandApplicationMappersTask), handler.Name);
         }
 
         [Theory]

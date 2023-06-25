@@ -13,11 +13,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
     public class CreateDotNetProjectHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly CreateDotNetProjectHandlerInteractor interactor;
+        private readonly CreateDotNetProjectTask interactor;
 
         public CreateDotNetProjectHandlerInteractorTests()
         {
-            fakes.ConfigureIDependencyFactoryInteractor();
+            fakes.ConfigureIDependencyFactory();
 
             interactor = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             // arrange
             // act
             // assert
-            fakes.IDependencyFactory.Verify(x => x.Get<IProjectTemplateInteractor>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IProjectTemplate>(), Times.Once);
             fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
         }
@@ -83,7 +83,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             string name = interactor.Name;
 
             // assert
-            Assert.Equal(nameof(CreateDotNetProjectHandlerInteractor), name);
+            Assert.Equal(nameof(CreateDotNetProjectTask), name);
         }
 
         [Fact]

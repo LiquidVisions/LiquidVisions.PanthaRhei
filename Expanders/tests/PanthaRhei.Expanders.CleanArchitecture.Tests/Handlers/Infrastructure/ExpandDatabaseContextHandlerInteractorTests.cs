@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
 {
     public class ExpandDatabaseContextHandlerInteractorTests
     {
-        private readonly ExpandDatabaseContextHandlerInteractor handler;
+        private readonly ExpandDatabaseContextTask handler;
         private readonly CleanArchitectureFakes fakes = new();
 
         public ExpandDatabaseContextHandlerInteractorTests()
@@ -50,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandDatabaseContextHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandDatabaseContextTask), handler.Name);
         }
 
         [Theory]

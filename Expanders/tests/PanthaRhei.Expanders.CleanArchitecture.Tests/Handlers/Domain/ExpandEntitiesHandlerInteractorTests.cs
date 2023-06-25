@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Domain
 {
     public class ExpandEntitiesHandlerInteractorTests
     {
-        private readonly ExpandEntitiesHandlerInteractor handler;
+        private readonly ExpandEntitiesTask handler;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly string rootFolder;
 
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Domain
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandEntitiesHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandEntitiesTask), handler.Name);
         }
 
         [Theory]

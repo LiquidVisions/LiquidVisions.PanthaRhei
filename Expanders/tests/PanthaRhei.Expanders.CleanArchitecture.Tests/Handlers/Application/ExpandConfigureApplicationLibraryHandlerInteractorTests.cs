@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
 {
     public class ExpandConfigureApplicationLibraryHandlerInteractorTests
     {
-        private readonly ExpandConfigureApplicationLibraryHandlerInteractor handler;
+        private readonly ExpandConfigureApplicationLibraryTask handler;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly string expectedRenderResult = "JustAFakeRenderedResult";
 
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandConfigureApplicationLibraryHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandConfigureApplicationLibraryTask), handler.Name);
         }
 
         [Theory]

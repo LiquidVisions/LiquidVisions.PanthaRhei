@@ -60,7 +60,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 
             // assert
             Assert.True(result);
-            fakes.IHarvestSerializerInteractor.Verify(x => x.Serialize(entity, fullSavePath), Times.Once);
+            fakes.IHarvestSerializer.Verify(x => x.Serialize(entity, fullSavePath), Times.Once);
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 
             // assert
             fakes.IFile.Verify(x => x.Exists(somePath), Times.Once);
-            fakes.IHarvestDeserializerInteractor.Verify(x => x.Deserialize(somePath), Times.Once);
+            fakes.IHarvestDeserializer.Verify(x => x.Deserialize(somePath), Times.Once);
         }
 
         [Fact]

@@ -14,11 +14,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
     {
         private readonly Fakes fakes = new();
         private readonly ExpandBoundary boundary;
-        private readonly Mock<ISeeder> mockedSeederInteractor = new();
+        private readonly Mock<ISeeder> mockedSeeder = new();
 
         public CodeGeneratorServiceBoundaryTests()
         {
-            fakes.IDependencyFactory.Setup(x => x.Get<ISeeder>()).Returns(mockedSeederInteractor.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<ISeeder>()).Returns(mockedSeeder.Object);
             fakes.ILogManager.Setup(x => x.GetExceptionLogger()).Returns(fakes.ILogger.Object);
             boundary = new ExpandBoundary(fakes.IDependencyFactory.Object);
         }
@@ -41,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void Execute_ShouldBuildCodeGeneratorAndExecute()
         {
             // arrange
-            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
+            mockedSeeder.Setup(x => x.Enabled).Returns(false);
 
             // act
             boundary.Execute();
@@ -58,7 +58,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             string exceptionMessage = "Random Exception Message";
             var exception = new CodeGenerationException(exceptionMessage);
             fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
-            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
+            mockedSeeder.Setup(x => x.Enabled).Returns(false);
 
             // act
             boundary.Execute();
@@ -74,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             string exceptionMessage = "Random Exception Message";
             Exception exception = new(exceptionMessage);
             fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
-            mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
+            mockedSeeder.Setup(x => x.Enabled).Returns(false);
 
             // act
             boundary.Execute();

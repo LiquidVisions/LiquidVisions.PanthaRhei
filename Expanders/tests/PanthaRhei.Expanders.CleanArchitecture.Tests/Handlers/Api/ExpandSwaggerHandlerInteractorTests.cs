@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
     public class ExpandSwaggerHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly ExpandSwaggerHandlerInteractor handler;
+        private readonly ExpandSwaggerTask handler;
 
         public ExpandSwaggerHandlerInteractorTests()
         {
@@ -49,7 +49,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandSwaggerHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandSwaggerTask), handler.Name);
         }
 
         [Theory]

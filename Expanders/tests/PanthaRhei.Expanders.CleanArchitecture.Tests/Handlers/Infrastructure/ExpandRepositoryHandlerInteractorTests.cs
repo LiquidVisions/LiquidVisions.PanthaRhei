@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
 {
     public class ExpandRepositoryHandlerInteractorTests
     {
-        private readonly ExpandRepositoryHandlerInteractor handler;
+        private readonly ExpandRepositoryTask handler;
         private readonly string outputFolder;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly List<Entity> allEntities;
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandRepositoryHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandRepositoryTask), handler.Name);
         }
 
         [Theory]

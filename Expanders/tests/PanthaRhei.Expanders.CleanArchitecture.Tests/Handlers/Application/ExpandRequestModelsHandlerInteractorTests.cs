@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
 {
     public class ExpandRequestModelsHandlerInteractorTests
     {
-        private readonly ExpandRequestModelsHandlerInteractor handler;
+        private readonly ExpandRequestModelsTask handler;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly string expectedCreateFolder;
 
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandRequestModelsHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandRequestModelsTask), handler.Name);
         }
 
         [Theory]
@@ -114,7 +114,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
                             NameSpace = $"{fakes.ApplicationComponent.Object.GetComponentNamespace(expectedApp, CleanArchitectureResources.RequestModelsFolder)}.{fakes.ExpectedEntity.Name.Pluralize()}",
                             Entity = fakes.ExpectedEntity,
                         }.GetHashCode()),
-                        Path.Combine(expectedCreateFolder, $"{ExpandRequestModelsHandlerInteractor.ToFileName(action, fakes.ExpectedEntity)}.cs")),
+                        Path.Combine(expectedCreateFolder, $"{ExpandRequestModelsTask.ToFileName(action, fakes.ExpectedEntity)}.cs")),
                     Times.Once);
             }
         }

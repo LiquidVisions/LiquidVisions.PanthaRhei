@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Tests
         public Fakes()
         {
             Configure();
-            ConfigureIDependencyFactoryInteractor();
+            ConfigureIDependencyFactory();
         }
 
         public Mock<IDependencyFactory> IDependencyFactory { get; } = new();
@@ -64,7 +64,7 @@ namespace LiquidVisions.PanthaRhei.Tests
             GenerationOptions.Setup(x => x.HarvestFolder).Returns("C:\\Some\\Root\\HarvestFolder");
         }
 
-        public virtual void ConfigureIDependencyFactoryInteractor()
+        public virtual void ConfigureIDependencyFactory()
         {
             IDependencyFactory.Setup(x => x.Get<ILogger>()).Returns(ILogger.Object);
             IDependencyFactory.Setup(x => x.Get<ILogManager>()).Returns(ILogManager.Object);

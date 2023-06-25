@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
     public class ExpandEndpointsHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly ExpandEndpointsHandlerInteractor handler;
+        private readonly ExpandEndpointsTask handler;
 
         public ExpandEndpointsHandlerInteractorTests()
         {
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandEndpointsHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandEndpointsTask), handler.Name);
         }
 
         [Theory]

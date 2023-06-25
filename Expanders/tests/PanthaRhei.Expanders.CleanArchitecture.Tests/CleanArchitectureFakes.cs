@@ -32,13 +32,13 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 
         internal static string DefaultAppFullName { get; } = "LiquidVisions.Tests";
 
-        internal Mock<IProjectTemplateInteractor> IProjectTemplateInteractor { get; } = new();
+        internal Mock<IProjectTemplate> IProjectTemplateInteractor { get; } = new();
 
-        public override void ConfigureIDependencyFactoryInteractor()
+        public override void ConfigureIDependencyFactory()
         {
-            base.ConfigureIDependencyFactoryInteractor();
+            base.ConfigureIDependencyFactory();
 
-            IDependencyFactory.Setup(x => x.Get<IProjectTemplateInteractor>())
+            IDependencyFactory.Setup(x => x.Get<IProjectTemplate>())
                 .Returns(IProjectTemplateInteractor.Object);
 
             IDependencyFactory.Setup(x => x.Get<IHarvestSerializer>())

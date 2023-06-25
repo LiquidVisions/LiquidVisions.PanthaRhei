@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
     public class ExpandInteractorsHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly ExpandInteractorsHandlerInteractor handler;
+        private readonly ExpandInteractorsTask handler;
         private readonly string expectedCreateFolder;
 
         public ExpandInteractorsHandlerInteractorTests()
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandInteractorsHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandInteractorsTask), handler.Name);
         }
 
         [Theory]

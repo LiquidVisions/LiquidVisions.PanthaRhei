@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
     public class ExpandViewModelMapperHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly ExpandViewModelMapperHandlerInteractor handler;
+        private readonly ExpandViewModelMapperTask handler;
 
         public ExpandViewModelMapperHandlerInteractorTests()
         {
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandViewModelMapperHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandViewModelMapperTask), handler.Name);
         }
 
         [Theory]

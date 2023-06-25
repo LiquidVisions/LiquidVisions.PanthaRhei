@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
     public class ExpandAppSettingsHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly ExpandAppSettingsHandlerInteractor handler;
+        private readonly ExpandAppSettingsTask handler;
         private readonly string json = @"{
   ""Logging"": {
     ""LogLevel"": {
@@ -43,7 +43,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
         {
             fakes.IFile.Setup(x => x.ReadAllText(It.IsAny<string>())).Returns(json);
             fakes.MockCleanArchitectureExpander();
-            handler = new ExpandAppSettingsHandlerInteractor(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
+            handler = new ExpandAppSettingsTask(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandAppSettingsHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandAppSettingsTask), handler.Name);
         }
 
         [Theory]

@@ -12,13 +12,13 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
     public class ExpandSecretsHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly ExpandSecretsHandlerInteractor interactor;
+        private readonly ExpandSecretsTask interactor;
 
         public ExpandSecretsHandlerInteractorTests()
         {
             App app = fakes.SetupApp();
             fakes.CleanArchitectureExpander.Setup(x => x.App).Returns(app);
-            interactor = new ExpandSecretsHandlerInteractor(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
+            interactor = new ExpandSecretsTask(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             string name = interactor.Name;
 
             // assert
-            Assert.Equal(nameof(ExpandSecretsHandlerInteractor), name);
+            Assert.Equal(nameof(ExpandSecretsTask), name);
         }
 
         [Theory]

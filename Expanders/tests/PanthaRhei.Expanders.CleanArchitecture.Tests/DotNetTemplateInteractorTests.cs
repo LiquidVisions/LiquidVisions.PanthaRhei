@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
     public class DotNetTemplateInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly DotNetTemplateInteractor interactor;
+        private readonly DotNetTemplate interactor;
 
         public DotNetTemplateInteractorTests()
         {

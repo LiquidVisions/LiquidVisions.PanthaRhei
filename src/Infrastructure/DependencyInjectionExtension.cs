@@ -31,8 +31,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                 .AddTransient<ICommandLine, CommandLine>()
                 .AddTransient<IWriter, ClassWriter>()
                 .AddTransient<IHarvestSerializer, HarvestSerializer>()
-                .AddTransient<IDeserializer<Harvest>, SerializerInteractor<Harvest>>()
-                .AddTransient<ISerializer<Harvest>, SerializerInteractor<Harvest>>()
+                .AddTransient<IDeserializer<Harvest>, Serializer<Harvest>>()
+                .AddTransient<ISerializer<Harvest>, Serializer<Harvest>>()
                 .AddTransient<IGetRepository<Harvest>, HarvestRepository>()
                 .AddTransient<ICreateRepository<Harvest>, HarvestRepository>();
         }

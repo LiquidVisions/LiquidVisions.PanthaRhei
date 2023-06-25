@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
 {
     public class ExpandEntityDatabaseConfigurationHandlerInteractorTests
     {
-        private readonly ExpandEntityDatabaseConfigurationHandlerInteractor handler;
+        private readonly ExpandEntityDatabaseConfigurationTask handler;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly List<Entity> allEntities;
 
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandEntityDatabaseConfigurationHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandEntityDatabaseConfigurationTask), handler.Name);
         }
 
         [Theory]

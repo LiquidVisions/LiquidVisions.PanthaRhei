@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
 {
     public class ExpandEntityFrameworkConfigurationHandlerInteractorTests
     {
-        private readonly ExpandEntityFrameworkConfigurationHandlerInteractor handler;
+        private readonly ExpandEntityFrameworkConfigurationTask handler;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly string fullPathToBootstrapperFile;
 
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandEntityFrameworkConfigurationHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandEntityFrameworkConfigurationTask), handler.Name);
         }
 
         [Theory]

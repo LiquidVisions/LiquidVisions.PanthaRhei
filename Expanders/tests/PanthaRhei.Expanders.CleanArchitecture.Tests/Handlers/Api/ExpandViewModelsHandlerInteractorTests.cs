@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
 {
     public class ExpandViewModelsHandlerInteractorTests
     {
-        private readonly ExpandViewModelsHandlerInteractor handler;
+        private readonly ExpandViewModelsTask handler;
         private readonly CleanArchitectureFakes fakes = new();
         private readonly string expectedCreateFolder;
 
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(ExpandViewModelsHandlerInteractor), handler.Name);
+            Assert.Equal(nameof(ExpandViewModelsTask), handler.Name);
         }
 
         [Theory]

@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
     public class MigrationHarvesterInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new();
-        private readonly MigrationHarvesterInteractor interactor;
+        private readonly MigrationHarvester interactor;
         private readonly string expectedMigrationsFolder;
         private readonly Mock<ICreateRepository<Harvest>> mockedICreateGateWay = new();
 
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
             fakes.MockCleanArchitectureExpander();
             fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Harvest>>()).Returns(mockedICreateGateWay.Object);
 
-            interactor = new MigrationHarvesterInteractor(fakes.IDependencyFactory.Object);
+            interactor = new MigrationHarvester(fakes.IDependencyFactory.Object);
 
             expectedMigrationsFolder = System.IO.Path.Combine(fakes.GenerationOptions.Object.OutputFolder, CleanArchitectureResources.InfrastructureMigrationsFolder);
         }
