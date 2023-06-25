@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+name: Publish PanthaRhei Nugets
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ release ]
+
+env:
+ PACKAGE_FOLDER: /home/runner/work/LiquidVisions.PanthaRhei/LiquidVisions.PanthaRhei/src/package/
+
+jobs:
+  publish-nuget:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Pack Presentation.Cli
+      run: |  
+        cd src/Presentation.Cli/
+        dotnet pack -c Release -o $PACKAGE_FOLDER
+        
+    - name: Pack Domain.Core
+      run: |  
+        cd src/Domain/
+        dotnet pack -c Release -o $PACKAGE_FOLDER
+        
+
+    - name: Push generated package to GitHub registry
+      run: dotnet nuget push $PACKAGE_FOLDER*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
