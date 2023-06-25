@@ -27,13 +27,13 @@ jobs:
     - name: Pack Presentation.Cli
       run: |  
         cd src/Presentation.Cli/
-        dotnet pack -c Release -o ${{PACKAGE_FOLDER}}
+        dotnet pack -c Release -o $PACKAGE_FOLDER
         
     - name: Pack Domain.Core
       run: |  
         cd src/Domain/
-        dotnet pack -c Release -o ${{PACKAGE_FOLDER}}
+        dotnet pack -c Release -o $PACKAGE_FOLDER
         
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ${{PACKAGE_FOLDER}}/*.nupkg --skip-duplicate --no-symbols true --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
+      run: dotnet nuget push $PACKAGE_FOLDER/*.nupkg --skip-duplicate --no-symbols true --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
