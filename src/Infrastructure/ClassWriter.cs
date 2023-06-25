@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure
 {

@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {

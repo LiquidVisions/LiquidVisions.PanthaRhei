@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters;
+﻿using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Infrastructure.Serialization;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;

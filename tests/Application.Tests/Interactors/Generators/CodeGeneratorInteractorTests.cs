@@ -2,8 +2,8 @@
 using LiquidVisions.PanthaRhei.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;

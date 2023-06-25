@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Parameters;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture

@@ -3,9 +3,9 @@ using System.Linq;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
 {

@@ -6,10 +6,10 @@ using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastructu
 using LiquidVisions.PanthaRhei.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using Moq;
 using Xunit;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructure
 {

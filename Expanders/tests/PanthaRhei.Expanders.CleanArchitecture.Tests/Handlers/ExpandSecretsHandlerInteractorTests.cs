@@ -3,9 +3,9 @@ using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
 using Moq;
 using Xunit;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 using Pluralize.NET.Core;
 using Scriban.Runtime;
 

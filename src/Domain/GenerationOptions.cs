@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Domain
 {

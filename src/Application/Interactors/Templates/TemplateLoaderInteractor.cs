@@ -1,8 +1,8 @@
-﻿using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
-using LiquidVisions.PanthaRhei.Domain.IO;
+﻿using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Application.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Interactors.Templates
 {

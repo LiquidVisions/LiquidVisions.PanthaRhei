@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Domain.Logging;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure
 {

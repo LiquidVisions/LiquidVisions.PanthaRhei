@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Application.Interactors.Initializers
 {

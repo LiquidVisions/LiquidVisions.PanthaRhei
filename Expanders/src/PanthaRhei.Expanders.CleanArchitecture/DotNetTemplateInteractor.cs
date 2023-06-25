@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Domain.Logging;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 {

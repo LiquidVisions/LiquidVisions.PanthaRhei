@@ -10,7 +10,7 @@ using LiquidVisions.PanthaRhei.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 using Microsoft.Extensions.DependencyInjection;
 using Scriban.Runtime;
 

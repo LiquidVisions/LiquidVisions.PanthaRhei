@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Infrastructure.IO;
 using LiquidVisions.PanthaRhei.Infrastructure.Logging;
 using LiquidVisions.PanthaRhei.Infrastructure.Serialization;

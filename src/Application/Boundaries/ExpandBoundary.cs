@@ -2,8 +2,8 @@
 using LiquidVisions.PanthaRhei.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Application.Interactors.Seeders;
 using LiquidVisions.PanthaRhei.Domain;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Logging;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Boundaries
 {

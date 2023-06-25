@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
 using LiquidVisions.PanthaRhei.Domain.Models;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;

@@ -5,8 +5,8 @@ using System.Xml.Linq;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
 {

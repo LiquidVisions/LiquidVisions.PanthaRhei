@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Domain.Gateways;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories

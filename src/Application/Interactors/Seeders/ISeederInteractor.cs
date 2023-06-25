@@ -1,4 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Domain.Interactors.Generators;
+﻿using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 
 namespace LiquidVisions.PanthaRhei.Application.Interactors.Seeders
 {

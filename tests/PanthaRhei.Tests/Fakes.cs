@@ -1,13 +1,13 @@
 ﻿using LiquidVisions.PanthaRhei.Application.Interactors.Generators;
 using LiquidVisions.PanthaRhei.Application.Interactors.Initializers;
 using LiquidVisions.PanthaRhei.Domain;
-using LiquidVisions.PanthaRhei.Domain.Interactors;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Expanders;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Initializers;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Templates;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 using Moq;
 
 namespace LiquidVisions.PanthaRhei.Tests

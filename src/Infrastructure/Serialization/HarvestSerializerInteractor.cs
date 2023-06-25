@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Interactors.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
 {
