@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.PostPorcessors
         public AddMigrationsTests()
         {
             fakes.MockCleanArchitectureExpander();
-            interactor = new(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new(fakes.IDependencyFactory.Object);
         }
 
         [Theory]
@@ -47,7 +47,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.PostPorcessors
             interactor.Execute();
 
             // assert
-            fakes.ICommandLineInteractor.Verify(x => x.Start(It.Is<string>(s => s.StartsWith("dotnet ef migrations add ")), "C:\\Some\\Component\\Output\\Path"), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start(It.Is<string>(s => s.StartsWith("dotnet ef migrations add ")), "C:\\Some\\Component\\Output\\Path"), Times.Once);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
 
         public CodeGeneratorServiceTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ISeeder>()).Returns(mockedSeederInteractor.Object);
-            service = new ExpandBoundary(fakes.IDependencyFactoryInteractor.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<ISeeder>()).Returns(mockedSeederInteractor.Object);
+            service = new ExpandBoundary(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -30,8 +30,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             service.Execute();
 
             // assert
-            fakes.ICodeGeneratorBuilderInteractor.Verify(x => x.Build(), Times.Once);
-            fakes.ICodeGeneratorInteractor.Verify(x => x.Execute(), Times.Once);
+            fakes.ICodeGeneratorBuilder.Verify(x => x.Build(), Times.Once);
+            fakes.ICodeGenerator.Verify(x => x.Execute(), Times.Once);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             // arrange
             string exceptionMessage = "Dit is an exception message";
             CodeGenerationException exception = new(exceptionMessage);
-            fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
+            fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
             mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act
@@ -56,7 +56,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             // arrange
             string exceptionMessage = "Dit is an exception message";
             InvalidOperationException exception = new(exceptionMessage);
-            fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
+            fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
             mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act

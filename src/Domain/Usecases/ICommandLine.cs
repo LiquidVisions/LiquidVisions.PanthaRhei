@@ -5,7 +5,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
     /// <summary>
     /// Represents an object that executes cli commands.
     /// </summary>
-    public interface ICommandLineInteractor
+    public interface ICommandLine
     {
         /// <summary>
         /// Gets or sets a value indicating whether a cli window is created.

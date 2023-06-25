@@ -24,11 +24,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
 
         public IExpanderSeederInteractorTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateRepository<Expander>>()).Returns(mockedCreateGateway.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteRepository<Expander>>()).Returns(mockedDeleteGateway.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IExpanderPluginLoader>()).Returns(mockedPluginLoader.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Expander>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<Expander>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<IExpanderPluginLoader>()).Returns(mockedPluginLoader.Object);
 
-            interactor = new ExpanderSeeder(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ExpanderSeeder(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -37,12 +37,12 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<Expander>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteRepository<Expander>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IExpanderPluginLoader>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Expander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<Expander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IExpanderPluginLoader>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
         [Fact]

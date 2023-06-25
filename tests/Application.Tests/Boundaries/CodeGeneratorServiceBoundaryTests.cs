@@ -18,9 +18,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
 
         public CodeGeneratorServiceBoundaryTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ISeeder>()).Returns(mockedSeederInteractor.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<ISeeder>()).Returns(mockedSeederInteractor.Object);
             fakes.ILogManager.Setup(x => x.GetExceptionLogger()).Returns(fakes.ILogger.Object);
-            boundary = new ExpandBoundary(fakes.IDependencyFactoryInteractor.Object);
+            boundary = new ExpandBoundary(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -29,12 +29,12 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICodeGeneratorBuilder>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ISeeder>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogger>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ILogManager>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.Get<ICodeGeneratorBuilder>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ISeeder>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ILogManager>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 
         [Fact]
@@ -47,8 +47,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             boundary.Execute();
 
             // assert
-            fakes.ICodeGeneratorBuilderInteractor.Verify(x => x.Build(), Times.Once);
-            fakes.ICodeGeneratorInteractor.Verify(x => x.Execute(), Times.Once);
+            fakes.ICodeGeneratorBuilder.Verify(x => x.Build(), Times.Once);
+            fakes.ICodeGenerator.Verify(x => x.Execute(), Times.Once);
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             // arrange
             string exceptionMessage = "Random Exception Message";
             var exception = new CodeGenerationException(exceptionMessage);
-            fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
+            fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
             mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act
@@ -73,7 +73,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             // arrange
             string exceptionMessage = "Random Exception Message";
             Exception exception = new(exceptionMessage);
-            fakes.ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Throws(exception);
+            fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
             mockedSeederInteractor.Setup(x => x.Enabled).Returns(false);
 
             // act

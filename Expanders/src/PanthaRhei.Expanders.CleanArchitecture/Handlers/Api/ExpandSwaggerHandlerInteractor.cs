@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// </summary>
     public class ExpandSwaggerHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly IWriterInteractor writer;
+        private readonly IWriter writer;
         private readonly GenerationOptions options;
         private readonly CleanArchitectureExpander expander;
 
@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public ExpandSwaggerHandlerInteractor(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
-            writer = dependencyFactory.Get<IWriterInteractor>();
+            writer = dependencyFactory.Get<IWriter>();
             options = dependencyFactory.Get<GenerationOptions>();
             this.expander = expander;
         }

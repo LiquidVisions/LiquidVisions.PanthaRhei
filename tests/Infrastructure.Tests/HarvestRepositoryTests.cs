@@ -22,8 +22,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             {
                 FullName = "AppFullName",
             };
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<App>()).Returns(app);
-            repository = new HarvestRepository(fakes.IDependencyFactoryInteractor.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<App>()).Returns(app);
+            repository = new HarvestRepository(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -32,12 +32,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeserializerInteractor<Harvest>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IHarvestSerializer>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDeserializer<Harvest>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IHarvestSerializer>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 
         [Fact]

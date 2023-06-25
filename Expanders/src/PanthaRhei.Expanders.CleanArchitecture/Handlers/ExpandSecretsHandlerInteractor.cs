@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;
         private readonly App app;
-        private readonly ICommandLineInteractor commandLine;
+        private readonly ICommandLine commandLine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandSecretsHandlerInteractor"/> class.
@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         {
             this.expander = expander;
 
-            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
         }

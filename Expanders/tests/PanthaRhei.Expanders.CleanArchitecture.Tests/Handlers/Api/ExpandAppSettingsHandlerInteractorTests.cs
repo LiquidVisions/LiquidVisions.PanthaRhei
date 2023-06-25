@@ -43,7 +43,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
         {
             fakes.IFile.Setup(x => x.ReadAllText(It.IsAny<string>())).Returns(json);
             fakes.MockCleanArchitectureExpander();
-            handler = new ExpandAppSettingsHandlerInteractor(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
+            handler = new ExpandAppSettingsHandlerInteractor(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -52,11 +52,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IWriter>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]
@@ -105,9 +105,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
 
             fakes.IFile.Verify(x => x.ReadAllText(appSettingsFile), Times.Once);
             fakes.IFile.Verify(x => x.WriteAllText(appSettingsFile, jsonExpectedResult), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.Load(bootStrapFile), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.Replace("CONNECTION_STRING_PLACEHOLDER", "DefaultConnectionString"));
-            fakes.IWriterInteractor.Verify(x => x.Save(bootStrapFile), Times.Once);
+            fakes.IWriter.Verify(x => x.Load(bootStrapFile), Times.Once);
+            fakes.IWriter.Verify(x => x.Replace("CONNECTION_STRING_PLACEHOLDER", "DefaultConnectionString"));
+            fakes.IWriter.Verify(x => x.Save(bootStrapFile), Times.Once);
         }
     }
 }

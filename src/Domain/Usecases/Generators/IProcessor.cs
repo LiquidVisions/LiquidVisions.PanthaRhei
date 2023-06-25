@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
     /// Represents a handler that executes post processing actions.
     /// </summary>
     /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
-    public interface IProcessorInteractor<out TExpander> : IProcessor
+    public interface IProcessor<out TExpander> : IProcessor
         where TExpander : class, IExpander
     {
         /// <summary>

@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;
         private readonly IFile file;
-        private readonly IWriterInteractor writer;
+        private readonly IWriter writer;
         private readonly Component component;
         private readonly App app;
         private readonly string fullPathToAppSettingsJson;
@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             file = dependencyFactory.Get<IFile>();
-            writer = dependencyFactory.Get<IWriterInteractor>();
+            writer = dependencyFactory.Get<IWriter>();
 
             component = Expander.GetComponentByName(Resources.Api);
             string fullPathToApiComponent = expander.GetComponentOutputFolder(component);

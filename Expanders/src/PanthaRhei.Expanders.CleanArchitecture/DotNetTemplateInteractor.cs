@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     /// </summary>
     internal class DotNetTemplateInteractor : IProjectTemplateInteractor
     {
-        private readonly ICommandLineInteractor commandLine;
+        private readonly ICommandLine commandLine;
         private readonly ILogger logger;
         private readonly GenerationOptions options;
         private readonly App app;
@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public DotNetTemplateInteractor(IDependencyFactory dependencyFactory)
         {
-            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
             logger = dependencyFactory.Get<ILogger>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();

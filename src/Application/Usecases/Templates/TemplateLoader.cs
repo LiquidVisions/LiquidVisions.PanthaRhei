@@ -1,14 +1,14 @@
 ﻿using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
 {
     /// <summary>
     /// Loads static templates.
     /// </summary>
-    internal class TemplateLoader : ITemplateLoaderInteractor
+    internal class TemplateLoader : ITemplateLoader
     {
         private readonly IFile fileService;
         private readonly ILogger logger;

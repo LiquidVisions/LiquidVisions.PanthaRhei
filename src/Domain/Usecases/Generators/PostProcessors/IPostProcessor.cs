@@ -7,7 +7,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
     /// Represents a handler that executes post processing actions.
     /// </summary>
     /// <typeparam name="TExpander"><seealso cref="IExpander"/></typeparam>
-    public interface IPostProcessor<out TExpander> : IProcessorInteractor<TExpander>
+    public interface IPostProcessor<out TExpander> : IProcessor<TExpander>
         where TExpander : class, IExpander
     {
     }

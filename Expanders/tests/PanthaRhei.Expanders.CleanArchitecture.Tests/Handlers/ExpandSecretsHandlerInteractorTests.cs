@@ -18,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
         {
             App app = fakes.SetupApp();
             fakes.CleanArchitectureExpander.Setup(x => x.App).Returns(app);
-            interactor = new ExpandSecretsHandlerInteractor(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ExpandSecretsHandlerInteractor(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -27,10 +27,10 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICommandLineInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.Get<ICommandLine>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
         }
 
         [Fact]
@@ -81,10 +81,10 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             interactor.Execute();
 
             // assert
-            fakes.ICommandLineInteractor.Verify(x => x.Start("dotnet user-secrets init", path1), Times.Once);
-            fakes.ICommandLineInteractor.Verify(x => x.Start("dotnet user-secrets init", path2), Times.Once);
-            fakes.ICommandLineInteractor.Verify(x => x.Start($"dotnet user-secrets set \"ConnectionStrings:DefaultConnectionString\" \"SomeConnectionStringDefinition\"", path1), Times.Once);
-            fakes.ICommandLineInteractor.Verify(x => x.Start($"dotnet user-secrets set \"ConnectionStrings:DefaultConnectionString\" \"SomeConnectionStringDefinition\"", path2), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start("dotnet user-secrets init", path1), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start("dotnet user-secrets init", path2), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet user-secrets set \"ConnectionStrings:DefaultConnectionString\" \"SomeConnectionStringDefinition\"", path1), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet user-secrets set \"ConnectionStrings:DefaultConnectionString\" \"SomeConnectionStringDefinition\"", path2), Times.Once);
         }
     }
 }

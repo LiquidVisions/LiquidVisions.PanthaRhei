@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     /// </summary>
     public class ExpandRepositoryHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly ITemplateInteractor templateService;
+        private readonly ITemplate templateService;
         private readonly GenerationOptions options;
         private readonly App app;
         private readonly Component component;
@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         {
             this.expander = expander;
 
-            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            templateService = dependencyFactory.Get<ITemplate>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
 

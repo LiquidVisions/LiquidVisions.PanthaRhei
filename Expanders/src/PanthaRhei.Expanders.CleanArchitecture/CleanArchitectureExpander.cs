@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
     /// </summary>
     public class CleanArchitectureExpander : AbstractExpander<CleanArchitectureExpander>
     {
-        private readonly ICommandLineInteractor commandLine;
+        private readonly ICommandLine commandLine;
         private readonly GenerationOptions options;
         private readonly IDirectory directory;
 
@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         public CleanArchitectureExpander(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
             options = dependencyFactory.Get<GenerationOptions>();
             directory = dependencyFactory.Get<IDirectory>();
         }

@@ -10,11 +10,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
     public class HarvestSerializerInteractorTests
     {
         private readonly InfrastructureFakes fakes = new();
-        private readonly HarvestSerializerInteractor serializer;
+        private readonly HarvestSerializer serializer;
 
         public HarvestSerializerInteractorTests()
         {
-            serializer = new HarvestSerializerInteractor(fakes.IDependencyFactoryInteractor.Object);
+            serializer = new HarvestSerializer(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -23,10 +23,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ISerializerInteractor<Harvest>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ISerializer<Harvest>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
         }
 
         [Theory]

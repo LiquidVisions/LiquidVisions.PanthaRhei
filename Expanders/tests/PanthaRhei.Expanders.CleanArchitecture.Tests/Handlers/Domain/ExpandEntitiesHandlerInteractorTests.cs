@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Domain
             rootFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.DomainEntityFolder);
 
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
+            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -33,11 +33,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Domain
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ITemplateInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactory.Verify(x => x.Get<ITemplate>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
         [Fact]
@@ -99,8 +99,8 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Domain
 
             // assert
             fakes.IDirectory.Verify(x => x.Create(rootFolder), Times.Once);
-            fakes.ITemplateInteractor.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Once);
-            fakes.ITemplateInteractor.Verify(
+            fakes.ITemplate.Verify(x => x.RenderAndSave(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()), Times.Once);
+            fakes.ITemplate.Verify(
                 x => x.RenderAndSave(
                     expectedTemplateBaseBath,
                     It.Is<object>(x => x.GetHashCode() == new { entity = fakes.ExpectedEntity }.GetHashCode()),

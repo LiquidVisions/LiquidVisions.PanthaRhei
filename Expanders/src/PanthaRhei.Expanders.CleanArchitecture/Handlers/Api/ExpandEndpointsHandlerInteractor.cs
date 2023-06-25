@@ -14,8 +14,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// </summary>
     public class ExpandEndpointsHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly IWriterInteractor writer;
-        private readonly ITemplateInteractor templateService;
+        private readonly IWriter writer;
+        private readonly ITemplate templateService;
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;
         private readonly IDirectory directory;
@@ -32,8 +32,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
 
             directory = dependencyFactory.Get<IDirectory>();
             options = dependencyFactory.Get<GenerationOptions>();
-            writer = dependencyFactory.Get<IWriterInteractor>();
-            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            writer = dependencyFactory.Get<IWriter>();
+            templateService = dependencyFactory.Get<ITemplate>();
             app = dependencyFactory.Get<App>();
         }
 

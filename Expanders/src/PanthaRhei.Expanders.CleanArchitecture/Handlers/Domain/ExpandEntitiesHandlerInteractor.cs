@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
     /// </summary>
     public class ExpandEntitiesHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly ITemplateInteractor templateService;
+        private readonly ITemplate templateService;
         private readonly GenerationOptions options;
         private readonly App app;
         private readonly Component domain;
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Domain
         {
             this.expander = expander;
 
-            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            templateService = dependencyFactory.Get<ITemplate>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();

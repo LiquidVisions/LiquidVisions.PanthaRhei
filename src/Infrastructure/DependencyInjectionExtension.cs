@@ -28,11 +28,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             return services.AddLogging()
                 .AddSingleton<IFile>(new FileService())
                 .AddSingleton<IDirectory>(new DirectoryService())
-                .AddTransient<ICommandLineInteractor, CommandLine>()
-                .AddTransient<IWriterInteractor, ClassWriter>()
-                .AddTransient<IHarvestSerializer, HarvestSerializerInteractor>()
-                .AddTransient<IDeserializerInteractor<Harvest>, SerializerInteractor<Harvest>>()
-                .AddTransient<ISerializerInteractor<Harvest>, SerializerInteractor<Harvest>>()
+                .AddTransient<ICommandLine, CommandLine>()
+                .AddTransient<IWriter, ClassWriter>()
+                .AddTransient<IHarvestSerializer, HarvestSerializer>()
+                .AddTransient<IDeserializer<Harvest>, SerializerInteractor<Harvest>>()
+                .AddTransient<ISerializer<Harvest>, SerializerInteractor<Harvest>>()
                 .AddTransient<IGetRepository<Harvest>, HarvestRepository>()
                 .AddTransient<ICreateRepository<Harvest>, HarvestRepository>();
         }

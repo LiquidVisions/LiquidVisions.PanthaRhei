@@ -11,7 +11,6 @@ using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 using Microsoft.Extensions.DependencyInjection;
-using Scriban.Runtime;
 
 namespace LiquidVisions.PanthaRhei.Application
 {
@@ -47,16 +46,16 @@ namespace LiquidVisions.PanthaRhei.Application
                 .AddTransient<IEntitiesToSeedRepository, EntitiesToSeedGateway>()
                 .AddTransient<ICodeGenerator, CodeGenerator>()
                 .AddInitializers()
-                .AddSeedersInteractors()
+                .AddSeeders()
                 .AddBoundaries()
-                .AddTemplateInteractors();
+                .AddTemplate();
         }
 
-        private static IServiceCollection AddTemplateInteractors(this IServiceCollection services)
+        private static IServiceCollection AddTemplate(this IServiceCollection services)
         {
-            services.AddTransient<ITemplateInteractor, ScribanTemplate>()
-                .AddTransient<ITemplateLoaderInteractor, TemplateLoader>()
-                .AddTransient<ScriptObject, CustomScripts>();
+            services.AddTransient<ITemplate, ScribanTemplate>()
+                .AddTransient<ITemplateLoader, TemplateLoader>()
+                .AddTransient<Scriban.Runtime.ScriptObject, CustomScripts>();
 
             return services;
         }
@@ -76,7 +75,7 @@ namespace LiquidVisions.PanthaRhei.Application
                 .AddTransient<ISeeder, Seeder>();
         }
 
-        private static IServiceCollection AddSeedersInteractors(this IServiceCollection services)
+        private static IServiceCollection AddSeeders(this IServiceCollection services)
         {
             services.AddTransient<IEntitySeeder<App>, AppSeeder>()
                 .AddTransient<IEntitySeeder<App>, ExpanderSeeder>()

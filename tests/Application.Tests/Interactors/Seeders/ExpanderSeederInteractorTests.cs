@@ -22,10 +22,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
 
         public ExpanderSeederInteractorTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteRepository<Expander>>()).Returns(deleteGateWay.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateRepository<Expander>>()).Returns(createGateWay.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<Expander>>()).Returns(deleteGateWay.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Expander>>()).Returns(createGateWay.Object);
 
-            interactor = new(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -34,11 +34,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteRepository<Expander>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<Expander>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IExpanderPluginLoader>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<Expander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Expander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IExpanderPluginLoader>(), Times.Once);
         }
 
         [Fact]
@@ -79,13 +79,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             Mock<IExpander> mockedExpanderInteractor = new();
             mockedExpanderInteractor.Setup(x => x.Name).Returns("RandomName");
             mockedExpanderInteractor.Setup(x => x.Order).Returns(2);
-            fakes.IExpanderPluginLoaderInteractor.Setup(x => x.ShallowLoadAllExpanders(fakes.GenerationOptions.Object.ExpandersFolder)).Returns(new List<IExpander> { mockedExpanderInteractor.Object });
+            fakes.IExpanderPluginLoader.Setup(x => x.ShallowLoadAllExpanders(fakes.GenerationOptions.Object.ExpandersFolder)).Returns(new List<IExpander> { mockedExpanderInteractor.Object });
 
             // act
             interactor.Seed(app);
 
             // assert
-            fakes.IExpanderPluginLoaderInteractor.Verify(x => x.ShallowLoadAllExpanders(fakes.GenerationOptions.Object.ExpandersFolder), Times.Once);
+            fakes.IExpanderPluginLoader.Verify(x => x.ShallowLoadAllExpanders(fakes.GenerationOptions.Object.ExpandersFolder), Times.Once);
             Assert.Single(app.Expanders);
             Assert.Same(app.Expanders.Single().Apps.Single(), app);
             createGateWay.Verify(x => x.Create(It.IsAny<Expander>()), Times.Once);

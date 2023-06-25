@@ -3,7 +3,7 @@
     /// <summary>
     /// Loads and renders Templates.
     /// </summary>
-    public interface ITemplateInteractor
+    public interface ITemplate
     {
         /// <summary>
         /// Renders the template to an actual instance.

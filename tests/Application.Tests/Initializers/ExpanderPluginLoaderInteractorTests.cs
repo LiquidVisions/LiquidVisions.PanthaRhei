@@ -28,12 +28,12 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         {
             app = new() { Expanders = new List<Expander> { new Expander() { Name = expanderName } } };
 
-            fakes.IAssemblyContextInteractor.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);
+            fakes.IAssemblyContext.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);
 
-            interactor = new ExpanderPluginLoader(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ExpanderPluginLoader(fakes.IDependencyFactory.Object);
 
             fakes.IFile.Setup(x => x.GetDirectory(fakes.GenerationOptions.Object.ExpandersFolder)).Returns(@"C:\Some\Fake\");
-            fakes.IAssemblyContextInteractor.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);
+            fakes.IAssemblyContext.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);
             fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expanderName), searchPattern, SearchOption.TopDirectoryOnly)).Returns(new string[] { pluginAssembly });
         }
 
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         public void Load_LoadAssemblyFilesThrowsException_ShouldRethrowWithMessage()
         {
             // arrange
-            fakes.IAssemblyContextInteractor.Setup(x => x.Load(pluginAssembly)).Throws<Exception>();
+            fakes.IAssemblyContext.Setup(x => x.Load(pluginAssembly)).Throws<Exception>();
 
             // act
             void Action() => interactor.LoadAllRegisteredPluginsAndBootstrap(app);
@@ -69,20 +69,20 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         public void Load_ShouldVerify()
         {
             // arrange
-            mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { fakes.IExpanderDependencyManagerInteractor.Object.GetType() });
+            mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { fakes.IExpanderDependencyManager.Object.GetType() });
 
-            fakes.IObjectActivatorInteractor.Setup(x => x.CreateInstance(
-                fakes.IExpanderDependencyManagerInteractor.Object.GetType(),
+            fakes.IObjectActivator.Setup(x => x.CreateInstance(
+                fakes.IExpanderDependencyManager.Object.GetType(),
                 app.Expanders.First(),
-                fakes.IDependencyManagerInteractor.Object))
-                .Returns(fakes.IExpanderDependencyManagerInteractor.Object);
+                fakes.IDependencyManager.Object))
+                .Returns(fakes.IExpanderDependencyManager.Object);
 
             // act
             interactor.LoadAllRegisteredPluginsAndBootstrap(app);
 
             // assert
-            fakes.IObjectActivatorInteractor.Verify(x => x.CreateInstance(fakes.IExpanderDependencyManagerInteractor.Object.GetType(), app.Expanders.First(), fakes.IDependencyManagerInteractor.Object), Times.Once);
-            fakes.IExpanderDependencyManagerInteractor.Verify(x => x.Register(), Times.Once);
+            fakes.IObjectActivator.Verify(x => x.CreateInstance(fakes.IExpanderDependencyManager.Object.GetType(), app.Expanders.First(), fakes.IDependencyManager.Object), Times.Once);
+            fakes.IExpanderDependencyManager.Verify(x => x.Register(), Times.Once);
         }
 
         [Fact]
@@ -101,19 +101,19 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
                 .Setup(x => x.GetFiles(path, searchPattern, SearchOption.AllDirectories))
                 .Returns(new string[] { pluginAssembly });
 
-            fakes.IAssemblyContextInteractor
+            fakes.IAssemblyContext
                 .Setup(x => x.Load(pluginAssembly))
                 .Returns(mockedAssembly.Object);
 
-            fakes.IObjectActivatorInteractor.Setup(x => x.CreateInstance(
-                fakes.IExpanderDependencyManagerInteractor.Object.GetType()))
-                .Returns(fakes.IExpanderDependencyManagerInteractor.Object);
+            fakes.IObjectActivator.Setup(x => x.CreateInstance(
+                fakes.IExpanderDependencyManager.Object.GetType()))
+                .Returns(fakes.IExpanderDependencyManager.Object);
 
             // act
             List<IExpander> result = interactor.ShallowLoadAllExpanders(path);
 
             // assert
-            fakes.IObjectActivatorInteractor.Verify(x => x.CreateInstance(It.IsAny<Type>()), Times.Once);
+            fakes.IObjectActivator.Verify(x => x.CreateInstance(It.IsAny<Type>()), Times.Once);
             Assert.Single(result);
         }
     }

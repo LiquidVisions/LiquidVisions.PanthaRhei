@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface that represents a file writing class.
     /// </summary>
-    public interface IWriterInteractor
+    public interface IWriter
     {
         /// <summary>
         /// Loads an existing file.

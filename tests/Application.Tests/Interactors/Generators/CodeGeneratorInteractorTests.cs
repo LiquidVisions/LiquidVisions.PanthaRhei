@@ -20,11 +20,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
         {
             mockedIExpanderInteractor.Setup(x => x.Model).Returns(new Expander());
 
-            fakes.IDependencyFactoryInteractor
+            fakes.IDependencyFactory
                 .Setup(x => x.GetAll<IExpander>())
                 .Returns(new List<IExpander> { mockedIExpanderInteractor.Object });
 
-            interactor = new CodeGenerator(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new CodeGenerator(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -33,12 +33,12 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Generators
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
 
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<IExpander>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Exactly(1));
+            fakes.IDependencyFactory.Verify(x => x.GetAll<IExpander>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Exactly(1));
         }
 
         [Theory]

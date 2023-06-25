@@ -16,13 +16,13 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         private readonly IHarvestSerializer serializer;
         private readonly GenerationOptions expandRequestModel;
         private readonly App app;
-        private readonly IDeserializerInteractor<Harvest> deserializer;
+        private readonly IDeserializer<Harvest> deserializer;
         private readonly IFile file;
 
         public HarvestRepository(IDependencyFactory dependencyFactory)
         {
             file = dependencyFactory.Get<IFile>();
-            deserializer = dependencyFactory.Get<IDeserializerInteractor<Harvest>>();
+            deserializer = dependencyFactory.Get<IDeserializer<Harvest>>();
             serializer = dependencyFactory.Get<IHarvestSerializer>();
             expandRequestModel = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();

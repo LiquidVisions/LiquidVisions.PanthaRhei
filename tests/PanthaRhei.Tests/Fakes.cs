@@ -20,17 +20,17 @@ namespace LiquidVisions.PanthaRhei.Tests
             ConfigureIDependencyFactoryInteractor();
         }
 
-        public Mock<IDependencyFactory> IDependencyFactoryInteractor { get; } = new();
+        public Mock<IDependencyFactory> IDependencyFactory { get; } = new();
 
-        public Mock<IDependencyManager> IDependencyManagerInteractor { get; } = new();
+        public Mock<IDependencyManager> IDependencyManager { get; } = new();
 
-        public Mock<ICodeGeneratorBuilder> ICodeGeneratorBuilderInteractor { get; } = new();
+        public Mock<ICodeGeneratorBuilder> ICodeGeneratorBuilder { get; } = new();
 
         public Mock<ILogger> ILogger { get; } = new();
 
         public Mock<ILogManager> ILogManager { get; } = new();
 
-        public Mock<ICodeGenerator> ICodeGeneratorInteractor { get; } = new();
+        public Mock<ICodeGenerator> ICodeGenerator { get; } = new();
 
         public Mock<IFile> IFile { get; } = new();
 
@@ -38,26 +38,26 @@ namespace LiquidVisions.PanthaRhei.Tests
 
         public Mock<GenerationOptions> GenerationOptions { get; } = new();
 
-        public Mock<IExpanderDependencyManager> IExpanderDependencyManagerInteractor { get; } = new();
+        public Mock<IExpanderDependencyManager> IExpanderDependencyManager { get; } = new();
 
-        public Mock<IExpanderPluginLoader> IExpanderPluginLoaderInteractor { get; } = new();
+        public Mock<IExpanderPluginLoader> IExpanderPluginLoader { get; } = new();
 
-        public Mock<IWriterInteractor> IWriterInteractor { get; } = new();
+        public Mock<IWriter> IWriter { get; } = new();
 
-        public Mock<ITemplateInteractor> ITemplateInteractor { get; } = new();
+        public Mock<ITemplate> ITemplate { get; } = new();
 
-        public Mock<ICommandLineInteractor> ICommandLineInteractor { get; } = new();
+        public Mock<ICommandLine> ICommandLine { get; } = new();
 
-        internal Mock<IAssemblyContext> IAssemblyContextInteractor { get; } = new();
+        internal Mock<IAssemblyContext> IAssemblyContext { get; } = new();
 
-        internal Mock<IObjectActivator> IObjectActivatorInteractor { get; } = new();
+        internal Mock<IObjectActivator> IObjectActivator { get; } = new();
 
-        internal Mock<IAssemblyManager> IAssemblyManagerInteractor { get; } = new();
+        internal Mock<IAssemblyManager> IAssemblyManager { get; } = new();
 
         public void Configure()
         {
             ILogManager.Setup(x => x.GetExceptionLogger()).Returns(ILogger.Object);
-            ICodeGeneratorBuilderInteractor.Setup(x => x.Build()).Returns(ICodeGeneratorInteractor.Object);
+            ICodeGeneratorBuilder.Setup(x => x.Build()).Returns(ICodeGenerator.Object);
             GenerationOptions.Setup(x => x.Root).Returns("C:\\Some\\Root\\Folder");
             GenerationOptions.Setup(x => x.OutputFolder).Returns("C:\\Some\\Root\\OutputFolder");
             GenerationOptions.Setup(x => x.ExpandersFolder).Returns("C:\\Some\\Root\\Expanders");
@@ -66,22 +66,22 @@ namespace LiquidVisions.PanthaRhei.Tests
 
         public virtual void ConfigureIDependencyFactoryInteractor()
         {
-            IDependencyFactoryInteractor.Setup(x => x.Get<ILogger>()).Returns(ILogger.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<ILogManager>()).Returns(ILogManager.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<ICodeGenerator>()).Returns(ICodeGeneratorInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManagerInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<ICodeGeneratorBuilder>()).Returns(ICodeGeneratorBuilderInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IFile>()).Returns(IFile.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IDirectory>()).Returns(IDirectory.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<GenerationOptions>()).Returns(GenerationOptions.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IAssemblyContext>()).Returns(IAssemblyContextInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IObjectActivator>()).Returns(IObjectActivatorInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManagerInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IAssemblyManager>()).Returns(IAssemblyManagerInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IExpanderPluginLoader>()).Returns(IExpanderPluginLoaderInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IWriterInteractor>()).Returns(IWriterInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<ITemplateInteractor>()).Returns(ITemplateInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<ICommandLineInteractor>()).Returns(ICommandLineInteractor.Object);
+            IDependencyFactory.Setup(x => x.Get<ILogger>()).Returns(ILogger.Object);
+            IDependencyFactory.Setup(x => x.Get<ILogManager>()).Returns(ILogManager.Object);
+            IDependencyFactory.Setup(x => x.Get<ICodeGenerator>()).Returns(ICodeGenerator.Object);
+            IDependencyFactory.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManager.Object);
+            IDependencyFactory.Setup(x => x.Get<ICodeGeneratorBuilder>()).Returns(ICodeGeneratorBuilder.Object);
+            IDependencyFactory.Setup(x => x.Get<IFile>()).Returns(IFile.Object);
+            IDependencyFactory.Setup(x => x.Get<IDirectory>()).Returns(IDirectory.Object);
+            IDependencyFactory.Setup(x => x.Get<GenerationOptions>()).Returns(GenerationOptions.Object);
+            IDependencyFactory.Setup(x => x.Get<IAssemblyContext>()).Returns(IAssemblyContext.Object);
+            IDependencyFactory.Setup(x => x.Get<IObjectActivator>()).Returns(IObjectActivator.Object);
+            IDependencyFactory.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManager.Object);
+            IDependencyFactory.Setup(x => x.Get<IAssemblyManager>()).Returns(IAssemblyManager.Object);
+            IDependencyFactory.Setup(x => x.Get<IExpanderPluginLoader>()).Returns(IExpanderPluginLoader.Object);
+            IDependencyFactory.Setup(x => x.Get<IWriter>()).Returns(IWriter.Object);
+            IDependencyFactory.Setup(x => x.Get<ITemplate>()).Returns(ITemplate.Object);
+            IDependencyFactory.Setup(x => x.Get<ICommandLine>()).Returns(ICommandLine.Object);
         }
     }
 }

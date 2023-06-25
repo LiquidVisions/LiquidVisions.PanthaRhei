@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         private readonly GenerationOptions options;
         private readonly App app;
         private readonly IDirectory directory;
-        private readonly ITemplateInteractor templateService;
+        private readonly ITemplate templateService;
         private readonly string[] requestActions;
         private readonly Component component;
         private readonly Component applicationComponent;
@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
-            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            templateService = dependencyFactory.Get<ITemplate>();
 
             requestActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
 

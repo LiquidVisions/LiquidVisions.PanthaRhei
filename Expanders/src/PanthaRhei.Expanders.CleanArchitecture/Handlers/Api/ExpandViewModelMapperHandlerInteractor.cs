@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
     /// </summary>
     public class ExpandViewModelMapperHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly ITemplateInteractor templateService;
+        private readonly ITemplate templateService;
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;
         private readonly App app;
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         {
             this.expander = expander;
 
-            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            templateService = dependencyFactory.Get<ITemplate>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();

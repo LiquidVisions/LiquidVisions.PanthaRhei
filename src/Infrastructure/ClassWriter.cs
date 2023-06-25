@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     /// <summary>
     /// A File writer helper.
     /// </summary>
-    internal class ClassWriter : IWriterInteractor
+    internal class ClassWriter : IWriter
     {
         private readonly IFile fileService;
         private readonly ILogger logger;

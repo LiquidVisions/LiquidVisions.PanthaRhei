@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     {
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;
-        private readonly ITemplateInteractor templateService;
+        private readonly ITemplate templateService;
         private readonly App app;
         private readonly IDirectory directory;
 
@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
             this.expander = expander;
 
             options = dependencyFactory.Get<GenerationOptions>();
-            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            templateService = dependencyFactory.Get<ITemplate>();
             app = dependencyFactory.Get<App>();
             directory = dependencyFactory.Get<IDirectory>();
 

@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
     /// </summary>
     public class ExpandConfigureApplicationLibraryHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly IWriterInteractor writer;
-        private readonly ITemplateInteractor templateService;
+        private readonly IWriter writer;
+        private readonly ITemplate templateService;
         private readonly GenerationOptions options;
         private readonly App app;
         private readonly Component component;
@@ -31,8 +31,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            writer = dependencyFactory.Get<IWriterInteractor>();
-            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            writer = dependencyFactory.Get<IWriter>();
+            templateService = dependencyFactory.Get<ITemplate>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
 

@@ -5,17 +5,17 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
 {
-    public class HarvestSerializerInteractor : IHarvestSerializer
+    public class HarvestSerializer : IHarvestSerializer
     {
-        private readonly ISerializerInteractor<Harvest> serializer;
+        private readonly ISerializer<Harvest> serializer;
         private readonly IFile file;
         private readonly IDirectory directory;
 
-        public HarvestSerializerInteractor(IDependencyFactory dependencyFactory)
+        public HarvestSerializer(IDependencyFactory dependencyFactory)
         {
             file = dependencyFactory.Get<IFile>();
             directory = dependencyFactory.Get<IDirectory>();
-            serializer = dependencyFactory.Get<ISerializerInteractor<Harvest>>();
+            serializer = dependencyFactory.Get<ISerializer<Harvest>>();
         }
 
         public void Serialize(Harvest harvest, string fullPath)

@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
     /// </summary>
     public class ExpandEntityFrameworkConfigurationHandlerInteractor : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly IWriterInteractor writer;
-        private readonly ITemplateInteractor templateService;
+        private readonly IWriter writer;
+        private readonly ITemplate templateService;
         private readonly GenerationOptions options;
         private readonly App app;
         private readonly string fullPathToBootstrapperFile;
@@ -29,8 +29,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         {
             this.expander = expander;
 
-            writer = dependencyFactory.Get<IWriterInteractor>();
-            templateService = dependencyFactory.Get<ITemplateInteractor>();
+            writer = dependencyFactory.Get<IWriter>();
+            templateService = dependencyFactory.Get<ITemplate>();
             options = dependencyFactory.Get<GenerationOptions>();
             app = dependencyFactory.Get<App>();
 

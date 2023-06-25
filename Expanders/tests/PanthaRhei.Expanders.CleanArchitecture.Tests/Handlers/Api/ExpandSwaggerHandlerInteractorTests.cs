@@ -20,7 +20,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
         public ExpandSwaggerHandlerInteractorTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactoryInteractor.Object);
+            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -29,9 +29,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IWriterInteractor>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IWriter>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
         }
 
         [Fact]
@@ -95,16 +95,16 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             handler.Execute();
 
             // assert
-            fakes.IWriterInteractor.Verify(x => x.Load(expectedPathToBootstrapperFile), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch1, "services.AddEndpointsApiExplorer();"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch1, "services.AddSwaggerGen();"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch1, string.Empty), Times.Once);
+            fakes.IWriter.Verify(x => x.Load(expectedPathToBootstrapperFile), Times.Once);
+            fakes.IWriter.Verify(x => x.WriteAt(expectedMatch1, "services.AddEndpointsApiExplorer();"), Times.Once);
+            fakes.IWriter.Verify(x => x.WriteAt(expectedMatch1, "services.AddSwaggerGen();"), Times.Once);
+            fakes.IWriter.Verify(x => x.WriteAt(expectedMatch1, string.Empty), Times.Once);
 
-            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch2, "app.UseSwagger();"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch2, "app.UseSwaggerUI();"), Times.Once);
-            fakes.IWriterInteractor.Verify(x => x.WriteAt(expectedMatch1, string.Empty), Times.Once);
+            fakes.IWriter.Verify(x => x.WriteAt(expectedMatch2, "app.UseSwagger();"), Times.Once);
+            fakes.IWriter.Verify(x => x.WriteAt(expectedMatch2, "app.UseSwaggerUI();"), Times.Once);
+            fakes.IWriter.Verify(x => x.WriteAt(expectedMatch1, string.Empty), Times.Once);
 
-            fakes.IWriterInteractor.Verify(x => x.Save(expectedPathToBootstrapperFile), Times.Once);
+            fakes.IWriter.Verify(x => x.Save(expectedPathToBootstrapperFile), Times.Once);
         }
     }
 }

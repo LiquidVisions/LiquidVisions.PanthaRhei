@@ -18,14 +18,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
 
         public ConnectionStringSeederInteractorTests()
         {
-            fakes.IDependencyFactoryInteractor
+            fakes.IDependencyFactory
                 .Setup(x => x.Get<ICreateRepository<ConnectionString>>())
                 .Returns(mockedCreateGateway.Object);
-            fakes.IDependencyFactoryInteractor
+            fakes.IDependencyFactory
                 .Setup(x => x.Get<IDeleteRepository<ConnectionString>>())
                 .Returns(mockedDeleteGateway.Object);
 
-            interactor = new ConnectionStringsSeeder(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new ConnectionStringsSeeder(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -34,10 +34,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteRepository<ConnectionString>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<ConnectionString>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<ConnectionString>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<ConnectionString>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
         [Fact]

@@ -22,9 +22,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
         public MigrationHarvesterInteractorTests()
         {
             fakes.MockCleanArchitectureExpander();
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateRepository<Harvest>>()).Returns(mockedICreateGateWay.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Harvest>>()).Returns(mockedICreateGateWay.Object);
 
-            interactor = new MigrationHarvesterInteractor(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new MigrationHarvesterInteractor(fakes.IDependencyFactory.Object);
 
             expectedMigrationsFolder = System.IO.Path.Combine(fakes.GenerationOptions.Object.OutputFolder, CleanArchitectureResources.InfrastructureMigrationsFolder);
         }
@@ -35,12 +35,12 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<Harvest>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IFile>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Harvest>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
         }
 
         [Theory]

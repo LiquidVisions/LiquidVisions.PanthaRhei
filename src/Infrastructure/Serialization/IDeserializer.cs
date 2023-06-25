@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
     /// A generic object that serializes the <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">The subjected model.</typeparam>
-    public interface IDeserializerInteractor<out TModel>
+    public interface IDeserializer<out TModel>
         where TModel : class
     {
         /// <summary>

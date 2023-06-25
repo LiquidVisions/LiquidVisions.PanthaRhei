@@ -38,10 +38,10 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         {
             base.ConfigureIDependencyFactoryInteractor();
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<IProjectTemplateInteractor>())
+            IDependencyFactory.Setup(x => x.Get<IProjectTemplateInteractor>())
                 .Returns(IProjectTemplateInteractor.Object);
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializer>())
+            IDependencyFactory.Setup(x => x.Get<IHarvestSerializer>())
                 .Returns(IHarvestSerializerInteractor.Object);
         }
 
@@ -71,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
                 });
 
             CleanArchitectureExpander.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<CleanArchitectureExpander>()).Returns(CleanArchitectureExpander.Object);
+            IDependencyFactory.Setup(x => x.Get<CleanArchitectureExpander>()).Returns(CleanArchitectureExpander.Object);
 
             CleanArchitectureExpander.Setup(x => x.GetComponentByName(Resources.Api)).Returns(ApiComponent.Object);
             CleanArchitectureExpander.Setup(x => x.GetComponentByName(Resources.EntityFramework)).Returns(InfrastructureComponent.Object);
@@ -93,7 +93,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         {
             App app = GetDefaultApp(entities, expanders);
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<App>()).Returns(app);
+            IDependencyFactory.Setup(x => x.Get<App>()).Returns(app);
 
             return app;
         }

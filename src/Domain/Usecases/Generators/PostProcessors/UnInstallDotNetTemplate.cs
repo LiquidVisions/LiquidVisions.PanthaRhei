@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
     internal sealed class UnInstallDotNetTemplate<TExpander> : PostProcessor<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly ICommandLineInteractor commandLine;
+        private readonly ICommandLine commandLine;
         private readonly IDirectory directoryService;
         private readonly ILogger logger;
 
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
         public UnInstallDotNetTemplate(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
             directoryService = dependencyFactory.Get<IDirectory>();
             logger = dependencyFactory.Get<ILogger>();
         }

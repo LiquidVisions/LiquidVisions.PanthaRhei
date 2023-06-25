@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface for static template loader.
     /// </summary>
-    public interface ITemplateLoaderInteractor
+    public interface ITemplateLoader
     {
         /// <summary>
         /// Loads the static template.

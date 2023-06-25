@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     /// Default object that executes cli commands.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class CommandLine : ICommandLineInteractor
+    public class CommandLine : ICommandLine
     {
         private readonly ILogger logger;
         private bool silent = false;

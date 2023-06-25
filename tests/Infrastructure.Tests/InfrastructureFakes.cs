@@ -7,9 +7,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 {
     internal class InfrastructureFakes : Fakes
     {
-        public Mock<IDeserializerInteractor<Harvest>> IHarvestDeserializerInteractor { get; } = new();
+        public Mock<IDeserializer<Harvest>> IHarvestDeserializerInteractor { get; } = new();
 
-        public Mock<ISerializerInteractor<Harvest>> ISerializerInteractor { get; } = new();
+        public Mock<ISerializer<Harvest>> ISerializerInteractor { get; } = new();
 
         public Mock<IHarvestSerializer> IHarvestSerializerInteractor { get; } = new();
 
@@ -68,9 +68,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             base.ConfigureIDependencyFactoryInteractor();
 
-            IDependencyFactoryInteractor.Setup(x => x.Get<IHarvestSerializer>()).Returns(IHarvestSerializerInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<IDeserializerInteractor<Harvest>>()).Returns(IHarvestDeserializerInteractor.Object);
-            IDependencyFactoryInteractor.Setup(x => x.Get<ISerializerInteractor<Harvest>>()).Returns(ISerializerInteractor.Object);
+            IDependencyFactory.Setup(x => x.Get<IHarvestSerializer>()).Returns(IHarvestSerializerInteractor.Object);
+            IDependencyFactory.Setup(x => x.Get<IDeserializer<Harvest>>()).Returns(IHarvestDeserializerInteractor.Object);
+            IDependencyFactory.Setup(x => x.Get<ISerializer<Harvest>>()).Returns(ISerializerInteractor.Object);
         }
     }
 }

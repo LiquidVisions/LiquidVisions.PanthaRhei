@@ -21,11 +21,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
 
         public EntitySeederInteractorTests()
         {
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<ICreateRepository<Entity>>()).Returns(mockedCreateGateway.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IDeleteRepository<Entity>>()).Returns(mockedDeleteGateway.Object);
-            fakes.IDependencyFactoryInteractor.Setup(x => x.Get<IEntitiesToSeedRepository>()).Returns(mockedEntityToSeedGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Entity>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<Entity>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Get<IEntitiesToSeedRepository>()).Returns(mockedEntityToSeedGateway.Object);
 
-            interactor = new EntitySeeder(fakes.IDependencyFactoryInteractor.Object);
+            interactor = new EntitySeeder(fakes.IDependencyFactory.Object);
         }
 
         [Fact]
@@ -34,11 +34,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Interactors.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IDeleteRepository<Entity>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<ICreateRepository<Entity>>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<IEntitiesToSeedRepository>(), Times.Once);
-            fakes.IDependencyFactoryInteractor.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
-            fakes.IDependencyFactoryInteractor.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<Entity>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Entity>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IEntitiesToSeedRepository>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
         [Fact]

@@ -8,12 +8,12 @@ using Scriban.Runtime;
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
 {
     /// <summary>
-    /// <see cref="Template"/> implementation of <see cref="ITemplateInteractor"/>.
+    /// <see cref="Template"/> implementation of <see cref="ITemplate"/>.
     /// </summary>
-    internal class ScribanTemplate : ITemplateInteractor
+    internal class ScribanTemplate : ITemplate
     {
         private readonly ILogger logger;
-        private readonly ITemplateLoaderInteractor templateLoader;
+        private readonly Domain.Usecases.Templates.ITemplateLoader templateLoader;
         private readonly IFile fileService;
         private readonly IDirectory directoryService;
         private readonly ScriptObject scriptObject;
@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         public ScribanTemplate(IDependencyFactory dependencyFactory)
         {
             logger = dependencyFactory.Get<ILogger>();
-            templateLoader = dependencyFactory.Get<ITemplateLoaderInteractor>();
+            templateLoader = dependencyFactory.Get<Domain.Usecases.Templates.ITemplateLoader>();
             fileService = dependencyFactory.Get<IFile>();
             directoryService = dependencyFactory.Get<IDirectory>();
             scriptObject = dependencyFactory.Get<ScriptObject>();

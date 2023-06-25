@@ -10,11 +10,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
     /// An abstract implementation of the <see cref="IProcessor"/>.
     /// </summary>
     /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
-    public abstract class Processor<TExpander> : IProcessorInteractor<TExpander>
+    public abstract class Processor<TExpander> : IProcessor<TExpander>
         where TExpander : class, IExpander
     {
         private readonly App app;
-        private readonly ICommandLineInteractor commandLine;
+        private readonly ICommandLine commandLine;
         private readonly IDirectory directoryService;
         private readonly ILogger logger;
         private readonly GenerationOptions options;
@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         protected Processor(IDependencyFactory dependencyFactory)
         {
             app = dependencyFactory.Get<App>();
-            commandLine = dependencyFactory.Get<ICommandLineInteractor>();
+            commandLine = dependencyFactory.Get<ICommandLine>();
             directoryService = dependencyFactory.Get<IDirectory>();
             logger = dependencyFactory.Get<ILogger>();
             options = dependencyFactory.Get<GenerationOptions>();
@@ -54,9 +54,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         public IDirectory DirectoryService => directoryService;
 
         /// <summary>
-        /// Gets the <seealso cref="ICommandLineInteractor"/>.
+        /// Gets the <seealso cref="ICommandLine"/>.
         /// </summary>
-        public ICommandLineInteractor CommandLine => commandLine;
+        public ICommandLine CommandLine => commandLine;
 
         /// <summary>
         /// Gets the <seealso cref="Options"/>.

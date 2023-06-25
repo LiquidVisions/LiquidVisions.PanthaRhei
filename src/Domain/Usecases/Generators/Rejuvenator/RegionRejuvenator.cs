@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator
     {
         private readonly IDirectory directoryService;
         private readonly IGetRepository<Harvest> harvestGateway;
-        private readonly IWriterInteractor writer;
+        private readonly IWriter writer;
         private readonly string folder;
         private readonly GenerationOptions options;
 
@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator
 
             directoryService = dependencyFactory.Get<IDirectory>();
             harvestGateway = dependencyFactory.Get<IGetRepository<Harvest>>();
-            writer = dependencyFactory.Get<IWriterInteractor>();
+            writer = dependencyFactory.Get<IWriter>();
             folder = Path.Combine(options.HarvestFolder, App.FullName);
         }
 
