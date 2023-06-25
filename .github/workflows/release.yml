@@ -3,7 +3,7 @@ name: Publish PanthaRhei Nugets
 # Controls when the workflow will run
 on:
   push:
-    branches: [ Release ]
+    branches: [ gkoks/dev ]
 
 jobs:
   publish-nuget:
