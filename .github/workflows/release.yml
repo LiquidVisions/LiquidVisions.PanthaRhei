@@ -47,7 +47,7 @@ jobs:
 
     - name: Pack PanthaRhei.Tests
       run: |  
-        cd test/PanthaRhei.Tests/
+        cd tests/PanthaRhei.Tests/
         dotnet pack -c Release -o D:\a\LiquidVisions.PanthaRhei\LiquidVisions.PanthaRhei\src\package\
         
 
