@@ -7,7 +7,7 @@
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageId>LiquidVisions.PanthaRhei.Tests</PackageId>
-		<Title>PanthaRhei.Core</Title>
+		<Title>LiquidVisions.PanthaRhei.Tests</Title>
 		<Authors>Gerco Koks</Authors>
 		<Company>LiquidVisions</Company>
 		<Product>PanthaRhei</Product>
