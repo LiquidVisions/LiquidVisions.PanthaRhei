@@ -5,7 +5,13 @@
 		<AssemblyName>LiquidVisions.PanthaRhei.Tests</AssemblyName>
 		<RootNamespace>LiquidVisions.PanthaRhei.Tests</RootNamespace>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
-		<IsPackable>false</IsPackable>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageId>LiquidVisions.PanthaRhei.Tests</PackageId>
+		<Title>PanthaRhei.Core</Title>
+		<Authors>Gerco Koks</Authors>
+		<Company>LiquidVisions</Company>
+		<Product>PanthaRhei</Product>
+		<Version>0.1.0</Version>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>

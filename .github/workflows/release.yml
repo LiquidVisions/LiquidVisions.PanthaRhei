@@ -3,7 +3,7 @@ name: Publish PanthaRhei Nugets
 # Controls when the workflow will run
 on:
   push:
-    branches: [ release ]
+    branches: [ push ]
 
 env:
  PACKAGE_FOLDER: /home/runner/work/LiquidVisions.PanthaRhei/LiquidVisions.PanthaRhei/src/package/
@@ -24,14 +24,19 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
       
-    - name: Pack Presentation.Cli
+    - name: Pack PanthaRhei.Presentation.Cli
       run: |  
         cd src/Presentation.Cli/
         dotnet pack -c Release -o $PACKAGE_FOLDER
         
-    - name: Pack Domain.Core
+    - name: Pack PanthaRhei.Domain.Core
       run: |  
         cd src/Domain/
+        dotnet pack -c Release -o $PACKAGE_FOLDER
+
+    - name: Pack PanthaRhei.Tests
+      run: |  
+        cd test/PanthaRhei.Tests/
         dotnet pack -c Release -o $PACKAGE_FOLDER
         
 
