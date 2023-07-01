@@ -6,7 +6,7 @@ on:
     branches: [ master ]
 
 env:
- PACKAGE_FOLDER: /home/runner/work/LiquidVisions.PanthaRhei/LiquidVisions.PanthaRhei/src/package/
+ PACKAGE_FOLDER: D:\a\LiquidVisions.PanthaRhei\LiquidVisions.PanthaRhei\src\package\package\
 
 jobs:
   push-to-master:
