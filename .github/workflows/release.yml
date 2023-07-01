@@ -3,7 +3,10 @@ name: Publish PanthaRhei Nugets
 # Controls when the workflow will run
 on:
   push:
-    branches: [ Release ]
+    branches: [ release ]
+
+env:
+ PACKAGE_FOLDER: /home/runner/work/LiquidVisions.PanthaRhei/LiquidVisions.PanthaRhei/src/package/
 
 jobs:
   publish-nuget:
@@ -20,20 +23,17 @@ jobs:
     
     - name: Restore dependencies
       run: dotnet restore
-    
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-      with:
-          source-url: https://nuget.pkg.github.com/liquidvisions/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          
-    - name: Build solution and generate NuGet package
+      
+    - name: Pack Presentation.Cli
       run: |  
         cd src/Presentation.Cli/
-        dotnet pack -c Release -o ./packages
+        dotnet pack -c Release -o $PACKAGE_FOLDER
+        
+    - name: Pack Domain.Core
+      run: |  
         cd src/Domain/
-        dotnet pack -c Release -o ./packages
+        dotnet pack -c Release -o $PACKAGE_FOLDER
+        
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./packages/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push $PACKAGE_FOLDER*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
