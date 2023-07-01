@@ -1,6 +1,4 @@
-﻿using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
-using LiquidVisions.PanthaRhei.Application.Usecases.Initializers;
-using LiquidVisions.PanthaRhei.Domain;
+﻿using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Usecases;
@@ -24,13 +22,9 @@ namespace LiquidVisions.PanthaRhei.Tests
 
         public Mock<IDependencyManager> IDependencyManager { get; } = new();
 
-        public Mock<ICodeGeneratorBuilder> ICodeGeneratorBuilder { get; } = new();
-
         public Mock<ILogger> ILogger { get; } = new();
 
         public Mock<ILogManager> ILogManager { get; } = new();
-
-        public Mock<ICodeGenerator> ICodeGenerator { get; } = new();
 
         public Mock<IFile> IFile { get; } = new();
 
@@ -40,24 +34,18 @@ namespace LiquidVisions.PanthaRhei.Tests
 
         public Mock<IExpanderDependencyManager> IExpanderDependencyManager { get; } = new();
 
-        public Mock<IExpanderPluginLoader> IExpanderPluginLoader { get; } = new();
-
         public Mock<IWriter> IWriter { get; } = new();
 
         public Mock<ITemplate> ITemplate { get; } = new();
 
         public Mock<ICommandLine> ICommandLine { get; } = new();
 
-        internal Mock<IAssemblyContext> IAssemblyContext { get; } = new();
-
-        internal Mock<IObjectActivator> IObjectActivator { get; } = new();
-
         internal Mock<IAssemblyManager> IAssemblyManager { get; } = new();
 
-        public void Configure()
+        public virtual void Configure()
         {
             ILogManager.Setup(x => x.GetExceptionLogger()).Returns(ILogger.Object);
-            ICodeGeneratorBuilder.Setup(x => x.Build()).Returns(ICodeGenerator.Object);
+
             GenerationOptions.Setup(x => x.Root).Returns("C:\\Some\\Root\\Folder");
             GenerationOptions.Setup(x => x.OutputFolder).Returns("C:\\Some\\Root\\OutputFolder");
             GenerationOptions.Setup(x => x.ExpandersFolder).Returns("C:\\Some\\Root\\Expanders");
@@ -68,17 +56,12 @@ namespace LiquidVisions.PanthaRhei.Tests
         {
             IDependencyFactory.Setup(x => x.Get<ILogger>()).Returns(ILogger.Object);
             IDependencyFactory.Setup(x => x.Get<ILogManager>()).Returns(ILogManager.Object);
-            IDependencyFactory.Setup(x => x.Get<ICodeGenerator>()).Returns(ICodeGenerator.Object);
             IDependencyFactory.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManager.Object);
-            IDependencyFactory.Setup(x => x.Get<ICodeGeneratorBuilder>()).Returns(ICodeGeneratorBuilder.Object);
             IDependencyFactory.Setup(x => x.Get<IFile>()).Returns(IFile.Object);
             IDependencyFactory.Setup(x => x.Get<IDirectory>()).Returns(IDirectory.Object);
             IDependencyFactory.Setup(x => x.Get<GenerationOptions>()).Returns(GenerationOptions.Object);
-            IDependencyFactory.Setup(x => x.Get<IAssemblyContext>()).Returns(IAssemblyContext.Object);
-            IDependencyFactory.Setup(x => x.Get<IObjectActivator>()).Returns(IObjectActivator.Object);
             IDependencyFactory.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManager.Object);
             IDependencyFactory.Setup(x => x.Get<IAssemblyManager>()).Returns(IAssemblyManager.Object);
-            IDependencyFactory.Setup(x => x.Get<IExpanderPluginLoader>()).Returns(IExpanderPluginLoader.Object);
             IDependencyFactory.Setup(x => x.Get<IWriter>()).Returns(IWriter.Object);
             IDependencyFactory.Setup(x => x.Get<ITemplate>()).Returns(ITemplate.Object);
             IDependencyFactory.Setup(x => x.Get<ICommandLine>()).Returns(ICommandLine.Object);

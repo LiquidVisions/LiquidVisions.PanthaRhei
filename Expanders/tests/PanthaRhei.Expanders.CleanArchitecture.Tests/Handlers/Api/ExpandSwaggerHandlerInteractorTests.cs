@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
-using LiquidVisions.PanthaRhei.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
-using LiquidVisions.PanthaRhei.Domain.Usecases;
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
 {

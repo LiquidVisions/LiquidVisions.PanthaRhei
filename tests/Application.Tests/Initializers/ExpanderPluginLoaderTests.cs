@@ -7,7 +7,6 @@ using LiquidVisions.PanthaRhei.Application.Usecases.Initializers;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
-using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
 
@@ -19,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         private readonly string expanderName = "ExpanderName";
         private readonly string pluginAssembly = @"C:\Some\Fake\Plugin.Expanders.Assembly.dll";
 
-        private readonly Fakes fakes = new();
+        private readonly ApplicationFakes fakes = new();
         private readonly ExpanderPluginLoader interactor;
         private readonly Mock<Assembly> mockedAssembly = new();
         private readonly App app;
