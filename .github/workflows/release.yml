@@ -3,14 +3,14 @@ name: Publish PanthaRhei Nugets
 # Controls when the workflow will run
 on:
   push:
-    branches: [ push ]
+    branches: [ master ]
 
 env:
  PACKAGE_FOLDER: /home/runner/work/LiquidVisions.PanthaRhei/LiquidVisions.PanthaRhei/src/package/
 
 jobs:
-  publish-nuget:
-    
+  push-to-master:
+
     runs-on: ubuntu-latest
     
     steps:
@@ -24,6 +24,17 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
       
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    
+    - name: Run Unit Tests with Code Coverage
+      run: dotnet test --collect:"XPlat Code Coverage"
+
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+
     - name: Pack PanthaRhei.Presentation.Cli
       run: |  
         cd src/Presentation.Cli/
