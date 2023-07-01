@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
 {
     public class CodeGeneratorServiceBoundaryTests
     {
-        private readonly Fakes fakes = new();
+        private readonly ApplicationFakes fakes = new();
         private readonly ExpandBoundary boundary;
         private readonly Mock<ISeeder> mockedSeeder = new();
 

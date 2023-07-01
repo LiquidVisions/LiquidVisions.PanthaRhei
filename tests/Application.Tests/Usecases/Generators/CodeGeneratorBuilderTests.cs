@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
     {
         private readonly CodeGeneratorBuilder interactor;
         private readonly Mock<IGetRepository<App>> mockedGetGateway = new();
-        private readonly Fakes fakes = new();
+        private readonly ApplicationFakes fakes = new();
 
         public CodeGeneratorBuilderTests()
         {

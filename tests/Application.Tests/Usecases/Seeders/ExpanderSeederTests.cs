@@ -7,7 +7,6 @@ using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
-using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
 
@@ -16,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     public class ExpanderSeederTests
     {
         private readonly ExpanderSeeder interactor;
-        private readonly Fakes fakes = new();
+        private readonly ApplicationFakes fakes = new();
         private readonly Mock<IDeleteRepository<Expander>> deleteGateWay = new();
         private readonly Mock<ICreateRepository<Expander>> createGateWay = new();
 

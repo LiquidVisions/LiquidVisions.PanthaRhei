@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
 {
     public class CodeGeneratorServiceTests
     {
-        private readonly Fakes fakes = new();
+        private readonly ApplicationFakes fakes = new();
         private readonly ExpandBoundary service;
         private readonly Mock<ISeeder> mockedSeederInteractor = new();
 

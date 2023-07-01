@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers;
-using LiquidVisions.PanthaRhei.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers;
 using Moq;
 using Xunit;
 
