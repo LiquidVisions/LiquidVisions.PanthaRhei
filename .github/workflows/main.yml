@@ -1,8 +1,6 @@
-name: Pantha Rhei Flux - Build
+name: Pantha Rhei Pull Request
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
