@@ -8,9 +8,8 @@ PanthaRhei is a code generation tool designed to improve software stability and 
 
 - Code generation for creating software artifacts
 - Pluggable architecture for custom expanders
-- Easy customization and extension of code generation process
-- Support for various programming languages and frameworks
-- Enhances software stability and evolvability
+- Easy customization and extension of the code generation process
+- Attempts to enhance software stability and evolvability
 
 ## How It Works
 
@@ -18,4 +17,4 @@ PanthaRhei operates based on a code generator that takes input models and applie
 
 ## Getting Started
 
-The project is currently in an experimental phase and is therefore not yet published to nuget.org. 
+The project is currently in an experimental phase and is, therefore, not yet published publically yet.
