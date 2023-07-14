@@ -54,4 +54,4 @@ jobs:
         
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ${{env.PACKAGE_FOLDER}}\*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
+      run: dotnet nuget push ${{env.PACKAGE_FOLDER}}*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
