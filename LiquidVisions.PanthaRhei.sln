@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{576D9DD3-0AEA-4649-BB67-094EF44B4D33}"
 	ProjectSection(SolutionItems) = preProject
-		src\.editorconfig = src\.editorconfig
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		.github\workflows\main.yml = .github\workflows\main.yml
 		.github\workflows\release.yml = .github\workflows\release.yml
-		src\test.runsettings = src\test.runsettings
+		test.runsettings = test.runsettings
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FE89176F-5D18-4EC0-9BE4-D95155C05B71}"
