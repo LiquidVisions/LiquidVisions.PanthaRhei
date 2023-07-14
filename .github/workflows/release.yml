@@ -5,10 +5,15 @@ on:
   push:
     branches: [ master ]
 
+env:
+  PACKAGE_FOLDER: D:\a\LiquidVisions.PanthaRhei\LiquidVisions.PanthaRhei\src\package\
+
 jobs:
   push-to-master:
 
     runs-on: windows-latest
+    
+    
     
     steps:
     - uses: actions/checkout@v2
