@@ -18,7 +18,7 @@ jobs:
         dotnet-version: 7.0.x
     
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./src/LiquidVisions.PanthaRhei.sln
     
     - name: Build
       run: dotnet build --configuration Release --no-restore
