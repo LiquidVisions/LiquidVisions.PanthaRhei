@@ -3,20 +3,20 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LiquidVisions.PanthaRhei.Expanders.PROJECT_TITLE
+namespace __PREFIX__.Expanders.__SOURCE__
 {
     /// <summary>
-    /// Represents an implementation of <seealso cref="IExpanderDependencyManager"/> that allows dependency registration as part of a <seealso cref="PROJECT_TITLEExpander"/>.
+    /// Represents an implementation of <seealso cref="IExpanderDependencyManager"/> that allows dependency registration as part of a <seealso cref="__NAME__Expander"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class PROJECT_TITLEDependencyManager : AbstractExpanderDependencyManager<PROJECT_TITLEExpander>
+    public class __NAME__ExpanderDependencyManager : AbstractExpanderDependencyManager<__NAME__Expander>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PROJECT_TITLEDependencyManager"/> class.
+        /// Initializes a new instance of the <see cref="__NAME__Expander"/> class.
         /// </summary>
         /// <param name="expander"><seealso cref="Expander"/></param>
         /// <param name="dependencyManager"><seealso cref="IDependencyFactory"/></param>
-        public PROJECT_TITLEDependencyManager(Expander expander, IDependencyManager dependencyManager)
+        public __NAME__ExpanderDependencyManager(Expander expander, IDependencyManager dependencyManager)
             : base(expander, dependencyManager)
         {
         }
@@ -27,3 +27,4 @@ namespace LiquidVisions.PanthaRhei.Expanders.PROJECT_TITLE
         }
     }
 }
+

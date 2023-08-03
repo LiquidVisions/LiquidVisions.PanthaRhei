@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<AssemblyName>LiquidVisions.PanthaRhei.Expander.PROJECT_TITLE.Tests</AssemblyName>
-		<RootNamespace>LiquidVisions.PanthaRhei.Expander.PROJECT_TITLE.Tests</RootNamespace>
+		<AssemblyName>__PREFIX__.Expanders.__SOURCE__.Tests</AssemblyName>
+		<RootNamespace>__PREFIX__.Expanders.__SOURCE__.Tests</RootNamespace>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
@@ -15,8 +15,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="coverlet.msbuild" Version="6.0.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="LiquidVisions.PanthaRhei.Tests" Version="0.1.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
@@ -40,7 +40,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\PROJECT_TITLE\PROJECT_TITLE.csproj" />
+		<ProjectReference Include="..\..\src\Expanders.__SOURCE__\Expanders.__SOURCE__.csproj" />
 	</ItemGroup>
 
 </Project>

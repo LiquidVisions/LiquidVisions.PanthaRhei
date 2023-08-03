@@ -12,20 +12,30 @@
     "language": "C#",
     "type": "solution"
   },
-  "sourceName": "ExpanderSolution",
+  "sourceName": "__SOURCE__",
   "preferNameDirectory": true,
   "guids": [
-      "98B775DD-BF1A-4950-97DA-94F47B799215",
-      "CACEA53F-EAAD-42EE-AF02-DFFF538639CC"
+      "FAE04EC0-301F-11D3-BF4B-00C04F79EFBC",
+      "D79E77B2-143C-427C-A014-A9C1D25DCC70",
+      "5ED17F83-C24F-4DB7-8E5D-9E0726065A5D",
+      "EDB38097-8100-42BD-B85B-7C899B00F58B"
   ],
-  "symbols": {
-    "Title": {
+  "symbols":{
+    "Name of the Expander": {
       "type": "parameter",
-      "datatype": "string",
-      "FileRename": "PROJECT_TITLE",
-      "defaultValue": "Project Title",
-      "replaces": "PROJECT_TITLE",
-      "description": "The name of the Project"
+      "datatype": "text",
+      "defaultValue": "SomeExpanderName",
+      "replaces": "__NAME__",
+      "fileRename": "__NAME__",
+      "isRequired": true
+    },
+    "Namespace Prefix": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "LiquidVisions.PanthaRhei",
+      "replaces": "__PREFIX__",
+      "fileRename": "__PREFIX__",
+      "isRequired": true
     }
   }
 }

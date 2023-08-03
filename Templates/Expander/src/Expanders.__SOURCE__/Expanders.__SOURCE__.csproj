@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<AssemblyName>LiquidVisions.PanthaRhei.Expander.PROJECT_TITLE</AssemblyName>
-		<RootNamespace>LiquidVisions.PanthaRhei.Expander.PROJECT_TITLE</RootNamespace>
+		<AssemblyName>__PREFIX__.Expanders.__SOURCE__</AssemblyName>
+		<RootNamespace>__PREFIX__.Expanders.__SOURCE__</RootNamespace>
 		<TargetFramework>net7.0</TargetFramework>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<OutputPath>$(SolutionDir)\PanthaRhei.Output\Expanders\PROJECT_TITLE</OutputPath>
+		<OutputPath>$(SolutionDir)\PanthaRhei.Output\Expanders\__SOURCE__</OutputPath>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NeutralLanguage>en</NeutralLanguage>
 	</PropertyGroup>
@@ -22,12 +22,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="LiquidVisions.PanthaRhei.Core" Version="0.1.1">
-		<GeneratePathProperty>True</GeneratePathProperty>
+			<GeneratePathProperty>True</GeneratePathProperty>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="PROJECT_TITLE.Tests" />
+		<InternalsVisibleTo Include="__PREFIX__.Expanders.__SOURCE__.Tests" />
 		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
 
