@@ -2,7 +2,7 @@
   "profiles": {
     "flux-Default": {
       "commandName": "Project",
-      "commandLineArgs": "--root \"C:\\Dev\\LiquidVisions.PanthaRhei\\PanthaRhei.Output\" --clean --mode \"Default, Rejuvenate, Run\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\" --db \"PanthaRheiDev\""
+      "commandLineArgs": ""
     },
     "flux-Harvest": {
       "commandName": "Project",

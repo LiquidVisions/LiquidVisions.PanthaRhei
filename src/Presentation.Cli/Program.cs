@@ -14,7 +14,8 @@ cmd.HelpOption();
 var rootOption = cmd.Option(
     "--root",
     "Full path to the project root.",
-    CommandOptionType.SingleValue);
+    CommandOptionType.SingleValue)
+    .IsRequired();
 
 var dbOption = cmd.Option(
     "--db",
@@ -24,22 +25,26 @@ var dbOption = cmd.Option(
 var appOption = cmd.Option(
     "--app",
     "The id of the app.",
-    CommandOptionType.SingleValue);
+    CommandOptionType.SingleValue)
+    .IsRequired();
 
 var runModeOption = cmd.Option(
     "--mode",
     "The run mode determines the expander and handers that will be executed.",
-    CommandOptionType.SingleValue);
+    CommandOptionType.SingleValue)
+    .IsRequired();
 
 var cleanModeOption = cmd.Option<bool>(
     "--clean",
     "Deletes and discards all previous runs",
-    CommandOptionType.SingleOrNoValue);
+    CommandOptionType.SingleOrNoValue)
+    .IsRequired();
 
 var reseed = cmd.Option<bool>(
     "--reseed",
     "Reinitialze current model based",
-    CommandOptionType.SingleOrNoValue);
+    CommandOptionType.SingleOrNoValue)
+    .IsRequired();
 
 cmd.OnExecute(() =>
 {
@@ -64,4 +69,13 @@ cmd.OnExecute(() =>
         .Execute();
 });
 
-return cmd.Execute(args);
+cmd.OnValidationError(x =>
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine(x);
+    Console.ResetColor();
+
+    cmd.ShowHelp();
+});
+
+return await cmd.ExecuteAsync(args);

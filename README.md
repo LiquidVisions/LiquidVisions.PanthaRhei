@@ -20,3 +20,8 @@ PanthaRhei operates based on a code generator that takes input models and applie
 ## Getting Started
 
 The project is currently in an experimental phase and is, therefore, not yet published publically yet.
+<!--- 
+To install, make sure you have a valid token to access the private github repository. You can obtain this token by emailing gerco.koks@outlook.com, and requesting the token. Add a new source to the global nuget.config using the following commandline:
+dotnet nuget add source https://nuget.pkg.github.com/liquidvisions/index.json --name github --password <<password here>> --username <<username here>>
+Now add PanthaRhei as a dotnet tool, making it available using the flux command.
+-->

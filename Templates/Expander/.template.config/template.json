@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "LiquidVisions",
+  "classifications": ["LiquidVisions", "PanthaRhei", "Expander"],
+  "name": "PanthaRhei Expander",
+  "description": "A solution and project for creating and source-code expanders used by the PanthaRhei source-code expander.",
+  "groupIdentity": "LiquidVisions.PanthaRhei.Expander",
+  "identity": "LiquidVisions.PanthaRhei.Expander",
+  "shortName": "expander",
+  "defaultName": "Expander",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "sourceName": "__SOURCE__",
+  "preferNameDirectory": true,
+  "guids": [
+      "FAE04EC0-301F-11D3-BF4B-00C04F79EFBC",
+      "D79E77B2-143C-427C-A014-A9C1D25DCC70",
+      "5ED17F83-C24F-4DB7-8E5D-9E0726065A5D",
+      "EDB38097-8100-42BD-B85B-7C899B00F58B"
+  ],
+  "symbols":{
+    "Name of the Expander": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "SomeExpanderName",
+      "replaces": "__NAME__",
+      "fileRename": "__NAME__",
+      "isRequired": true
+    },
+    "Namespace Prefix": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "LiquidVisions.PanthaRhei",
+      "replaces": "__PREFIX__",
+      "fileRename": "__PREFIX__",
+      "isRequired": true
+    }
+  }
+}
