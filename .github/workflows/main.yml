@@ -8,8 +8,8 @@ env:
   CLEANARCHITECTURE_PATH: .\Expanders\Expanders.CleanArchitecture\
 
 jobs:
-  prepare:
-
+  
+  build-PanthaRhei:
     runs-on: windows-latest
 
     steps:
@@ -19,11 +19,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 7.0.x
-  
-  build-pantharhei:
-    runs-on: windows-latest
-    needs: [prepare]
-    steps:
+
     - name: Restore dependencies
       run: dotnet restore
     
@@ -35,8 +31,15 @@ jobs:
     
   build-CleanArchitectureExpander:
     runs-on: windows-latest
-    needs: [prepare]
+
     steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.x
+
     - name: Restore dependencies
       run: dotnet restore ${{env.CLEANARCHITECTURE_PATH}}
     
