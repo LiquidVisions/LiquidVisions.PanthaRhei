@@ -1,0 +1,68 @@
+{{-
+name = "Update" + entity.name;
+class_name = name + "Interactor";
+class_postfix = "RequestModel";
+-}}
+using System;
+using System.Threading.Tasks;
+using {{component_fullname component 'Gateways'}};
+using {{component_fullname component 'Mappers'}};
+using {{component_fullname component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname component 'Validators'}};
+using {{entity.callsite}};
+
+namespace {{component_fullname component 'Interactors' entity.name | pluralize}}
+{
+    internal class {{class_name}} : IInteractor<{{name}}{{class_postfix}}>
+    {
+        private readonly IValidator<{{name}}{{class_postfix}}> validator;
+        private readonly IMapper<{{name}}{{class_postfix}}, {{entity.name}}> mapper;
+        private readonly IUpdateGateway<{{entity.name}}> repository;
+        private readonly IGetByIdGateway<{{entity.name}}> getRepository;
+
+        public {{class_name}}(
+            IValidator<{{name}}{{class_postfix}}> validator,
+            IMapper<{{name}}{{class_postfix}}, {{entity.name}}> mapper,
+            IUpdateGateway<{{entity.name}}> repository,
+            IGetByIdGateway<{{entity.name}}> getRepository)
+        {
+            this.validator = validator;
+            this.mapper = mapper;
+            this.repository = repository;
+            this.getRepository = getRepository;
+        }
+
+        public async Task<Response> ExecuteUseCase({{name}}{{class_postfix}} requestModel)
+        {
+            Response response = validator.Validate(requestModel);
+            if (response.IsValid)
+            {
+                try
+                {
+                    {{entity.name}} entity = getRepository.GetById(requestModel.Id);
+                    if (entity == null)
+                    {
+                        response.AddError(ErrorCodes.NotFound, $"Resource {nameof({{entity.name}})} with id {requestModel.Id} not found.");
+                        return response;
+                    }
+
+                    mapper.Map(requestModel, entity);
+                    response.SetParameter(entity);
+
+                    int repositoryResult = await repository.Update(entity);
+                    if (repositoryResult != 1)
+                    {
+                        response.AddError(ErrorCodes.InternalServerError, $"Failed to create {nameof({{entity.name}})}.");
+                        return response;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    response.AddError(ErrorCodes.InternalServerError, exception.Message);
+                }
+            }
+
+            return response;
+        }
+    }
+}

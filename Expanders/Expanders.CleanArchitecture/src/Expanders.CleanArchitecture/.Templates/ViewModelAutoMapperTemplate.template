@@ -1,0 +1,19 @@
+using {{component_fullname component 'ViewModels'}};
+using {{component_fullname application_component 'Mappers'}};
+using {{entity.callsite}};
+using System.Linq;
+using AutoMapper;
+
+namespace {{component_fullname component 'Mappers'}}
+{
+    public class {{entity.name}}ViewModelMapper : Profile
+    {
+        public {{entity.name}}ViewModelMapper()
+        {
+            CreateMap<{{entity.name}}, {{entity.name}}ViewModel>()
+            {{~for field in entity.fields | array.sort 'order'~}}
+                .ForMember(target => target.{{field.name}}, x => x.MapFrom(source => source.{{field.name}})){{if for.last}};{{end}}
+            {{~end~}}
+        }
+    }
+}

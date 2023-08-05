@@ -1,0 +1,29 @@
+{{-
+name = action + entity.name;
+if action == "Get"
+    name = action + pluralize entity.name;
+end
+if action == "GetById"
+    name = "Get" + entity.name + "ById"
+end
+
+model_postfix = "RequestModel";
+-}}
+using FluentValidation;
+using {{app_fullname component 'Application' 'RequestModels' entity.name | pluralize }};
+
+namespace {{component_fullname component 'Validators' entity.name | pluralize }}
+{
+    internal class {{name}}Validator : AbstractValidator<{{name}}{{model_postfix}}>, IValidator<{{name}}{{model_postfix}}>
+    {
+        public {{name}}Validator()
+        {
+            #region ns-custom-validations
+            #endregion ns-custom-validations
+        }
+
+        public new Response Validate({{name}}{{model_postfix}} objectToValidate) => 
+            base.Validate(objectToValidate)
+                .ToResponse();
+    }
+}

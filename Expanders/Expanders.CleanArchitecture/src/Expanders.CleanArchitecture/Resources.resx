@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Api" xml:space="preserve">
+    <value>Presentation.Api</value>
+  </data>
+  <data name="Application" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="ApplicationBoundariesFolder" xml:space="preserve">
+    <value>Boundaries</value>
+  </data>
+  <data name="ApplicationDependencyInjectionBootstrapperTemplate" xml:space="preserve">
+    <value>ApplicationDependencyInjectionBootstrapperTemplate</value>
+  </data>
+  <data name="ApplicationMapperFolder" xml:space="preserve">
+    <value>Mappers</value>
+  </data>
+  <data name="ApplicationMapperTemplate" xml:space="preserve">
+    <value>ApplicationMapperTemplate</value>
+  </data>
+  <data name="AppSettingsJson" xml:space="preserve">
+    <value>appsettings.json</value>
+  </data>
+  <data name="BoundaryTemplate" xml:space="preserve">
+    <value>BoundaryTemplate</value>
+  </data>
+  <data name="ClientTemplate" xml:space="preserve">
+    <value>ClientTemplate</value>
+  </data>
+  <data name="Commands" xml:space="preserve">
+    <value>Commands</value>
+  </data>
+  <data name="DbContextTemplate" xml:space="preserve">
+    <value>DbContextTemplate</value>
+  </data>
+  <data name="DefaultRequestActions" xml:space="preserve">
+    <value>Create, Update, Get, GetById, Delete</value>
+  </data>
+  <data name="DependencyInjectionBootstrapperFile" xml:space="preserve">
+    <value>DependencyInjectionBootstrapper.cs</value>
+  </data>
+  <data name="Domain" xml:space="preserve">
+    <value>Domain</value>
+  </data>
+  <data name="DomainEntityFolder" xml:space="preserve">
+    <value>Entities</value>
+  </data>
+  <data name="EndpointFolder" xml:space="preserve">
+    <value>Controllers</value>
+  </data>
+  <data name="EndpointTemplate" xml:space="preserve">
+    <value>EndpointTemplate</value>
+  </data>
+  <data name="EntityDatabaseConfigurationTemplate" xml:space="preserve">
+    <value>EntityDatabaseConfigurationTemplate</value>
+  </data>
+  <data name="EntityFramework" xml:space="preserve">
+    <value>Infrastructure.EntityFramework</value>
+  </data>
+  <data name="EntityTemplate" xml:space="preserve">
+    <value>EntityTemplate</value>
+  </data>
+  <data name="InfrastructureConfigurationFolder" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="InfrastructureDbContext" xml:space="preserve">
+    <value>Context</value>
+  </data>
+  <data name="InfrastructureDependencyInjectionBootstrapperTemplate" xml:space="preserve">
+    <value>InfrastructureDependencyInjectionBootstrapperTemplate</value>
+  </data>
+  <data name="InfrastructureMigrationsFolder" xml:space="preserve">
+    <value>Migrations</value>
+  </data>
+  <data name="InteractorFolder" xml:space="preserve">
+    <value>Interactors</value>
+  </data>
+  <data name="InteractorTemplate" xml:space="preserve">
+    <value>InteractorTemplate</value>
+  </data>
+  <data name="MappingProfileTemplate" xml:space="preserve">
+    <value>MappingProfileTemplate</value>
+  </data>
+  <data name="MigrationHarvesterExtensionFile" xml:space="preserve">
+    <value>migration.harvest</value>
+  </data>
+  <data name="ModelTemplate" xml:space="preserve">
+    <value>ModelTemplate</value>
+  </data>
+  <data name="PresentersFolder" xml:space="preserve">
+    <value>Presenters</value>
+  </data>
+  <data name="PresenterTemplate" xml:space="preserve">
+    <value>PresenterTemplate</value>
+  </data>
+  <data name="Queries" xml:space="preserve">
+    <value>Queries</value>
+  </data>
+  <data name="RepositoryFolder" xml:space="preserve">
+    <value>Repositories</value>
+  </data>
+  <data name="RepositoryTemplate" xml:space="preserve">
+    <value>RepositoryTemplate</value>
+  </data>
+  <data name="RequestModelElementType" xml:space="preserve">
+    <value>RequestModel</value>
+  </data>
+  <data name="RequestModelNamePostfix" xml:space="preserve">
+    <value>RequestModel</value>
+  </data>
+  <data name="RequestModelsFolder" xml:space="preserve">
+    <value>RequestModels</value>
+  </data>
+  <data name="RequestModelTemplate" xml:space="preserve">
+    <value>RequestModelTemplate</value>
+  </data>
+  <data name="TemplateShortName" xml:space="preserve">
+    <value>liquidvisions-expanders-ca</value>
+  </data>
+  <data name="UseCases" xml:space="preserve">
+    <value>UseCases</value>
+  </data>
+  <data name="ValidatorFolder" xml:space="preserve">
+    <value>Validators</value>
+  </data>
+  <data name="ValidatorTemplate" xml:space="preserve">
+    <value>ValidatorTemplate</value>
+  </data>
+  <data name="ViewModelMapperFolder" xml:space="preserve">
+    <value>Mappers</value>
+  </data>
+  <data name="ViewModelMapperTemplate" xml:space="preserve">
+    <value>ViewModelAutoMapperTemplate</value>
+  </data>
+  <data name="ViewModelsFolder" xml:space="preserve">
+    <value>ViewModels</value>
+  </data>
+  <data name="ViewModelTemplate" xml:space="preserve">
+    <value>ViewModelTemplate</value>
+  </data>
+</root>

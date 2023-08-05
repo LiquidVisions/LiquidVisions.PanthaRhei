@@ -1,0 +1,13 @@
+using System;
+using System.Collections.Generic;
+using {{usings}}.Core;
+
+namespace {{name_space}}
+{
+    public class {{model.name}} : IModel
+    {
+        {{~for field in model.fields~}}
+        public {{field.entity_field.data_type.return_type}} {{-if !field.entity_field.data_type.required && field.entity_field.data_type.return_type != 'string'}}?{{end}} {{field.name}} { get; set; }
+        {{~end~}}
+    }
+}
