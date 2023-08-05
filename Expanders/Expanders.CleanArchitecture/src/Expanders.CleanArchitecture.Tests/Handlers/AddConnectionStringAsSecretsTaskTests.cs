@@ -64,7 +64,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             string name = task.Name;
 
             // assert
-            Assert.Equal(nameof(AddConnectionStringAsSecretsTaskTests), name);
+            Assert.Equal(nameof(AddConnectionStringAsSecretsTask), name);
         }
 
         /// <summary>
