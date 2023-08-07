@@ -1,0 +1,59 @@
+{{-
+func GetClassSignature
+begin
+	result = $0.modifier + " " + $0.type + " "
+	if($0.behaviour != null)
+	begin
+		result += $0.behaviour + " "
+	end
+
+	result += $0.name
+
+	ret result;	
+end
+
+func GetPropertySignature
+begin
+	result = $0.modifier + " "
+	if($0.behaviour != null)
+	begin
+		result += $0.behaviour + " "
+	end
+
+	if($0.is_collection)
+	begin
+		result += "List<" + $0.return_type + "> "
+	else
+		result += $0.return_type
+		if(!$0.required && $0.return_type != 'string' && $0.reference == null)
+		begin
+		result += '?'
+		end
+
+		result += ' '
+	end
+
+
+
+	result += $0.name + " { get; set; }"
+
+	ret result;
+end
+-}}
+using System;
+using System.Collections.Generic;
+#region ns-custom-namespaces
+#endregion ns-custom-namespaces
+
+namespace {{entity.callsite}}
+{
+	{{GetClassSignature entity}}
+	{
+		{{~for field in entity.fields | array.sort 'order'~}}
+		{{GetPropertySignature field}}
+		{{~end~}}
+
+		#region ns-custom-fields
+		#endregion ns-custom-fields
+	}
+}

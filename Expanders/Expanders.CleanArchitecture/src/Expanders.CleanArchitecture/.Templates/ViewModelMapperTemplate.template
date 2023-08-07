@@ -1,0 +1,44 @@
+{{-
+func ToTarget
+begin
+    result = '';
+    if($0.reference != null)
+    begin
+        if($0.is_collection)
+        begin
+            result = 'source?.' + $0.name + '?.Select(x => new ' + $0.return_type + 'ViewModelMapper().Map(x)).ToList()'
+            ret result;
+
+        end
+
+        ret 'source.' + $0.name + ' != null ?' + ' new ' + $0.return_type + 'ViewModelMapper().Map(source.' + $0.name + ') : null'
+    end
+    ret 'source.' + $0.name;
+end
+-}}
+using {{component_fullname component 'ViewModels'}};
+using {{component_fullname application_component 'Mappers'}};
+using {{entity.callsite}};
+using System.Linq;
+
+namespace {{component_fullname component 'Mappers'}}
+{
+    public class {{entity.name}}ViewModelMapper : IMapper<{{entity.name}}, {{entity.name}}ViewModel>
+    {
+        public void Map({{entity.name}} source, {{entity.name}}ViewModel target)
+        {
+            {{~for field in entity.fields | array.sort 'order'~}}
+            target.{{field.name}} = {{ToTarget field}};
+            {{~end~}}
+        }
+
+        public {{entity.name}}ViewModel Map({{entity.name}} source)
+        {
+            {{~'\t' + '\t' + '\t' + entity.name}}ViewModel target = new();
+
+            Map(source, target);
+
+            return target;
+        }
+    }
+}

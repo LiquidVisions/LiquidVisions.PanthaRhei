@@ -1,0 +1,29 @@
+{{-
+model_name = action+entity.name+"RequestModel";
+-}}
+using {{component_fullname component 'RequestModels' entity.name | pluralize}};
+using {{entity.callsite}};
+
+namespace {{component_fullname component 'Mappers' entity.name | pluralize}}
+{
+    internal class {{model_name}}Mapper : IMapper<{{model_name}}, {{entity.name}}>
+    {
+        public void Map({{model_name}} source, {{entity.name}} target)
+        {
+            {{~for field in entity.fields  | array.sort 'order'~}}
+            {{~if field.name != "Id"~}}
+            target.{{field.name}} = source.{{field.name}};
+            {{~end~}}
+            {{~end~}}
+        }
+
+        public {{entity.name}} Map({{model_name}} source)
+        {
+            {{entity.name}} target = new();
+
+            Map(source, target);
+
+            return target;
+        }
+    }
+}

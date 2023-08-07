@@ -1,0 +1,11 @@
+
+        private static IServiceCollection Add{{entity.name}}(this IServiceCollection services)
+        {
+            services.AddTransient<ICreateGateway<{{entity.name}}>, {{entity.name}}Repository>();
+            services.AddTransient<IGetGateway<{{entity.name}}>, {{entity.name}}Repository>();
+            services.AddTransient<IGetByIdGateway<{{entity.name}}>, {{entity.name}}Repository>();
+            services.AddTransient<IDeleteGateway<{{entity.name}}>, {{entity.name}}Repository>();
+            services.AddTransient<IUpdateGateway<{{entity.name}}>, {{entity.name}}Repository>();
+
+            return services;
+        }

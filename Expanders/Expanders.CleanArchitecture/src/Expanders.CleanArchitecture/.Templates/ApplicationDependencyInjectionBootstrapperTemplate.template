@@ -1,0 +1,37 @@
+{{
+p = get_postfix 'RequestModel'
+}}
+        private static IServiceCollection Add{{entity.name}}(this IServiceCollection services)
+        {
+            // CREATE {{entity.name | string.upcase}}
+
+            services.AddTransient<IInteractor<Create{{entity.name}}{{p}}>, Create{{entity.name}}Interactor>();
+            services.AddTransient<IBoundary<Create{{entity.name}}{{p}}>, Create{{entity.name}}Boundary>();
+            services.AddTransient<IValidator<Create{{entity.name}}{{p}}>, Create{{entity.name}}Validator>();
+
+            // GET {{entity.pluralized_name | string.upcase}}
+            services.AddTransient<IInteractor<Get{{entity.name | pluralize}}{{p}}>, Get{{entity.name | pluralize}}Interactor>();
+            services.AddTransient<IBoundary<Get{{entity.name | pluralize}}{{p}}>, Get{{entity.name | pluralize}}Boundary>();
+            services.AddTransient<IValidator<Get{{entity.name | pluralize}}{{p}}>, Get{{entity.name | pluralize}}Validator>();
+
+            // GET {{entity.name | string.upcase}}
+            services.AddTransient<IInteractor<Get{{entity.name}}ById{{p}}>, Get{{entity.name}}Interactor>();
+            services.AddTransient<IBoundary<Get{{entity.name}}ById{{p}}>, Get{{entity.name}}ByIdBoundary>();
+            services.AddTransient<IValidator<Get{{entity.name}}ById{{p}}>, Get{{entity.name}}ByIdValidator>();
+
+            // DELETE {{entity.name | string.upcase}}
+            services.AddTransient<IInteractor<Delete{{entity.name}}{{p}}>, Delete{{entity.name}}Interactor>();
+            services.AddTransient<IBoundary<Delete{{entity.name}}{{p}}>, Delete{{entity.name}}Boundary>();
+            services.AddTransient<IValidator<Delete{{entity.name}}{{p}}>, Delete{{entity.name}}Validator>();
+
+            // UPDATE {{entity.name | string.upcase}}
+            services.AddTransient<IInteractor<Update{{entity.name}}{{p}}>, Update{{entity.name}}Interactor>();
+            services.AddTransient<IBoundary<Update{{entity.name}}{{p}}>, Update{{entity.name}}Boundary>();
+            services.AddTransient<IValidator<Update{{entity.name}}{{p}}>, Update{{entity.name}}Validator>();
+
+            // MAPPERS
+            services.AddTransient<IMapper<Create{{entity.name}}{{p}}, {{entity.name}}>, Create{{entity.name}}{{p}}Mapper>();
+            services.AddTransient<IMapper<Update{{entity.name}}{{p}}, {{entity.name}}>, Update{{entity.name}}{{p}}Mapper>();
+
+            return services;
+        }

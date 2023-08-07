@@ -1,0 +1,124 @@
+using System;
+using {{component_fullname component 'Mappers'}};
+using {{component_fullname component 'Presenters' entity.name | pluralize}};
+using {{component_fullname component 'ViewModels'}};
+using {{component_fullname application_component 'RequestModels' entity.name | pluralize}};
+using {{component_fullname application_component 'Boundaries'}};
+using {{component_fullname application_component 'Mappers'}};
+using {{entity.callsite}};
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace {{component_fullname component 'Controllers'}}
+{
+    public static class {{entity.name}}Controller
+    {
+        private static readonly string endpointTemplate = "/{{entity.name | pluralize | string.downcase}}";
+
+        public static IServiceCollection Add{{entity.name}}Elements(this IServiceCollection services)
+        {
+            //services.AddTransient<IMapper<{{entity.name}}, {{entity.name}}ViewModel>, {{entity.name}}ViewModelMapper>();
+            services.AddTransient<ICreate{{entity.name}}Presenter, Create{{entity.name}}Presenter>();
+            services.AddTransient<IGetById{{entity.name}}Presenter, GetById{{entity.name}}Presenter>();
+            services.AddTransient<IGet{{entity.name | pluralize}}Presenter, Get{{entity.name | pluralize}}Presenter>();
+            services.AddTransient<IUpdate{{entity.name}}Presenter, Update{{entity.name}}Presenter>();
+            services.AddTransient<IDelete{{entity.name}}Presenter, Delete{{entity.name}}Presenter>();
+
+            return services;
+        }
+
+        public static void Use{{entity.name}}Endpoints(this WebApplication app)
+        {
+            app.MapCreate{{entity.name}}()
+                .MapGet{{entity.name}}()
+                .MapGet{{entity.name | pluralize}}()
+                .MapUpdate{{entity.name}}()
+                .MapDelete{{entity.name}}();
+        }
+
+        private static WebApplication MapCreate{{entity.name}}(this WebApplication app)
+        {
+            RouteHandlerBuilder builder =  app.MapPost(endpointTemplate, async (Create{{entity.name}}{{get_postfix 'RequestModel'}} model, IBoundary<Create{{entity.name}}{{get_postfix 'RequestModel'}}> boundary, ICreate{{entity.name}}Presenter presenter, HttpRequest request) =>
+            {
+                await boundary.Execute(model, presenter);
+                return presenter.GetResult(request);
+            });
+
+            builder.Produces(StatusCodes.Status201Created, typeof({{entity.name}}ViewModel));
+            builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
+            builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
+            builder.WithTags("{{entity.name | pluralize}}");
+
+            return app;
+        }
+
+        private static WebApplication MapGet{{entity.name}}(this WebApplication app)
+        {
+            RouteHandlerBuilder builder = app.MapGet($"{endpointTemplate}/{%{{{id:Guid}}}%}", async (Guid id, IBoundary<Get{{entity.name}}ByIdRequestModel> boundary, IGetById{{entity.name}}Presenter presenter, HttpRequest request) =>
+            {
+                await boundary.Execute(new Get{{entity.name}}ByIdRequestModel { Id = id }, presenter);
+                return presenter.GetResult(request);
+            });
+            
+            builder.Produces(StatusCodes.Status200OK, typeof({{entity.name}}ViewModel));
+            builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
+            builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
+            builder.WithTags("{{entity.name | pluralize}}");
+
+            return app;
+        }
+
+        private static WebApplication MapGet{{entity.name | pluralize}}(this WebApplication app)
+        {
+            RouteHandlerBuilder builder = app.MapGet(endpointTemplate, async (IBoundary<Get{{entity.name | pluralize}}{{get_postfix 'RequestModel'}}> boudary, IGet{{entity.name | pluralize}}Presenter presenter, HttpRequest request) =>
+            {
+                await boudary.Execute(new Get{{entity.name | pluralize}}{{get_postfix 'RequestModel'}}(), presenter);
+                return presenter.GetResult(request);
+            });
+
+            builder.Produces(StatusCodes.Status200OK, typeof({{entity.name}}ViewModel[]));
+            builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
+            builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
+            builder.WithTags("{{entity.name | pluralize}}");
+
+            return app;
+        }
+
+        private static WebApplication MapUpdate{{entity.name}}(this WebApplication app)
+        {
+            RouteHandlerBuilder builder = app.MapPut(endpointTemplate, async (Update{{entity.name}}{{get_postfix 'RequestModel'}} model, IBoundary<Update{{entity.name}}{{get_postfix 'RequestModel'}}> boundary, IUpdate{{entity.name}}Presenter presenter, HttpRequest request) =>
+            {
+                await boundary.Execute(model, presenter);
+                return presenter.GetResult(request);
+            });
+
+            builder.Produces(StatusCodes.Status200OK, typeof({{entity.name}}ViewModel));
+            builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
+            builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
+            builder.WithTags("{{entity.name | pluralize}}");
+
+            return app;
+        }
+
+        private static WebApplication MapDelete{{entity.name}}(this WebApplication app)
+        {
+            RouteHandlerBuilder builder = app.MapDelete($"{endpointTemplate}/{%{{{id:Guid}}}%}", async (Guid id, IBoundary<Delete{{entity.name}}{{get_postfix 'RequestModel'}}> boundary, IDelete{{entity.name}}Presenter presenter, HttpRequest request) =>
+            {
+                await boundary.Execute(new Delete{{entity.name}}{{get_postfix 'RequestModel'}} { Id = id }, presenter);
+                return presenter.GetResult(request);
+            });
+
+            builder.Produces(StatusCodes.Status200OK, typeof({{entity.name}}ViewModel));
+            builder.Produces(StatusCodes.Status500InternalServerError, typeof(ErrorViewModel));
+            builder.Produces(StatusCodes.Status400BadRequest, typeof(ErrorViewModel));
+            builder.Produces(StatusCodes.Status404NotFound, typeof(ErrorViewModel));
+            builder.WithTags("{{entity.name | pluralize}}");
+
+            return app;
+        }
+
+        #region ns-custom-endpoint
+        #endregion ns-custom-endpoint
+    }
+}

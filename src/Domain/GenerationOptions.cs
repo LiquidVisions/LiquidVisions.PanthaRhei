@@ -82,10 +82,12 @@ namespace LiquidVisions.PanthaRhei.Domain
             sb.Append("CommandParameters")
                 .AppendLine(" { ");
 
-            GetType()
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .ToList()
-                .ForEach(property => sb.AppendLine($" \"{property.Name}\": \"{property.GetValue(this)}\", "));
+            var list = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach(var property in list)
+            {
+                sb.AppendLine($" \"{property.Name}\": \"{property.GetValue(this)}\", ");
+            }
 
             sb.AppendLine("}");
 
