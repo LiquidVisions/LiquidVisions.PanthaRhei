@@ -6,6 +6,7 @@ on:
 
 env:
   CLEANARCHITECTURE_PATH: .\Expanders\Expanders.CleanArchitecture\
+  NUGET_URL: https://nuget.pkg.github.com/liquidvisions/index.json
 
 jobs:
   
@@ -39,6 +40,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 7.0.x
+        source-url: ${{ env.NUGET_URL }}
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
     - name: Restore dependencies
       run: dotnet restore ${{env.CLEANARCHITECTURE_PATH}}
