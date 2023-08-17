@@ -2,17 +2,20 @@
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class Seeder : ISeeder
     {
+        private readonly IMigrationService migrationService;
         private readonly GenerationOptions options;
         private readonly List<IEntitySeeder<App>> seeders;
 
         public Seeder(IDependencyFactory dependencyFactory)
         {
+            migrationService = dependencyFactory.Get<IMigrationService>();
             options = dependencyFactory.Get<GenerationOptions>();
             seeders = dependencyFactory.GetAll<IEntitySeeder<App>>().ToList();
         }
@@ -21,6 +24,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public void Execute()
         {
+            migrationService.Migrate();
+
             App app = new();
 
             foreach (var seeder in seeders.OrderBy(x => x.ResetOrder))

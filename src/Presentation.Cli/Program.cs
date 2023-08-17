@@ -25,26 +25,22 @@ var dbOption = cmd.Option(
 var appOption = cmd.Option(
     "--app",
     "The id of the app.",
-    CommandOptionType.SingleValue)
-    .IsRequired();
+    CommandOptionType.SingleValue);
 
 var runModeOption = cmd.Option(
     "--mode",
     "The run mode determines the expander and handers that will be executed.",
-    CommandOptionType.SingleValue)
-    .IsRequired();
+    CommandOptionType.SingleValue);
 
 var cleanModeOption = cmd.Option<bool>(
     "--clean",
     "Deletes and discards all previous runs",
-    CommandOptionType.SingleOrNoValue)
-    .IsRequired();
+    CommandOptionType.SingleOrNoValue);
 
 var reseed = cmd.Option<bool>(
     "--reseed",
     "Reinitialze current model based",
-    CommandOptionType.SingleOrNoValue)
-    .IsRequired();
+    CommandOptionType.SingleOrNoValue);
 
 cmd.OnExecute(() =>
 {
