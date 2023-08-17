@@ -10,6 +10,9 @@ using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchi
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructure
 {
+    /// <summary>
+    /// Tests for <seealso cref="ExpandRepositoryTask"/>.
+    /// </summary>
     public class ExpandRepositoryHandlerInteractorTests
     {
         private readonly ExpandRepositoryTask handler;
@@ -17,6 +20,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
         private readonly CleanArchitectureFakes fakes = new ();
         private readonly List<Entity> allEntities;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpandRepositoryHandlerInteractorTests"/> class.
+        /// </summary>
         public ExpandRepositoryHandlerInteractorTests()
         {
             allEntities = fakes.GetValidEntities();
@@ -26,6 +32,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             outputFolder = Path.Combine(fakes.CleanArchitectureExpander.Object.GetComponentOutputFolder(fakes.InfrastructureComponent.Object), CleanArchitectureResources.RepositoryFolder);
         }
 
+        /// <summary>
+        /// Tests dependencies on <seealso cref="ExpandRepositoryTask"/>.
+        /// </summary>
         [Fact]
         public void Constructor_ShouldValidate()
         {
@@ -38,6 +47,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
+        /// <summary>
+        /// Tests <seealso cref="ExpandRepositoryTask.Order"/>.
+        /// </summary>
         [Fact]
         public void Order_ShouldValidate()
         {
@@ -47,6 +59,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             Assert.Equal(11, handler.Order);
         }
 
+        /// <summary>
+        /// Tests <seealso cref="ExpandRepositoryTask.Name"/>.
+        /// </summary>
         [Fact]
         public void Name_ShouldBeEqual()
         {
@@ -56,6 +71,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             Assert.Equal(nameof(ExpandRepositoryTask), handler.Name);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpandRepositoryTask.Enabled"/>.
+        /// </summary>
+        /// <param name="mode"><seealso cref="GenerationModes"/>.</param>
+        /// <param name="expectedResult">Indicates the expected result.</param>
         [Theory]
         [InlineData(GenerationModes.Default, true)]
         [InlineData(GenerationModes.Migrate, false)]
@@ -72,6 +92,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             Assert.Equal(expectedResult, handler.Enabled);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpandRepositoryTask.Enabled"/> 2nd scenario.
+        /// </summary>
+        /// <param name="clean">Indicates if the task should clean.</param>
+        /// <param name="expectedResult">Indicates the expected result.</param>
         [Theory]
         [InlineData(false, true)]
         [InlineData(true, true)]
@@ -86,6 +111,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             Assert.Equal(expectedResult, handler.Enabled);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpandRepositoryTask.Execute"/>
+        /// </summary>
         [Fact]
         public void Execute_ShouldCreateAndSaveTemplate()
         {

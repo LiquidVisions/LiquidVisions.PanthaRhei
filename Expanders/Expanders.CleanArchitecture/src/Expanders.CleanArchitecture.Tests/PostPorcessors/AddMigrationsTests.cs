@@ -5,17 +5,28 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.PostPorcessors
 {
+    /// <summary>
+    /// Tests for <seealso cref="AddMigrations"/>.
+    /// </summary>
     public class AddMigrationsTests
     {
         private readonly CleanArchitectureFakes fakes = new ();
         private readonly AddMigrations interactor;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddMigrationsTests"/> class.
+        /// </summary>
         public AddMigrationsTests()
         {
             fakes.MockCleanArchitectureExpander();
-            interactor = new(fakes.IDependencyFactory.Object);
+            interactor = new (fakes.IDependencyFactory.Object);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="AddMigrations.Enabled"/>
+        /// </summary>
+        /// <param name="modes"><seealso cref="GenerationModes"/>.</param>
+        /// <param name="canExecuteResult">expected result.</param>
         [Theory]
         [InlineData(GenerationModes.None, false)]
         [InlineData(GenerationModes.Default, false)]
@@ -39,6 +50,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.PostPorcessors
             Assert.Equal(canExecuteResult, result);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="AddMigrationsTests.Execute()"/>.
+        /// </summary>
         [Fact]
         public void Execute()
         {

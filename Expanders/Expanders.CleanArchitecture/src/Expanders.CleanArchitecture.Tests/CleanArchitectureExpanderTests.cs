@@ -15,17 +15,26 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
 {
+    /// <summary>
+    /// Test for the <seealso cref="CleanArchitectureExpander"/>.
+    /// </summary>
     public class CleanArchitectureExpanderTests
     {
         private readonly CleanArchitectureFakes fakes = new ();
         private readonly CleanArchitectureExpander expander;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CleanArchitectureExpanderTests"/> class.
+        /// </summary>
         public CleanArchitectureExpanderTests()
         {
             fakes.MockCleanArchitectureExpander(fakes.GetValidEntities());
             expander = new CleanArchitectureExpander(fakes.IDependencyFactory.Object);
         }
 
+        /// <summary>
+        /// Dependency tests.
+        /// </summary>
         [Fact]
         public void Dependencies_ShouldBeResolved()
         {
@@ -41,6 +50,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             Assert.Same(fakes.CleanArchitectureExpanderModel.Object.GetType(), expander.Model.GetType());
         }
 
+        /// <summary>
+        /// Testing the name of the <seealso cref="CleanArchitectureExpander"/>
+        /// </summary>
         [Fact]
         public void Name_ShouldBeSame()
         {
@@ -50,6 +62,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             Assert.Equal("CleanArchitecture", expander.Name);
         }
 
+        /// <summary>
+        /// Testing the order of the <seealso cref="CleanArchitectureExpander"/>.
+        /// </summary>
         [Fact]
         public void Order_ShouldEqual()
         {
@@ -62,6 +77,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             Assert.Equal(2, expander.Order);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.GetHandlers().
+        /// </summary>
         [Fact]
         public void GetHandlers_ShouldVerify()
         {
@@ -73,6 +91,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             fakes.IDependencyFactory.Verify(x => x.GetAll<IExpanderTask<CleanArchitectureExpander>>(), Times.Once);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.GetHarvesters().
+        /// </summary>
         [Fact]
         public void GetHarvesters_ShouldVerify()
         {
@@ -84,6 +105,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             fakes.IDependencyFactory.Verify(x => x.GetAll<IHarvester<CleanArchitectureExpander>>(), Times.Once);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.GetPostProcessors().
+        /// </summary>
         [Fact]
         public void GetPostProcessor_ShouldVerify()
         {
@@ -95,6 +119,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             fakes.IDependencyFactory.Verify(x => x.GetAll<IPostProcessor<CleanArchitectureExpander>>(), Times.Once);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.GetPreProcessors().
+        /// </summary>
         [Fact]
         public void GetPreProcessor_ShouldVerify()
         {
@@ -106,6 +133,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             fakes.IDependencyFactory.Verify(x => x.GetAll<IPreProcessor<CleanArchitectureExpander>>(), Times.Once);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.GetRejuvenators().
+        /// </summary>
         [Fact]
         public void GetRejuvenators_ShouldVerify()
         {
@@ -117,6 +147,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             fakes.IDependencyFactory.Verify(x => x.GetAll<IRejuvenator<CleanArchitectureExpander>>(), Times.Once);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.Expand().
+        /// </summary>
         [Fact]
         public void Expand_ShouldVerify()
         {
@@ -134,6 +167,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             mockExpander.Verify(x => x.Execute());
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.Harvest().
+        /// </summary>
         [Fact]
         public void Harvest_ShouldVerify()
         {
@@ -151,6 +187,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             mockExpander.Verify(x => x.Execute());
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.Rejuvenate().
+        /// </summary>
         [Fact]
         public void Rejuvenate_ShouldVerify()
         {
@@ -168,6 +207,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             mockExpander.Verify(x => x.Execute());
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.PreProcess().
+        /// </summary>
         [Fact]
         public void PreProcess_ShouldVerify()
         {
@@ -185,6 +227,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             mockExpander.Verify(x => x.Execute());
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander"/>.PostProcess().
+        /// </summary>
         [Fact]
         public void PostProcess_ShouldVerify()
         {
@@ -202,6 +247,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             mockExpander.Verify(x => x.Execute());
         }
 
+        /// <summary>
+        /// Testing <seealso cref="CleanArchitectureExpander.Clean()"/>.
+        /// </summary>
         [Fact]
         public void Clean_ShouldCleanUserSecrets()
         {

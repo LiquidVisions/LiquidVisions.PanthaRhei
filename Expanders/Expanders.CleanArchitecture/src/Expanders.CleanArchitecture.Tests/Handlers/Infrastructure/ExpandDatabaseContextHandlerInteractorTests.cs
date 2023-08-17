@@ -10,17 +10,26 @@ using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchi
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructure
 {
+    /// <summary>
+    /// Tests for <seealso cref="ExpandDatabaseContextTask"/>.
+    /// </summary>
     public class ExpandDatabaseContextHandlerInteractorTests
     {
         private readonly ExpandDatabaseContextTask handler;
         private readonly CleanArchitectureFakes fakes = new ();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpandDatabaseContextHandlerInteractorTests"/> class.
+        /// </summary>
         public ExpandDatabaseContextHandlerInteractorTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
+            handler = new (fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
+        /// <summary>
+        /// Tests dependencies used on <seealso cref="ExpandDatabaseContextTask"/>.
+        /// </summary>
         [Fact]
         public void Constructor_ShouldValidate()
         {
@@ -33,6 +42,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpandDatabaseContextTask.Order"/>.
+        /// </summary>
         [Fact]
         public void Order_ShouldValidate()
         {
@@ -42,6 +54,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
             Assert.Equal(9, handler.Order);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Fact]
         public void Name_ShouldBeEqual()
         {

@@ -1,15 +1,17 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using Moq;
 using Xunit;
-using LiquidVisions.PanthaRhei.Domain.Usecases;
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
 {
+    /// <summary>
+    /// Test for <seealso cref="ExpandAppSettingsTask"/>.
+    /// </summary>
     public class ExpandAppSettingsHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new ();
@@ -39,6 +41,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
   }
 }";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpandAppSettingsHandlerInteractorTests"/> class.
+        /// </summary>
         public ExpandAppSettingsHandlerInteractorTests()
         {
             fakes.IFile.Setup(x => x.ReadAllText(It.IsAny<string>())).Returns(json);
@@ -46,6 +51,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             handler = new ExpandAppSettingsTask(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
+        /// <summary>
+        /// Dependency tests
+        /// </summary>
         [Fact]
         public void Constructor_ShouldValidate()
         {
@@ -59,6 +67,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpandAppSettingsTask.Order"/>.
+        /// </summary>
         [Fact]
         public void Order_ShouldValidate()
         {
@@ -68,6 +79,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(13, handler.Order);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpandAppSettingsTask.Name"/>.
+        /// </summary>
         [Fact]
         public void Name_ShouldBeEqual()
         {
@@ -77,6 +91,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(nameof(ExpandAppSettingsTask), handler.Name);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpandAppSettingsTask.Enabled"/>.
+        /// </summary>
+        /// <param name="mode"><seealso cref="GenerationModes"/> to tests</param>
+        /// <param name="expectedResult">The expected result</param>
         [Theory]
         [InlineData(GenerationModes.Default, true)]
         [InlineData(GenerationModes.Migrate, false)]
@@ -93,6 +112,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(expectedResult, handler.Enabled);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpandAppSettingsTask.Execute()"/>.
+        /// </summary>
         [Fact]
         public void Execute_ShouldAddConnectionStringToAppSettings_ShouldVerify()
         {

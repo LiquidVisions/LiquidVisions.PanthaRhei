@@ -1,29 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
+using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api;
 using Moq;
 using Xunit;
 using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Resources;
-using LiquidVisions.PanthaRhei.Domain.Usecases;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
 {
+    /// <summary>
+    /// Tests for <seealso cref="ExpandEndpointsTask"/>.
+    /// </summary>
     public class ExpandEndpointsHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new ();
         private readonly ExpandEndpointsTask handler;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpandEndpointsHandlerInteractorTests"/> class.
+        /// </summary>
         public ExpandEndpointsHandlerInteractorTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
             handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
+        /// <summary>
+        /// Testsing dependencies.
+        /// </summary>
         [Fact]
         public void Constructor_ShouldValidate()
         {
@@ -38,6 +47,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
         }
 
+        /// <summary>
+        /// Testing <seealso cref="ExpandEndpointsTask.Order"/>.
+        /// </summary>
         [Fact]
         public void Order_ShouldValidate()
         {
@@ -47,6 +59,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(16, handler.Order);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="ExpandEndpointsTask.Name"/>.
+        /// </summary>
         [Fact]
         public void Name_ShouldBeEqual()
         {
@@ -56,6 +71,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(nameof(ExpandEndpointsTask), handler.Name);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="ExpandEndpointsTask.Enabled"/>.
+        /// </summary>
+        /// <param name="mode"><seealso cref="GenerationModes"/></param>
+        /// <param name="expectedResult">expected result.</param>
         [Theory]
         [InlineData(GenerationModes.Default, true)]
         [InlineData(GenerationModes.Migrate, false)]
@@ -72,6 +92,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(expectedResult, handler.Enabled);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="ExpandEndpointsTask.Enabled"/> in combination with clean option.
+        /// </summary>
+        /// <param name="clean">value that determines the clean parameter in the <seealso cref="GenerationOptions"/>.</param>
+        /// <param name="expectedResult">expected result.</param>
         [Theory]
         [InlineData(false, true)]
         [InlineData(true, true)]
@@ -86,6 +111,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(expectedResult, handler.Enabled);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="ExpandEndpointsTask.Execute"/>.
+        /// </summary>
         [Fact]
         public void Execute_ShouldRenderAndSaveTemplate()
         {
@@ -113,6 +141,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             fakes.ITemplate.Verify(x => x.RenderAndSave(expextedFullPathToTemplate, It.Is<object>(x => x.GetHashCode() == expectedTemplateParameters.GetHashCode()), expectedPathToWrite), Times.Once);
         }
 
+        /// <summary>
+        /// Testing <seealso cref="ExpandEndpointsTask.Execute"/>.
+        /// </summary>
         [Fact]
         public void Execute_ShouldModifyBootstrapperFile()
         {
