@@ -12,19 +12,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230106220853_AddedConnectionStrings")]
-    partial class AddedConnectionStrings
+    [Migration("20230817125052_InitialMigrationTest")]
+    partial class InitialMigrationTest
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-            SqlServerModelBuilderExtensions.HasServiceTierSql(modelBuilder, "'Basic'");
 
             modelBuilder.Entity("AppExpander", b =>
                 {
@@ -196,6 +195,16 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
                     b.Property<bool>("IsCollection")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsKey")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Modifier")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -216,11 +225,17 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
                     b.Property<Guid?>("ReferenceId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Required")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ReturnType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SetModifier")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Size")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -253,6 +268,50 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("ComponentId");
 
                     b.ToTable("Packages");
+                });
+
+            modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Relationship", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Cardinality")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<Guid>("EntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("KeyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Required")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("WithCardinality")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<Guid>("WithForeignEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("WithForeignEntityKeyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntityId");
+
+                    b.HasIndex("KeyId");
+
+                    b.HasIndex("WithForeignEntityId");
+
+                    b.HasIndex("WithForeignEntityKeyId");
+
+                    b.ToTable("Relationships");
                 });
 
             modelBuilder.Entity("AppExpander", b =>
@@ -327,6 +386,41 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
                     b.Navigation("Component");
                 });
 
+            modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Relationship", b =>
+                {
+                    b.HasOne("LiquidVisions.PanthaRhei.Domain.Entities.Entity", "Entity")
+                        .WithMany("Relations")
+                        .HasForeignKey("EntityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("LiquidVisions.PanthaRhei.Domain.Entities.Field", "Key")
+                        .WithMany("RelationshipKeys")
+                        .HasForeignKey("KeyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("LiquidVisions.PanthaRhei.Domain.Entities.Entity", "WithForeignEntity")
+                        .WithMany("IsForeignEntityOf")
+                        .HasForeignKey("WithForeignEntityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("LiquidVisions.PanthaRhei.Domain.Entities.Field", "WithForeignEntityKey")
+                        .WithMany("IsForeignEntityKeyOf")
+                        .HasForeignKey("WithForeignEntityKeyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Entity");
+
+                    b.Navigation("Key");
+
+                    b.Navigation("WithForeignEntity");
+
+                    b.Navigation("WithForeignEntityKey");
+                });
+
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.App", b =>
                 {
                     b.Navigation("ConnectionStrings");
@@ -343,12 +437,23 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
                 {
                     b.Navigation("Fields");
 
+                    b.Navigation("IsForeignEntityOf");
+
                     b.Navigation("ReferencedIn");
+
+                    b.Navigation("Relations");
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Expander", b =>
                 {
                     b.Navigation("Components");
+                });
+
+            modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Field", b =>
+                {
+                    b.Navigation("IsForeignEntityKeyOf");
+
+                    b.Navigation("RelationshipKeys");
                 });
 #pragma warning restore 612, 618
         }
