@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230817125052_InitialMigrationTest")]
-    partial class InitialMigrationTest
+    [Migration("20230818081555_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

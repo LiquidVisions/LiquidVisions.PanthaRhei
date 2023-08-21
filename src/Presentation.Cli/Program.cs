@@ -37,9 +37,14 @@ var cleanModeOption = cmd.Option<bool>(
     "Deletes and discards all previous runs",
     CommandOptionType.SingleOrNoValue);
 
-var reseed = cmd.Option<bool>(
-    "--reseed",
-    "Reinitialze current model based",
+var seed = cmd.Option<bool>(
+    "--seed",
+    "Sets a value indicating whether the database should be seeded with the data of the meta model",
+    CommandOptionType.SingleOrNoValue);
+
+var migrate = cmd.Option<bool>(
+    "--migrate",
+    "Sets a value indicating whether the database schema should be attempted to update.",
     CommandOptionType.SingleOrNoValue);
 
 cmd.OnExecute(() =>
@@ -47,7 +52,8 @@ cmd.OnExecute(() =>
     ExpandOptionsRequestModel requestModel = new()
     {
         AppId = Guid.Parse(appOption.Value()),
-        ReSeed = reseed.HasValue(),
+        Migrate = migrate.HasValue(),
+        Seed = seed.HasValue(),
         Root = rootOption.Value(),
         Clean = cleanModeOption.HasValue(),
         GenerationMode = runModeOption.Value(),

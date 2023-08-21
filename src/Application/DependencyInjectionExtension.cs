@@ -37,7 +37,8 @@ namespace LiquidVisions.PanthaRhei.Application
                 Modes = requestModel.GenerationMode != null ? Enum.Parse<GenerationModes>(requestModel.GenerationMode) : GenerationModes.None,
                 HarvestFolder = requestModel.HarvestFolder,
                 OutputFolder = requestModel.OutputFolder,
-                ReSeed = requestModel.ReSeed,
+                Seed = requestModel.Seed,
+                Migrate = requestModel.Migrate,
                 Root = requestModel.Root,
             };
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrationTest : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

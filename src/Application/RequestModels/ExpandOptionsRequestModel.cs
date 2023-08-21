@@ -14,14 +14,19 @@ namespace LiquidVisions.PanthaRhei.Application.RequestModels
         public virtual Guid AppId { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the database schema should be attempted to update.
+        /// </summary>
+        public virtual bool Migrate { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets a value indicating whether the output needs to be cleaned.
         /// </summary>
         public virtual bool Clean { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether the output needs to be cleaned.
+        /// Gets or sets a value indicating whether the database should be seeded with the data of the meta model.
         /// </summary>
-        public virtual bool ReSeed { get; set; } = false;
+        public virtual bool Seed { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the name of the connectionstring.
