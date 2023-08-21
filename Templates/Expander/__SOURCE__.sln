@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expanders.__SOURCE__", "src\Expanders.__SOURCE__\Expanders.__SOURCE__.csproj", "{D79E77B2-143C-427C-A014-A9C1D25DCC70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__SOURCE__", "src\__SOURCE__\__SOURCE__.csproj", "{D79E77B2-143C-427C-A014-A9C1D25DCC70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expanders.__SOURCE__.Tests", "src\Expanders.__SOURCE__.Tests\Expanders.__SOURCE__.Tests.csproj", "{5ED17F83-C24F-4DB7-8E5D-9E0726065A5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__SOURCE__.Tests", "src\__SOURCE__.Tests\__SOURCE__.Tests.csproj", "{5ED17F83-C24F-4DB7-8E5D-9E0726065A5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

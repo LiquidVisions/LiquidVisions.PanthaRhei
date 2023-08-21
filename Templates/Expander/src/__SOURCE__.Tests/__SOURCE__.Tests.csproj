@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<AssemblyName>__PREFIX__.Expanders.__SOURCE__.Tests</AssemblyName>
-		<RootNamespace>__PREFIX__.Expanders.__SOURCE__.Tests</RootNamespace>
+		<AssemblyName>__PREFIX____SOURCE__.Tests</AssemblyName>
+		<RootNamespace>__PREFIX____SOURCE__.Tests</RootNamespace>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
@@ -40,7 +40,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Expanders.__SOURCE__\Expanders.__SOURCE__.csproj" />
+		<ProjectReference Include="..\..\src\__SOURCE__\__SOURCE__.csproj" />
 	</ItemGroup>
 
 </Project>

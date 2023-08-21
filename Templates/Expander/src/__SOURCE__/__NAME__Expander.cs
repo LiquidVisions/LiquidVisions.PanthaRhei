@@ -1,7 +1,7 @@
 ﻿using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using System;
 
-namespace __PREFIX__.Expanders.__SOURCE__
+namespace __PREFIX____SOURCE__
 {
     /// <summary>
     /// A Custom expander implementing <seealso cref="AbstractExpander{__NAME__Expander}" />.

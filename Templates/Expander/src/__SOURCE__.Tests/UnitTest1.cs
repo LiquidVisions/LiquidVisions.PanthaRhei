@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace __PREFIX__.Expanders.__SOURCE__.Tests
+namespace __PREFIX____SOURCE__.Tests
 {
     public class UnitTest1
     {

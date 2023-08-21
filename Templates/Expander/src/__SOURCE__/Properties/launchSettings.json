@@ -1,0 +1,36 @@
+{
+  "profiles": {
+    "flux-Default": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --clean --mode \"Default, Rejuvenate, Run\" --app \"__MODEL_ID__\" --db \"__DATABASE_NAME__\""
+    },
+    "flux-Harvest": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --mode \"Harvest\" --app \"__MODEL_ID__\" --db \"__DATABASE_NAME__\""
+    },
+    "flux-Deploy": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --model --mode \"Deploy\" --app \"__MODEL_ID__\" --db \"__DATABASE_NAME__\""
+    },
+    "flux-Migrate": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --mode \"Migrate\" --app \"__MODEL_ID__\" --db \"__DATABASE_NAME__\""
+    },
+    "flux-Extend": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --mode \"Extend, Rejuvenate\" --app \"__MODEL_ID__\" --db \"__DATABASE_NAME__\""
+    },
+    "flux-Seed": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --seed --app \"__MODEL_ID__\" --db \"__DATABASE_NAME__\""
+    },
+    "flux-migrate": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --migrate --app \"__MODEL_ID__\" --db \"__DATABASE_NAME__\""
+    },
+    "flux-migrateAndSeed": {
+      "commandName": "Project",
+      "commandLineArgs": "--root \"C:\\Dev\\PanthaRhei.Output\" --seed --migrate --app \"__MODEL_ID__\" --db \"__DATABASE_NAME__\""
+    }
+  }
+}
