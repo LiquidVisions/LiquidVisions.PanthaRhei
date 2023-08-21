@@ -25,3 +25,8 @@ To install, make sure you have a valid token to access the private github reposi
 dotnet nuget add source https://nuget.pkg.github.com/liquidvisions/index.json --name github --password <<password here>> --username <<username here>>
 Now add PanthaRhei as a dotnet tool, making it available using the flux command.
 -->
+
+<!--
+COMMAND TO INSTALL NEW DOTNET TEMPLATES:
+	- dotnet new install C:\Dev\LiquidVisions.PanthaRhei\Templates\Expander --force
+-->
