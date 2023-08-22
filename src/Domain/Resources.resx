@@ -141,6 +141,9 @@
   <data name="RegionHarvesterExtensionFile" xml:space="preserve">
     <value>region.harvest</value>
   </data>
+  <data name="TemplatesFolder" xml:space="preserve">
+    <value>.Templates</value>
+  </data>
   <data name="Test" xml:space="preserve">
     <value>test</value>
   </data>

@@ -90,8 +90,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly)
-                .HasServiceTier("Basic");
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
 }

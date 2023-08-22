@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Preprocessors
         /// </summary>
         public override void Execute()
         {
-            string templatePath = Path.Combine(Options.ExpandersFolder, Expander.Model.Name, Expander.Model.TemplateFolder);
+            string templatePath = Path.Combine(Options.ExpandersFolder, Expander.Model.Name, Resources.TemplatesFolder);
 
             if (DirectoryService.Exists(templatePath))
             {

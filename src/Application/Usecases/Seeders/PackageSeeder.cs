@@ -35,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             foreach (Component component in app.Expanders.SelectMany(x => x.Components))
             {
-                string templatePath = Path.Combine(options.ExpandersFolder, component.Expander.Name, component.Expander.TemplateFolder);
+                string templatePath = Path.Combine(options.ExpandersFolder, component.Expander.Name, Resources.TemplatesFolder);
                 if (directoryService.Exists(templatePath))
                 {
                     HandleTemplate(component, templatePath);

@@ -43,7 +43,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         /// <inheritdoc/>
         public void LoadAllRegisteredPluginsAndBootstrap(App app)
         {
-            foreach (Expander expander in app.Expanders)
+            foreach (Expander expander in app.Expanders.Where(x => x.Enabled))
             {
                 logger.Info($"===Loading Expander {expander.Name}===");
 

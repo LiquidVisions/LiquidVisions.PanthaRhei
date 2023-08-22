@@ -17,11 +17,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-            SqlServerModelBuilderExtensions.HasServiceTierSql(modelBuilder, "'Basic'");
 
             modelBuilder.Entity("AppExpander", b =>
                 {
@@ -160,14 +159,14 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
-
-                    b.Property<string>("TemplateFolder")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

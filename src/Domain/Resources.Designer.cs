@@ -133,6 +133,15 @@ namespace LiquidVisions.PanthaRhei.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .Templates.
+        /// </summary>
+        public static string TemplatesFolder {
+            get {
+                return ResourceManager.GetString("TemplatesFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to test.
         /// </summary>
         public static string Test {

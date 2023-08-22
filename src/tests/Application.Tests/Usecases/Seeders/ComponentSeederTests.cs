@@ -11,6 +11,9 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
 {
+    /// <summary>
+    /// Tests for the <seealso cref="ComponentSeeder"/>.
+    /// </summary>
     public class ComponentSeederTests
     {
         private readonly Fakes fakes = new();
@@ -26,6 +29,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             interactor = new ComponentSeeder(fakes.IDependencyFactory.Object);
         }
 
+        /// <summary>
+        /// Dependency tests.
+        /// </summary>
         [Fact]
         public void Constructor_ShouldVerifyDependencies()
         {
@@ -41,6 +47,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ComponentSeeder.SeedOrder"/>.
+        /// </summary>
         [Fact]
         public void SeedOrder_ShouldBe1()
         {
@@ -50,6 +59,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Assert.Equal(3, interactor.SeedOrder);
         }
 
+
+        /// <summary>
+        /// Test for <seealso cref="ComponentSeeder.ResetOrder"/>.
+        /// </summary>
         [Fact]
         public void ResetOrder_ShouldBe1()
         {
@@ -59,6 +72,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Assert.Equal(3, interactor.ResetOrder);
         }
 
+
+        /// <summary>
+        /// Test for <seealso cref="ComponentSeeder.Reset"/>.
+        /// </summary>
         [Fact]
         public void Reset_ShouldVerify()
         {
@@ -70,19 +87,23 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
+
+        /// <summary>
+        /// Test for <seealso cref="ComponentSeeder.Seed(App)"/> edge case scenario.
+        /// </summary>
         [Fact]
         public void Execute_ExpanderFolderDoesNotExist_ShouldNotCreate()
         {
             // arrange
-            Expander expander1 = new() { Name = "Expander1", TemplateFolder = ".Templates" };
-            Expander expander2 = new() { Name = "Expander2", TemplateFolder = ".Templates" };
+            Expander expander1 = new() { Name = "Expander1", Enabled = true };
+            Expander expander2 = new() { Name = "Expander2", Enabled = true };
             App app = new()
             {
                 Expanders = new List<Expander> { expander1, expander2, },
             };
 
-            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, expander1.TemplateFolder);
-            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, expander2.TemplateFolder);
+            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
+            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
 
             fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(false);
             fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(false);
@@ -97,19 +118,22 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Never);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ComponentSeeder.Seed(App)"/> happyflow.
+        /// </summary>
         [Fact]
         public void Execute_HappyFlow_ShouldVerify()
         {
             // arrange
-            Expander expander1 = new() { Name = "Expander1", TemplateFolder = ".Templates" };
-            Expander expander2 = new() { Name = "Expander2", TemplateFolder = ".Templates" };
+            Expander expander1 = new() { Name = "Expander1", Enabled = true };
+            Expander expander2 = new() { Name = "Expander2", Enabled = true };
             App app = new()
             {
                 Expanders = new List<Expander> { expander1, expander2, },
             };
 
-            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, expander1.TemplateFolder);
-            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, expander2.TemplateFolder);
+            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
+            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
 
             fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(true);
             fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(true);

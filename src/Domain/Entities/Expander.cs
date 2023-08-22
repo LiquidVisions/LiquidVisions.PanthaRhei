@@ -19,9 +19,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         public virtual string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the template folder of the <seealso cref="Expander"/>.
+        /// Gets or sets a value indicating whether the expander is enabled.
         /// </summary>
-        public virtual string TemplateFolder { get; set; }
+        public virtual bool Enabled { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the order where the expander is executed in.

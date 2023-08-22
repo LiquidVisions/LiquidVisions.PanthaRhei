@@ -12,6 +12,9 @@ using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchi
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
 {
+    /// <summary>
+    /// Tests for <seealso cref="MigrationHarvester"/>.
+    /// </summary>
     public class MigrationHarvesterInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new ();
@@ -19,6 +22,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
         private readonly string expectedMigrationsFolder;
         private readonly Mock<ICreateRepository<Harvest>> mockedICreateGateWay = new ();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MigrationHarvesterInteractorTests"/> class.
+        /// </summary>
         public MigrationHarvesterInteractorTests()
         {
             fakes.MockCleanArchitectureExpander();
@@ -29,6 +35,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
             expectedMigrationsFolder = System.IO.Path.Combine(fakes.GenerationOptions.Object.OutputFolder, CleanArchitectureResources.InfrastructureMigrationsFolder);
         }
 
+        /// <summary>
+        /// Dependency Tests.
+        /// </summary>
         [Fact]
         public void Constructor_ShouldResolve()
         {
@@ -43,6 +52,12 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
             fakes.IDependencyFactory.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="MigrationHarvester.Enabled"/>.
+        /// </summary>
+        /// <param name="modes"><seealso cref="GenerationModes"/>.</param>
+        /// <param name="folderExists">Indicates if the folder exists.</param>
+        /// <param name="canExecuteResult">Indicates if the result can be executed.</param>
         [Theory]
         [InlineData(GenerationModes.Harvest, true, true)]
         [InlineData(GenerationModes.Harvest | GenerationModes.Default, true, true)]
@@ -62,6 +77,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
             Assert.Equal(canExecuteResult, result);
         }
 
+        /// <summary>
+        /// Tests <seealso cref="MigrationHarvester.Execute"/>.
+        /// </summary>
         [Fact]
         public void Execute_ShouldDeserialze()
         {

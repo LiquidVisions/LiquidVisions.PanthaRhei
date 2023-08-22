@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "classifications": [ "LiquidVisions", "Expanders", "__NAME__" ],
+    "identity": "__PREFIX__.__SOURCE__",
+    "name": "__PREFIX__.__SOURCE__",
+    "shortName": "liquidvisions-__NAME__",
+    "tags": {
+      "language": "C#",
+      "type": "item"
+    },
+    "symbols": {
+      "NAME": {
+        "type": "parameter",
+        "FileRename": "$$NAME$$",
+        "Replaces": "$$NAME$$",
+        "defaultValue": "NAME"
+      },
+      "ns": {
+        "type": "parameter",
+        "FileRename": "$$NS$$",
+        "Replaces": "$$NS$$",
+        "defaultValue": "NS"
+      }
+    }
+  }

@@ -35,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             foreach (Expander expander in app.Expanders)
             {
-                string templatePath = Path.Combine(options.ExpandersFolder, expander.Name, expander.TemplateFolder);
+                string templatePath = Path.Combine(options.ExpandersFolder, expander.Name, Resources.TemplatesFolder);
                 if (directoryService.Exists(templatePath))
                 {
                     IEnumerable<string> files = directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)

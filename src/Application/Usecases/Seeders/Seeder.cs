@@ -17,21 +17,19 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             seeders = dependencyFactory.GetAll<IEntitySeeder<App>>().ToList();
         }
 
-        public bool Enabled => options.ReSeed;
+        public bool Enabled => options.Seed;
 
         public void Execute()
         {
             App app = new();
 
-            foreach (var seeder in seeders.OrderBy(x => x.ResetOrder))
-            {
-                seeder.Reset();
-            }
+            seeders.OrderBy(x => x.ResetOrder)
+                .ToList()
+                .ForEach(x => x.Reset());
 
-            foreach (var seeder in seeders.OrderBy(x => x.SeedOrder))
-            {
-                seeder.Seed(app);
-            }
+            seeders.OrderBy(x => x.SeedOrder)
+                .ToList()
+                .ForEach(x => x.Seed(app));
         }
     }
 }

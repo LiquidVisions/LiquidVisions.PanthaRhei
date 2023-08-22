@@ -11,17 +11,26 @@ using CleanArchitectureResources = LiquidVisions.PanthaRhei.Expanders.CleanArchi
 
 namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
 {
+    /// <summary>
+    /// Tests for <seealso cref="ExpandViewModelMapperTask"/>.
+    /// </summary>
     public class ExpandViewModelMapperHandlerInteractorTests
     {
         private readonly CleanArchitectureFakes fakes = new ();
         private readonly ExpandViewModelMapperTask handler;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpandViewModelMapperHandlerInteractorTests"/> class.
+        /// </summary>
         public ExpandViewModelMapperHandlerInteractorTests()
         {
             fakes.MockCleanArchitectureExpander(new List<Entity> { fakes.ExpectedEntity });
-            handler = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
+            handler = new (fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
+        /// <summary>
+        /// Dependency tests
+        /// </summary>
         [Fact]
         public void Constructor_ShouldValidate()
         {
@@ -36,6 +45,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpandViewModelMapperTask.Order"/>.
+        /// </summary>
         [Fact]
         public void Order_ShouldValidate()
         {
@@ -45,6 +57,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(15, handler.Order);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpandViewModelMapperTask.Enabled"/>.
+        /// </summary>
         [Fact]
         public void Name_ShouldBeEqual()
         {
@@ -54,6 +69,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(nameof(ExpandViewModelMapperTask), handler.Name);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpandViewModelMapperTask.Enabled"/>.
+        /// </summary>
+        /// <param name="mode"><seealso cref="GenerationOptions"/>.</param>
+        /// <param name="expectedResult">The expected result.</param>
         [Theory]
         [InlineData(GenerationModes.Default, true)]
         [InlineData(GenerationModes.Migrate, false)]
@@ -70,6 +90,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(expectedResult, handler.Enabled);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpandViewModelMapperTask.Enabled"/>.
+        /// </summary>
+        /// <param name="clean">Tests with the Clean <seealso cref="GenerationOptions"/> mode.</param>
+        /// <param name="expectedResult">The expected result.</param>
         [Theory]
         [InlineData(false, true)]
         [InlineData(true, true)]
@@ -84,6 +109,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             Assert.Equal(expectedResult, handler.Enabled);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpandViewModelMapperTask.Execute()"/>.
+        /// </summary>
         [Fact]
         public void Execute_ShouldRenderAnSaveViewModelTemplate()
         {

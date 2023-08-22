@@ -25,33 +25,35 @@ var dbOption = cmd.Option(
 var appOption = cmd.Option(
     "--app",
     "The id of the app.",
-    CommandOptionType.SingleValue)
-    .IsRequired();
+    CommandOptionType.SingleValue);
 
 var runModeOption = cmd.Option(
     "--mode",
     "The run mode determines the expander and handers that will be executed.",
-    CommandOptionType.SingleValue)
-    .IsRequired();
+    CommandOptionType.SingleValue);
 
 var cleanModeOption = cmd.Option<bool>(
     "--clean",
     "Deletes and discards all previous runs",
-    CommandOptionType.SingleOrNoValue)
-    .IsRequired();
+    CommandOptionType.SingleOrNoValue);
 
-var reseed = cmd.Option<bool>(
-    "--reseed",
-    "Reinitialze current model based",
-    CommandOptionType.SingleOrNoValue)
-    .IsRequired();
+var seed = cmd.Option<bool>(
+    "--seed",
+    "Sets a value indicating whether the database should be seeded with the data of the meta model",
+    CommandOptionType.SingleOrNoValue);
+
+var migrate = cmd.Option<bool>(
+    "--migrate",
+    "Sets a value indicating whether the database schema should be attempted to update.",
+    CommandOptionType.SingleOrNoValue);
 
 cmd.OnExecute(() =>
 {
     ExpandOptionsRequestModel requestModel = new()
     {
         AppId = Guid.Parse(appOption.Value()),
-        ReSeed = reseed.HasValue(),
+        Migrate = migrate.HasValue(),
+        Seed = seed.HasValue(),
         Root = rootOption.Value(),
         Clean = cleanModeOption.HasValue(),
         GenerationMode = runModeOption.Value(),

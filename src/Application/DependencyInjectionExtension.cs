@@ -34,10 +34,11 @@ namespace LiquidVisions.PanthaRhei.Application
                 Clean = requestModel.Clean,
                 ConnectionString = requestModel.ConnectionString,
                 ExpandersFolder = requestModel.ExpandersFolder,
-                Modes = Enum.Parse<GenerationModes>(requestModel.GenerationMode),
+                Modes = requestModel.GenerationMode != null ? Enum.Parse<GenerationModes>(requestModel.GenerationMode) : GenerationModes.None,
                 HarvestFolder = requestModel.HarvestFolder,
                 OutputFolder = requestModel.OutputFolder,
-                ReSeed = requestModel.ReSeed,
+                Seed = requestModel.Seed,
+                Migrate = requestModel.Migrate,
                 Root = requestModel.Root,
             };
 

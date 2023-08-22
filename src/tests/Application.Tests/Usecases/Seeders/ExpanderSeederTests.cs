@@ -12,6 +12,9 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
 {
+    /// <summary>
+    /// Tests for <seealso cref="ExpanderSeeder"/>.
+    /// </summary>
     public class ExpanderSeederTests
     {
         private readonly ExpanderSeeder interactor;
@@ -27,6 +30,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             interactor = new(fakes.IDependencyFactory.Object);
         }
 
+
+        /// <summary>
+        /// Dependency Test.
+        /// </summary>
         [Fact]
         public void Constructor_ShouldResolve()
         {
@@ -40,6 +47,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             fakes.IDependencyFactory.Verify(x => x.Get<IExpanderPluginLoader>(), Times.Once);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpanderSeeder.SeedOrder"/>.
+        /// </summary>
         [Fact]
         public void SeedOrder_ShouldBe()
         {
@@ -49,6 +59,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Assert.Equal(2, interactor.SeedOrder);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpanderSeeder.ResetOrder"/>.
+        /// </summary>
         [Fact]
         public void ResetOrder_ShouldBe()
         {
@@ -58,6 +71,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Assert.Equal(4, interactor.ResetOrder);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpanderSeeder.Reset"/>.
+        /// </summary>
         [Fact]
         public void Reset_ShouldDeleteAll()
         {
@@ -70,8 +86,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             deleteGateWay.Verify(x => x.DeleteAll(), Times.Once);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ExpanderSeeder.Seed(App)"/>.
+        /// </summary>
         [Fact]
-        public void Seed_ShouldWhatEver()
+        public void Seed_ShouldVerify()
         {
             // arrange
             App app = new();
@@ -88,7 +107,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Assert.Single(app.Expanders);
             Assert.Same(app.Expanders.Single().Apps.Single(), app);
             createGateWay.Verify(x => x.Create(It.IsAny<Expander>()), Times.Once);
-            createGateWay.Verify(x => x.Create(It.Is<Expander>(x => x.Id != Guid.Empty && x.Name == "RandomName" && x.Order == 2 && x.TemplateFolder == ".Templates" && x.Apps.Single() == app)), Times.Once);
+            createGateWay.Verify(x => x.Create(It.Is<Expander>(x => x.Id != Guid.Empty && x.Name == "RandomName" && x.Order == 2 && x.Enabled && x.Apps.Single() == app)), Times.Once);
         }
     }
 }
