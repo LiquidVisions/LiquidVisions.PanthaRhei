@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
 {
-
     internal class GenericRepository<TEntity> : GenericRepository, ICreateRepository<TEntity>, IGetRepository<TEntity>, IUpdateRepository<TEntity>, IDeleteRepository<TEntity>
         where TEntity : class
     {

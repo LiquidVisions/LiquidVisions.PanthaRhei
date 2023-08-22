@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                     Id = Guid.NewGuid(),
                     Name = exp.Name,
                     Order = exp.Order,
-                    TemplateFolder = ".Templates",
+                    Enabled = true,
                 };
 
                 expander.Apps.Add(app);

@@ -14,6 +14,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Configuration
 
             builder.Property(x => x.Id)
                 .IsRequired(true);
+
+            builder.Property(x => x.Enabled)
+                .IsRequired(true);
         }
     }
 }

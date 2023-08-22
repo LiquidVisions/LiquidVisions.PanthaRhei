@@ -10,6 +10,9 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
 {
+    /// <summary>
+    /// Tests for <seealso cref="CodeGenerator"/>.
+    /// </summary>
     public class CodeGeneratorTests
     {
         private readonly CodeGenerator interactor;
@@ -27,6 +30,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
             interactor = new CodeGenerator(fakes.IDependencyFactory.Object);
         }
 
+        /// <summary>
+        /// Dependency tests.
+        /// </summary>
         [Fact]
         public void Constructor_Dependencies_ShouldVeryfy()
         {
@@ -41,6 +47,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
             fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Exactly(1));
         }
 
+        /// <summary>
+        /// Tests whether the Clean option should be executed.
+        /// </summary>
+        /// <param name="clean">A boolean indicating the <see cref="GenerationOptions.Clean"/> value.</param>
+        /// <param name="times">Total amount of times the various calls should be executed.</param>
         [Theory]
         [InlineData(true, 1)]
         [InlineData(false, 0)]
@@ -59,6 +70,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
             fakes.IDirectory.Verify(x => x.Delete(fakes.GenerationOptions.Object.OutputFolder), Times.Exactly(times));
         }
 
+        /// <summary>
+        /// Tests the happy flow of the <seealso cref="CodeGenerator.Execute"/>.
+        /// </summary>
         [Fact]
         public void Execute_HappyFlow_ShouldVerify()
         {

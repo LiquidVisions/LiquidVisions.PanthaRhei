@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
         /// </summary>
         public override void Execute()
         {
-            string templatePath = Path.Combine(Options.ExpandersFolder, Expander.Model.Name, Expander.Model.TemplateFolder);
+            string templatePath = Path.Combine(Options.ExpandersFolder, Expander.Model.Name, Resources.TemplatesFolder);
 
             string[] dotnetTemplateDirectories = directoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
             foreach (string dotnetTemplateDirectory in dotnetTemplateDirectories)
