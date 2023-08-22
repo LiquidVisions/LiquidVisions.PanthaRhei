@@ -7,7 +7,7 @@
   "groupIdentity": "LiquidVisions.PanthaRhei.Expander",
   "identity": "LiquidVisions.PanthaRhei.Expander",
   "shortName": "expander",
-  "defaultName": "Expander",
+  "defaultName": "Expanders.CleanArchitecture.Domain",
   "tags": {
     "language": "C#",
     "type": "solution"
@@ -24,7 +24,7 @@
     "Name of the Expander": {
       "type": "parameter",
       "datatype": "text",
-      "defaultValue": "SomeExpanderName",
+      "defaultValue": "Domain",
       "replaces": "__NAME__",
       "fileRename": "__NAME__",
       "isRequired": true
@@ -32,7 +32,7 @@
     "Namespace Prefix": {
       "type": "parameter",
       "datatype": "text",
-      "defaultValue": "LiquidVisions.PanthaRhei",
+      "defaultValue": "LiquidVisions.PanthaRhei.Expanders",
       "replaces": "__PREFIX__",
       "fileRename": "__PREFIX__",
       "isRequired": true
@@ -52,6 +52,26 @@
       "defaultValue": "6c6984a1-c87a-429b-b91f-2a976adb3c0e",
       "replaces": "__MODEL_ID__",
       "isRequired": true
+    },
+    "IncludeTemplates":
+    {
+        "type": "parameter",
+        "datatype":"bool",
+        "displayName": "Include template",
+        "defaultValue": "true"
     }
-  }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!IncludeTemplates)",
+          "exclude": [
+            "./.Templates/**",
+            "./.Templates/DOTNET/_template.config/template.json"
+          ]
+        }
+      ]
+    }
+  ]
 }
