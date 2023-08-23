@@ -11,7 +11,11 @@
 		<Authors>Gerco Koks</Authors>
 		<Company>LiquidVisions</Company>
 		<Product>PanthaRhei</Product>
-		<Version>0.2.0</Version>
+
+		<Version>0.3.0-alpha</Version>
+		<AssemblyVersion>0.3.0-alpha</AssemblyVersion>
+		<FileVersion>0.3.0-alpha</FileVersion>
+		<PackageVersion>0.3.0-alpha</PackageVersion>
 	</PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
