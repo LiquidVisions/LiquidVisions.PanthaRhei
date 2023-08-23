@@ -91,7 +91,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
         public void Execute_ShouldRenderAnSaveApplicationMapperTemplate()
         {
             // arrange
-            string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.ValidatorTemplate}.template");
+            string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, PanthaRhei.Domain.Resources.TemplatesFolder, $"{CleanArchitectureResources.ValidatorTemplate}.template");
             string[] expectedActions = CleanArchitectureResources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
 
             // act

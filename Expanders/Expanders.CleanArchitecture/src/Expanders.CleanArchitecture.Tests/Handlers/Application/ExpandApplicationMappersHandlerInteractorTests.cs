@@ -89,7 +89,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
         public void Execute_ShouldRenderAnSaveApplicationMapperTemplate()
         {
             // arrange
-            string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.ApplicationMapperTemplate}.template");
+            string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, PanthaRhei.Domain.Resources.TemplatesFolder, $"{CleanArchitectureResources.ApplicationMapperTemplate}.template");
             string expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.ApplicationMapperFolder, fakes.ExpectedEntity.Name.Pluralize());
             string[] expectedActions = new string[] { "Create", "Update" };
 

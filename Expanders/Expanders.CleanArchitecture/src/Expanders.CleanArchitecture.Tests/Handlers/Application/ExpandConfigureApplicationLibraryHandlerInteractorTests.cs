@@ -95,7 +95,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
             string expectedFullPathToTemplate = Path.Combine(
                 fakes.GenerationOptions.Object.ExpandersFolder,
                 fakes.CleanArchitectureExpander.Object.Model.Name,
-                fakes.CleanArchitectureExpander.Object.Model.TemplateFolder,
+                PanthaRhei.Domain.Resources.TemplatesFolder,
                 $"{CleanArchitectureResources.ApplicationDependencyInjectionBootstrapperTemplate}.template");
 
             fakes.ITemplate.Setup(

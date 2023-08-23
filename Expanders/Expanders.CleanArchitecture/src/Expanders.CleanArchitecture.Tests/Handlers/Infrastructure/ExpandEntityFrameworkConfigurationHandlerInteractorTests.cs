@@ -90,7 +90,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
         public void Execute_ShouldCreateAndSaveTemplate()
         {
             // arrange
-            string expectedTemplateBaseBath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.InfrastructureDependencyInjectionBootstrapperTemplate}.template");
+            string expectedTemplateBaseBath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, PanthaRhei.Domain.Resources.TemplatesFolder, $"{CleanArchitectureResources.InfrastructureDependencyInjectionBootstrapperTemplate}.template");
             string expectedRenderResult = "ExpectedRenderResult";
             fakes.ITemplate.Setup(x => x.Render(expectedTemplateBaseBath, It.Is<object>(x => x.GetHashCode() == new { Entity = fakes.ExpectedEntity }.GetHashCode()))).Returns(expectedRenderResult);
 
