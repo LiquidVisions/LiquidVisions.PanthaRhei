@@ -15,7 +15,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
         private readonly App app;
 
         private readonly string outputFolder;
-        private readonly string slnFilePath;
         private readonly string componentRootPath;
 
         public DotNetProjectSolution(IDependencyFactory dependencyFactory)
@@ -27,21 +26,24 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
             app = dependencyFactory.Get<App>();
 
             outputFolder = Path.Combine(options.OutputFolder, app.FullName);
-            slnFilePath = Path.Combine(outputFolder, $"{app.FullName}.sln");
             componentRootPath = Path.Combine(outputFolder, "src");
 
-            if(!directory.Exists(outputFolder))
+            if (!directory.Exists(outputFolder))
             {
                 logger.Info($"Creating directory {outputFolder}");
                 cli.Start($"mkdir {outputFolder}");
             }
         }
 
-        public void CreateComponentLibrary(Component component, string templateName)
+        public void CreateLibrary(string templateName, Component component = null)
         {
             logger.Info($"Creating {app.Name} @ {outputFolder}");
             cli.Start($"dotnet new {templateName} --NAME {app.Name} --NS {app.FullName}", Path.Combine(outputFolder, "src"));
-            cli.Start($"dotnet sln {slnFilePath} add {Path.Combine(componentRootPath, $"{component.Name}.csproj")}");
+
+            if (component != null)
+            {
+                cli.Start($"dotnet sln {Path.Combine(outputFolder, $"{app.FullName}.sln")} add {Path.Combine(componentRootPath, $"{component.Name}.csproj")}");
+            }
         }
 
         internal virtual string GetComponentOutputFolder(Component component)

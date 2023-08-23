@@ -117,7 +117,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
         public void Execute_ShouldRenderAndSaveTemplate()
         {
             // arrange
-            string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.PresenterTemplate}.template");
+            string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, PanthaRhei.Domain.Resources.TemplatesFolder, $"{CleanArchitectureResources.PresenterTemplate}.template");
             string expectedCreateFolder = Path.Combine(fakes.ExpectedCompontentOutputFolder, CleanArchitectureResources.PresentersFolder, fakes.ExpectedEntity.Name.Pluralize());
             string[] expectedActions = CleanArchitectureResources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
 

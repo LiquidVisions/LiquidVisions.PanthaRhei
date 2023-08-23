@@ -1,4 +1,5 @@
 ﻿using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 
@@ -9,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
     /// </summary>
     public class CreateDotNetProjectTask : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly IProjectTemplate projectTemplateInteractor;
+        private readonly IProjectSolution solution;
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;
 
@@ -20,7 +21,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public CreateDotNetProjectTask(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
-            projectTemplateInteractor = dependencyFactory.Get<IProjectTemplate>();
+            solution = dependencyFactory.Get<IProjectSolution>();
             options = dependencyFactory.Get<GenerationOptions>();
             this.expander = expander;
         }
@@ -40,11 +41,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// <inheritdoc/>
         public virtual void Execute()
         {
-            projectTemplateInteractor.CreateNew(Resources.TemplateShortName);
+            solution.CreateNew(Resources.TemplateShortName);
 
             Expander.Model.Components
                 ?.ForEach(component => component.Packages
-                ?.ForEach(package => projectTemplateInteractor.ApplyPackageOnComponent(component, package)));
+                ?.ForEach(package => solution.ApplyPackageOnComponent(component, package)));
         }
     }
 }

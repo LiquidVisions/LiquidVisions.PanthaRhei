@@ -100,7 +100,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Infrastructu
         public void Execute_ShouldCreateAndSaveTemplate()
         {
             // arrange
-            string expectedTemplateBaseBath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{CleanArchitectureResources.DbContextTemplate}.template");
+            string expectedTemplateBaseBath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, PanthaRhei.Domain.Resources.TemplatesFolder, $"{CleanArchitectureResources.DbContextTemplate}.template");
             string expectedSavePath = Path.Combine(fakes.ExpectedCompontentOutputFolder, "Context.cs");
             var expectedListOfEntities = new List<Entity> { fakes.ExpectedEntity };
             App app = fakes.SetupApp(expectedListOfEntities);

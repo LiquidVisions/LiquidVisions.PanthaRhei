@@ -97,7 +97,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
             CleanArchitectureExpander.Setup(x => x.Name).Returns(nameof(CleanArchitectureExpander));
             CleanArchitectureExpander.Setup(x => x.Model).Returns(CleanArchitectureExpanderModel.Object);
 
-            CleanArchitectureExpanderModel.Setup(x => x.TemplateFolder).Returns(".Templates");
+            CleanArchitectureExpanderModel.Setup(x => x.Enabled).Returns(true);
             CleanArchitectureExpanderModel.Setup(x => x.Name).Returns("CleanArchitecture");
             CleanArchitectureExpanderModel.Setup(x => x.Order).Returns(2);
 

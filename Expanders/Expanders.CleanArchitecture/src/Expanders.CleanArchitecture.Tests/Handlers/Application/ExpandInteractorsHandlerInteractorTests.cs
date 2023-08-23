@@ -100,7 +100,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Application
             fakes.IDirectory.Verify(x => x.Create(expectedCreateFolder), Times.Once);
             foreach (string expectedAction in expectedActions)
             {
-                string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, fakes.CleanArchitectureExpander.Object.Model.TemplateFolder, $"{expectedAction}{CleanArchitectureResources.InteractorTemplate}.template");
+                string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, fakes.CleanArchitectureExpander.Object.Model.Name, PanthaRhei.Domain.Resources.TemplatesFolder, $"{expectedAction}{CleanArchitectureResources.InteractorTemplate}.template");
                 fakes.ITemplate.Verify(x => x.RenderAndSave(expectedTemplatePath, It.IsAny<object>(), It.IsAny<string>()), Times.Exactly(1));
 
                 fakes.ITemplate.Verify(
