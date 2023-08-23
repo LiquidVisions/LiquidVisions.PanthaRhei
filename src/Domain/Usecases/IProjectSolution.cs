@@ -4,7 +4,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
 {
     public interface IProjectSolution
     {
-        void CreateComponentLibrary(Component component, string templateName);
+        void CreateLibrary(string templateName, Component component = null);
 
         void ApplyComponentPackages(Component component);
 
