@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ namespace LiquidVisions.PanthaRhei.Domain
 
             return services.AddSingleton<IDependencyManager>(container)
                 .AddSingleton<IDependencyFactory>(container)
+                .AddTransient<IProjectSolution, DotNetProjectSolution>()
                 .AddSingleton(options)
                 .AddInitializers();
         }
