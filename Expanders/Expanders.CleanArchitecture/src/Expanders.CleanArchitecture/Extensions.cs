@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
 
         internal static string GetPathToTemplate(this Expander expander, GenerationOptions options, string templateName)
         {
-            return Path.Combine(options.ExpandersFolder, expander.Name, expander.TemplateFolder, $"{templateName}.template");
+            return Path.Combine(options.ExpandersFolder, expander.Name, Domain.Resources.TemplatesFolder, $"{templateName}.template");
         }
 
         internal static string Pluralize(this string str) => pluralizer.Pluralize(str);

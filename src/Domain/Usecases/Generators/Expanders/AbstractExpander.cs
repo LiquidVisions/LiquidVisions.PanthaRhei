@@ -119,11 +119,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         {
             Logger.Trace($"Expanding expander {Name}");
 
-            foreach (IExpanderTask<TExpander> handler in GetHandlers()
+            foreach (IExpanderTask<TExpander> task in GetHandlers()
                 .Where(x => x.Enabled)
                 .OrderBy(x => x.Order))
             {
-                handler.Execute();
+                task.Execute();
             }
         }
 
@@ -133,9 +133,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
             Logger.Trace($"Harvesting expander {Name} for expander {typeof(TExpander).Name}");
 
             IEnumerable<IHarvester<TExpander>> selectedHarvestHandlers = GetHarvesters();
-            foreach (var handler in selectedHarvestHandlers.Where(x => x.Enabled))
+            foreach (var task in selectedHarvestHandlers.Where(x => x.Enabled))
             {
-                handler.Execute();
+                task.Execute();
             }
         }
 
@@ -145,9 +145,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
             Logger.Trace($"Rejuvenating expander {Name}");
 
             var selectedRejuvenateHandlers = GetRejuvenators();
-            foreach (var handler in selectedRejuvenateHandlers.Where(x => x.Enabled))
+            foreach (var task in selectedRejuvenateHandlers.Where(x => x.Enabled))
             {
-                handler.Execute();
+                task.Execute();
             }
         }
 
@@ -157,9 +157,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
             Logger.Trace($"PostProcessing expander {Name}");
 
             var selectedPostProcessHandlers = GetPostProcessor();
-            foreach (var handler in selectedPostProcessHandlers.Where(x => x.Enabled))
+            foreach (var task in selectedPostProcessHandlers.Where(x => x.Enabled))
             {
-                handler.Execute();
+                task.Execute();
             }
         }
 
@@ -169,9 +169,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
             Logger.Trace($"PreProcessing expander {Name}");
 
             var selectedPrePocessors = GetPreProcessor();
-            foreach (var handler in selectedPrePocessors.Where(x => x.Enabled))
+            foreach (var task in selectedPrePocessors.Where(x => x.Enabled))
             {
-                handler.Execute();
+                task.Execute();
             }
         }
 

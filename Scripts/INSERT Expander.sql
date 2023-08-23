@@ -1,0 +1,15 @@
+BEGIN TRANSACTION
+
+DECLARE @ID UNIQUEIDENTIFIER
+SET @ID = NEWID()
+
+INSERT INTO Expanders
+SELECT @ID, 'LiquidVisions.CleanArchitecture.Domain', 1, 1
+
+INSERT INTO AppExpander
+SELECT (SELECT TOP 1 Id FROM Apps), @ID
+
+SELECT * FROM Expanders
+SELECT * FROM AppExpander
+
+COMMIT
