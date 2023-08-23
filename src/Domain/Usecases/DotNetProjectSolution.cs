@@ -29,13 +29,16 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
             outputFolder = Path.Combine(options.OutputFolder, app.FullName);
             slnFilePath = Path.Combine(outputFolder, $"{app.FullName}.sln");
             componentRootPath = Path.Combine(outputFolder, "src");
+
+            if(!directory.Exists(outputFolder))
+            {
+                logger.Info($"Creating directory {outputFolder}");
+                cli.Start($"mkdir {outputFolder}");
+            }
         }
 
         public void CreateComponentLibrary(Component component, string templateName)
         {
-            logger.Info($"Creating directory {outputFolder}");
-            cli.Start($"mkdir {outputFolder}");
-
             logger.Info($"Creating {app.Name} @ {outputFolder}");
             cli.Start($"dotnet new {templateName} --NAME {app.Name} --NS {app.FullName}", Path.Combine(outputFolder, "src"));
             cli.Start($"dotnet sln {slnFilePath} add {Path.Combine(componentRootPath, $"{component.Name}.csproj")}");
