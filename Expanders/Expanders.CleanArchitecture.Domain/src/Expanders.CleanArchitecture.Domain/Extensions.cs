@@ -3,15 +3,15 @@ using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using Pluralize.NET.Core;
 
-namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
+namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain
 {
     internal static class Extensions
     {
-        private static readonly Pluralizer pluralizer = new ();
+        private static readonly Pluralizer pluralizer = new();
 
         internal static string GetPathToTemplate(this Expander expander, GenerationOptions options, string templateName)
         {
-            return Path.Combine(options.ExpandersFolder, expander.Name, Domain.Resources.TemplatesFolder, $"{templateName}.template");
+            return Path.Combine(options.ExpandersFolder, expander.Name, LiquidVisions.PanthaRhei.Domain.Resources.TemplatesFolder, $"{templateName}.template");
         }
 
         internal static string Pluralize(this string str) => pluralizer.Pluralize(str);
@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         internal static string GetComponentNamespace(this Component component, App app, string ns = null)
         {
             string result = $"{app.FullName}.{component.Name}";
-            if(ns != null)
+            if (ns != null)
             {
                 result = $"{result}.{ns}";
             }
