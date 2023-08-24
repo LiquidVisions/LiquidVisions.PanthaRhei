@@ -28,22 +28,29 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
             outputFolder = Path.Combine(options.OutputFolder, app.FullName);
             componentRootPath = Path.Combine(outputFolder, "src");
 
-            if (!directory.Exists(outputFolder))
+            CreateIfNotExis(outputFolder);
+            CreateIfNotExis(componentRootPath);
+        }
+
+        private void CreateIfNotExis(string folder)
+        {
+            if (!directory.Exists(folder))
             {
-                logger.Info($"Creating directory {outputFolder}");
-                cli.Start($"mkdir {outputFolder}");
+                logger.Info($"Creating directory {folder}");
+                cli.Start($"mkdir {folder}");
             }
         }
 
-        public void CreateLibrary(string templateName, Component component = null)
-        {
-            logger.Info($"Creating {app.Name} @ {outputFolder}");
-            cli.Start($"dotnet new {templateName} --NAME {app.Name} --NS {app.FullName}", Path.Combine(outputFolder, "src"));
+        public void CreateLibrary(string templateName, Component component) 
+            => CreateLibrary(templateName, component.Name);
 
-            if (component != null)
-            {
-                cli.Start($"dotnet sln {Path.Combine(outputFolder, $"{app.FullName}.sln")} add {Path.Combine(componentRootPath, $"{component.Name}.csproj")}");
-            }
+        public void CreateLibrary(string templateName, string componentName)
+        {
+            string componentFolder = Path.Combine(componentRootPath, componentName);
+            CreateIfNotExis(componentFolder);
+
+            cli.Start($"dotnet new {templateName} --NAME {componentName} --NS {app.FullName}", componentFolder);
+            cli.Start($"dotnet sln {Path.Combine(outputFolder, $"{app.FullName}.sln")} add {Path.Combine(componentFolder, $"{componentName}.csproj")}");
         }
 
         internal virtual string GetComponentOutputFolder(Component component)
