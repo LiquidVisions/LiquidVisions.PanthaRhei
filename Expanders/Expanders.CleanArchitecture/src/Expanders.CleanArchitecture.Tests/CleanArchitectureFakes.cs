@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
 using LiquidVisions.PanthaRhei.Tests;
@@ -70,17 +71,17 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests
         internal static string DefaultAppFullName { get; } = "LiquidVisions.Tests";
 
         /// <summary>
-        /// Gets a mock of <seealso cref="IProjectTemplate"/>.
+        /// Gets a mock of <seealso cref="IProjectSolution"/>.
         /// </summary>
-        internal Mock<IProjectTemplate> IProjectTemplateInteractor { get; } = new ();
+        internal Mock<IApplication> IProjectSolution { get; } = new();
 
         /// <inheritdoc/>
         public override void ConfigureIDependencyFactory()
         {
             base.ConfigureIDependencyFactory();
 
-            IDependencyFactory.Setup(x => x.Get<IProjectTemplate>())
-                .Returns(IProjectTemplateInteractor.Object);
+            IDependencyFactory.Setup(x => x.Get<IApplication>())
+                .Returns(IProjectSolution.Object);
 
             IDependencyFactory.Setup(x => x.Get<IHarvestSerializer>())
                 .Returns(IHarvestSerializerInteractor.Object);

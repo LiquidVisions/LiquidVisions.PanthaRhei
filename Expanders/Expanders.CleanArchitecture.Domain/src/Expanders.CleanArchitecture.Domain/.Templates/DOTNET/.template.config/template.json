@@ -3,7 +3,7 @@
     "classifications": [ "LiquidVisions", "Expanders", "Domain" ],
     "identity": "LiquidVisions.PanthaRhei.Expanders.Expanders.CleanArchitecture.Domain",
     "name": "LiquidVisions.PanthaRhei.Expanders.Expanders.CleanArchitecture.Domain",
-    "shortName": "liquidvisions-Domain",
+    "shortName": "liquidvisions-expanders-Domain",
     "tags": {
       "language": "C#",
       "type": "item"
@@ -11,14 +11,14 @@
     "symbols": {
       "NAME": {
         "type": "parameter",
-        "FileRename": "$$NAME$$",
-        "Replaces": "$$NAME$$",
+        "FileRename": "NAME",
+        "Replaces": "NAME",
         "defaultValue": "NAME"
       },
-      "ns": {
+      "NS": {
         "type": "parameter",
-        "FileRename": "$$NS$$",
-        "Replaces": "$$NS$$",
+        "FileRename": "NS",
+        "Replaces": "NS",
         "defaultValue": "NS"
       }
     }

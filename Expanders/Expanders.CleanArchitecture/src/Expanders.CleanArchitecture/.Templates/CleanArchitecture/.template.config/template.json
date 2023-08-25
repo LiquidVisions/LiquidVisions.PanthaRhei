@@ -4,7 +4,7 @@
   "classifications": [ "LiquidVisions", "Expanders", "CleanArchitecture" ],
   "identity": "LiquidVisions.NormalizedSystems.Expanders.CleanArchitecture",
   "name": "LiquidVisions.NormalizedSystems.Expanders.CleanArchitecture",
-  "shortName": "liquidvisions-expanders-ca",
+  "shortName": "liquidvisions-expanders-PanthaRhei.Generated",
   "tags": {
     "language": "C#",
     "type": "item"
@@ -16,7 +16,7 @@
       "Replaces": "NAME",
       "defaultValue": "NAME"
     },
-    "ns": {
+    "NS": {
       "type": "parameter",
       "FileRename": "NS",
       "Replaces": "NS",

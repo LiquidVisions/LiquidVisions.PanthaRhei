@@ -1,0 +1,35 @@
+name: CleanArchitecture Push to Dev
+
+env:
+  CLEANARCHITECTURE_PATH: .\Expanders\Expanders.CleanArchitecture
+  NUGET_URL: https://nuget.pkg.github.com/liquidvisions/index.json
+
+on:
+  push:
+    branches: [ dev/gkoks ]
+    paths:
+      - CLEANARCHITECTURE_PATH\**'
+
+
+  build-CleanArchitectureExpander:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.x
+        source-url: ${{ env.NUGET_URL }}
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+    - name: Restore dependencies
+      run: dotnet restore ${{env.CLEANARCHITECTURE_PATH}}
+    
+    - name: Build
+      run: dotnet build ${{env.CLEANARCHITECTURE_PATH}} --configuration Release --no-restore
+    
+    - name: Run Unit Tests with Code Coverage
+      run: dotnet test ${{env.CLEANARCHITECTURE_PATH}}

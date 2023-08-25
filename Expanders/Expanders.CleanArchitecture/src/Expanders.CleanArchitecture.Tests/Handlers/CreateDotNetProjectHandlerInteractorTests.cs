@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers;
 using Moq;
 using Xunit;
@@ -17,7 +17,6 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
         public CreateDotNetProjectHandlerInteractorTests()
         {
             fakes.ConfigureIDependencyFactory();
-
             interactor = new(fakes.CleanArchitectureExpander.Object, fakes.IDependencyFactory.Object);
         }
 
@@ -27,7 +26,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             // arrange
             // act
             // assert
-            fakes.IDependencyFactory.Verify(x => x.Get<IProjectTemplate>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Get<IApplication>(), Times.Once);
             fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
         }
@@ -89,6 +88,8 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
         public void Execute_ShouldCreateComponentsAndAddPackagesToOnTheComponents()
         {
             // arrange
+            string name = "RandomName";
+            fakes.CleanArchitectureExpander.Setup(x => x.App).Returns(new App { Name = name });
             fakes.MockCleanArchitectureExpander();
             Package package = new ()
             {
@@ -104,8 +105,8 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             interactor.Execute();
 
             // assert
-            fakes.IProjectTemplateInteractor.Verify(x => x.CreateNew(Expanders.CleanArchitecture.Resources.TemplateShortName), Times.Once);
-            fakes.IProjectTemplateInteractor.Verify(x => x.ApplyPackageOnComponent(fakes.ApiComponent.Object, package), Times.Once);
+            fakes.IProjectSolution.Verify(x => x.MaterializeProject(), Times.Once);
+            //fakes.IProjectSolution.Verify(x => x.ApplyPackageOnComponent(fakes.ApiComponent.Object, package), Times.Once);
         }
     }
 }

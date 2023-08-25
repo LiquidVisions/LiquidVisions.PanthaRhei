@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace $$NS$$.$$Domain$$
+namespace NS.NAME
 {
     public static class DependencyInjectionBootstrapper
     {

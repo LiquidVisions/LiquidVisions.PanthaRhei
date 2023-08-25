@@ -126,4 +126,7 @@
   <data name="EntityTemplate" xml:space="preserve">
     <value>EntityTemplate</value>
   </data>
+  <data name="ProjectTemplateName" xml:space="preserve">
+    <value>expanders-Domain</value>
+  </data>
 </root>

@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
     /// </summary>
     public class CreateDotNetProjectTask : IExpanderTask<CleanArchitectureExpander>
     {
-        private readonly IProjectSolution solution;
+        private readonly IApplication application;
         private readonly CleanArchitectureExpander expander;
         private readonly GenerationOptions options;
 
@@ -21,7 +21,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public CreateDotNetProjectTask(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
-            solution = dependencyFactory.Get<IProjectSolution>();
+            application = dependencyFactory.Get<IApplication>();
             options = dependencyFactory.Get<GenerationOptions>();
             this.expander = expander;
         }
@@ -41,11 +41,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// <inheritdoc/>
         public virtual void Execute()
         {
-            solution.CreateNew(Resources.TemplateShortName);
+            application.MaterializeProject();
 
-            Expander.Model.Components
-                ?.ForEach(component => component.Packages
-                ?.ForEach(package => solution.ApplyPackageOnComponent(component, package)));
+            //Expander.Model.Components
+            //    ?.ForEach(component => component.Packages
+            //    ?.ForEach(package => solution.ApplyPackageOnComponent(component, package)));
         }
     }
 }
