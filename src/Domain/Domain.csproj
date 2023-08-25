@@ -11,7 +11,7 @@
 		<Authors>Gerco Koks</Authors>
 		<Company>LiquidVisions</Company>
 		<Product>PanthaRhei</Product>
-		<PackageVersion>0.3.3-alpha</PackageVersion>
+		<PackageVersion>0.3.3-alpha.0.0.1</PackageVersion>
 	</PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -20,7 +20,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Scriban" Version="5.7.0" />
 		<PackageReference Include="Pluralize.NET.Core" Version="1.0.0" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.0.0.68202">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.8.0.76515">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

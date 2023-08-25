@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Domain
 
             return services.AddSingleton<IDependencyManager>(container)
                 .AddSingleton<IDependencyFactory>(container)
-                .AddTransient<IProjectSolution, DotNetProjectSolution>()
+                .AddTransient<IApplication, DotNetApplication>()
                 .AddSingleton(options)
                 .AddInitializers();
         }

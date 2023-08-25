@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<AssemblyName>$$NS$$.$$Domain$$</AssemblyName>
-		<RootNamespace>$$NS$$.$$Domain$$</RootNamespace>
+		<AssemblyName>NS.Domain</AssemblyName>
+		<RootNamespace>NS.Domain</RootNamespace>
 		<TargetFramework>net7.0</TargetFramework>
 	</PropertyGroup>
 
