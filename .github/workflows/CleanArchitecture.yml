@@ -10,7 +10,7 @@ on:
     paths:
       - CLEANARCHITECTURE_PATH\**'
 
-
+jobs:
   build-CleanArchitectureExpander:
     runs-on: windows-latest
     
