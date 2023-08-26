@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
@@ -26,7 +27,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         /// <inheritdoc/>
         public override void Register()
         {
-            DependencyManager.AddTransient(typeof(IProjectTemplate), typeof(DotNetTemplate));
             DependencyManager.AddTransient(typeof(IElementTemplateParameters), typeof(RequestModelTemplateParameters));
             DependencyManager.AddTransient(typeof(IElementTemplateParameters), typeof(RequestModelTemplateParameters));
 

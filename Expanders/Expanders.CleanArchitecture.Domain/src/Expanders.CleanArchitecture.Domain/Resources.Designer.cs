@@ -86,5 +86,14 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain {
                 return ResourceManager.GetString("EntityTemplate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to expanders-Domain.
+        /// </summary>
+        internal static string ProjectTemplateName {
+            get {
+                return ResourceManager.GetString("ProjectTemplateName", resourceCulture);
+            }
+        }
     }
 }

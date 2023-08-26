@@ -15,17 +15,25 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain
     public class DomainExpander : AbstractExpander<DomainExpander>
     {
         private readonly GenerationOptions options;
-
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DomainExpander"/> class.
+        /// </summary>
         public DomainExpander()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DomainExpander"/> class.
+        /// </summary>
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public DomainExpander(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
             options = dependencyFactory.Get<GenerationOptions>();
         }
-
+        
+        /// <inheritdoc/>
         public override string Name => "CleanArchitecture.Domain";
 
         /// <inheritdoc/>

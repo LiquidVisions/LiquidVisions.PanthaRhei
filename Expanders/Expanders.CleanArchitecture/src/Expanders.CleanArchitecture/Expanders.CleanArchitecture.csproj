@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<AssemblyName>LiquidVisions.PanthaRhei.Expanders.CleanArchitecture</AssemblyName>
@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LiquidVisions.PanthaRhei.Core" Version="0.3.1-alpha">
+		<PackageReference Include="LiquidVisions.PanthaRhei.Core" Version="0.3.3-alpha.0.0.1">
 			<GeneratePathProperty>True</GeneratePathProperty>
 		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
