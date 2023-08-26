@@ -6,7 +6,7 @@ on:
     branches-ignore:
       - master # Exclude the main branch
     paths:
-      - './src'
+      - './src/**'
 
 jobs:
   create_pull_request:
