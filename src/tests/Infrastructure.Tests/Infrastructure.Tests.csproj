@@ -4,8 +4,11 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<AssemblyName>LiquidVisions.PanthaRhei.Infrastructure.Tests</AssemblyName>
 		<RootNamespace>LiquidVisions.PanthaRhei.Infrastructure.Tests</RootNamespace>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<IsPackable>false</IsPackable>
+		<RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>

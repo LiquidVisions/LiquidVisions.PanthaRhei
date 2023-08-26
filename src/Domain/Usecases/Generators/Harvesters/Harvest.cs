@@ -9,10 +9,17 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
     {
         private readonly string type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Harvest"/> class.
+        /// </summary>
         public Harvest()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Harvest"/> class.
+        /// </summary>
+        /// <param name="type"></param>
         public Harvest(string type)
         {
             this.type = type;
