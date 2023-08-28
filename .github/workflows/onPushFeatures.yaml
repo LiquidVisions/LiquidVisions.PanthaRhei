@@ -27,10 +27,7 @@ jobs:
         
         - name: Test
           run: dotnet test
-          with:
-            arguments: --no-build --configuration Release --no-restore --verbosity normal
             
-        
         - name: Run .NET Code Analysis
           uses: dotnet/code-analysis@main
           id: code-analysis
