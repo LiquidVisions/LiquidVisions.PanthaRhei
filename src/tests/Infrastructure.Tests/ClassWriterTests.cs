@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClass());
             _writer = new ClassWriter(_mockedFileService.Object, _mockedLogger.Object);
-
+            _writer.Load(_fakePath);
         }
 
         /// <summary>
@@ -339,7 +339,6 @@ namespace LiquidVisions.Jafar.Tests.Domain
 {
    public class Class1
    {
-
        public void Test()
        {
             // this is a test
