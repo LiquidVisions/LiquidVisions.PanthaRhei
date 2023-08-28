@@ -4,6 +4,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
 using Scriban;
 using Scriban.Runtime;
+using ITemplateLoader = LiquidVisions.PanthaRhei.Domain.Usecases.Templates.ITemplateLoader;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
 {
@@ -12,11 +13,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
     /// </summary>
     internal class ScribanTemplate : ITemplate
     {
-        private readonly ILogger logger;
-        private readonly Domain.Usecases.Templates.ITemplateLoader templateLoader;
-        private readonly IFile fileService;
-        private readonly IDirectory directoryService;
-        private readonly ScriptObject scriptObject;
+        private readonly ILogger _logger;
+        private readonly ITemplateLoader _templateLoader;
+        private readonly IFile _fileService;
+        private readonly IDirectory _directoryService;
+        private readonly ScriptObject _scriptObject;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScribanTemplate"/> class.
@@ -24,23 +25,23 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
         public ScribanTemplate(IDependencyFactory dependencyFactory)
         {
-            logger = dependencyFactory.Get<ILogger>();
-            templateLoader = dependencyFactory.Get<Domain.Usecases.Templates.ITemplateLoader>();
-            fileService = dependencyFactory.Get<IFile>();
-            directoryService = dependencyFactory.Get<IDirectory>();
-            scriptObject = dependencyFactory.Get<ScriptObject>();
+            _logger = dependencyFactory.Get<ILogger>();
+            _templateLoader = dependencyFactory.Get<Domain.Usecases.Templates.ITemplateLoader>();
+            _fileService = dependencyFactory.Get<IFile>();
+            _directoryService = dependencyFactory.Get<IDirectory>();
+            _scriptObject = dependencyFactory.Get<ScriptObject>();
         }
 
         /// <inheritdoc/>
         public string Render(string fullTemplatePath, object model)
         {
-            scriptObject.Import(model);
+            _scriptObject.Import(model);
 
-            string template = templateLoader.Load(fullTemplatePath);
+            string template = _templateLoader.Load(fullTemplatePath);
             Template scribanTemplate = Template.Parse(template);
 
             TemplateContext context = new();
-            context.PushGlobal(scriptObject);
+            context.PushGlobal(_scriptObject);
             string result = scribanTemplate.Render(context);
             context.PopGlobal();
 
@@ -51,16 +52,16 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         public void RenderAndSave(string fullPathToTemplate, object templateModel, string fullPathToOutput)
         {
             string result = Render(fullPathToTemplate, templateModel);
-            string folder = fileService.GetDirectory(fullPathToOutput);
+            string folder = _fileService.GetDirectory(fullPathToOutput);
 
-            if (!directoryService.Exists(folder))
+            if (!_directoryService.Exists(folder))
             {
-                directoryService.Create(folder);
-                logger.Trace($"Folder {folder} has been created.");
+                _directoryService.Create(folder);
+                _logger.Trace($"Folder {folder} has been created.");
             }
 
-            logger.Trace($"Writing generated template to {fullPathToOutput}.");
-            fileService.WriteAllText(fullPathToOutput, result);
+            _logger.Trace($"Writing generated template to {fullPathToOutput}.");
+            _fileService.WriteAllText(fullPathToOutput, result);
         }
     }
 }

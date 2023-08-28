@@ -5,9 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Configuration
 {
+    /// <summary>
+    /// Configuration for the <see cref="Expander"/> entity.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public class ExpanderConfiguration : IEntityTypeConfiguration<Expander>
     {
+        /// <summary>
+        /// Configures the <see cref="Expander"/> entity.
+        /// </summary>
+        /// <param name="builder">The entity type builder.</param>
         public void Configure(EntityTypeBuilder<Expander> builder)
         {
             builder.HasKey(x => new { x.Id });

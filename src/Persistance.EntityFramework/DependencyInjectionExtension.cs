@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
@@ -48,16 +50,16 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
         {
             string ns = typeof(Entity).Namespace;
 
-            var repositoryType = typeof(GenericRepository<>);
-            var getGatewayType = typeof(IGetRepository<>);
-            var deleteGatewayType = typeof(IDeleteRepository<>);
-            var updateGatewayType = typeof(IUpdateRepository<>);
-            var createGatewayType = typeof(ICreateRepository<>);
+            Type repositoryType = typeof(GenericRepository<>);
+            Type getGatewayType = typeof(IGetRepository<>);
+            Type deleteGatewayType = typeof(IDeleteRepository<>);
+            Type updateGatewayType = typeof(IUpdateRepository<>);
+            Type createGatewayType = typeof(ICreateRepository<>);
 
-            var entityTypes = typeof(Entity).Assembly.GetTypes()
+            IEnumerable<Type> entityTypes = typeof(Entity).Assembly.GetTypes()
                 .Where(x => x.IsClass && x.Namespace == ns);
 
-            foreach (var entityType in entityTypes)
+            foreach (Type entityType in entityTypes)
             {
                 services.AddTransient(getGatewayType.MakeGenericType(entityType), repositoryType.MakeGenericType(entityType));
                 services.AddTransient(deleteGatewayType.MakeGenericType(entityType), repositoryType.MakeGenericType(entityType));

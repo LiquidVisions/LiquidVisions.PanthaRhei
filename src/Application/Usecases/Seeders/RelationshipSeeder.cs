@@ -11,15 +11,15 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class RelationshipSeeder : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Relationship> createGateway;
-        private readonly IDeleteRepository<Relationship> deleteGateway;
-        private readonly IModelConfiguration modelConfiguration;
+        private readonly ICreateRepository<Relationship> _createGateway;
+        private readonly IDeleteRepository<Relationship> _deleteGateway;
+        private readonly IModelConfiguration _modelConfiguration;
 
         public RelationshipSeeder(IDependencyFactory dependencyFactory)
         {
-            createGateway = dependencyFactory.Get<ICreateRepository<Relationship>>();
-            deleteGateway = dependencyFactory.Get<IDeleteRepository<Relationship>>();
-            modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
+            _createGateway = dependencyFactory.Get<ICreateRepository<Relationship>>();
+            _deleteGateway = dependencyFactory.Get<IDeleteRepository<Relationship>>();
+            _modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
         }
 
         public int SeedOrder => 7;
@@ -30,9 +30,9 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             foreach (Entity entity in app.Entities)
             {
-                List<RelationshipDto> infos = modelConfiguration.GetRelationshipInfo(entity);
+                List<RelationshipDto> infos = _modelConfiguration.GetRelationshipInfo(entity);
 
-                foreach (var info in infos)
+                foreach (RelationshipDto info in infos)
                 {
                     Relationship relationship = new()
                     {
@@ -62,11 +62,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
                     relationship.Required = info.Required;
 
-                    createGateway.Create(relationship);
+                    _createGateway.Create(relationship);
                 }
             }
         }
 
-        public void Reset() => deleteGateway.DeleteAll();
+        public void Reset() => _deleteGateway.DeleteAll();
     }
 }

@@ -12,16 +12,16 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 {
     internal class ModelConfiguration : IModelConfiguration
     {
-        private readonly DbContext context;
+        private readonly DbContext _context;
 
         public ModelConfiguration(DbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public string[] GetIndexes(Type entityType)
         {
-            return context.Model.GetEntityTypes()
+            return _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType)
                 .GetIndexes().SelectMany(x => x.Properties.Select(p => p.Name))
                 .ToArray();
@@ -29,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 
         public string[] GetKeys(Type entityType)
         {
-            return context.Model.GetEntityTypes()
+            return _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType)
                 .GetKeys().SelectMany(x => x.Properties.Select(p => p.Name))
                 .ToArray();
@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 
         public int? GetSize(Type entityType, string propName)
         {
-            var entity = context.Model.GetEntityTypes()
+            IEntityType entity = _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType);
 
             IProperty prop = entity.FindProperty(propName);
@@ -51,16 +51,16 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 
         public bool GetIsRequired(Type entityType, string propName)
         {
-            var entity = context.Model.GetEntityTypes()
+            IEntityType entity = _context.Model.GetEntityTypes()
                     .Single(x => x.ClrType == entityType);
 
-            var prop = entity.FindProperty(propName);
+            IProperty prop = entity.FindProperty(propName);
             if (prop != null)
             {
                 return !prop.IsNullable;
             }
 
-            var navigationProperty = entity.FindNavigation(propName);
+            INavigation navigationProperty = entity.FindNavigation(propName);
             if (navigationProperty != null)
             {
                 return !navigationProperty.ForeignKey.IsRequired;
@@ -71,14 +71,14 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 
         public List<RelationshipDto> GetRelationshipInfo(Entity entity)
         {
-            var mutableEntity = context.Model.GetEntityTypes()
+            IEntityType mutableEntity = _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType.Name == entity.Name);
 
             List<RelationshipDto> result = new();
 
             var navigations = mutableEntity.GetNavigations().Where(x => x.ForeignKey.DeclaringEntityType.ClrType.Name == entity.Name).ToList();
 
-            foreach (var navigation in navigations)
+            foreach (INavigation navigation in navigations)
             {
                 result.Add(new RelationshipDto
                 {

@@ -1,11 +1,15 @@
 ﻿using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Application.Usecases.Initializers;
 using LiquidVisions.PanthaRhei.Domain.Repositories;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 
 namespace LiquidVisions.PanthaRhei.Application.Tests
 {
+    /// <summary>
+    /// The <see cref="Fakes"/> for the <see cref="Application"/> project.
+    /// </summary>
     public class ApplicationFakes : Fakes
     {
         /// <summary>
@@ -38,6 +42,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests
         /// </summary>
         internal Mock<IObjectActivator> IObjectActivator { get; } = new();
 
+        /// <summary>
+        /// Configures the mocks globally.
+        /// </summary>
         public override void Configure()
         {
             base.Configure();
@@ -45,6 +52,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests
             ICodeGeneratorBuilder.Setup(x => x.Build()).Returns(ICodeGenerator.Object);
         }
 
+        /// <summary>
+        /// Configures the mocks for the <seealso cref="IDependencyFactory"/>.
+        /// </summary>
         public override void ConfigureIDependencyFactory()
         {
             base.ConfigureIDependencyFactory();

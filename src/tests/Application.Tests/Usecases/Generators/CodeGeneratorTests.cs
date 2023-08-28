@@ -15,19 +15,22 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
     /// </summary>
     public class CodeGeneratorTests
     {
-        private readonly CodeGenerator interactor;
-        private readonly Fakes fakes = new();
-        private readonly Mock<IExpander> mockedIExpanderInteractor = new();
+        private readonly CodeGenerator _interactor;
+        private readonly Fakes _fakes = new();
+        private readonly Mock<IExpander> _mockedIExpanderInteractor = new();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeGeneratorTests"/> class.
+        /// </summary>
         public CodeGeneratorTests()
         {
-            mockedIExpanderInteractor.Setup(x => x.Model).Returns(new Expander());
+            _mockedIExpanderInteractor.Setup(x => x.Model).Returns(new Expander());
 
-            fakes.IDependencyFactory
+            _fakes.IDependencyFactory
                 .Setup(x => x.GetAll<IExpander>())
-                .Returns(new List<IExpander> { mockedIExpanderInteractor.Object });
+                .Returns(new List<IExpander> { _mockedIExpanderInteractor.Object });
 
-            interactor = new CodeGenerator(fakes.IDependencyFactory.Object);
+            _interactor = new CodeGenerator(_fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -39,12 +42,12 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
             // arrange
             // act
             // assert
-            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
+            _fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
 
-            fakes.IDependencyFactory.Verify(x => x.GetAll<IExpander>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Exactly(1));
+            _fakes.IDependencyFactory.Verify(x => x.GetAll<IExpander>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Exactly(1));
         }
 
         /// <summary>
@@ -58,16 +61,16 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         public void Clean_ShouldRunExactTimes(bool clean, int times)
         {
             // arrange
-            fakes.GenerationOptions.Setup(x => x.Clean)
+            _fakes.GenerationOptions.Setup(x => x.Clean)
                 .Returns(clean);
 
             // act
-            interactor.Execute();
+            _interactor.Execute();
 
             // assert
-            fakes.GenerationOptions.Verify(x => x.Clean, Times.Once);
-            fakes.GenerationOptions.Verify(x => x.OutputFolder, Times.Exactly(times));
-            fakes.IDirectory.Verify(x => x.Delete(fakes.GenerationOptions.Object.OutputFolder), Times.Exactly(times));
+            _fakes.GenerationOptions.Verify(x => x.Clean, Times.Once);
+            _fakes.GenerationOptions.Verify(x => x.OutputFolder, Times.Exactly(times));
+            _fakes.IDirectory.Verify(x => x.Delete(_fakes.GenerationOptions.Object.OutputFolder), Times.Exactly(times));
         }
 
         /// <summary>
@@ -78,14 +81,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         {
             // arrange
             // act
-            interactor.Execute();
+            _interactor.Execute();
 
             // assert
-            mockedIExpanderInteractor.Verify(x => x.Harvest(), Times.Once);
-            mockedIExpanderInteractor.Verify(x => x.PreProcess(), Times.Once);
-            mockedIExpanderInteractor.Verify(x => x.Expand(), Times.Once);
-            mockedIExpanderInteractor.Verify(x => x.Rejuvenate(), Times.Once);
-            mockedIExpanderInteractor.Verify(x => x.PostProcess(), Times.Once);
+            _mockedIExpanderInteractor.Verify(x => x.Harvest(), Times.Once);
+            _mockedIExpanderInteractor.Verify(x => x.PreProcess(), Times.Once);
+            _mockedIExpanderInteractor.Verify(x => x.Expand(), Times.Once);
+            _mockedIExpanderInteractor.Verify(x => x.Rejuvenate(), Times.Once);
+            _mockedIExpanderInteractor.Verify(x => x.PostProcess(), Times.Once);
         }
     }
 }

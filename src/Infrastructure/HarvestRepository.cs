@@ -11,23 +11,31 @@ using LiquidVisions.PanthaRhei.Infrastructure.Serialization;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure
 {
+    /// <summary>
+    /// Repository for <see cref="Harvest"/> entities.
+    /// </summary>
     internal class HarvestRepository : ICreateRepository<Harvest>, IGetRepository<Harvest>
     {
-        private readonly IHarvestSerializer serializer;
-        private readonly GenerationOptions expandRequestModel;
-        private readonly App app;
-        private readonly IDeserializer<Harvest> deserializer;
-        private readonly IFile file;
+        private readonly IHarvestSerializer _serializer;
+        private readonly GenerationOptions _expandRequestModel;
+        private readonly App _app;
+        private readonly IDeserializer<Harvest> _deserializer;
+        private readonly IFile _file;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HarvestRepository"/> class.
+        /// </summary>
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public HarvestRepository(IDependencyFactory dependencyFactory)
         {
-            file = dependencyFactory.Get<IFile>();
-            deserializer = dependencyFactory.Get<IDeserializer<Harvest>>();
-            serializer = dependencyFactory.Get<IHarvestSerializer>();
-            expandRequestModel = dependencyFactory.Get<GenerationOptions>();
-            app = dependencyFactory.Get<App>();
+            _file = dependencyFactory.Get<IFile>();
+            _deserializer = dependencyFactory.Get<IDeserializer<Harvest>>();
+            _serializer = dependencyFactory.Get<IHarvestSerializer>();
+            _expandRequestModel = dependencyFactory.Get<GenerationOptions>();
+            _app = dependencyFactory.Get<App>();
         }
 
+        /// <inheritdoc/>
         public bool Create(Harvest entity)
         {
             if (string.IsNullOrEmpty(entity.HarvestType))
@@ -36,29 +44,31 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             }
 
             string fullPath = Path.Combine(
-                expandRequestModel.HarvestFolder,
-                app.FullName,
-                $"{file.GetFileNameWithoutExtension(entity.Path)}.{entity.HarvestType}");
+                _expandRequestModel.HarvestFolder,
+                _app.FullName,
+                $"{_file.GetFileNameWithoutExtension(entity.Path)}.{entity.HarvestType}");
 
-            serializer.Serialize(entity, fullPath);
+            _serializer.Serialize(entity, fullPath);
 
             return true;
         }
 
+        /// <inheritdoc/>
         public IEnumerable<Harvest> GetAll()
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public Harvest GetById(object id)
         {
             string path = (string)id;
-            if (!file.Exists(path))
+            if (!_file.Exists(path))
             {
                 throw new FileNotFoundException($"Harvest file not found on path {path}");
             }
 
-            return deserializer.Deserialize(path);
+            return _deserializer.Deserialize(path);
         }
     }
 }

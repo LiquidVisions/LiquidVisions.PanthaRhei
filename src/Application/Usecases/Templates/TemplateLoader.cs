@@ -10,8 +10,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
     /// </summary>
     internal class TemplateLoader : ITemplateLoader
     {
-        private readonly IFile fileService;
-        private readonly ILogger logger;
+        private readonly IFile _fileService;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateLoader"/> class.
@@ -19,18 +19,18 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
         public TemplateLoader(IDependencyFactory dependencyFactory)
         {
-            fileService = dependencyFactory.Get<IFile>();
-            logger = dependencyFactory.Get<ILogger>();
+            _fileService = dependencyFactory.Get<IFile>();
+            _logger = dependencyFactory.Get<ILogger>();
         }
 
         /// <inheritdoc/>
         public string Load(string fullPathToTemplateFile)
         {
-            if (fileService.Exists(fullPathToTemplateFile))
+            if (_fileService.Exists(fullPathToTemplateFile))
             {
-                logger.Info($"Loading template on path '{fullPathToTemplateFile}'");
+                _logger.Info($"Loading template on path '{fullPathToTemplateFile}'");
 
-                return fileService.ReadAllText(fullPathToTemplateFile);
+                return _fileService.ReadAllText(fullPathToTemplateFile);
             }
 
             throw new TemplateException($"Failed to load template '{fullPathToTemplateFile}'");

@@ -11,38 +11,38 @@ var cmd = new CommandLineApplication();
 
 cmd.HelpOption();
 
-var rootOption = cmd.Option(
+CommandOption rootOption = cmd.Option(
     "--root",
     "Full path to the project root.",
     CommandOptionType.SingleValue)
     .IsRequired();
 
-var dbOption = cmd.Option(
+CommandOption dbOption = cmd.Option(
     "--db",
     "The connectionstring that will be used.",
     CommandOptionType.SingleValue);
 
-var appOption = cmd.Option(
+CommandOption appOption = cmd.Option(
     "--app",
     "The id of the app.",
     CommandOptionType.SingleValue);
 
-var runModeOption = cmd.Option(
+CommandOption runModeOption = cmd.Option(
     "--mode",
     "The run mode determines the expander and handers that will be executed.",
     CommandOptionType.SingleValue);
 
-var cleanModeOption = cmd.Option<bool>(
+CommandOption<bool> cleanModeOption = cmd.Option<bool>(
     "--clean",
     "Deletes and discards all previous runs",
     CommandOptionType.SingleOrNoValue);
 
-var seed = cmd.Option<bool>(
+CommandOption<bool> seed = cmd.Option<bool>(
     "--seed",
     "Sets a value indicating whether the database should be seeded with the data of the meta model",
     CommandOptionType.SingleOrNoValue);
 
-var migrate = cmd.Option<bool>(
+CommandOption<bool> migrate = cmd.Option<bool>(
     "--migrate",
     "Sets a value indicating whether the database schema should be attempted to update.",
     CommandOptionType.SingleOrNoValue);
@@ -63,7 +63,7 @@ cmd.OnExecute(() =>
             .GetConnectionString(dbOption.Value()),
     };
 
-    var provider = new ServiceCollection()
+    ServiceProvider provider = new ServiceCollection()
         .AddPresentationLayer(requestModel)
         .BuildServiceProvider();
 

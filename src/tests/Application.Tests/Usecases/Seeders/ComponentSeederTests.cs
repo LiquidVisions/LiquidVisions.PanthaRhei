@@ -16,17 +16,20 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     /// </summary>
     public class ComponentSeederTests
     {
-        private readonly Fakes fakes = new();
-        private readonly ComponentSeeder interactor;
-        private readonly Mock<ICreateRepository<Component>> mockedCreateGateway = new();
-        private readonly Mock<IDeleteRepository<Component>> mockedDeleteGateway = new();
+        private readonly Fakes _fakes = new();
+        private readonly ComponentSeeder _interactor;
+        private readonly Mock<ICreateRepository<Component>> _mockedCreateGateway = new();
+        private readonly Mock<IDeleteRepository<Component>> _mockedDeleteGateway = new();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ComponentSeederTests"/> class.
+        /// </summary>
         public ComponentSeederTests()
         {
-            fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Component>>()).Returns(mockedCreateGateway.Object);
-            fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<Component>>()).Returns(mockedDeleteGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Component>>()).Returns(_mockedCreateGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<Component>>()).Returns(_mockedDeleteGateway.Object);
 
-            interactor = new ComponentSeeder(fakes.IDependencyFactory.Object);
+            _interactor = new ComponentSeeder(_fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -38,13 +41,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Component>>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<Component>>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
-            fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            _fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Component>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<Component>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            _fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>
@@ -56,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(3, interactor.SeedOrder);
+            Assert.Equal(3, _interactor.SeedOrder);
         }
 
 
@@ -69,7 +72,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(3, interactor.ResetOrder);
+            Assert.Equal(3, _interactor.ResetOrder);
         }
 
 
@@ -81,10 +84,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             // act
-            interactor.Reset();
+            _interactor.Reset();
 
             // assert
-            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
+            _mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
 
@@ -102,20 +105,20 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
                 Expanders = new List<Expander> { expander1, expander2, },
             };
 
-            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
-            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
+            string actualTemplatePathExpander1 = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
+            string actualTemplatePathExpander2 = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
 
-            fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(false);
-            fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(false);
+            _fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(false);
+            _fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(false);
 
             // act
-            interactor.Seed(app);
+            _interactor.Seed(app);
 
             // assert
-            fakes.IDirectory.Verify(x => x.Exists(actualTemplatePathExpander1), Times.Once);
-            fakes.IDirectory.Verify(x => x.Exists(actualTemplatePathExpander2), Times.Once);
-            fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>()), Times.Never);
-            mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Never);
+            _fakes.IDirectory.Verify(x => x.Exists(actualTemplatePathExpander1), Times.Once);
+            _fakes.IDirectory.Verify(x => x.Exists(actualTemplatePathExpander2), Times.Once);
+            _fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>()), Times.Never);
+            _mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Never);
         }
 
         /// <summary>
@@ -132,25 +135,25 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
                 Expanders = new List<Expander> { expander1, expander2, },
             };
 
-            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
-            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
+            string actualTemplatePathExpander1 = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
+            string actualTemplatePathExpander2 = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
 
-            fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(true);
-            fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(true);
+            _fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(true);
+            _fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(true);
 
-            fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories)).Returns(new string[] { $"{actualTemplatePathExpander1}\\NAME.Project1.csproj", string.Empty });
-            fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories)).Returns(new string[] { $"{actualTemplatePathExpander2}\\NAME.Project2.csproj", string.Empty });
+            _fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories)).Returns(new string[] { $"{actualTemplatePathExpander1}\\NAME.Project1.csproj", string.Empty });
+            _fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories)).Returns(new string[] { $"{actualTemplatePathExpander2}\\NAME.Project2.csproj", string.Empty });
 
-            fakes.IFile.Setup(x => x.GetFileNameWithoutExtension($"{actualTemplatePathExpander1}\\NAME.Project1.csproj")).Returns("Project1");
-            fakes.IFile.Setup(x => x.GetFileNameWithoutExtension($"{actualTemplatePathExpander2}\\NAME.Project2.csproj")).Returns("Project2");
+            _fakes.IFile.Setup(x => x.GetFileNameWithoutExtension($"{actualTemplatePathExpander1}\\NAME.Project1.csproj")).Returns("Project1");
+            _fakes.IFile.Setup(x => x.GetFileNameWithoutExtension($"{actualTemplatePathExpander2}\\NAME.Project2.csproj")).Returns("Project2");
 
             // act
-            interactor.Seed(app);
+            _interactor.Seed(app);
 
             // assert
-            fakes.IDirectory.Verify(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories), Times.Once);
-            fakes.IDirectory.Verify(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories), Times.Once);
-            mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Exactly(2));
+            _fakes.IDirectory.Verify(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories), Times.Once);
+            _fakes.IDirectory.Verify(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories), Times.Once);
+            _mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Exactly(2));
         }
     }
 }

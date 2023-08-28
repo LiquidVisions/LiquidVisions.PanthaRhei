@@ -10,38 +10,83 @@ using Moq;
 
 namespace LiquidVisions.PanthaRhei.Tests
 {
+    /// <summary>
+    /// Mock objects for unit tests.
+    /// </summary>
     public class Fakes
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fakes"/> class.
+        /// </summary>
         public Fakes()
         {
             Configure();
             ConfigureIDependencyFactory();
         }
 
+        /// <summary>
+        /// Mock for <see cref="IDependencyFactory"/>.
+        /// </summary>
         public Mock<IDependencyFactory> IDependencyFactory { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="IDependencyManager"/>.
+        /// </summary>
         public Mock<IDependencyManager> IDependencyManager { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="ILogger"/>.
+        /// </summary>
         public Mock<ILogger> ILogger { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="ILogManager"/>.
+        /// </summary>
         public Mock<ILogManager> ILogManager { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="IFile"/>.
+        /// </summary>
         public Mock<IFile> IFile { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="IDirectory"/>.
+        /// </summary>
         public Mock<IDirectory> IDirectory { get; } = new();
 
+        /// <summary>
+        /// Mock for <seealso cref="GenerationOptions"/>.
+        /// </summary>
         public Mock<GenerationOptions> GenerationOptions { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="IExpanderDependencyManager"/>.
+        /// </summary>
         public Mock<IExpanderDependencyManager> IExpanderDependencyManager { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="IWriter"/>.
+        /// </summary>
         public Mock<IWriter> IWriter { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="ITemplate"/>.
+        /// </summary>
         public Mock<ITemplate> ITemplate { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="ICommandLine"/>.
+        /// </summary>
         public Mock<ICommandLine> ICommandLine { get; } = new();
 
+        /// <summary>
+        /// Mock for <see cref="IAssemblyManager"/>.
+        /// </summary>
         internal Mock<IAssemblyManager> IAssemblyManager { get; } = new();
 
+        /// <summary>
+        /// Configures the mock objects.
+        /// </summary>
         public virtual void Configure()
         {
             ILogManager.Setup(x => x.GetExceptionLogger()).Returns(ILogger.Object);
@@ -52,6 +97,9 @@ namespace LiquidVisions.PanthaRhei.Tests
             GenerationOptions.Setup(x => x.HarvestFolder).Returns("C:\\Some\\Root\\HarvestFolder");
         }
 
+        /// <summary>
+        /// Configures the <see cref="IDependencyFactory"/>.
+        /// </summary>
         public virtual void ConfigureIDependencyFactory()
         {
             IDependencyFactory.Setup(x => x.Get<ILogger>()).Returns(ILogger.Object);

@@ -5,32 +5,40 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
 {
+    /// <summary>
+    /// Represents a Harvest Serializer.
+    /// </summary>
     public class HarvestSerializer : IHarvestSerializer
     {
-        private readonly ISerializer<Harvest> serializer;
-        private readonly IFile file;
-        private readonly IDirectory directory;
+        private readonly ISerializer<Harvest> _serializer;
+        private readonly IFile _file;
+        private readonly IDirectory _directory;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HarvestSerializer"/> class.
+        /// </summary>
+        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public HarvestSerializer(IDependencyFactory dependencyFactory)
         {
-            file = dependencyFactory.Get<IFile>();
-            directory = dependencyFactory.Get<IDirectory>();
-            serializer = dependencyFactory.Get<ISerializer<Harvest>>();
+            _file = dependencyFactory.Get<IFile>();
+            _directory = dependencyFactory.Get<IDirectory>();
+            _serializer = dependencyFactory.Get<ISerializer<Harvest>>();
         }
 
+        /// <inheritdoc/>
         public void Serialize(Harvest harvest, string fullPath)
         {
-            bool serialize = file.Exists(fullPath);
+            bool serialize = _file.Exists(fullPath);
             serialize &= harvest.Items.Any();
             if (serialize)
             {
-                string dir = file.GetDirectory(fullPath);
-                if (!directory.Exists(dir))
+                string dir = _file.GetDirectory(fullPath);
+                if (!_directory.Exists(dir))
                 {
-                    directory.Create(dir);
+                    _directory.Create(dir);
                 }
 
-                serializer.Serialize(fullPath, harvest);
+                _serializer.Serialize(fullPath, harvest);
             }
         }
     }

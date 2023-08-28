@@ -72,9 +72,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var builder = new ConfigurationBuilder()
+                IConfigurationBuilder builder = new ConfigurationBuilder()
                     .AddUserSecrets<Context>();
-                var configurationRoot = builder.Build();
+                IConfigurationRoot configurationRoot = builder.Build();
 
                 string connectionString = configurationRoot.GetConnectionString("PanthaRheiDev");
 

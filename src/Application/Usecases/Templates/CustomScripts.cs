@@ -7,45 +7,74 @@ using Scriban.Runtime;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
 {
+    /// <summary>
+    /// Custom <seealso cref="ScriptObject"/> for Scriban."/>
+    /// </summary>
     public class CustomScripts : ScriptObject
     {
-        private static readonly Pluralizer pluralizer = new();
-        private static readonly Dictionary<string, IElementTemplateParameters> elementTemplateParameters = new();
+        private static readonly Pluralizer s_pluralizer = new();
+        private static readonly Dictionary<string, IElementTemplateParameters> s_elementTemplateParameters = new();
 
+        /// <summary>
+        /// default constructor.
+        /// </summary>
+        /// <param name="parameters"><seealso cref="IEnumerable{IElementTemplateParameters}"/></param>
         public CustomScripts(IEnumerable<IElementTemplateParameters> parameters)
         {
-            foreach (var par in parameters)
+            foreach (IElementTemplateParameters par in parameters)
             {
-                if (!elementTemplateParameters.ContainsKey(par.ElementType))
+                if (!s_elementTemplateParameters.ContainsKey(par.ElementType))
                 {
-                    elementTemplateParameters.Add(par.ElementType, par);
+                    s_elementTemplateParameters.Add(par.ElementType, par);
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the prefix for the element type.
+        /// </summary>
+        /// <param name="elementType"></param>
+        /// <returns></returns>
         public static string GetPostfix(string elementType)
-            => elementTemplateParameters[elementType].NamePostfix;
+            => s_elementTemplateParameters[elementType].NamePostfix;
 
+        /// <summary>
+        /// Gets the prefix for the element type.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static string Pluralize(string name)
-            => pluralizer.Pluralize(name);
+            => s_pluralizer.Pluralize(name);
 
-        public static string ComponentFullname(Component component, params string[] str)
+        /// <summary>
+        /// Gets the prefix for the element type.
+        /// </summary>
+        /// <param name="component">The <seealso cref="Component"/>.</param>
+        /// <param name="segments">The segments.</param>
+        /// <returns></returns>
+        public static string ComponentFullname(Component component, params string[] segments)
         {
             string result = $"{component.Expander.Apps.Single().FullName}.{component.Name}";
-            if (str != null && str.Length > 0)
+            if (segments != null && segments.Length > 0)
             {
-                result = $"{result}.{string.Join('.', str)}";
+                result = $"{result}.{string.Join('.', segments)}";
             }
 
             return result;
         }
 
-        public static string AppFullname(Component component, params string[] str)
+        /// <summary>
+        /// Appends the <paramref name="segments"/> to the <seealso cref="App.FullName"/>.
+        /// </summary>
+        /// <param name="component">The <seealso cref="Component"/>.</param>
+        /// <param name="segments"></param>
+        /// <returns></returns>
+        public static string AppFullname(Component component, params string[] segments)
         {
             string result = $"{component.Expander.Apps.Single().FullName}";
-            if (str != null)
+            if (segments != null)
             {
-                result = $"{result}.{string.Join('.', str)}";
+                result = $"{result}.{string.Join('.', segments)}";
             }
 
             return result;

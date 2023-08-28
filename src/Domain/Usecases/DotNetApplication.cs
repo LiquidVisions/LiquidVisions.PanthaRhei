@@ -8,52 +8,52 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
 {
     internal class DotNetApplication : IApplication
     {
-        private readonly GenerationOptions options;
-        private readonly ILogger logger;
-        private readonly IDirectory directory;
-        private readonly IFile file;
-        private readonly ICommandLine cli;
-        private readonly App app;
+        private readonly GenerationOptions _options;
+        private readonly ILogger _logger;
+        private readonly IDirectory _directory;
+        private readonly IFile _file;
+        private readonly ICommandLine _cli;
+        private readonly App _app;
 
         public DotNetApplication(IDependencyFactory dependencyFactory)
         {
-            options = dependencyFactory.Get<GenerationOptions>();
-            logger = dependencyFactory.Get<ILogger>();
-            directory = dependencyFactory.Get<IDirectory>();
-            file = dependencyFactory.Get<IFile>();
-            cli = dependencyFactory.Get<ICommandLine>();
-            app = dependencyFactory.Get<App>();
+            _options = dependencyFactory.Get<GenerationOptions>();
+            _logger = dependencyFactory.Get<ILogger>();
+            _directory = dependencyFactory.Get<IDirectory>();
+            _file = dependencyFactory.Get<IFile>();
+            _cli = dependencyFactory.Get<ICommandLine>();
+            _app = dependencyFactory.Get<App>();
         }
 
         public void MaterializeProject()
         {
-            var root = Path.Combine(options.OutputFolder, app.FullName);
+            string root = Path.Combine(_options.OutputFolder, _app.FullName);
 
             CreateFolderIfNeeded(root);
 
-            cli.Start($"dotnet new liquidvisions-expanders-{app.Name} --NAME {app.Name} --NS {app.FullName}", root);
+            _cli.Start($"dotnet new liquidvisions-expanders-{_app.Name} --NAME {_app.Name} --NS {_app.FullName}", root);
         }
 
         public void MaterializeComponent(Component component)
         {
-            var solutionRoot = Path.Combine(options.OutputFolder, app.FullName);
-            var componentRoot = GetComponentRoot(component);
+            string solutionRoot = Path.Combine(_options.OutputFolder, _app.FullName);
+            string componentRoot = GetComponentRoot(component);
 
             CreateFolderIfNeeded(solutionRoot);
             CreateFolderIfNeeded(componentRoot);
 
-            if(!file.Exists(Path.Combine(solutionRoot, $"{app.FullName}.sln")))
+            if(!_file.Exists(Path.Combine(solutionRoot, $"{_app.FullName}.sln")))
             {
-                cli.Start($"dotnet new sln", solutionRoot);
+                _cli.Start($"dotnet new sln", solutionRoot);
             }
 
-            cli.Start($"dotnet new liquidvisions-expanders-{component.Name} --NAME {component.Name} --NS {app.FullName}", componentRoot);
-            cli.Start($"dotnet sln {Path.Combine(solutionRoot, $"{app.FullName}.sln")} add {GetComponentConfigurationFile(component)}");
+            _cli.Start($"dotnet new liquidvisions-expanders-{component.Name} --NAME {component.Name} --NS {_app.FullName}", componentRoot);
+            _cli.Start($"dotnet sln {Path.Combine(solutionRoot, $"{_app.FullName}.sln")} add {GetComponentConfigurationFile(component)}");
         }
 
         public virtual string GetComponentRoot(Component component)
         {
-            return Path.Combine(options.OutputFolder, app.FullName, "src", $"{component.Name}");
+            return Path.Combine(_options.OutputFolder, _app.FullName, "src", $"{component.Name}");
         }
 
         public virtual string GetComponentConfigurationFile(Component component)
@@ -68,10 +68,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
 
         private void CreateFolderIfNeeded(string root)
         {
-            if (!directory.Exists(root))
+            if (!_directory.Exists(root))
             {
-                logger.Info($"Creating directory {root}");
-                cli.Start($"mkdir {root}");
+                _logger.Info($"Creating directory {root}");
+                _cli.Start($"mkdir {root}");
             }
         }
     }

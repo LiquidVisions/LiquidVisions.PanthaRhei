@@ -3,8 +3,14 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
 {
+    /// <summary>
+    /// Tests for <see cref="Loggers"/>.
+    /// </summary>
     public class LoggersTests
     {
+        /// <summary>
+        /// Properties should contain correct values.
+        /// </summary>
         [Fact]
         public void Loggers_ConstantsShouldBeEqual()
         {

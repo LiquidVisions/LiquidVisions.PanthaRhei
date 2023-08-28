@@ -4,22 +4,31 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Gateways
 {
+    /// <summary>
+    /// Tests for <see cref="EntitiesToSeedGateway"/>.
+    /// </summary>
     public class EntitiesToSeedGatewayTests
     {
-        private readonly EntitiesToSeedGateway gateway;
+        private readonly EntitiesToSeedGateway _gateway;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntitiesToSeedGatewayTests"/> class.
+        /// </summary>
         public EntitiesToSeedGatewayTests()
         {
-            gateway = new EntitiesToSeedGateway();
+            _gateway = new EntitiesToSeedGateway();
         }
 
+        /// <summary>
+        /// Tests the <see cref="EntitiesToSeedGateway.GetById"/> method.
+        /// </summary>
         [Fact]
         public void GetById_ShouldTrowNotImplementedException()
         {
             // arrange
 
             // act
-            Func<object, Type> action = gateway.GetById;
+            Func<object, Type> action = _gateway.GetById;
 
             // assert
             Assert.Throws<NotImplementedException>(() => action(1));

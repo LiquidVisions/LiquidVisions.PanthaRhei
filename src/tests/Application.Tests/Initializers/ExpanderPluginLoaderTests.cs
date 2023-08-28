@@ -12,78 +12,96 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
 {
+    /// <summary>
+    /// Tests for <seealso cref="ExpanderPluginLoader"/>.
+    /// </summary>
     public class ExpanderPluginLoaderTests
     {
-        private readonly string searchPattern = "*.Expanders.*.dll";
-        private readonly string expanderName = "ExpanderName";
-        private readonly string pluginAssembly = @"C:\Some\Fake\Plugin.Expanders.Assembly.dll";
+        private readonly string _searchPattern = "*.Expanders.*.dll";
+        private readonly string _expanderName = "ExpanderName";
+        private readonly string _pluginAssembly = @"C:\Some\Fake\Plugin.Expanders.Assembly.dll";
 
-        private readonly ApplicationFakes fakes = new();
-        private readonly ExpanderPluginLoader interactor;
-        private readonly Mock<Assembly> mockedAssembly = new();
-        private readonly App app;
+        private readonly ApplicationFakes _fakes = new();
+        private readonly ExpanderPluginLoader _interactor;
+        private readonly Mock<Assembly> _mockedAssembly = new();
+        private readonly App _app;
 
+        /// <summary>
+        /// INitializes a new instance of the <see cref="ExpanderPluginLoaderTests"/> class.
+        /// </summary>
         public ExpanderPluginLoaderTests()
         {
-            app = new() { Expanders = new List<Expander> { new Expander() { Name = expanderName } } };
+            _app = new() { Expanders = new List<Expander> { new Expander() { Name = _expanderName } } };
 
-            fakes.IAssemblyContext.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);
+            _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Returns(_mockedAssembly.Object);
 
-            interactor = new ExpanderPluginLoader(fakes.IDependencyFactory.Object);
+            _interactor = new ExpanderPluginLoader(_fakes.IDependencyFactory.Object);
 
-            fakes.IFile.Setup(x => x.GetDirectory(fakes.GenerationOptions.Object.ExpandersFolder)).Returns(@"C:\Some\Fake\");
-            fakes.IAssemblyContext.Setup(x => x.Load(pluginAssembly)).Returns(mockedAssembly.Object);
-            fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expanderName), searchPattern, SearchOption.TopDirectoryOnly)).Returns(new string[] { pluginAssembly });
+            _fakes.IFile.Setup(x => x.GetDirectory(_fakes.GenerationOptions.Object.ExpandersFolder)).Returns(@"C:\Some\Fake\");
+            _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Returns(_mockedAssembly.Object);
+            _fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expanderName), _searchPattern, SearchOption.TopDirectoryOnly)).Returns(new string[] { _pluginAssembly });
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(App)"/> while throwing <seealso cref="InitializationException"/>.
+        /// </summary>
         [Fact]
         public void Load_RootFolderDoesNotContainPluginAssemblies_ShouldThrowException()
         {
             // arrange
-            fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expanderName), searchPattern, SearchOption.TopDirectoryOnly)).Returns(Array.Empty<string>());
+            _fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expanderName), _searchPattern, SearchOption.TopDirectoryOnly)).Returns(Array.Empty<string>());
 
             // act
-            void Action() => interactor.LoadAllRegisteredPluginsAndBootstrap(app);
+            void Action() => _interactor.LoadAllRegisteredPluginsAndBootstrap(_app);
 
             // assert
             InitializationException ex = Assert.Throws<InitializationException>(Action);
-            Assert.Equal($"No plugin assembly detected in '{Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expanderName)}'. The plugin assembly should match the following '{searchPattern}' pattern", ex.Message);
+            Assert.Equal($"No plugin assembly detected in '{Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expanderName)}'. The plugin assembly should match the following '{_searchPattern}' pattern", ex.Message);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(App)"/> while throwing <seealso cref="InitializationException"/>.
+        /// </summary>
         [Fact]
         public void Load_LoadAssemblyFilesThrowsException_ShouldRethrowWithMessage()
         {
             // arrange
-            fakes.IAssemblyContext.Setup(x => x.Load(pluginAssembly)).Throws<Exception>();
+            _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Throws<Exception>();
 
             // act
-            void Action() => interactor.LoadAllRegisteredPluginsAndBootstrap(app);
+            void Action() => _interactor.LoadAllRegisteredPluginsAndBootstrap(_app);
 
             // assert
             InitializationException ex = Assert.Throws<InitializationException>(Action);
-            Assert.Equal($"Failed to load plugin '{pluginAssembly}'.", ex.Message);
+            Assert.Equal($"Failed to load plugin '{_pluginAssembly}'.", ex.Message);
         }
 
+        /// <summary>
+        /// Tests from <seealso cref="ExpanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(App)"/> in happy flow.
+        /// </summary>
         [Fact]
         public void Load_ShouldVerify()
         {
             // arrange
-            mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { fakes.IExpanderDependencyManager.Object.GetType() });
+            _mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { _fakes.IExpanderDependencyManager.Object.GetType() });
 
-            fakes.IObjectActivator.Setup(x => x.CreateInstance(
-                fakes.IExpanderDependencyManager.Object.GetType(),
-                app.Expanders.First(),
-                fakes.IDependencyManager.Object))
-                .Returns(fakes.IExpanderDependencyManager.Object);
+            _fakes.IObjectActivator.Setup(x => x.CreateInstance(
+                _fakes.IExpanderDependencyManager.Object.GetType(),
+                _app.Expanders.First(),
+                _fakes.IDependencyManager.Object))
+                .Returns(_fakes.IExpanderDependencyManager.Object);
 
             // act
-            interactor.LoadAllRegisteredPluginsAndBootstrap(app);
+            _interactor.LoadAllRegisteredPluginsAndBootstrap(_app);
 
             // assert
-            fakes.IObjectActivator.Verify(x => x.CreateInstance(fakes.IExpanderDependencyManager.Object.GetType(), app.Expanders.First(), fakes.IDependencyManager.Object), Times.Once);
-            fakes.IExpanderDependencyManager.Verify(x => x.Register(), Times.Once);
+            _fakes.IObjectActivator.Verify(x => x.CreateInstance(_fakes.IExpanderDependencyManager.Object.GetType(), _app.Expanders.First(), _fakes.IDependencyManager.Object), Times.Once);
+            _fakes.IExpanderDependencyManager.Verify(x => x.Register(), Times.Once);
         }
 
+        /// <summary>
+        /// Tests for <seealso cref="ExpanderPluginLoader.ShallowLoadAllExpanders(string)"/>.
+        /// </summary>
         [Fact]
         public void ShallowLoad_ShouldVerify()
         {
@@ -92,27 +110,27 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
 
             Mock<IExpander> mockedIExpander = new();
 
-            mockedAssembly
+            _mockedAssembly
                 .Setup(x => x.GetExportedTypes())
                 .Returns(new[] { mockedIExpander.Object.GetType() });
 
-            fakes.IDirectory
-                .Setup(x => x.GetFiles(path, searchPattern, SearchOption.AllDirectories))
-                .Returns(new string[] { pluginAssembly });
+            _fakes.IDirectory
+                .Setup(x => x.GetFiles(path, _searchPattern, SearchOption.AllDirectories))
+                .Returns(new string[] { _pluginAssembly });
 
-            fakes.IAssemblyContext
-                .Setup(x => x.Load(pluginAssembly))
-                .Returns(mockedAssembly.Object);
+            _fakes.IAssemblyContext
+                .Setup(x => x.Load(_pluginAssembly))
+                .Returns(_mockedAssembly.Object);
 
-            fakes.IObjectActivator.Setup(x => x.CreateInstance(
-                fakes.IExpanderDependencyManager.Object.GetType()))
-                .Returns(fakes.IExpanderDependencyManager.Object);
+            _fakes.IObjectActivator.Setup(x => x.CreateInstance(
+                _fakes.IExpanderDependencyManager.Object.GetType()))
+                .Returns(_fakes.IExpanderDependencyManager.Object);
 
             // act
-            List<IExpander> result = interactor.ShallowLoadAllExpanders(path);
+            List<IExpander> result = _interactor.ShallowLoadAllExpanders(path);
 
             // assert
-            fakes.IObjectActivator.Verify(x => x.CreateInstance(It.IsAny<Type>()), Times.Once);
+            _fakes.IObjectActivator.Verify(x => x.CreateInstance(It.IsAny<Type>()), Times.Once);
             Assert.Single(result);
         }
     }

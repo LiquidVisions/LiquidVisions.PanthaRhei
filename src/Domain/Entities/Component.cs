@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace LiquidVisions.PanthaRhei.Domain.Entities
 {
+    /// <summary>
+    /// Represents a <see cref="Component"/> entity.
+    /// </summary>
     public class Component
     {
         /// <summary>
@@ -25,6 +28,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// </summary>
         public virtual List<Package> Packages { get; set; } = new List<Package>();
 
+        /// <summary>
+        /// Gets or sets the <seealso cref="Expander">Expanders</seealso> of the <see cref="Component"/>.
+        /// </summary>
         public virtual Expander Expander { get; set; }
     }
 }

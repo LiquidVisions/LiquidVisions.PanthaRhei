@@ -8,26 +8,26 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class Seeder : ISeeder
     {
-        private readonly GenerationOptions options;
-        private readonly List<IEntitySeeder<App>> seeders;
+        private readonly GenerationOptions _options;
+        private readonly List<IEntitySeeder<App>> _seeders;
 
         public Seeder(IDependencyFactory dependencyFactory)
         {
-            options = dependencyFactory.Get<GenerationOptions>();
-            seeders = dependencyFactory.GetAll<IEntitySeeder<App>>().ToList();
+            _options = dependencyFactory.Get<GenerationOptions>();
+            _seeders = dependencyFactory.GetAll<IEntitySeeder<App>>().ToList();
         }
 
-        public bool Enabled => options.Seed;
+        public bool Enabled => _options.Seed;
 
         public void Execute()
         {
             App app = new();
 
-            seeders.OrderBy(x => x.ResetOrder)
+            _seeders.OrderBy(x => x.ResetOrder)
                 .ToList()
                 .ForEach(x => x.Reset());
 
-            seeders.OrderBy(x => x.SeedOrder)
+            _seeders.OrderBy(x => x.SeedOrder)
                 .ToList()
                 .ForEach(x => x.Seed(app));
         }

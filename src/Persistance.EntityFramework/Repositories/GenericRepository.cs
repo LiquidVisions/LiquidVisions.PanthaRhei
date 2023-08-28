@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using LiquidVisions.PanthaRhei.Domain.Repositories;
+﻿using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,18 +6,18 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
 {
     internal class GenericRepository : IMigrationService
     {
-        private readonly Context context;
+        private readonly Context _context;
 
         public GenericRepository(IDependencyFactory dependencyFactory)
         {
-            context = dependencyFactory.Get<Context>();
+            _context = dependencyFactory.Get<Context>();
         }
 
-        internal Context Context => context;
+        internal Context Context => _context;
 
         public void Migrate()
         {
-            context.Database.Migrate();
+            _context.Database.Migrate();
         }
     }
 }

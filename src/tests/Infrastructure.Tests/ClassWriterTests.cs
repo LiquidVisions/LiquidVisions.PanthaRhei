@@ -8,32 +8,43 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 {
+    /// <summary>
+    /// Tests for <see cref="ClassWriter"/>.
+    /// </summary>
     public class ClassWriterTests
     {
-        private readonly ClassWriter writer;
-        private readonly Mock<IFile> mockedFileService = new();
-        private readonly Mock<ILogger> mockedLogger = new();
-        private readonly string fakePath = "C://Some/Fake/Path.cs";
+        private readonly ClassWriter _writer;
+        private readonly Mock<IFile> _mockedFileService = new();
+        private readonly Mock<ILogger> _mockedLogger = new();
+        private readonly string _fakePath = "C://Some/Fake/Path.cs";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClassWriterTests"/> class.
+        /// </summary>
         public ClassWriterTests()
         {
-            mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClass());
-            writer = new ClassWriter(mockedFileService.Object, mockedLogger.Object);
+            _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClass());
+            _writer = new ClassWriter(_mockedFileService.Object, _mockedLogger.Object);
+
         }
 
+        /// <summary>
+        /// Test for <see cref="ClassWriter.Load(string)"/>.
+        /// </summary>
         [Fact]
         public void Load_ShouldLoad()
         {
             // arrange
             // act
-            writer.Load(fakePath);
-
             // assert
-            Assert.NotEmpty(writer.Lines);
-            mockedLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Once);
-            mockedFileService.Verify(x => x.ReadAllLines(fakePath), Times.Once);
+            Assert.NotEmpty(_writer.Lines);
+            _mockedLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Once);
+            _mockedFileService.Verify(x => x.ReadAllLines(_fakePath), Times.Once);
         }
 
+        /// <summary>
+        /// Test for <see cref="ClassWriter.AddNameSpace(string)"/>.
+        /// </summary>
         [Fact]
         public void AddNameSpace_ShouldAdd()
         {
@@ -41,208 +52,248 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string nameSpace = "Just.Some.NameSpace";
 
             // act
-            writer.Load(fakePath);
-            writer.AddNameSpace(nameSpace);
+            _writer.AddNameSpace(nameSpace);
 
             // assert
-            Assert.Contains($"using {nameSpace};", writer.Lines);
-            mockedLogger.Verify(x => x.Trace($"Adding namespace {nameSpace} to the file."), Times.Once);
+            Assert.Contains($"using {nameSpace};", _writer.Lines);
+            _mockedLogger.Verify(x => x.Trace($"Adding namespace {nameSpace} to the file."), Times.Once);
         }
 
+        /// <summary>
+        /// Test for <see cref="ClassWriter.AddNameSpace(string)"/>.
+        /// Adding an existing namespace should be skipped.
+        /// </summary>
         [Fact]
         public void AddNameSpace_ShouldSkipExistingNameSpace()
         {
             // arrange
             string nameSpace = "System.Collections.Generic";
-            writer.Load(fakePath);
 
             // act
-            writer.AddNameSpace(nameSpace);
+            _writer.AddNameSpace(nameSpace);
 
             // assert
-            Assert.Contains($"using {nameSpace};", writer.Lines);
-            Assert.Equal(1, writer.Lines.Count(x => x == $"using {nameSpace};"));
-            mockedLogger.Verify(x => x.Trace($"Adding namespace using {nameSpace}; to the file."), Times.Never);
+            Assert.Contains($"using {nameSpace};", _writer.Lines);
+            Assert.Equal(1, _writer.Lines.Count(x => x == $"using {nameSpace};"));
+            _mockedLogger.Verify(x => x.Trace($"Adding namespace using {nameSpace}; to the file."), Times.Never);
         }
 
+        /// <summary>
+        /// Test for <see cref="ClassWriter.Save(string)"/>.
+        /// </summary>
         [Fact]
         public void Save_ShouldSucceed()
         {
             // arrange
-            writer.Load(fakePath);
-            List<string> lines = writer.Lines;
+            List<string> lines = _writer.Lines;
 
             // act
-            writer.Save(fakePath);
+            _writer.Save(_fakePath);
 
             // assert
-            Assert.Null(writer.Lines);
-            mockedFileService.Verify(x => x.WriteAllLines(fakePath, lines));
-            mockedLogger.Verify(x => x.Trace($"Saving file {fakePath}."));
+            Assert.Null(_writer.Lines);
+            _mockedFileService.Verify(x => x.WriteAllLines(_fakePath, lines));
+            _mockedLogger.Verify(x => x.Trace($"Saving file {_fakePath}."));
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.WriteAt(string, string)"/>.
+        /// </summary>
         [Fact]
         public void WriteAt_ShouldSucceed()
         {
             // arrange
-            writer.Load(fakePath);
             string text = "JustATest";
             string match = "class Class1";
 
             // act
-            int index = writer.WriteAt(match, text);
+            int index = _writer.WriteAt(match, text);
 
             // assert
-            mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Once);
-            Assert.Equal($"   {text}", writer.Lines.First(x => x.Contains(text)));
-            Assert.Equal(index, writer.IndexOf(text));
+            _mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Once);
+            Assert.Equal($"   {text}", _writer.Lines.First(x => x.Contains(text)));
+            Assert.Equal(index, _writer.IndexOf(text));
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.WriteAt(string, string)"/>.
+        /// Should not write when match is not found.
+        /// </summary>
         [Fact]
         public void WriteAt_MatchNotFound_ShouldNotWrite()
         {
             // arrange
-            writer.Load(fakePath);
             string text = "JustATest";
             string match = "Match";
 
             // act
-            int index = writer.WriteAt(match, text);
+            int index = _writer.WriteAt(match, text);
 
             // assert
             Assert.Equal(-1, index);
-            mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Never);
+            _mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Never);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.WriteAt(string, string)"/>.
+        /// Empty row should be added.
+        /// </summary>
         [Fact]
         public void WriteAt_EmptyRowShouldBeAdded()
         {
             // arrange
-            writer.Load(fakePath);
             string text = string.Empty;
-            int totalLines = writer.Lines.Count;
+            int totalLines = _writer.Lines.Count;
 
             // act
-            writer.WriteAt(1, text);
+            _writer.WriteAt(1, text);
 
             // assert
-            Assert.Equal(totalLines + 1, writer.Lines.Count);
+            Assert.Equal(totalLines + 1, _writer.Lines.Count);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.WriteAt(string, string)"/>.
+        /// Empty row should not be added when index is on an empty row.
+        /// </summary>
         [Fact]
         public void WriteAt_EmptyRowShouldNotBeAddedWhenIndexIsOnAnEmptyRow()
         {
             // arrange
-            writer.Load(fakePath);
+
             string text = string.Empty;
-            int totalLines = writer.Lines.Count;
+            int totalLines = _writer.Lines.Count;
 
             // act
-            writer.WriteAt(6, text);
+            _writer.WriteAt(6, text);
 
             // assert
-            Assert.Equal(totalLines, writer.Lines.Count);
+            Assert.Equal(totalLines, _writer.Lines.Count);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.RemoveLinesUntil(string, string)"/>.
+        /// </summary>
         [Fact]
         public void RemoveLinesUntil_ShouldSucceed()
         {
             // arrange
-            writer.Load(fakePath);
-            int totalLines = writer.Lines.Count;
+
+            int totalLines = _writer.Lines.Count;
             string match = "public class Class1";
             string matchUntil = "}";
 
             // act
-            writer.RemoveLinesUntil(match, matchUntil);
+            _writer.RemoveLinesUntil(match, matchUntil);
 
             // assert
-            Assert.NotEqual(totalLines, writer.Lines.Count);
-            Assert.Equal(totalLines - 3, writer.Lines.Count);
-            Assert.Equal(-1, writer.IndexOf(match));
+            Assert.NotEqual(totalLines, _writer.Lines.Count);
+            Assert.Equal(totalLines - 3, _writer.Lines.Count);
+            Assert.Equal(-1, _writer.IndexOf(match));
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.Replace(string, string)"/>.
+        /// </summary>
         [Fact]
         public void Replace_ShouldSucceed()
         {
             // arrange
-            writer.Load(fakePath);
+
             string match = "public class Class1";
             string replaceValue = "SomeReplaceValue";
 
             // act
-            writer.Replace(match, replaceValue);
+            _writer.Replace(match, replaceValue);
 
             // assert
-            Assert.Equal(-1, writer.IndexOf(match));
-            Assert.Equal(8, writer.IndexOf(replaceValue));
+            Assert.Equal(-1, _writer.IndexOf(match));
+            Assert.Equal(8, _writer.IndexOf(replaceValue));
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.RemoveLinesUntil(string, string)"/>.
+        /// ReplaceValue is already in file, should not replace.
+        /// </summary>
         [Fact]
         public void Replace_ReplaceValueAlreadyInFile_ShouldNotReplace()
         {
             // arrange
-            writer.Load(fakePath);
+
             string replaceValue = "public class Class1";
             string match = "SomeReplaceValue";
 
             // act
-            writer.Replace(match, replaceValue);
+            _writer.Replace(match, replaceValue);
 
             // assert
-            Assert.Equal(-1, writer.IndexOf(match));
-            Assert.Equal(8, writer.IndexOf(replaceValue));
+            Assert.Equal(-1, _writer.IndexOf(match));
+            Assert.Equal(8, _writer.IndexOf(replaceValue));
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.LastIndexOf(string)"/>."/>
+        /// </summary>
         [Fact]
         public void LastIndexOf_ShouldSucceed()
         {
             // arrange
             string match = "}";
-            writer.Load(fakePath);
+
 
             // act
-            int index = writer.LastIndexOf(match);
+            int index = _writer.LastIndexOf(match);
 
             // assert
             Assert.Equal(11, index);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.LastIndexOf(string)"/>."/>
+        /// Should return -1 when match is not found.
+        /// </summary>
         [Fact]
         public void LastIndexOf_UnmatchedCharacter_ShouldReturnMinusOne()
         {
             // arrange
             string match = "@";
-            writer.Load(fakePath);
+
 
             // act
-            int index = writer.LastIndexOf(match);
+            int index = _writer.LastIndexOf(match);
 
             // assert
             Assert.Equal(-1, index);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.LastIndexOf(string)"/>."/>
+        /// Should add text at first empty row after the match.
+        /// </summary>
         [Fact]
         public void WriteAtEmptyRow_ShouldAddTextAtFirstEmptyRowAfterTheMatch()
         {
             // arrange
-            writer.Load(fakePath);
+
             string text = "JustATest";
 
             // act
-            writer.WriteAtEmptyRow("using", text);
-            int index = writer.LastIndexOf(text);
+            _writer.WriteAtEmptyRow("using", text);
+            int index = _writer.LastIndexOf(text);
 
             // arrange
             Assert.Equal(5, index);
-            Assert.Equal(string.Empty, writer.Lines[index + 1]);
+            Assert.Equal(string.Empty, _writer.Lines[index + 1]);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.AppendMethodToClass(string)"/>."/>
+        /// </summary>
         [Fact]
         public void Append_ShouldSkipEmptyString()
         {
             // arrange
-            writer.Load(fakePath);
+
             string expectedResult = @"using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -258,19 +309,22 @@ namespace LiquidVisions.Jafar.Tests.Domain
 }";
 
             // act
-            writer.AppendMethodToClass(string.Empty);
-            string result = string.Join(Environment.NewLine, writer.Lines);
+            _writer.AppendMethodToClass(string.Empty);
+            string result = string.Join(Environment.NewLine, _writer.Lines);
 
             // arrange
             Assert.Equal(expectedResult, result);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.AddOrReplaceMethod(string)"/>."/>
+        /// </summary>
         [Fact]
         public void Replace_ShouldSkipEmptyString()
         {
             // arrange
-            mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
-            writer.Load(fakePath);
+            _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
+
             string replaceString = @"       public void Test()
        {
             // this is a test
@@ -295,23 +349,27 @@ namespace LiquidVisions.Jafar.Tests.Domain
     ;
 
             // act
-            writer.AddOrReplaceMethod(replaceString);
-            string result = string.Join(Environment.NewLine, writer.Lines);
+            _writer.AddOrReplaceMethod(replaceString);
+            string result = string.Join(Environment.NewLine, _writer.Lines);
 
             // arrange
             Assert.Equal(expectedResult, result);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.AddOrReplaceMethod(string)"/>."/>
+        /// <seealso cref="IndexOutOfRangeException"/> should be thrown when empty string is passed.
+        /// </summary>
         [Fact]
         public void Replace_EmptyString_ShouldThrowException()
         {
             // arrange
-            mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
-            writer.Load(fakePath);
+            _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
+
 
             // act
             // arrange
-            Assert.Throws<IndexOutOfRangeException>(() => writer.AddOrReplaceMethod(string.Empty));
+            Assert.Throws<IndexOutOfRangeException>(() => _writer.AddOrReplaceMethod(string.Empty));
         }
     }
 }
