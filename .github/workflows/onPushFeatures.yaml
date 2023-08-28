@@ -3,8 +3,10 @@ name: Push feature branch to remote
 on:
   workflow_dispatch:
   push:
-    branches:
-      - feature/*
+    branches-ignore:
+      - master
+
+
 
 jobs:
     push:
