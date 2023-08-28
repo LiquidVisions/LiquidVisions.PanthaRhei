@@ -42,7 +42,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
             CreateFolderIfNeeded(solutionRoot);
             CreateFolderIfNeeded(componentRoot);
 
-            if(!_file.Exists(Path.Combine(solutionRoot, $"{_app.FullName}.sln")))
+            if (!_file.Exists(Path.Combine(solutionRoot, $"{_app.FullName}.sln")))
             {
                 _cli.Start($"dotnet new sln", solutionRoot);
             }
@@ -71,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
             if (!_directory.Exists(root))
             {
                 _logger.Info($"Creating directory {root}");
-                _cli.Start($"mkdir {root}");
+                _cli.Start($"mkdir {root}");   
             }
         }
     }

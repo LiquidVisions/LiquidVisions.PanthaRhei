@@ -92,7 +92,7 @@ namespace LiquidVisions.PanthaRhei.Domain
 
             PropertyInfo[] list = GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            foreach(PropertyInfo property in list)
+            foreach (PropertyInfo property in list)
             {
                 sb.AppendLine($" \"{property.Name}\": \"{property.GetValue(this)}\", ");
             }
