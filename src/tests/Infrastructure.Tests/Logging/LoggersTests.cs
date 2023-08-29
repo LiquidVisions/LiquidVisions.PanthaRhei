@@ -12,7 +12,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         /// Properties should contain correct values.
         /// </summary>
         [Fact]
-        public void Loggers_ConstantsShouldBeEqual()
+        public void LoggersConstantsShouldBeEqual()
         {
             // arrange
             // act

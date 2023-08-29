@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         /// Dependency tests.
         /// </summary>
         [Fact]
-        public void Constructor_ShouldResolve()
+        public void ConstructorShouldResolve()
         {
             // arrange
             // act
@@ -62,7 +62,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         [InlineData(GenerationModes.Migrate, 1)]
         [InlineData(GenerationModes.Run, 1)]
         [InlineData(GenerationModes.None, 0)]
-        public void Execute_ExpandTests(GenerationModes modes, int times)
+        public void ExecuteExpandTests(GenerationModes modes, int times)
         {
             // arrange
             _fakes.GenerationOptions.Setup(x => x.Modes).Returns(modes);
@@ -83,7 +83,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         [Theory]
         [InlineData(true, 1)]
         [InlineData(false, 0)]
-        public void Execute_MigrateTests(bool migrate, int times)
+        public void ExecuteMigrateTests(bool migrate, int times)
         {
             // arrange
             _fakes.GenerationOptions.Setup(x => x.Migrate).Returns(migrate);
@@ -103,7 +103,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         [Theory]
         [InlineData(true, 1)]
         [InlineData(false, 0)]
-        public void Execute_SeedTests(bool seed, int times)
+        public void ExecuteSeedTests(bool seed, int times)
         {
             // arrange
             _mockedSeeder.Setup(x => x.Enabled).Returns(seed);
@@ -120,7 +120,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         /// Tests the throwing and catching of the <seealso cref="CodeGenerationException"/>.
         /// </summary>
         [Fact]
-        public void Execute_ShouldThrowCodeGenerationException()
+        public void ExecuteShouldThrowCodeGenerationException()
         {
             // arrange
             _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
@@ -140,7 +140,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         /// Tests the throwing and catching of the <seealso cref="Exception"/>.
         /// </summary>
         [Fact]
-        public void Execute_ShouldThrowCodeException()
+        public void ExecuteShouldThrowCodeException()
         {
             // arrange
             _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);

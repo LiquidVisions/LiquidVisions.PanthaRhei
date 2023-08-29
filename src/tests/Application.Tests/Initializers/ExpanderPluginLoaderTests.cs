@@ -46,7 +46,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         /// Tests for <seealso cref="ExpanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(App)"/> while throwing <seealso cref="InitializationException"/>.
         /// </summary>
         [Fact]
-        public void Load_RootFolderDoesNotContainPluginAssemblies_ShouldThrowException()
+        public void LoadRootFolderDoesNotContainPluginAssembliesShouldThrowException()
         {
             // arrange
             _fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expanderName), _searchPattern, SearchOption.TopDirectoryOnly)).Returns(Array.Empty<string>());
@@ -63,7 +63,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         /// Tests for <seealso cref="ExpanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(App)"/> while throwing <seealso cref="InitializationException"/>.
         /// </summary>
         [Fact]
-        public void Load_LoadAssemblyFilesThrowsException_ShouldRethrowWithMessage()
+        public void LoadLoadAssemblyFilesThrowsExceptionShouldRethrowWithMessage()
         {
             // arrange
             _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Throws<Exception>();
@@ -80,7 +80,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         /// Tests from <seealso cref="ExpanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(App)"/> in happy flow.
         /// </summary>
         [Fact]
-        public void Load_ShouldVerify()
+        public void LoadShouldVerify()
         {
             // arrange
             _mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { _fakes.IExpanderDependencyManager.Object.GetType() });
@@ -103,7 +103,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         /// Tests for <seealso cref="ExpanderPluginLoader.ShallowLoadAllExpanders(string)"/>.
         /// </summary>
         [Fact]
-        public void ShallowLoad_ShouldVerify()
+        public void ShallowLoadShouldVerify()
         {
             // arrange
             string path = "C:\\Some\\Fake\\";

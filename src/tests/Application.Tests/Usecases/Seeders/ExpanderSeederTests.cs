@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Dependency Test.
         /// </summary>
         [Fact]
-        public void Constructor_ShouldResolve()
+        public void ConstructorShouldResolve()
         {
             // arrange
             // act
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ExpanderSeeder.SeedOrder"/>.
         /// </summary>
         [Fact]
-        public void SeedOrder_ShouldBe()
+        public void SeedOrderShouldBe()
         {
             // arrange
             // act
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ExpanderSeeder.ResetOrder"/>.
         /// </summary>
         [Fact]
-        public void ResetOrder_ShouldBe()
+        public void ResetOrderShouldBe()
         {
             // arrange
             // act
@@ -78,7 +78,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ExpanderSeeder.Reset"/>.
         /// </summary>
         [Fact]
-        public void Reset_ShouldDeleteAll()
+        public void ResetShouldDeleteAll()
         {
             // arrange
 
@@ -93,7 +93,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ExpanderSeeder.Seed(App)"/>.
         /// </summary>
         [Fact]
-        public void Seed_ShouldVerify()
+        public void SeedShouldVerify()
         {
             // arrange
             App app = new();

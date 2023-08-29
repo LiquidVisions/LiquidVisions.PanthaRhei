@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         /// Dependency tests.
         /// </summary>
         [Fact]
-        public void Constructor_Dependencies_ShouldVeryfy()
+        public void ConstructorDependenciesShouldVeryfy()
         {
             // arrange
             // act
@@ -58,7 +58,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         [Theory]
         [InlineData(true, 1)]
         [InlineData(false, 0)]
-        public void Clean_ShouldRunExactTimes(bool clean, int times)
+        public void CleanShouldRunExactTimes(bool clean, int times)
         {
             // arrange
             _fakes.GenerationOptions.Setup(x => x.Clean)
@@ -77,7 +77,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         /// Tests the happy flow of the <seealso cref="CodeGenerator.Execute"/>.
         /// </summary>
         [Fact]
-        public void Execute_HappyFlow_ShouldVerify()
+        public void ExecuteHappyFlowShouldVerify()
         {
             // arrange
             // act

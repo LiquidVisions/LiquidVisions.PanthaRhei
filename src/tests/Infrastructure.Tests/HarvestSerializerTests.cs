@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Dependencies should be resolved.
         /// </summary>
         [Fact]
-        public void Dependencies_ShouldBeResolved()
+        public void DependenciesShouldBeResolved()
         {
             // arrange
             // act
@@ -46,7 +46,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         [Theory]
         [InlineData(true, 0)]
         [InlineData(false, 1)]
-        public void Serialize_ShouldSerialize(bool folderExists, int timesCreateFolder)
+        public void SerializeShouldSerialize(bool folderExists, int timesCreateFolder)
         {
             // arrange
             string folderPath = "C:\\Some\\Full\\Path\\To\\";
@@ -74,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Should not be serialized if the file does not exist.
         /// </summary>
         [Fact]
-        public void Serialize_WithNoHarvestItems_ShouldNotSerialize()
+        public void SerializeWithNoHarvestItemsShouldNotSerialize()
         {
             // arrange
             string folderPath = "C:\\Some\\Full\\Path\\To\\";

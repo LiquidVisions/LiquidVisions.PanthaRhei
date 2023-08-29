@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <see cref="ClassWriter.Load(string)"/>.
         /// </summary>
         [Fact]
-        public void Load_ShouldLoad()
+        public void LoadShouldLoad()
         {
             // arrange
             // act
@@ -46,7 +46,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <see cref="ClassWriter.AddNameSpace(string)"/>.
         /// </summary>
         [Fact]
-        public void AddNameSpace_ShouldAdd()
+        public void AddNameSpaceShouldAdd()
         {
             // arrange
             string nameSpace = "Just.Some.NameSpace";
@@ -64,7 +64,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Adding an existing namespace should be skipped.
         /// </summary>
         [Fact]
-        public void AddNameSpace_ShouldSkipExistingNameSpace()
+        public void AddNameSpaceShouldSkipExistingNameSpace()
         {
             // arrange
             string nameSpace = "System.Collections.Generic";
@@ -82,7 +82,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <see cref="ClassWriter.Save(string)"/>.
         /// </summary>
         [Fact]
-        public void Save_ShouldSucceed()
+        public void SaveShouldSucceed()
         {
             // arrange
             List<string> lines = _writer.Lines;
@@ -100,7 +100,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <seealso cref="ClassWriter.WriteAt(string, string)"/>.
         /// </summary>
         [Fact]
-        public void WriteAt_ShouldSucceed()
+        public void WriteAtShouldSucceed()
         {
             // arrange
             string text = "JustATest";
@@ -120,7 +120,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Should not write when match is not found.
         /// </summary>
         [Fact]
-        public void WriteAt_MatchNotFound_ShouldNotWrite()
+        public void WriteAtMatchNotFoundShouldNotWrite()
         {
             // arrange
             string text = "JustATest";
@@ -139,7 +139,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Empty row should be added.
         /// </summary>
         [Fact]
-        public void WriteAt_EmptyRowShouldBeAdded()
+        public void WriteAtEmptyRowShouldBeAdded()
         {
             // arrange
             string text = string.Empty;
@@ -157,7 +157,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Empty row should not be added when index is on an empty row.
         /// </summary>
         [Fact]
-        public void WriteAt_EmptyRowShouldNotBeAddedWhenIndexIsOnAnEmptyRow()
+        public void WriteAtEmptyRowShouldNotBeAddedWhenIndexIsOnAnEmptyRow()
         {
             // arrange
 
@@ -175,7 +175,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <seealso cref="ClassWriter.RemoveLinesUntil(string, string)"/>.
         /// </summary>
         [Fact]
-        public void RemoveLinesUntil_ShouldSucceed()
+        public void RemoveLinesUntilShouldSucceed()
         {
             // arrange
 
@@ -196,7 +196,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <seealso cref="ClassWriter.Replace(string, string)"/>.
         /// </summary>
         [Fact]
-        public void Replace_ShouldSucceed()
+        public void ReplaceShouldSucceed()
         {
             // arrange
 
@@ -216,7 +216,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// ReplaceValue is already in file, should not replace.
         /// </summary>
         [Fact]
-        public void Replace_ReplaceValueAlreadyInFile_ShouldNotReplace()
+        public void ReplaceReplaceValueAlreadyInFileShouldNotReplace()
         {
             // arrange
 
@@ -235,7 +235,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <seealso cref="ClassWriter.LastIndexOf(string)"/>."/>
         /// </summary>
         [Fact]
-        public void LastIndexOf_ShouldSucceed()
+        public void LastIndexOfShouldSucceed()
         {
             // arrange
             string match = "}";
@@ -253,7 +253,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Should return -1 when match is not found.
         /// </summary>
         [Fact]
-        public void LastIndexOf_UnmatchedCharacter_ShouldReturnMinusOne()
+        public void LastIndexOfUnmatchedCharacterShouldReturnMinusOne()
         {
             // arrange
             string match = "@";
@@ -271,7 +271,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Should add text at first empty row after the match.
         /// </summary>
         [Fact]
-        public void WriteAtEmptyRow_ShouldAddTextAtFirstEmptyRowAfterTheMatch()
+        public void WriteAtEmptyRowShouldAddTextAtFirstEmptyRowAfterTheMatch()
         {
             // arrange
 
@@ -290,7 +290,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <seealso cref="ClassWriter.AppendMethodToClass(string)"/>."/>
         /// </summary>
         [Fact]
-        public void Append_ShouldSkipEmptyString()
+        public void AppendShouldSkipEmptyString()
         {
             // arrange
 
@@ -320,7 +320,7 @@ namespace LiquidVisions.Jafar.Tests.Domain
         /// Test for <seealso cref="ClassWriter.AddOrReplaceMethod(string)"/>."/>
         /// </summary>
         [Fact]
-        public void Replace_ShouldSkipEmptyString()
+        public void ReplaceShouldSkipEmptyString()
         {
             // arrange
             _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
@@ -360,7 +360,7 @@ namespace LiquidVisions.Jafar.Tests.Domain
         /// <seealso cref="IndexOutOfRangeException"/> should be thrown when empty string is passed.
         /// </summary>
         [Fact]
-        public void Replace_EmptyString_ShouldThrowException()
+        public void ReplaceEmptyStringShouldThrowException()
         {
             // arrange
             _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());

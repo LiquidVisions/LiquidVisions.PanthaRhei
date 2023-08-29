@@ -17,7 +17,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         /// Test for <see cref="LogManager.Logger"/>.
         /// </summary>
         [Fact]
-        public void Logger_ShouldBeOfCorrectType()
+        public void LoggerShouldBeOfCorrectType()
         {
             // arrange
             // act
@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         /// Should be the same instance.
         /// </summary>
         [Fact]
-        public void Logger_ShouldBeSameInstance()
+        public void LoggerShouldBeSameInstance()
         {
             // arrange
             // act
@@ -51,7 +51,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         /// Should be the same instance of type <seealso cref="Loggers.DefaultLogger"/>.
         /// </summary>
         [Fact]
-        public void DefaultLogger_ShouldBeSameInstance()
+        public void DefaultLoggerShouldBeSameInstance()
         {
             // arrange
             // act
@@ -69,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         /// Should be the same instance of type <seealso cref="Loggers.AuthenticationLogger"/>.
         /// </summary>
         [Fact]
-        public void AuthenticationLogger_ShouldBeSameInstance()
+        public void AuthenticationLoggerShouldBeSameInstance()
         {
             // arrange
             // act
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         /// Should be the same instance of type <seealso cref="Loggers.ExceptionLogger"/>.
         /// </summary>
         [Fact]
-        public void ExceptionLogger_ShouldBeSameInstance()
+        public void ExceptionLoggerShouldBeSameInstance()
         {
             // arrange
             // act
@@ -105,7 +105,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         /// Should throw exception when logger name is invalid.
         /// </summary>
         [Fact]
-        public void InvalidLoggerName_ShouldThrowException()
+        public void InvalidLoggerNameShouldThrowException()
         {
             // arrange
             string loggerName = "InvalidName";
@@ -123,7 +123,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         /// Should throw exception when logger name is null.
         /// </summary>
         [Fact]
-        public void LoggerNameNull_ShouldThrowException()
+        public void LoggerNameNullShouldThrowException()
         {
             // arrange
 

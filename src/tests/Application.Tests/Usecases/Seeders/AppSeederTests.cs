@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Tests that the constructor verifies dependencies.
         /// </summary>
         [Fact]
-        public void Constructor_ShouldVerifyDependencies()
+        public void ConstructorShouldVerifyDependencies()
         {
             // arrange
             // act
@@ -50,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Tests for <see cref="AppSeeder.Reset"/>.
         /// </summary>
         [Fact]
-        public void SeedOrder_ShouldBe1()
+        public void SeedOrderShouldBe1()
         {
             // arrange
             // act
@@ -62,7 +62,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Tests for <see cref="AppSeeder.ResetOrder"/>.
         /// </summary>
         [Fact]
-        public void ResetOrder_ShouldBe1()
+        public void ResetOrderShouldBe1()
         {
             // arrange
             // act
@@ -74,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Tests for <see cref="AppSeeder.Reset"/>.
         /// </summary>
         [Fact]
-        public void Reset_ShouldVerify()
+        public void ResetShouldVerify()
         {
             // arrange
             // act
@@ -88,7 +88,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Tests for <see cref="AppSeeder.Seed"/>.
         /// </summary>
         [Fact]
-        public void Seed_ShouldCreate()
+        public void SeedShouldCreate()
         {
             // arrange
             const string actualName = "PanthaRhei.Generated";

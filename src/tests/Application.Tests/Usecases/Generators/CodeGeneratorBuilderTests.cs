@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         /// Tests the <see cref="CodeGeneratorBuilder.Build"/> method while throwing an <seealso cref="CodeGenerationException"/>.
         /// </summary>
         [Fact]
-        public void Build_ParametersHasNoValueAppId_ShouldThrowException()
+        public void BuildParametersHasNoValueAppIdShouldThrowException()
         {
             // arrange
             Guid id = Guid.NewGuid();
@@ -49,7 +49,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         /// Tests the <see cref="CodeGeneratorBuilder.Build"/> method.
         /// </summary>
         [Fact]
-        public void Build_HappyFlow_ShouldVerify()
+        public void BuildHappyFlowShouldVerify()
         {
             // arrange
             Guid id = Guid.NewGuid();

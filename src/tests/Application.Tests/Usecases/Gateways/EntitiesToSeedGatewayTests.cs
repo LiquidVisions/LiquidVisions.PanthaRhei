@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Gateways
         /// Tests the <see cref="EntitiesToSeedGateway.GetById"/> method.
         /// </summary>
         [Fact]
-        public void GetById_ShouldTrowNotImplementedException()
+        public void GetByIdShouldTrowNotImplementedException()
         {
             // arrange
 

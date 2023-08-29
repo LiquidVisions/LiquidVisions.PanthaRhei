@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Dependency injection test.
         /// </summary>
         [Fact]
-        public void Dependencies_ShouldBeResolved()
+        public void DependenciesShouldBeResolved()
         {
             // arrange
             // act
@@ -53,7 +53,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <see cref="HarvestRepository.Create(Harvest)"/>.
         /// </summary>
         [Fact]
-        public void Create_ShouldSerialize()
+        public void CreateShouldSerialize()
         {
             // arrange
             string extension = Resources.RegionHarvesterExtensionFile;
@@ -80,7 +80,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Should throw <seealso cref="InvalidProgramException"/> when harvest type is null."/>
         /// </summary>
         [Fact]
-        public void Create_ShouldThrowException()
+        public void CreateShouldThrowException()
         {
             // arrange
             Harvest harvest = new();
@@ -96,7 +96,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Should throw <seealso cref="NotImplementedException"/> because it is not implemented.
         /// </summary>
         [Fact]
-        public void GetAll_ShouldThrowException()
+        public void GetAllShouldThrowException()
         {
             // arrange
             // act
@@ -108,7 +108,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Test for <see cref="HarvestRepository.GetById(object)"/>.
         /// </summary>
         [Fact]
-        public void GetById_ShouldDeserialize()
+        public void GetByIdShouldDeserialize()
         {
             // arrange
             string somePath = $"C:\\Some\\To\\HarvestFile{Resources.RegionHarvesterExtensionFile}";
@@ -127,7 +127,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         /// Should throw <seealso cref="FileNotFoundException"/> when file does not exist.
         /// </summary>
         [Fact]
-        public void GetById_ShouldThrowException()
+        public void GetByIdShouldThrowException()
         {
             // arrange
             string somePath = $"C:\\Some\\To\\HarvestFile{Resources.RegionHarvesterExtensionFile}";

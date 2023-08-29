@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Tests that the constructor verifies dependencies.
         /// </summary>
         [Fact]
-        public void Constructor_ShouldVerifyDependencies()
+        public void ConstructorShouldVerifyDependencies()
         {
             // arrange
             // act
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.SeedOrder"/>.
         /// </summary>
         [Fact]
-        public void SeedOrder_ShouldBe1()
+        public void SeedOrderShouldBe1()
         {
             // arrange
             // act
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.ResetOrder"/>.
         /// </summary>
         [Fact]
-        public void ResetOrder_ShouldBe1()
+        public void ResetOrderShouldBe1()
         {
             // arrange
             // act
@@ -78,7 +78,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.Reset"/>.
         /// </summary>
         [Fact]
-        public void Reset_ShouldVerify()
+        public void ResetShouldVerify()
         {
             // arrange
             // act
@@ -92,7 +92,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.Seed"/>.
         /// </summary>
         [Fact]
-        public void Seed_ShouldCreate()
+        public void SeedShouldCreate()
         {
             // arrange
             App app = new();
@@ -109,7 +109,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.Seed"/> testing the name of the Seeder.
         /// </summary>
         [Fact]
-        public void Seed_NameShouldValidate()
+        public void SeedNameShouldValidate()
         {
             // arrange
             App app = new();
@@ -126,7 +126,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.Seed"/> testing the callsite of the Seeder.
         /// </summary>
         [Fact]
-        public void Seed_Callsite_ShouldValidate()
+        public void SeedCallsiteShouldValidate()
         {
             // arrange
             App app = new() { FullName = "App.Full.Name" };
@@ -143,7 +143,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.Seed"/> testing the app of the Seeder.
         /// </summary>
         [Fact]
-        public void Seed_AppSet_ShouldValidate()
+        public void SeedAppSetShouldValidate()
         {
             // arrange
             App app = new() { FullName = "App.Full.Name" };
@@ -166,7 +166,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         [InlineData(typeof(ProptectedClass), "protected")]
         [InlineData(typeof(PrivateClass), "private")]
         [InlineData(typeof(PublicClassSet), "public")]
-        public void Seed_Modifier_ShouldValidate(Type type, string expectedResult)
+        public void SeedModifierShouldValidate(Type type, string expectedResult)
         {
             // arrange
             App app = new() { };
@@ -187,7 +187,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         [Theory]
         [InlineData(typeof(AbstractClass), "abstract")]
         [InlineData(typeof(PublicClassSet), null)]
-        public void Seed_Behaviour_ShouldValidate(Type type, string expectedResult)
+        public void SeedBehaviourShouldValidate(Type type, string expectedResult)
         {
             // arrange
             App app = new() { };
@@ -209,7 +209,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         [InlineData(typeof(PublicClassSet), "class")]
         [InlineData(typeof(IPublicInterface), "interface")]
         [InlineData(typeof(EnumTest), "enum")]
-        public void Seed_Type_ShouldValidate(Type type, string expectedResult)
+        public void SeedTypeShouldValidate(Type type, string expectedResult)
         {
             // arrange
             App app = new() { };

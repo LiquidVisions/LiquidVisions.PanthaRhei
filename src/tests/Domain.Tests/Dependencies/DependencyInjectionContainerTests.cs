@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         /// Should not return empty collection.
         /// </summary>
         [Fact]
-        public void GetServices_CalllBeforeBuildingResolver_ShouldNotReturnEmptyCollection()
+        public void GetServicesCalllBeforeBuildingResolverShouldNotReturnEmptyCollection()
         {
             // arrange
             _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
@@ -46,7 +46,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         /// Should rresolve collection.
         /// </summary>
         [Fact]
-        public void GetServices_AfterRegistration_ShouldResolveCollection()
+        public void GetServicesAfterRegistrationShouldResolveCollection()
         {
             // arrange
             _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         /// Build is not required
         /// </summary>
         [Fact]
-        public void GetServices_AfterRegistration_WithoutBuilding_ShouldResolveCollection()
+        public void GetServicesAfterRegistrationWithoutBuildingShouldResolveCollection()
         {
             // arrange
             _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
@@ -84,7 +84,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         /// Test for <see cref="DependencyManager.Get{IFakeInterface}"/>.
         /// </summary>
         [Fact]
-        public void GetServices_ShouldResolveCollection()
+        public void GetServicesShouldResolveCollection()
         {
             // arrange
             FakeTestClass1 fakeTestClass1 = new();
@@ -104,7 +104,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         /// Build is not required.
         /// </summary>
         [Fact]
-        public void GetServices_WithoutBuilding_ShouldResolveCollection()
+        public void GetServicesWithoutBuildingShouldResolveCollection()
         {
             // arrange
             FakeTestClass1 fakeTestClass1 = new();

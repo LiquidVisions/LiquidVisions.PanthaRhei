@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Dependency tests.
         /// </summary>
         [Fact]
-        public void Constructor_ShouldVerifyDependencies()
+        public void ConstructorShouldVerifyDependencies()
         {
             // arrange
             // act
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ComponentSeeder.SeedOrder"/>.
         /// </summary>
         [Fact]
-        public void SeedOrder_ShouldBe1()
+        public void SeedOrderShouldBe1()
         {
             // arrange
             // act
@@ -67,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ComponentSeeder.ResetOrder"/>.
         /// </summary>
         [Fact]
-        public void ResetOrder_ShouldBe1()
+        public void ResetOrderShouldBe1()
         {
             // arrange
             // act
@@ -80,7 +80,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ComponentSeeder.Reset"/>.
         /// </summary>
         [Fact]
-        public void Reset_ShouldVerify()
+        public void ResetShouldVerify()
         {
             // arrange
             // act
@@ -95,7 +95,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ComponentSeeder.Seed(App)"/> edge case scenario.
         /// </summary>
         [Fact]
-        public void Execute_ExpanderFolderDoesNotExist_ShouldNotCreate()
+        public void ExecuteExpanderFolderDoesNotExistShouldNotCreate()
         {
             // arrange
             Expander expander1 = new() { Name = "Expander1", Enabled = true };
@@ -125,7 +125,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <seealso cref="ComponentSeeder.Seed(App)"/> happyflow.
         /// </summary>
         [Fact]
-        public void Execute_HappyFlow_ShouldVerify()
+        public void ExecuteHappyFlowShouldVerify()
         {
             // arrange
             Expander expander1 = new() { Name = "Expander1", Enabled = true };

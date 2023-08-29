@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         /// Test for <see cref="GenerationOptions.ExpandersFolder"/>.
         /// </summary>
         [Fact]
-        public void ExpandersFolder_DefaultExpanderValue_ShouldBeEqual()
+        public void ExpandersFolderDefaultExpanderValueShouldBeEqual()
         {
             // arrange
             // act
@@ -41,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         /// Test for <see cref="GenerationOptions.OutputFolder"/>.
         /// </summary>
         [Fact]
-        public void OutputFolder_DefaultValue_ShouldBeEqual()
+        public void OutputFolderDefaultValueShouldBeEqual()
         {
             // arrange
             _model.AppId = Guid.NewGuid();
@@ -57,7 +57,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         /// Test for <see cref="GenerationOptions.HarvestFolder"/>.
         /// </summary>
         [Fact]
-        public void HarvestFolder_DefaultValue_ShouldBeEqual()
+        public void HarvestFolderDefaultValueShouldBeEqual()
         {
             // arrange
             // act
@@ -71,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         /// Test for <see cref="GenerationOptions.ExpandersFolder"/>.
         /// </summary>
         [Fact]
-        public void ExpandersFolder_CustomValue_ShouldBeEqual()
+        public void ExpandersFolderCustomValueShouldBeEqual()
         {
             // arrange
             string customvalue = "Custom";
@@ -88,7 +88,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         /// Test for <see cref="GenerationOptions.OutputFolder"/>.
         /// </summary>
         [Fact]
-        public void OutputFolder_CustomValue_ShouldBeEqual()
+        public void OutputFolderCustomValueShouldBeEqual()
         {
             // arrange
             string customvalue = "Custom";
@@ -106,7 +106,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         /// Test for <see cref="GenerationOptions.HarvestFolder"/>.
         /// </summary>
         [Fact]
-        public void HarvestFolder_CustomValue_ShouldBeEqual()
+        public void HarvestFolderCustomValueShouldBeEqual()
         {
             // arrange
             string customvalue = "Custom";
