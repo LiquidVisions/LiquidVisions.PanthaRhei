@@ -18,10 +18,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public FieldSeeder(IDependencyFactory dependencyFactory)
         {
-            _createGateway = dependencyFactory.Get<ICreateRepository<Field>>();
-            _deleteGateway = dependencyFactory.Get<IDeleteRepository<Field>>();
-            _entitySeedGateway = dependencyFactory.Get<IEntitiesToSeedRepository>();
-            _modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
+            _createGateway = dependencyFactory.Resolve<ICreateRepository<Field>>();
+            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Field>>();
+            _entitySeedGateway = dependencyFactory.Resolve<IEntitiesToSeedRepository>();
+            _modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
         }
 
         public int SeedOrder => 6;
@@ -105,7 +105,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             switch (returnType)
             {
                 case "String":
-                    returnType = returnType.ToLower();
+                    returnType = "string";
                     break;
                 case "Int32":
                     returnType = "int";

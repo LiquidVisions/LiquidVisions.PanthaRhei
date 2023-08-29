@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Domain.Entities;
+﻿using System;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
@@ -20,8 +21,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         protected Rejuvenator(IDependencyFactory dependencyFactory)
         {
-            _app = dependencyFactory.Get<App>();
-            _expander = dependencyFactory.Get<TExpander>();
+            ArgumentNullException.ThrowIfNull(dependencyFactory);
+
+            _app = dependencyFactory.Resolve<App>();
+            _expander = dependencyFactory.Resolve<TExpander>();
         }
 
         /// <inheritdoc/>

@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
@@ -27,7 +28,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
         public XmlCDataSection ContentXml
         {
             get { return new XmlDocument().CreateCDataSection(Content); }
-            set { Content = value.Value; }
+            set
+            {
+                ArgumentNullException.ThrowIfNull(value, nameof(ContentXml));
+                Content = value.Value;
+            }
         }
 
         /// <summary>
@@ -37,7 +42,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
         public XmlCDataSection TagXml
         {
             get { return new XmlDocument().CreateCDataSection(Tag); }
-            set { Tag = value.Value; }
+            set
+            {
+                ArgumentNullException.ThrowIfNull(value, nameof(TagXml));
+                Tag = value.Value;
+            }
         }
     }
 }

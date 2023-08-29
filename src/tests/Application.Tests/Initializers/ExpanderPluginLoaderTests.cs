@@ -31,7 +31,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         /// </summary>
         public ExpanderPluginLoaderTests()
         {
-            _app = new() { Expanders = new List<Expander> { new Expander() { Name = _expanderName } } };
+            _app = new();
+            _app.Expanders.Add(new Expander() { Name = _expanderName } );
 
             _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Returns(_mockedAssembly.Object);
 
@@ -127,7 +128,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
                 .Returns(_fakes.IExpanderDependencyManager.Object);
 
             // act
-            List<IExpander> result = _interactor.ShallowLoadAllExpanders(path);
+            IEnumerable<IExpander> result = _interactor.ShallowLoadAllExpanders(path);
 
             // assert
             _fakes.IObjectActivator.Verify(x => x.CreateInstance(It.IsAny<Type>()), Times.Once);

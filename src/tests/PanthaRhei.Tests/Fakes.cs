@@ -20,8 +20,11 @@ namespace LiquidVisions.PanthaRhei.Tests
         /// </summary>
         public Fakes()
         {
+#pragma warning disable CA2214 // Do not call overridable methods in constructors
             Configure();
             ConfigureIDependencyFactory();
+#pragma warning restore CA2214 // Do not call overridable methods in constructors
+            
         }
 
         /// <summary>
@@ -102,17 +105,17 @@ namespace LiquidVisions.PanthaRhei.Tests
         /// </summary>
         public virtual void ConfigureIDependencyFactory()
         {
-            IDependencyFactory.Setup(x => x.Get<ILogger>()).Returns(ILogger.Object);
-            IDependencyFactory.Setup(x => x.Get<ILogManager>()).Returns(ILogManager.Object);
-            IDependencyFactory.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManager.Object);
-            IDependencyFactory.Setup(x => x.Get<IFile>()).Returns(IFile.Object);
-            IDependencyFactory.Setup(x => x.Get<IDirectory>()).Returns(IDirectory.Object);
-            IDependencyFactory.Setup(x => x.Get<GenerationOptions>()).Returns(GenerationOptions.Object);
-            IDependencyFactory.Setup(x => x.Get<IDependencyManager>()).Returns(IDependencyManager.Object);
-            IDependencyFactory.Setup(x => x.Get<IAssemblyManager>()).Returns(IAssemblyManager.Object);
-            IDependencyFactory.Setup(x => x.Get<IWriter>()).Returns(IWriter.Object);
-            IDependencyFactory.Setup(x => x.Get<ITemplate>()).Returns(ITemplate.Object);
-            IDependencyFactory.Setup(x => x.Get<ICommandLine>()).Returns(ICommandLine.Object);
+            IDependencyFactory.Setup(x => x.Resolve<ILogger>()).Returns(ILogger.Object);
+            IDependencyFactory.Setup(x => x.Resolve<ILogManager>()).Returns(ILogManager.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IDependencyManager>()).Returns(IDependencyManager.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IFile>()).Returns(IFile.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IDirectory>()).Returns(IDirectory.Object);
+            IDependencyFactory.Setup(x => x.Resolve<GenerationOptions>()).Returns(GenerationOptions.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IDependencyManager>()).Returns(IDependencyManager.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IAssemblyManager>()).Returns(IAssemblyManager.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IWriter>()).Returns(IWriter.Object);
+            IDependencyFactory.Setup(x => x.Resolve<ITemplate>()).Returns(ITemplate.Object);
+            IDependencyFactory.Setup(x => x.Resolve<ICommandLine>()).Returns(ICommandLine.Object);
         }
     }
 }

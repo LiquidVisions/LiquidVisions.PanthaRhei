@@ -26,7 +26,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// Gets an instance of the default logger.
         /// </summary>
         /// <returns>The default logger.</returns>
-        public ILogger Logger => Get(Loggers.DefaultLogger);
+        public ILogger Logger => GetLoggerByName(Loggers.DefaultLogger);
 
         /// <summary>
         /// Gets an instance of the logger for authentication.
@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <returns>The authentication logger.</returns>
         public ILogger GetAuthenticationLogger()
         {
-            return Get(Loggers.AuthenticationLogger);
+            return GetLoggerByName(Loggers.AuthenticationLogger);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <returns>The exception logger.</returns>
         public ILogger GetExceptionLogger()
         {
-            return Get(Loggers.ExceptionLogger);
+            return GetLoggerByName(Loggers.ExceptionLogger);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// </summary>
         /// <param name="loggerName">The name of the logger.</param>
         /// <returns>The logger for this name.</returns>
-        public ILogger Get(string loggerName)
+        public ILogger GetLoggerByName(string loggerName)
         {
             if (string.IsNullOrWhiteSpace(loggerName))
             {

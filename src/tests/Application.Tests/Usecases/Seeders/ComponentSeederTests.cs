@@ -26,8 +26,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// </summary>
         public ComponentSeederTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Component>>()).Returns(_mockedCreateGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<Component>>()).Returns(_mockedDeleteGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Component>>()).Returns(_mockedCreateGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Component>>()).Returns(_mockedDeleteGateway.Object);
 
             _interactor = new ComponentSeeder(_fakes.IDependencyFactory.Object);
         }
@@ -41,13 +41,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Component>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<Component>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
-            _fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Component>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Component>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(5));
+            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>
@@ -100,10 +100,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             Expander expander1 = new() { Name = "Expander1", Enabled = true };
             Expander expander2 = new() { Name = "Expander2", Enabled = true };
-            App app = new()
-            {
-                Expanders = new List<Expander> { expander1, expander2, },
-            };
+
+            App app = new();
+            app.Expanders.Add(expander1);
+            app.Expanders.Add(expander2);
 
             string actualTemplatePathExpander1 = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
             string actualTemplatePathExpander2 = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
@@ -130,10 +130,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             Expander expander1 = new() { Name = "Expander1", Enabled = true };
             Expander expander2 = new() { Name = "Expander2", Enabled = true };
-            App app = new()
-            {
-                Expanders = new List<Expander> { expander1, expander2, },
-            };
+
+            App app = new();
+            app.Expanders.Add(expander1);
+            app.Expanders.Add(expander2);
 
             string actualTemplatePathExpander1 = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
             string actualTemplatePathExpander2 = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);

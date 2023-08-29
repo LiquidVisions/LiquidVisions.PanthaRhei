@@ -19,8 +19,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
         public TemplateLoader(IDependencyFactory dependencyFactory)
         {
-            _fileService = dependencyFactory.Get<IFile>();
-            _logger = dependencyFactory.Get<ILogger>();
+            _fileService = dependencyFactory.Resolve<IFile>();
+            _logger = dependencyFactory.Resolve<ILogger>();
         }
 
         /// <inheritdoc/>

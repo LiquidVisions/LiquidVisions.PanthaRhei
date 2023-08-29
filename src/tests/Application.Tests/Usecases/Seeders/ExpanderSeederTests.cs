@@ -27,8 +27,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// </summary>
         public ExpanderSeederTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<Expander>>()).Returns(_deleteGateWay.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Expander>>()).Returns(_createGateWay.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Expander>>()).Returns(_deleteGateWay.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Expander>>()).Returns(_createGateWay.Object);
 
             _interactor = new(_fakes.IDependencyFactory.Object);
         }
@@ -43,11 +43,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
-            _fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<Expander>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Expander>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IExpanderPluginLoader>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(4));
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Expander>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Expander>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IExpanderPluginLoader>(), Times.Once);
         }
 
         /// <summary>

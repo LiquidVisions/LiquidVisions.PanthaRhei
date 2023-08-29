@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -25,17 +26,17 @@ namespace LiquidVisions.PanthaRhei.Domain
         /// <summary>
         /// Gets or sets a value indicating whether the output needs to be cleaned.
         /// </summary>
-        public virtual bool Clean { get; set; } = false;
+        public virtual bool Clean { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the database schema should be attempted to update.
         /// </summary>
-        public virtual bool Migrate { get; set; } = false;
+        public virtual bool Migrate { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the database should be seeded with the data of the meta model.
         /// </summary>
-        public virtual bool Seed { get; set; } = false;
+        public virtual bool Seed { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the connectionstring.
@@ -94,7 +95,7 @@ namespace LiquidVisions.PanthaRhei.Domain
 
             foreach (PropertyInfo property in list)
             {
-                sb.AppendLine($" \"{property.Name}\": \"{property.GetValue(this)}\", ");
+                sb.AppendLine(CultureInfo.InvariantCulture, $" \"{property.Name}\": \"{property.GetValue(this)}\", ");
             }
 
             sb.AppendLine("}");

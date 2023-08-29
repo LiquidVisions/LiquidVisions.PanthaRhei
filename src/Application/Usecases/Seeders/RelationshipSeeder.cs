@@ -17,9 +17,9 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public RelationshipSeeder(IDependencyFactory dependencyFactory)
         {
-            _createGateway = dependencyFactory.Get<ICreateRepository<Relationship>>();
-            _deleteGateway = dependencyFactory.Get<IDeleteRepository<Relationship>>();
-            _modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
+            _createGateway = dependencyFactory.Resolve<ICreateRepository<Relationship>>();
+            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Relationship>>();
+            _modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
         }
 
         public int SeedOrder => 7;
@@ -30,9 +30,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             foreach (Entity entity in app.Entities)
             {
-                List<RelationshipDto> infos = _modelConfiguration.GetRelationshipInfo(entity);
-
-                foreach (RelationshipDto info in infos)
+                foreach (RelationshipDto info in _modelConfiguration.GetRelationshipInfo(entity))
                 {
                     Relationship relationship = new()
                     {

@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int index = IndexOf(text);
             if (index == -1)
             {
-                index = _lines.IndexOf(_lines.LastOrDefault(x => x.Contains("using ") && x.EndsWith(";")));
+                index = _lines.IndexOf(_lines.LastOrDefault(x => x.Contains("using ", StringComparison.InvariantCulture) && x.EndsWith(";", StringComparison.InvariantCulture)));
 
                 _logger.Trace($"Adding namespace {nameSpace} to the file.");
 
@@ -105,7 +105,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         public void WriteAtEmptyRow(string match, string text)
         {
             int index = LastIndexOf(match);
-            while (_lines[index] != string.Empty)
+            while (!string.IsNullOrEmpty(_lines[index]))
             {
                 index++;
             }
@@ -116,7 +116,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <inheritdoc/>
         public int IndexOf(string match)
         {
-            int index = _lines.IndexOf(_lines.FirstOrDefault(x => x.Contains(match)));
+            int index = _lines.IndexOf(_lines.FirstOrDefault(x => x.Contains(match, StringComparison.InvariantCulture)));
 
             _logger.Trace($"Matched index on match '{match}' is {index}");
 
@@ -148,7 +148,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int index = IndexOf(match);
             if (index > -1)
             {
-                _lines[index] = _lines[index].Replace(match, replaceValue);
+                _lines[index] = _lines[index].Replace(match, replaceValue, StringComparison.InvariantCulture);
             }
         }
 
@@ -184,7 +184,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <inheritdoc/>
         public int LastIndexOf(string match)
         {
-            int index = _lines.LastIndexOf(_lines.LastOrDefault(x => x.Contains(match)));
+            int index = _lines.LastIndexOf(_lines.LastOrDefault(x => x.Contains(match, StringComparison.InvariantCulture)));
 
             _logger.Trace($"Matched index on match '{match}' is {index}");
 
@@ -246,12 +246,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                 index++;
                 str = _lines[index].Trim();
 
-                if (str.Contains('{'))
+                if (str.Contains('{', StringComparison.InvariantCulture))
                 {
                     stack.Push(str);
                 }
 
-                if (str.Contains('}'))
+                if (str.Contains('}',StringComparison.InvariantCulture))
                 {
                     stack.Pop();
                 }
@@ -264,7 +264,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
 
         private int IndexOf(string match, int index)
         {
-            int result = _lines.IndexOf(_lines.FirstOrDefault(x => x.Contains(match)), index);
+            int result = _lines.IndexOf(_lines.FirstOrDefault(x => x.Contains(match, StringComparison.InvariantCulture)), index);
 
             _logger.Trace($"Matched index on match '{match}' is {result}");
 

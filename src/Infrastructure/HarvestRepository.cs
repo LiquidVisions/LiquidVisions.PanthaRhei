@@ -28,11 +28,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public HarvestRepository(IDependencyFactory dependencyFactory)
         {
-            _file = dependencyFactory.Get<IFile>();
-            _deserializer = dependencyFactory.Get<IDeserializer<Harvest>>();
-            _serializer = dependencyFactory.Get<IHarvestSerializer>();
-            _expandRequestModel = dependencyFactory.Get<GenerationOptions>();
-            _app = dependencyFactory.Get<App>();
+            _file = dependencyFactory.Resolve<IFile>();
+            _deserializer = dependencyFactory.Resolve<IDeserializer<Harvest>>();
+            _serializer = dependencyFactory.Resolve<IHarvestSerializer>();
+            _expandRequestModel = dependencyFactory.Resolve<GenerationOptions>();
+            _app = dependencyFactory.Resolve<App>();
         }
 
         /// <inheritdoc/>

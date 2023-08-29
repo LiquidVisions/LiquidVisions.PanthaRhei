@@ -35,8 +35,8 @@
         /// <summary>
         /// Adds a using to the file.
         /// </summary>
-        /// <param name="nameSpace">the namespace.</param>
-        void AddNameSpace(string nameSpace);
+        /// <param name="name">the namespace.</param>
+        void AddNameSpace(string name);
 
         /// <summary>
         /// Gets the index of the first matched string.

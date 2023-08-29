@@ -86,11 +86,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// <summary>
         /// Gets or sets a list of <seealso cref="Relationship">Relationships</seealso> where the <see cref="Field"/> is a relationship."/>
         /// </summary>
-        public virtual List<Relationship> RelationshipKeys { get; set; } = new List<Relationship>();
+        public virtual ICollection<Relationship> RelationshipKeys { get; set; }
+            = new List<Relationship>();
 
         /// <summary>
         /// Gets or sets a list of <seealso cref="Relationship">Relationships</seealso> where the <see cref="Field"/> is a foreign key."/>
         /// </summary>
-        public virtual List<Relationship> IsForeignEntityKeyOf { get; set; } = new List<Relationship>();
+        public virtual ICollection<Relationship> IsForeignEntityKeyOf { get; set; }
+            = new List<Relationship>();
     }
 }

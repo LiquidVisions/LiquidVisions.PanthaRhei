@@ -27,9 +27,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// </summary>
         public EntitySeederTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Entity>>()).Returns(_mockedCreateGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<Entity>>()).Returns(_mockedDeleteGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Get<IEntitiesToSeedRepository>()).Returns(_mockedEntityToSeedGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Entity>>()).Returns(_mockedCreateGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Entity>>()).Returns(_mockedDeleteGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<IEntitiesToSeedRepository>()).Returns(_mockedEntityToSeedGateway.Object);
 
             _interactor = new EntitySeeder(_fakes.IDependencyFactory.Object);
         }
@@ -43,11 +43,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<Entity>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Entity>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IEntitiesToSeedRepository>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
-            _fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Entity>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Entity>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IEntitiesToSeedRepository>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
+            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>

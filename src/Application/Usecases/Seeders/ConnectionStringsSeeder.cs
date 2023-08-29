@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public ConnectionStringsSeeder(IDependencyFactory dependencyFactory)
         {
-            _createGateway = dependencyFactory.Get<ICreateRepository<ConnectionString>>();
-            _deleteGateway = dependencyFactory.Get<IDeleteRepository<ConnectionString>>();
+            _createGateway = dependencyFactory.Resolve<ICreateRepository<ConnectionString>>();
+            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<ConnectionString>>();
         }
 
         public int SeedOrder => 1;

@@ -2,6 +2,7 @@
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 {
@@ -78,10 +79,13 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 
                 string connectionString = configurationRoot.GetConnectionString("PanthaRheiDev");
 
-                optionsBuilder
-                    .UseLoggerFactory(ContextExtensions.GetLoggerFactory())
-                    .EnableSensitiveDataLogging()
-                    .UseSqlServer(connectionString);
+                using (ILoggerFactory factory = ContextExtensions.GetLoggerFactory())
+                {
+                    optionsBuilder
+                        .UseLoggerFactory(factory)
+                        .EnableSensitiveDataLogging()
+                        .UseSqlServer(connectionString);
+                }
             }
         }
 

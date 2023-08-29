@@ -59,12 +59,12 @@ namespace LiquidVisions.PanthaRhei.Application.Tests
         {
             base.ConfigureIDependencyFactory();
 
-            IDependencyFactory.Setup(x => x.Get<IAssemblyContext>()).Returns(IAssemblyContext.Object);
-            IDependencyFactory.Setup(x => x.Get<IObjectActivator>()).Returns(IObjectActivator.Object);
-            IDependencyFactory.Setup(x => x.Get<ICodeGenerator>()).Returns(ICodeGenerator.Object);
-            IDependencyFactory.Setup(x => x.Get<ICodeGeneratorBuilder>()).Returns(ICodeGeneratorBuilder.Object);
-            IDependencyFactory.Setup(x => x.Get<IExpanderPluginLoader>()).Returns(IExpanderPluginLoader.Object);
-            IDependencyFactory.Setup(x => x.Get<IMigrationService>()).Returns(IMigrationService.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IAssemblyContext>()).Returns(IAssemblyContext.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IObjectActivator>()).Returns(IObjectActivator.Object);
+            IDependencyFactory.Setup(x => x.Resolve<ICodeGenerator>()).Returns(ICodeGenerator.Object);
+            IDependencyFactory.Setup(x => x.Resolve<ICodeGeneratorBuilder>()).Returns(ICodeGeneratorBuilder.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IExpanderPluginLoader>()).Returns(IExpanderPluginLoader.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IMigrationService>()).Returns(IMigrationService.Object);
         }
     }
 }

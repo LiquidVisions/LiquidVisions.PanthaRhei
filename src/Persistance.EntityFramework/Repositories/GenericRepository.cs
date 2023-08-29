@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
 
         public GenericRepository(IDependencyFactory dependencyFactory)
         {
-            _context = dependencyFactory.Get<Context>();
+            _context = dependencyFactory.Resolve<Context>();
         }
 
         internal Context Context => _context;

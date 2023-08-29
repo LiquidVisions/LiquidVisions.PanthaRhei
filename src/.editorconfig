@@ -29,6 +29,7 @@ dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
 dotnet_style_prefer_compound_assignment = true:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 dotnet_style_prefer_simplified_interpolation = true:suggestion
+dotnet_diagnostic.CA2227.severity = silent
 
 [project.json]
 indent_size = 2
@@ -214,3 +215,7 @@ indent_size = 2
 end_of_line = lf
 [*.{cmd,bat}]
 end_of_line = crlf
+
+#ignore migrations
+[**/Migrations/*.cs]
+dotnet_diagnostic.CA1062.severity = none

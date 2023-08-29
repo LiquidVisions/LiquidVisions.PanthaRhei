@@ -46,6 +46,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
         /// </summary>
         /// <param name="entity"><see cref="Entity"/>.</param>
         /// <returns>A <seealso cref="RelationshipDto">List of RelationshipDto's</seealso> representing the available information of the <seealso cref="Relationship"/></returns>
-        List<RelationshipDto> GetRelationshipInfo(Entity entity);
+        ICollection<RelationshipDto> GetRelationshipInfo(Entity entity);
     }
 }

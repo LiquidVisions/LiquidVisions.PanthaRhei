@@ -24,9 +24,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
         public UnInstallDotNetTemplate(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            _commandLine = dependencyFactory.Get<ICommandLine>();
-            _directoryService = dependencyFactory.Get<IDirectory>();
-            _logger = dependencyFactory.Get<ILogger>();
+            _commandLine = dependencyFactory.Resolve<ICommandLine>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _logger = dependencyFactory.Resolve<ILogger>();
         }
 
         /// <inheritdoc/>

@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         }
 
         /// <summary>
-        /// Test for <see cref="DependencyManager.GetAll{IFakeInterface}"/>.
+        /// Test for <see cref="DependencyManager.ResolveAll{IFakeInterface}"/>.
         /// Should not return empty collection.
         /// </summary>
         [Fact]
@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
             _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass2));
 
             // act
-            System.Collections.Generic.IEnumerable<IFakeInterface> result = _container.GetAll<IFakeInterface>();
+            System.Collections.Generic.IEnumerable<IFakeInterface> result = _container.ResolveAll<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);
@@ -42,7 +42,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         }
 
         /// <summary>
-        /// Test for <see cref="DependencyManager.GetAll{IFakeInterface}"/>.
+        /// Test for <see cref="DependencyManager.ResolveAll{IFakeInterface}"/>.
         /// Should rresolve collection.
         /// </summary>
         [Fact]
@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
 
             // act
             _container.Build();
-            IEnumerable<IFakeInterface> result = _container.GetAll<IFakeInterface>();
+            IEnumerable<IFakeInterface> result = _container.ResolveAll<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);
@@ -62,7 +62,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         }
 
         /// <summary>
-        /// Test for <see cref="DependencyManager.GetAll{IFakeInterface}"/>.
+        /// Test for <see cref="DependencyManager.ResolveAll{IFakeInterface}"/>.
         /// Build is not required
         /// </summary>
         [Fact]
@@ -73,7 +73,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
             _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass2));
 
             // act
-            IEnumerable<IFakeInterface> result = _container.GetAll<IFakeInterface>();
+            IEnumerable<IFakeInterface> result = _container.ResolveAll<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);
@@ -81,7 +81,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         }
 
         /// <summary>
-        /// Test for <see cref="DependencyManager.Get{IFakeInterface}"/>.
+        /// Test for <see cref="DependencyManager.Resolve{IFakeInterface}"/>.
         /// </summary>
         [Fact]
         public void GetServicesShouldResolveCollection()
@@ -92,7 +92,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
 
             // act
             _container.Build();
-            IFakeInterface result = _container.Get<IFakeInterface>();
+            IFakeInterface result = _container.Resolve<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);
@@ -100,7 +100,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         }
 
         /// <summary>
-        /// Test for <see cref="DependencyManager.Get{IFakeInterface}"/>.
+        /// Test for <see cref="DependencyManager.Resolve{IFakeInterface}"/>.
         /// Build is not required.
         /// </summary>
         [Fact]
@@ -111,7 +111,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
             _container.AddSingleton<IFakeInterface>(fakeTestClass1);
 
             // act
-            IFakeInterface result = _container.Get<IFakeInterface>();
+            IFakeInterface result = _container.Resolve<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);

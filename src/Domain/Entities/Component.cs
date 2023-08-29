@@ -26,7 +26,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// <summary>
         /// Gets or sets the <seealso cref="Package">Packages</seealso> of the <see cref="Component"/>.
         /// </summary>
-        public virtual List<Package> Packages { get; set; } = new List<Package>();
+        public virtual ICollection<Package> Packages { get; set; }
+            = new List<Package>();
 
         /// <summary>
         /// Gets or sets the <seealso cref="Expander">Expanders</seealso> of the <see cref="Component"/>.

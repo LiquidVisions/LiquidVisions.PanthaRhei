@@ -25,10 +25,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         public ConnectionStringSeederTests()
         {
             _fakes.IDependencyFactory
-                .Setup(x => x.Get<ICreateRepository<ConnectionString>>())
+                .Setup(x => x.Resolve<ICreateRepository<ConnectionString>>())
                 .Returns(_mockedCreateGateway.Object);
             _fakes.IDependencyFactory
-                .Setup(x => x.Get<IDeleteRepository<ConnectionString>>())
+                .Setup(x => x.Resolve<IDeleteRepository<ConnectionString>>())
                 .Returns(_mockedDeleteGateway.Object);
 
             _interactor = new ConnectionStringsSeeder(_fakes.IDependencyFactory.Object);
@@ -43,10 +43,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<ConnectionString>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<ConnectionString>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
-            _fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<ConnectionString>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<ConnectionString>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
+            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>

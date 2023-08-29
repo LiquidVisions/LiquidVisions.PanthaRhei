@@ -28,11 +28,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator
         public RegionRejuvenator(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            _options = dependencyFactory.Get<GenerationOptions>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
 
-            _directoryService = dependencyFactory.Get<IDirectory>();
-            _harvestGateway = dependencyFactory.Get<IGetRepository<Harvest>>();
-            _writer = dependencyFactory.Get<IWriter>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _harvestGateway = dependencyFactory.Resolve<IGetRepository<Harvest>>();
+            _writer = dependencyFactory.Resolve<IWriter>();
             _folder = Path.Combine(_options.HarvestFolder, App.FullName);
         }
 

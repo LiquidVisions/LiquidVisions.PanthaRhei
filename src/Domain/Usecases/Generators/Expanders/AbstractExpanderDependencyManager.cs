@@ -34,8 +34,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
             IDependencyFactory dependencyFactory = DependencyManager.Build();
 
             Model = expander;
-            Logger = dependencyFactory.Get<ILogger>();
-            _assemblyManager = dependencyFactory.Get<IAssemblyManager>();
+            Logger = dependencyFactory.Resolve<ILogger>();
+            _assemblyManager = dependencyFactory.Resolve<IAssemblyManager>();
         }
 
         /// <summary>
@@ -88,6 +88,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="serviceType">The type that should be registered.</param>
         public virtual void RegisterFromAssembly(Assembly assembly, Type serviceType)
         {
+            ArgumentNullException.ThrowIfNull(assembly);
+
             IEnumerable<Type> list = assembly
                 .GetExportedTypes()
                 .Where(x => x.GetInterfaces().Contains(serviceType));
@@ -141,6 +143,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="assembly"><seealso cref="Assembly"/></param>
         public virtual void RegisterHandlers(Assembly assembly)
         {
+            ArgumentNullException.ThrowIfNull(assembly);
+
             var listOfHandlers = assembly
                 .GetExportedTypes()
                 .Where(x => x.IsClass && !x.IsAbstract)
@@ -166,6 +170,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="assembly"><seealso cref="Assembly"/></param>
         public virtual void RegisterExpander(Assembly assembly)
         {
+            ArgumentNullException.ThrowIfNull(assembly);
+
             try
             {
                 Type expanderType = assembly.GetExportedTypes()

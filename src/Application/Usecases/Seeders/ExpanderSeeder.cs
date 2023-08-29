@@ -18,10 +18,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public ExpanderSeeder(IDependencyFactory dependencyFactory)
         {
-            _pluginLoader = dependencyFactory.Get<IExpanderPluginLoader>();
-            _options = dependencyFactory.Get<GenerationOptions>();
-            _createGateway = dependencyFactory.Get<ICreateRepository<Expander>>();
-            _deleteGateway = dependencyFactory.Get<IDeleteRepository<Expander>>();
+            _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _createGateway = dependencyFactory.Resolve<ICreateRepository<Expander>>();
+            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Expander>>();
         }
 
         public int SeedOrder => 2;
@@ -30,8 +30,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public void Seed(App app)
         {
-            List<IExpander> expanders = _pluginLoader.ShallowLoadAllExpanders(_options.ExpandersFolder);
-            foreach (IExpander exp in expanders)
+            foreach (IExpander exp in _pluginLoader.ShallowLoadAllExpanders(_options.ExpandersFolder))
             {
                 Expander expander = new()
                 {

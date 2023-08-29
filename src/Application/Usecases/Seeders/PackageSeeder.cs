@@ -27,10 +27,12 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         /// <param name="dependencyFactory"></param>
         public PackageSeeder(IDependencyFactory dependencyFactory)
         {
-            _createGateway = dependencyFactory.Get<ICreateRepository<Package>>();
-            _deleteGateway = dependencyFactory.Get<IDeleteRepository<Package>>();
-            _directoryService = dependencyFactory.Get<IDirectory>();
-            _options = dependencyFactory.Get<GenerationOptions>();
+            ArgumentNullException.ThrowIfNull(dependencyFactory);
+
+            _createGateway = dependencyFactory.Resolve<ICreateRepository<Package>>();
+            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Package>>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
         }
 
         /// <inheritdoc/>
@@ -45,10 +47,12 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         /// <summary>
         /// Seeds the <see cref="Package"/> entity.
         /// </summary>
-        /// <param name="app"><seealso cref="App"/></param>
-        public void Seed(App app)
+        /// <param name="entity"><seealso cref="App"/></param>
+        public void Seed(App entity)
         {
-            foreach (Component component in app.Expanders.SelectMany(x => x.Components))
+            ArgumentNullException.ThrowIfNull(entity);
+
+            foreach (Component component in entity.Expanders.SelectMany(x => x.Components))
             {
                 string templatePath = Path.Combine(_options.ExpandersFolder, component.Expander.Name, Resources.TemplatesFolder);
                 if (_directoryService.Exists(templatePath))

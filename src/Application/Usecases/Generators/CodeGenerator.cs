@@ -18,9 +18,9 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
 
         public CodeGenerator(IDependencyFactory dependencyFactory)
         {
-            _options = dependencyFactory.Get<GenerationOptions>();
-            _directory = dependencyFactory.Get<IDirectory>();
-            _expanders = dependencyFactory.GetAll<IExpander>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _directory = dependencyFactory.Resolve<IDirectory>();
+            _expanders = dependencyFactory.ResolveAll<IExpander>();
         }
 
         /// <inheritdoc/>

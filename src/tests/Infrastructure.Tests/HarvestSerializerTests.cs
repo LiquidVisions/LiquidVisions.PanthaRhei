@@ -32,10 +32,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<ISerializer<Harvest>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ISerializer<Harvest>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
         }
 
         /// <summary>

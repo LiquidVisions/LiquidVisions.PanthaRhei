@@ -24,8 +24,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// </summary>
         public AppSeederTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<App>>()).Returns(_mockedCreateGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Get<IDeleteRepository<App>>()).Returns(_mockedDeleteGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<App>>()).Returns(_mockedCreateGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<App>>()).Returns(_mockedDeleteGateway.Object);
 
             _interactor = new AppSeeder(_fakes.IDependencyFactory.Object);
         }
@@ -39,11 +39,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<App>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IDeleteRepository<App>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(3));
-            _fakes.IDependencyFactory.Verify(x => x.GetAll<It.IsAnyType>(), Times.Never);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<App>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<App>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
+            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>

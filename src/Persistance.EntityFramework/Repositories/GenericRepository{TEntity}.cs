@@ -20,7 +20,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
         public Type ContextType => Context.GetType();
 
         public Type ConfigurationType => _dependencyFactory
-            .Get<IEntityTypeConfiguration<TEntity>>()
+            .Resolve<IEntityTypeConfiguration<TEntity>>()
             .GetType();
 
         public bool Create(TEntity entity)

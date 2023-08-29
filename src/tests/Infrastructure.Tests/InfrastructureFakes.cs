@@ -68,9 +68,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             base.ConfigureIDependencyFactory();
 
-            IDependencyFactory.Setup(x => x.Get<IHarvestSerializer>()).Returns(IHarvestSerializer.Object);
-            IDependencyFactory.Setup(x => x.Get<IDeserializer<Harvest>>()).Returns(IHarvestDeserializer.Object);
-            IDependencyFactory.Setup(x => x.Get<ISerializer<Harvest>>()).Returns(ISerializer.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IHarvestSerializer>()).Returns(IHarvestSerializer.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IDeserializer<Harvest>>()).Returns(IHarvestDeserializer.Object);
+            IDependencyFactory.Setup(x => x.Resolve<ISerializer<Harvest>>()).Returns(ISerializer.Object);
         }
     }
 }

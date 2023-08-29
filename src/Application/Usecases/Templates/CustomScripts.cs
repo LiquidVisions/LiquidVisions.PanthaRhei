@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
@@ -21,6 +22,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="parameters"><seealso cref="IEnumerable{IElementTemplateParameters}"/></param>
         public CustomScripts(IEnumerable<IElementTemplateParameters> parameters)
         {
+            ArgumentNullException.ThrowIfNull(parameters);
+
             foreach (IElementTemplateParameters par in parameters)
             {
                 if (!s_elementTemplateParameters.ContainsKey(par.ElementType))
@@ -54,6 +57,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <returns></returns>
         public static string ComponentFullname(Component component, params string[] segments)
         {
+            ArgumentNullException.ThrowIfNull(component);
+
             string result = $"{component.Expander.Apps.Single().FullName}.{component.Name}";
             if (segments != null && segments.Length > 0)
             {
@@ -71,6 +76,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <returns></returns>
         public static string AppFullname(Component component, params string[] segments)
         {
+            ArgumentNullException.ThrowIfNull(component);
+
             string result = $"{component.Expander.Apps.Single().FullName}";
             if (segments != null)
             {

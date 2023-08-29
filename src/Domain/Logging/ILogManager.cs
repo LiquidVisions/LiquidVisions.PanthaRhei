@@ -27,6 +27,6 @@
         /// </summary>
         /// <param name="loggerName">The name of the logger.</param>
         /// <returns>The logger for the specified loggername.</returns>
-        ILogger Get(string loggerName);
+        ILogger GetLoggerByName(string loggerName);
     }
 }

@@ -25,11 +25,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
         public ScribanTemplate(IDependencyFactory dependencyFactory)
         {
-            _logger = dependencyFactory.Get<ILogger>();
-            _templateLoader = dependencyFactory.Get<Domain.Usecases.Templates.ITemplateLoader>();
-            _fileService = dependencyFactory.Get<IFile>();
-            _directoryService = dependencyFactory.Get<IDirectory>();
-            _scriptObject = dependencyFactory.Get<ScriptObject>();
+            _logger = dependencyFactory.Resolve<ILogger>();
+            _templateLoader = dependencyFactory.Resolve<Domain.Usecases.Templates.ITemplateLoader>();
+            _fileService = dependencyFactory.Resolve<IFile>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _scriptObject = dependencyFactory.Resolve<ScriptObject>();
         }
 
         /// <inheritdoc/>

@@ -47,7 +47,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         }
 
         /// <summary>
-        /// Test for <see cref="LogManager.Get(string)"/>.
+        /// Test for <see cref="LogManager.GetLoggerByName(string)"/>.
         /// Should be the same instance of type <seealso cref="Loggers.DefaultLogger"/>.
         /// </summary>
         [Fact]
@@ -56,7 +56,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
             // arrange
             // act
             ILogger logger1 = _logManager.Logger;
-            ILogger logger2 = _logManager.Get(Loggers.DefaultLogger);
+            ILogger logger2 = _logManager.GetLoggerByName(Loggers.DefaultLogger);
 
             // assert
             Assert.NotNull(logger1);
@@ -74,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
             // arrange
             // act
             ILogger logger1 = _logManager.GetAuthenticationLogger();
-            ILogger logger2 = _logManager.Get(Loggers.AuthenticationLogger);
+            ILogger logger2 = _logManager.GetLoggerByName(Loggers.AuthenticationLogger);
 
             // assert
             Assert.NotNull(logger1);
@@ -92,7 +92,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
             // arrange
             // act
             ILogger logger1 = _logManager.GetExceptionLogger();
-            ILogger logger2 = _logManager.Get(Loggers.ExceptionLogger);
+            ILogger logger2 = _logManager.GetLoggerByName(Loggers.ExceptionLogger);
 
             // assert
             Assert.NotNull(logger1);
@@ -101,7 +101,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         }
 
         /// <summary>
-        /// Test for <see cref="LogManager.Get(string)"/>.
+        /// Test for <see cref="LogManager.GetLoggerByName(string)"/>.
         /// Should throw exception when logger name is invalid.
         /// </summary>
         [Fact]
@@ -111,7 +111,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
             string loggerName = "InvalidName";
 
             // act
-            void Action() => _logManager.Get(loggerName);
+            void Action() => _logManager.GetLoggerByName(loggerName);
 
             // assert
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(() => Action());
@@ -119,7 +119,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         }
 
         /// <summary>
-        /// Test for <see cref="LogManager.Get(string)"/>.
+        /// Test for <see cref="LogManager.GetLoggerByName(string)"/>.
         /// Should throw exception when logger name is null.
         /// </summary>
         [Fact]
@@ -128,7 +128,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
             // arrange
 
             // act
-            void Action() => _logManager.Get(string.Empty);
+            void Action() => _logManager.GetLoggerByName(string.Empty);
 
             // assert
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => Action());

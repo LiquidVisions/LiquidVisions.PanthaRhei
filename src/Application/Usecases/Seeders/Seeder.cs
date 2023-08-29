@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public Seeder(IDependencyFactory dependencyFactory)
         {
-            _options = dependencyFactory.Get<GenerationOptions>();
-            _seeders = dependencyFactory.GetAll<IEntitySeeder<App>>().ToList();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _seeders = dependencyFactory.ResolveAll<IEntitySeeder<App>>().ToList();
         }
 
         public bool Enabled => _options.Seed;

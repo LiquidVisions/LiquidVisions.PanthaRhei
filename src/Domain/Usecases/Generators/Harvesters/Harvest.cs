@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
         /// <summary>
         /// Gets or sets the list of <seealso cref="HarvestItem">HarvestItems</seealso>.
         /// </summary>
-        public List<HarvestItem> Items { get; set; }
+        public ICollection<HarvestItem> Items { get; set; }
             = new List<HarvestItem>();
     }
 }

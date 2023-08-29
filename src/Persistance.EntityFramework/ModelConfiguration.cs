@@ -6,7 +6,6 @@ using LiquidVisions.PanthaRhei.Domain.Models;
 using LiquidVisions.PanthaRhei.Domain.Usecases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 {
@@ -69,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
             return false;
         }
 
-        public List<RelationshipDto> GetRelationshipInfo(Entity entity)
+        public ICollection<RelationshipDto> GetRelationshipInfo(Entity entity)
         {
             IEntityType mutableEntity = _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType.Name == entity.Name);

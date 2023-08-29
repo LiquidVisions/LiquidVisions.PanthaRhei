@@ -13,6 +13,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers
         /// <summary>
         /// Initializes a new instance of the <see cref="InitializationException"/> class.
         /// </summary>
+        public InitializationException()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InitializationException"/> class.
+        /// </summary>
         /// <param name="message">the exception message.</param>
         public InitializationException(string message)
             : base(message)

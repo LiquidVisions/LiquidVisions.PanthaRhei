@@ -20,11 +20,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public ComponentSeeder(IDependencyFactory dependencyFactory)
         {
-            _createGateway = dependencyFactory.Get<ICreateRepository<Component>>();
-            _deleteGateway = dependencyFactory.Get<IDeleteRepository<Component>>();
-            _options = dependencyFactory.Get<GenerationOptions>();
-            _directoryService = dependencyFactory.Get<IDirectory>();
-            _fileService = dependencyFactory.Get<IFile>();
+            _createGateway = dependencyFactory.Resolve<ICreateRepository<Component>>();
+            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Component>>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _fileService = dependencyFactory.Resolve<IFile>();
         }
 
         public int SeedOrder => 3;
@@ -41,22 +41,21 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                     IEnumerable<string> files = _directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)
                         .Where(x => !string.IsNullOrEmpty(x));
 
-                    if (files != null && files.Any())
+                    _ = files ?? throw new InvalidOperationException("No project files found.");
+
+                    foreach (string file in files)
                     {
-                        foreach (string file in files)
+                        string fileName = _fileService.GetFileNameWithoutExtension(file);
+                        string componentName = fileName.Replace("NAME.", string.Empty, StringComparison.InvariantCulture);
+
+                        Component component = new()
                         {
-                            string fileName = _fileService.GetFileNameWithoutExtension(file);
-                            string componentName = fileName.Replace("NAME.", string.Empty);
+                            Id = Guid.NewGuid(),
+                            Name = componentName,
+                            Expander = expander,
+                        };
 
-                            Component component = new()
-                            {
-                                Id = Guid.NewGuid(),
-                                Name = componentName,
-                                Expander = expander,
-                            };
-
-                            _createGateway.Create(component);
-                        }
+                        _createGateway.Create(component);
                     }
                 }
             }

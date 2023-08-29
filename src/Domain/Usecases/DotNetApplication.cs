@@ -17,12 +17,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
 
         public DotNetApplication(IDependencyFactory dependencyFactory)
         {
-            _options = dependencyFactory.Get<GenerationOptions>();
-            _logger = dependencyFactory.Get<ILogger>();
-            _directory = dependencyFactory.Get<IDirectory>();
-            _file = dependencyFactory.Get<IFile>();
-            _cli = dependencyFactory.Get<ICommandLine>();
-            _app = dependencyFactory.Get<App>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _logger = dependencyFactory.Resolve<ILogger>();
+            _directory = dependencyFactory.Resolve<IDirectory>();
+            _file = dependencyFactory.Resolve<IFile>();
+            _cli = dependencyFactory.Resolve<ICommandLine>();
+            _app = dependencyFactory.Resolve<App>();
         }
 
         public void MaterializeProject()

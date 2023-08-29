@@ -23,10 +23,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public CodeGeneratorBuilder(IDependencyFactory dependencyFactory)
         {
-            _gateway = dependencyFactory.Get<IGetRepository<App>>();
-            _options = dependencyFactory.Get<GenerationOptions>();
-            _pluginLoader = dependencyFactory.Get<IExpanderPluginLoader>();
-            _dependencyManager = dependencyFactory.Get<IDependencyManager>();
+            _gateway = dependencyFactory.Resolve<IGetRepository<App>>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
+            _dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
             _dependencyFactory = dependencyFactory;
         }
 
@@ -39,7 +39,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
             _dependencyManager.AddSingleton(app);
             _dependencyManager.Build();
 
-            return _dependencyFactory.Get<ICodeGenerator>();
+            return _dependencyFactory.Resolve<ICodeGenerator>();
         }
     }
 }

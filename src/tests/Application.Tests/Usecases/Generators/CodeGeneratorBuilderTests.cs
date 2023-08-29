@@ -21,7 +21,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         /// </summary>
         public CodeGeneratorBuilderTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Get<IGetRepository<App>>()).Returns(_mockedGetGateway.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<IGetRepository<App>>()).Returns(_mockedGetGateway.Object);
 
             _interactor = new CodeGeneratorBuilder(_fakes.IDependencyFactory.Object);
         }

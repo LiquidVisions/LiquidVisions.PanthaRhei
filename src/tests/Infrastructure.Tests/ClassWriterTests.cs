@@ -111,7 +111,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 
             // assert
             _mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Once);
-            Assert.Equal($"   {text}", _writer.Lines.First(x => x.Contains(text)));
+            Assert.Equal($"   {text}", _writer.Lines.First(x => x.Contains(text, StringComparison.InvariantCulture)));
             Assert.Equal(index, _writer.IndexOf(text));
         }
 

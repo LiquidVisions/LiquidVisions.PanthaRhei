@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
@@ -20,14 +21,18 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public HarvestSerializer(IDependencyFactory dependencyFactory)
         {
-            _file = dependencyFactory.Get<IFile>();
-            _directory = dependencyFactory.Get<IDirectory>();
-            _serializer = dependencyFactory.Get<ISerializer<Harvest>>();
+            ArgumentNullException.ThrowIfNull(dependencyFactory);
+
+            _file = dependencyFactory.Resolve<IFile>();
+            _directory = dependencyFactory.Resolve<IDirectory>();
+            _serializer = dependencyFactory.Resolve<ISerializer<Harvest>>();
         }
 
         /// <inheritdoc/>
         public void Serialize(Harvest harvest, string fullPath)
         {
+            ArgumentNullException.ThrowIfNull(harvest);
+
             bool serialize = _file.Exists(fullPath);
             serialize &= harvest.Items.Any();
             if (serialize)

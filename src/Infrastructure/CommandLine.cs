@@ -27,13 +27,13 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         }
 
         /// <inheritdoc/>
-        public bool UseWindow { get; set; } = false;
+        public bool UseWindow { get; set; }
 
         /// <inheritdoc/>
-        public bool UseShellExecution { get; set; } = false;
+        public bool UseShellExecution { get; set; }
 
         /// <inheritdoc/>
-        public List<string> Output { get; private set; }
+        public ICollection<string> Output { get; private set; }
 
         /// <inheritdoc/>
         public void Start(string command)

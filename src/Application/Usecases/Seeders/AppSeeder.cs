@@ -13,9 +13,9 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public AppSeeder(IDependencyFactory dependencyFactory)
         {
-            _createGateway = dependencyFactory.Get<ICreateRepository<App>>();
-            _deleteGateway = dependencyFactory.Get<IDeleteRepository<App>>();
-            _options = dependencyFactory.Get<GenerationOptions>();
+            _createGateway = dependencyFactory.Resolve<ICreateRepository<App>>();
+            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<App>>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
         }
 
         public int SeedOrder => 1;

@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             {
                 FullName = "AppFullName",
             };
-            _fakes.IDependencyFactory.Setup(x => x.Get<App>()).Returns(_app);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(_app);
             _repository = new HarvestRepository(_fakes.IDependencyFactory.Object);
         }
 
@@ -41,12 +41,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IDeserializer<Harvest>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IHarvestSerializer>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeserializer<Harvest>>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IHarvestSerializer>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(5));
         }
 
         /// <summary>
@@ -106,6 +106,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 
         /// <summary>
         /// Test for <see cref="HarvestRepository.GetById(object)"/>.
+        /// Should deserialize harvest file.
         /// </summary>
         [Fact]
         public void GetByIdShouldDeserialize()

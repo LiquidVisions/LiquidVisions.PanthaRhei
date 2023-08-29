@@ -27,14 +27,14 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
         public ExpandBoundary(IDependencyFactory dependencyFactory)
         {
-            _seeder = dependencyFactory.Get<ISeeder>();
-            _builder = dependencyFactory.Get<ICodeGeneratorBuilder>();
-            _logger = dependencyFactory.Get<ILogger>();
-            _migrationService = dependencyFactory.Get<IMigrationService>();
-            _options = dependencyFactory.Get<GenerationOptions>();
+            _seeder = dependencyFactory.Resolve<ISeeder>();
+            _builder = dependencyFactory.Resolve<ICodeGeneratorBuilder>();
+            _logger = dependencyFactory.Resolve<ILogger>();
+            _migrationService = dependencyFactory.Resolve<IMigrationService>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
 
             _exceptionLogger = dependencyFactory
-                .Get<ILogManager>()
+                .Resolve<ILogManager>()
                 .GetExceptionLogger();
         }
 
@@ -70,10 +70,12 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
                 catch (CodeGenerationException ex)
                 {
                     _logger.Fatal(ex, ex.Message);
+                    throw;
                 }
                 catch (Exception ex)
                 {
                     _exceptionLogger.Fatal(ex, $"An unexpected error has occured during the expanding procecess with the following message: {ex.Message}.");
+                    throw;
                 }
             }
         }
@@ -90,10 +92,12 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
                 catch (CodeGenerationException ex)
                 {
                     _logger.Fatal(ex, ex.Message);
+                    throw;
                 }
                 catch (Exception ex)
                 {
                     _exceptionLogger.Fatal(ex, $"An unexpected error has occured during the seeding processes with the following message: {ex.Message}.");
+                    throw;
                 }
             }
         }

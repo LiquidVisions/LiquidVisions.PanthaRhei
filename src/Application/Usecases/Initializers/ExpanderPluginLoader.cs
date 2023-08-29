@@ -32,12 +32,12 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public ExpanderPluginLoader(IDependencyFactory dependencyFactory)
         {
-            _options = dependencyFactory.Get<GenerationOptions>();
-            _directoryService = dependencyFactory.Get<IDirectory>();
-            _assemblyContext = dependencyFactory.Get<IAssemblyContext>();
-            _logger = dependencyFactory.Get<ILogger>();
-            _activator = dependencyFactory.Get<IObjectActivator>();
-            _dependencyManager = dependencyFactory.Get<IDependencyManager>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _assemblyContext = dependencyFactory.Resolve<IAssemblyContext>();
+            _logger = dependencyFactory.Resolve<ILogger>();
+            _activator = dependencyFactory.Resolve<IObjectActivator>();
+            _dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
         }
 
         /// <inheritdoc/>
@@ -62,7 +62,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
             }
         }
 
-        public List<IExpander> ShallowLoadAllExpanders(string path)
+        public ICollection<IExpander> ShallowLoadAllExpanders(string path)
         {
             List<IExpander> result = new();
 

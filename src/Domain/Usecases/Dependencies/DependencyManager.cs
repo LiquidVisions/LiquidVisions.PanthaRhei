@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
         }
 
         /// <inheritdoc/>
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> ResolveAll<T>()
         {
             if (_provider == null)
             {
@@ -47,7 +47,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
         }
 
         /// <inheritdoc/>
-        public T Get<T>()
+        public T Resolve<T>()
         {
             if (_provider == null)
             {

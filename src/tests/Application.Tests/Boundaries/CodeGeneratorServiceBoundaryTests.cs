@@ -25,7 +25,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         /// </summary>
         public CodeGeneratorServiceBoundaryTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Get<ISeeder>()).Returns(_mockedSeeder.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<ISeeder>()).Returns(_mockedSeeder.Object);
             _fakes.ILogManager.Setup(x => x.GetExceptionLogger()).Returns(_fakes.ILogger.Object);
             _boundary = new ExpandBoundary(_fakes.IDependencyFactory.Object);
         }
@@ -39,13 +39,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Get<ICodeGeneratorBuilder>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<ISeeder>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<ILogManager>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<IMigrationService>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(6));
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICodeGeneratorBuilder>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ISeeder>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogManager>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<IMigrationService>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
         }
 
         /// <summary>
@@ -130,9 +130,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             _mockedSeeder.Setup(x => x.Enabled).Returns(false);
 
             // act
-            _boundary.Execute();
+            void action() => _boundary.Execute();
 
             // assert
+            Assert.Throws<CodeGenerationException>(action);
             _fakes.ILogger.Verify(x => x.Fatal(exception, exceptionMessage), Times.Once);
         }
 
@@ -145,14 +146,17 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             // arrange
             _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
             string exceptionMessage = "Random Exception Message";
+#pragma warning disable CA2201 // Do not raise reserved exception types
             Exception exception = new(exceptionMessage);
+#pragma warning restore CA2201 // Do not raise reserved exception types
             _fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
             _mockedSeeder.Setup(x => x.Enabled).Returns(false);
 
             // act
-            _boundary.Execute();
+            void action() => _boundary.Execute();
 
             // assert
+            Assert.Throws<Exception>(action);
             _fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occured during the expanding procecess with the following message: {exceptionMessage}."), Times.Once);
         }
     }

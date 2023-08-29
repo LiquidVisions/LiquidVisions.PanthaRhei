@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Domain.Entities;
+﻿using System;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
@@ -26,12 +27,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         protected Processor(IDependencyFactory dependencyFactory)
         {
-            _app = dependencyFactory.Get<App>();
-            _commandLine = dependencyFactory.Get<ICommandLine>();
-            _directoryService = dependencyFactory.Get<IDirectory>();
-            _logger = dependencyFactory.Get<ILogger>();
-            _options = dependencyFactory.Get<GenerationOptions>();
-            _expander = dependencyFactory.Get<TExpander>();
+            ArgumentNullException.ThrowIfNull(dependencyFactory);
+
+            _app = dependencyFactory.Resolve<App>();
+            _commandLine = dependencyFactory.Resolve<ICommandLine>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _logger = dependencyFactory.Resolve<ILogger>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _expander = dependencyFactory.Resolve<TExpander>();
         }
 
         /// <inheritdoc/>

@@ -28,12 +28,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
         /// <param name="dependencyProvider"><seealso cref="IDependencyFactory"/></param>
         public RegionHarvester(IDependencyFactory dependencyProvider)
         {
-            _options = dependencyProvider.Get<GenerationOptions>();
-            _directory = dependencyProvider.Get<IDirectory>();
-            _file = dependencyProvider.Get<IFile>();
-            _gateway = dependencyProvider.Get<ICreateRepository<Harvest>>();
+            _options = dependencyProvider.Resolve<GenerationOptions>();
+            _directory = dependencyProvider.Resolve<IDirectory>();
+            _file = dependencyProvider.Resolve<IFile>();
+            _gateway = dependencyProvider.Resolve<ICreateRepository<Harvest>>();
 
-            Expander = dependencyProvider.Get<TExpander>();
+            Expander = dependencyProvider.Resolve<TExpander>();
         }
 
         /// <inheritdoc/>
