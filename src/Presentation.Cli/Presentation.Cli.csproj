@@ -7,17 +7,13 @@
     <RootNamespace>LiquidVisions.PanthaRhei.Presentation.Cli</RootNamespace>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>flux</ToolCommandName>
-    <PackageId>LiquidVisions.PanthaRhei</PackageId>
     <Title>PanthaRhei</Title>
-    <Authors>Gerco Koks</Authors>
-    <Company>LiquidVisions</Company>
-    <Product>PanthaRhei</Product>
-    <PackageVersion>0.3.3-alpha.0.0.1</PackageVersion>
-    <NeutralLanguage>en</NeutralLanguage>
+    <PackageId>LiquidVisions.PanthaRhei</PackageId>
     <UserSecretsId>2e79a899-7cc7-4b80-91c2-866f6d30200e</UserSecretsId>
   </PropertyGroup>
 
   <Import Project="$(SolutionDir)src\global.props"/>
+  <Import Project="$(SolutionDir)src\package.version.props" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

@@ -1,37 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<AssemblyName>LiquidVisions.PanthaRhei.Tests</AssemblyName>
-		<RootNamespace>LiquidVisions.PanthaRhei.Tests</RootNamespace>
-		<NeutralLanguage>en</NeutralLanguage>
-		<PackageId>LiquidVisions.PanthaRhei.Tests</PackageId>
-		<Title>LiquidVisions.PanthaRhei.Tests</Title>
-		<Authors>Gerco Koks</Authors>
-		<Company>LiquidVisions</Company>
-		<Product>PanthaRhei</Product>
-		<Version>0.1.1</Version>
-		<OutputType>Library</OutputType>
-	</PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>LiquidVisions.PanthaRhei.Tests</AssemblyName>
+    <RootNamespace>LiquidVisions.PanthaRhei.Tests</RootNamespace>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageId>LiquidVisions.PanthaRhei.Tests</PackageId>
+    <Title>PanthaRhei.Tests</Title>
+    <PackageId>LiquidVisions.PanthaRhei.Tests</PackageId>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
 
   <Import Project="$(SolutionDir)src\global.props" />
+  <Import Project="$(SolutionDir)src\package.version.props" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-		<PackageReference Include="coverlet.msbuild" Version="6.0.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Moq" Version="4.20.69" />
-		<PackageReference Include="coverlet.collector" Version="6.0.0">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
-	</ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\..\Domain\Domain.csproj" />
-	</ItemGroup>
+    <ProjectReference Include="..\..\Domain\Domain.csproj" />
+  </ItemGroup>
 </Project>
