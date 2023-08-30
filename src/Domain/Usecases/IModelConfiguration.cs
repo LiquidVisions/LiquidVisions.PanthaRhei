@@ -15,14 +15,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
         /// </summary>
         /// <param name="entityType">The <seealso cref="Type"/> of the entity</param>
         /// <returns>An array of index names</returns>
-        string[] GetIndexes(Type entityType);
+        IEnumerable<string> GetIndexes(Type entityType);
 
         /// <summary>
         /// Gets the keys of an entity of a certain <seealso cref="Type"/>
         /// </summary>
         /// <param name="entityType">The <seealso cref="Type"/> of the entity.</param>
         /// <returns>An array of key names</returns>
-        string[] GetKeys(Type entityType);
+        IEnumerable<string> GetKeys(Type entityType);
 
         /// <summary>
         /// Gets the size of the property of an entity of a certain <seealso cref="Type"/>

@@ -232,11 +232,15 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// <summary>
         /// mock class used for testing.
         /// </summary>
+#pragma warning disable S2094 // Classes should not be empty
         protected class ProptectedClass
+#pragma warning restore S2094 // Classes should not be empty
         {
         }
 
+#pragma warning disable S2094 // Classes should not be empty
         private class PrivateClass
+#pragma warning restore S2094 // Classes should not be empty
         {
         }
     }

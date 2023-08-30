@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
             get { return new XmlDocument().CreateCDataSection(Content); }
             set
             {
-                ArgumentNullException.ThrowIfNull(value, nameof(ContentXml));
+                ArgumentNullException.ThrowIfNull(value);
                 Content = value.Value;
             }
         }
@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
             get { return new XmlDocument().CreateCDataSection(Tag); }
             set
             {
-                ArgumentNullException.ThrowIfNull(value, nameof(TagXml));
+                ArgumentNullException.ThrowIfNull(value);
                 Tag = value.Value;
             }
         }

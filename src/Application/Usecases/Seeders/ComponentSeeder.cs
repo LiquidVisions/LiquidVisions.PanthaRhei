@@ -41,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                     IEnumerable<string> files = _directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)
                         .Where(x => !string.IsNullOrEmpty(x));
 
-                    _ = files ?? throw new InvalidOperationException("No project files found.");
+                    ArgumentNullException.ThrowIfNull(files);
 
                     foreach (string file in files)
                     {

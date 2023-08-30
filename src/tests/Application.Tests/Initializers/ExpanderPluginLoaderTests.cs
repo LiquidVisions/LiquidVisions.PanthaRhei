@@ -32,7 +32,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         public ExpanderPluginLoaderTests()
         {
             _app = new();
-            _app.Expanders.Add(new Expander() { Name = _expanderName } );
+            _app.Expanders.Add(new Expander() { Name = _expanderName });
 
             _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Returns(_mockedAssembly.Object);
 

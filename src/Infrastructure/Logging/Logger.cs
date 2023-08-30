@@ -49,7 +49,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The message that needs to be logged.</param>
         public void Trace(string message)
         {
-            _logger.Trace(CultureInfo.InvariantCulture, message);
+            _logger.Trace(message);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The log message.</param>
         public void Debug(string message)
         {
-            _logger.Debug(CultureInfo.InvariantCulture, message);
+            _logger.Debug(message);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The log message.</param>
         public void Info(string message)
         {
-            _logger.Info(CultureInfo.InvariantCulture, message);
+            _logger.Info(message);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The diagnostic message.</param>
         public void Warn(string message)
         {
-            _logger.Warn(CultureInfo.InvariantCulture, message);
+            _logger.Warn(message);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The log message.</param>
         public void Fatal(string message)
         {
-            _logger.Fatal(CultureInfo.InvariantCulture, message);
+            _logger.Fatal(message);
         }
 
         /// <summary>

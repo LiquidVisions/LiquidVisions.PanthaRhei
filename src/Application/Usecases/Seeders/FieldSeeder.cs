@@ -35,8 +35,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             IEnumerable<Type> allEntities = _entitySeedGateway.GetAll();
             foreach (Type entityType in allEntities)
             {
-                string[] keys = _modelConfiguration.GetKeys(entityType);
-                string[] indexes = _modelConfiguration.GetIndexes(entityType);
+                IEnumerable<string> keys = _modelConfiguration.GetKeys(entityType);
+                IEnumerable<string> indexes = _modelConfiguration.GetIndexes(entityType);
 
                 IEnumerable<PropertyInfo> allProperties = entityType.GetProperties();
                 int order = 1;
@@ -76,6 +76,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             bool isCollection = property.PropertyType.IsGenericType;
             isCollection &= property.PropertyType
                 .GetInterfaces()
+                .AsEnumerable()
                 .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
 
             return isCollection;

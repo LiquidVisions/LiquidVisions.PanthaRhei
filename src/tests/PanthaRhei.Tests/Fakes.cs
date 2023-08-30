@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Tests
             Configure();
             ConfigureIDependencyFactory();
 #pragma warning restore CA2214 // Do not call overridable methods in constructors
-            
+
         }
 
         /// <summary>

@@ -33,17 +33,17 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         public List<string> Lines => _lines;
 
         /// <inheritdoc/>
-        public void AddNameSpace(string nameSpace)
+        public void AddNameSpace(string name)
         {
-            string text = $"using {nameSpace};";
+            string text = $"using {name};";
             int index = IndexOf(text);
             if (index == -1)
             {
                 index = _lines.IndexOf(_lines.LastOrDefault(x => x.Contains("using ", StringComparison.InvariantCulture) && x.EndsWith(";", StringComparison.InvariantCulture)));
 
-                _logger.Trace($"Adding namespace {nameSpace} to the file.");
+                _logger.Trace($"Adding namespace {name} to the file.");
 
-                WriteAt(index, $"using {nameSpace};");
+                WriteAt(index, $"using {name};");
             }
         }
 
@@ -116,7 +116,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <inheritdoc/>
         public int IndexOf(string match)
         {
-            int index = _lines.IndexOf(_lines.FirstOrDefault(x => x.Contains(match, StringComparison.InvariantCulture)));
+            int index = _lines.IndexOf(_lines.Find(x => x.Contains(match, StringComparison.InvariantCulture)));
 
             _logger.Trace($"Matched index on match '{match}' is {index}");
 
@@ -251,7 +251,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                     stack.Push(str);
                 }
 
-                if (str.Contains('}',StringComparison.InvariantCulture))
+                if (str.Contains('}', StringComparison.InvariantCulture))
                 {
                     stack.Pop();
                 }
@@ -264,7 +264,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
 
         private int IndexOf(string match, int index)
         {
-            int result = _lines.IndexOf(_lines.FirstOrDefault(x => x.Contains(match, StringComparison.InvariantCulture)), index);
+            int result = _lines.IndexOf(_lines.Find(x => x.Contains(match, StringComparison.InvariantCulture)), index);
 
             _logger.Trace($"Matched index on match '{match}' is {result}");
 

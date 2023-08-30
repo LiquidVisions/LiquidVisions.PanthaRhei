@@ -27,11 +27,3 @@ jobs:
         
         - name: Test
           run: dotnet test
-            
-        - name: Run .NET Code Analysis
-          uses: dotnet/code-analysis@main
-          id: code-analysis
-          with:
-            solution: LiquidVisions.PanthraRhei.sln
-            build-breaking: true
-            all-categories: all

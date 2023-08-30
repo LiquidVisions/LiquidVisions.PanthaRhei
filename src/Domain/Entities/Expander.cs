@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// <summary>
         /// Gets or sets a collecion of <seealso cref="Component">Handlers</seealso> that are applicable for the <seealso cref="Expander"/>.
         /// </summary>
-        public virtual  ICollection<Component> Components { get; set; }
+        public virtual ICollection<Component> Components { get; set; }
             = new List<Component>();
     }
 }

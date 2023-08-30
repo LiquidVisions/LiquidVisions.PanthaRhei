@@ -71,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
             if (!_directory.Exists(root))
             {
                 _logger.Info($"Creating directory {root}");
-                _cli.Start($"mkdir {root}");   
+                _cli.Start($"mkdir {root}");
             }
         }
     }
