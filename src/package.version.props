@@ -3,7 +3,7 @@
       <Authors>Gerco Koks</Authors>
       <Company>LiquidVisions</Company>
       <Product>PanthaRhei</Product>
-      <PackageVersion>0.3.3-alpha.2</PackageVersion>
+      <PackageVersion>0.3.3-alpha.2.0.0</PackageVersion>
       <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 </Project>
