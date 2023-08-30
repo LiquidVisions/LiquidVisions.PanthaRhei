@@ -11,39 +11,39 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class FieldSeeder : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Field> createGateway;
-        private readonly IDeleteRepository<Field> deleteGateway;
-        private readonly IEntitiesToSeedRepository entitySeedGateway;
-        private readonly IModelConfiguration modelConfiguration;
+        private readonly ICreateRepository<Field> _createGateway;
+        private readonly IDeleteRepository<Field> _deleteGateway;
+        private readonly IEntitiesToSeedRepository _entitySeedGateway;
+        private readonly IModelConfiguration _modelConfiguration;
 
         public FieldSeeder(IDependencyFactory dependencyFactory)
         {
-            createGateway = dependencyFactory.Get<ICreateRepository<Field>>();
-            deleteGateway = dependencyFactory.Get<IDeleteRepository<Field>>();
-            entitySeedGateway = dependencyFactory.Get<IEntitiesToSeedRepository>();
-            modelConfiguration = dependencyFactory.Get<IModelConfiguration>();
+            _createGateway = dependencyFactory.Resolve<ICreateRepository<Field>>();
+            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Field>>();
+            _entitySeedGateway = dependencyFactory.Resolve<IEntitiesToSeedRepository>();
+            _modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
         }
 
         public int SeedOrder => 6;
 
         public int ResetOrder => 6;
 
-        public void Reset() => deleteGateway.DeleteAll();
+        public void Reset() => _deleteGateway.DeleteAll();
 
         public void Seed(App app)
         {
-            IEnumerable<Type> allEntities = entitySeedGateway.GetAll();
+            IEnumerable<Type> allEntities = _entitySeedGateway.GetAll();
             foreach (Type entityType in allEntities)
             {
-                string[] keys = modelConfiguration.GetKeys(entityType);
-                string[] indexes = modelConfiguration.GetIndexes(entityType);
+                IEnumerable<string> keys = _modelConfiguration.GetKeys(entityType);
+                IEnumerable<string> indexes = _modelConfiguration.GetIndexes(entityType);
 
                 IEnumerable<PropertyInfo> allProperties = entityType.GetProperties();
                 int order = 1;
                 foreach (PropertyInfo prop in allProperties)
                 {
-                    int? size = modelConfiguration.GetSize(entityType, prop.Name);
-                    bool required = modelConfiguration.GetIsRequired(entityType, prop.Name);
+                    int? size = _modelConfiguration.GetSize(entityType, prop.Name);
+                    bool required = _modelConfiguration.GetIsRequired(entityType, prop.Name);
 
                     Field field = new()
                     {
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                     Entity entity = app.Entities.Single(x => x.Name == entityType.Name);
                     entity.Fields.Add(field);
 
-                    createGateway.Create(field);
+                    _createGateway.Create(field);
                 }
             }
         }
@@ -76,6 +76,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             bool isCollection = property.PropertyType.IsGenericType;
             isCollection &= property.PropertyType
                 .GetInterfaces()
+                .AsEnumerable()
                 .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
 
             return isCollection;
@@ -105,7 +106,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             switch (returnType)
             {
                 case "String":
-                    returnType = returnType.ToLower();
+                    returnType = "string";
                     break;
                 case "Int32":
                     returnType = "int";

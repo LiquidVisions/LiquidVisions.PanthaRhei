@@ -9,8 +9,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
     /// </summary>
     internal class DependencyManager : IDependencyFactory, IDependencyManager
     {
-        private readonly IServiceCollection serviceCollection;
-        private IServiceProvider provider;
+        private readonly IServiceCollection _serviceCollection;
+        private IServiceProvider _provider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyManager"/> class.
@@ -18,53 +18,53 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
         /// <param name="serviceCollection">The <see cref="IServiceCollection"/>.</param>
         public DependencyManager(IServiceCollection serviceCollection)
         {
-            this.serviceCollection = serviceCollection;
+            _serviceCollection = serviceCollection;
         }
 
         /// <inheritdoc/>
         public void AddTransient(Type serviceType, Type implementationType)
         {
-            serviceCollection.AddTransient(serviceType, implementationType);
+            _serviceCollection.AddTransient(serviceType, implementationType);
         }
 
         /// <inheritdoc/>
         public IDependencyFactory Build()
         {
-            provider = serviceCollection.BuildServiceProvider();
+            _provider = _serviceCollection.BuildServiceProvider();
 
             return this;
         }
 
         /// <inheritdoc/>
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> ResolveAll<T>()
         {
-            if (provider == null)
+            if (_provider == null)
             {
                 Build();
             }
 
-            return provider.GetServices<T>();
+            return _provider.GetServices<T>();
         }
 
         /// <inheritdoc/>
-        public T Get<T>()
+        public T Resolve<T>()
         {
-            if (provider == null)
+            if (_provider == null)
             {
                 Build();
             }
 
-            return provider.GetRequiredService<T>();
+            return _provider.GetRequiredService<T>();
         }
 
         /// <inheritdoc/>
         public void AddSingleton<T>(T singletonObject)
-            where T : class => serviceCollection.AddSingleton(singletonObject);
+            where T : class => _serviceCollection.AddSingleton(singletonObject);
 
         /// <inheritdoc/>
         public void AddSingleton(Type serviceType, Type implementationType)
         {
-            serviceCollection.AddSingleton(serviceType, implementationType);
+            _serviceCollection.AddSingleton(serviceType, implementationType);
         }
     }
 }

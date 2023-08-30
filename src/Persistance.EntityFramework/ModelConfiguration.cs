@@ -6,41 +6,38 @@ using LiquidVisions.PanthaRhei.Domain.Models;
 using LiquidVisions.PanthaRhei.Domain.Usecases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 {
     internal class ModelConfiguration : IModelConfiguration
     {
-        private readonly DbContext context;
+        private readonly DbContext _context;
 
         public ModelConfiguration(DbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
-        public string[] GetIndexes(Type entityType)
+        public IEnumerable<string> GetIndexes(Type entityType)
         {
-            return context.Model.GetEntityTypes()
+            return _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType)
-                .GetIndexes().SelectMany(x => x.Properties.Select(p => p.Name))
-                .ToArray();
+                .GetIndexes().SelectMany(x => x.Properties.Select(p => p.Name));
         }
 
-        public string[] GetKeys(Type entityType)
+        public IEnumerable<string> GetKeys(Type entityType)
         {
-            return context.Model.GetEntityTypes()
+            return _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType)
-                .GetKeys().SelectMany(x => x.Properties.Select(p => p.Name))
-                .ToArray();
+                .GetKeys().SelectMany(x => x.Properties.Select(p => p.Name));
         }
 
-        public int? GetSize(Type entityType, string propName)
+        public int? GetSize(Type entityType, string propertyName)
         {
-            var entity = context.Model.GetEntityTypes()
+            IEntityType entity = _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType);
 
-            IProperty prop = entity.FindProperty(propName);
+            IProperty prop = entity.FindProperty(propertyName);
             if (prop != null)
             {
                 return prop.GetMaxLength();
@@ -49,18 +46,18 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
             return null;
         }
 
-        public bool GetIsRequired(Type entityType, string propName)
+        public bool GetIsRequired(Type entityType, string propertyName)
         {
-            var entity = context.Model.GetEntityTypes()
+            IEntityType entity = _context.Model.GetEntityTypes()
                     .Single(x => x.ClrType == entityType);
 
-            var prop = entity.FindProperty(propName);
+            IProperty prop = entity.FindProperty(propertyName);
             if (prop != null)
             {
                 return !prop.IsNullable;
             }
 
-            var navigationProperty = entity.FindNavigation(propName);
+            INavigation navigationProperty = entity.FindNavigation(propertyName);
             if (navigationProperty != null)
             {
                 return !navigationProperty.ForeignKey.IsRequired;
@@ -69,16 +66,16 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
             return false;
         }
 
-        public List<RelationshipDto> GetRelationshipInfo(Entity entity)
+        public ICollection<RelationshipDto> GetRelationshipInfo(Entity entity)
         {
-            var mutableEntity = context.Model.GetEntityTypes()
+            IEntityType mutableEntity = _context.Model.GetEntityTypes()
                 .Single(x => x.ClrType.Name == entity.Name);
 
             List<RelationshipDto> result = new();
 
             var navigations = mutableEntity.GetNavigations().Where(x => x.ForeignKey.DeclaringEntityType.ClrType.Name == entity.Name).ToList();
 
-            foreach (var navigation in navigations)
+            foreach (INavigation navigation in navigations)
             {
                 result.Add(new RelationshipDto
                 {
@@ -98,6 +95,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
         private static string GetCardinality(Type type)
         {
             return type.IsGenericType && type.GetInterfaces()
+                .AsEnumerable()
                 .Any(x => x.GetGenericTypeDefinition() == typeof(IEnumerable<>))
                 ? "WithMany"
                 : "WithOne";

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
@@ -20,10 +21,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
     public abstract class AbstractExpanderDependencyManager<TExpander> : IExpanderDependencyManager
         where TExpander : class, IExpander
     {
-        private readonly Expander expander;
-        private readonly IDependencyManager dependencyManager;
-        private readonly ILogger logger;
-        private readonly IAssemblyManager assemblyManager;
+        private readonly IAssemblyManager _assemblyManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpanderDependencyManager{TExpander}"/> class.
@@ -32,36 +30,36 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="dependencyManager"><seealso cref="IDependencyFactory"/></param>
         protected AbstractExpanderDependencyManager(Expander expander, IDependencyManager dependencyManager)
         {
-            this.dependencyManager = dependencyManager;
-            IDependencyFactory dependencyFactory = this.dependencyManager.Build();
+            DependencyManager = dependencyManager;
+            IDependencyFactory dependencyFactory = DependencyManager.Build();
 
-            this.expander = expander;
-            logger = dependencyFactory.Get<ILogger>();
-            assemblyManager = dependencyFactory.Get<IAssemblyManager>();
+            Model = expander;
+            Logger = dependencyFactory.Resolve<ILogger>();
+            _assemblyManager = dependencyFactory.Resolve<IAssemblyManager>();
         }
 
         /// <summary>
         /// Gets the <seealso cref="IDependencyManager"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        protected IDependencyManager DependencyManager => dependencyManager;
+        protected IDependencyManager DependencyManager { get; }
 
         /// <summary>
         /// Gets the <seealso cref="Model"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        protected Expander Model => expander;
+        protected Expander Model { get; }
 
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        protected ILogger Logger => logger;
+        protected ILogger Logger { get; }
 
         /// <inheritdoc/>
         public virtual void Register()
         {
-            Assembly assembly = assemblyManager.GetAssembly(GetType());
+            Assembly assembly = _assemblyManager.GetAssembly(GetType());
 
             RegisterPreProcessors(assembly);
             RegisterExpander(assembly);
@@ -77,8 +75,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="Rejuvenator{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterRejuvenators(Assembly assembly)
         {
-            dependencyManager.AddTransient(typeof(IRejuvenator<TExpander>), typeof(RegionRejuvenator<TExpander>));
-            logger.Debug($"Registered rejuvenator {typeof(IRejuvenator<TExpander>)} to match {nameof(RegionRejuvenator<TExpander>)} in the dependency container.");
+            DependencyManager.AddTransient(typeof(IRejuvenator<TExpander>), typeof(RegionRejuvenator<TExpander>));
+            Logger.Debug($"Registered rejuvenator {typeof(IRejuvenator<TExpander>)} to match {nameof(RegionRejuvenator<TExpander>)} in the dependency container.");
 
             RegisterFromAssembly(assembly, typeof(IRejuvenator<TExpander>));
         }
@@ -90,14 +88,16 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="serviceType">The type that should be registered.</param>
         public virtual void RegisterFromAssembly(Assembly assembly, Type serviceType)
         {
-            var list = assembly
+            ArgumentNullException.ThrowIfNull(assembly);
+
+            IEnumerable<Type> list = assembly
                 .GetExportedTypes()
                 .Where(x => x.GetInterfaces().Contains(serviceType));
 
-            foreach (var type in list)
+            foreach (Type type in list)
             {
-                dependencyManager.AddTransient(serviceType, type);
-                logger.Debug($"Registered {serviceType} to match {type.Name} in the dependency container.");
+                DependencyManager.AddTransient(serviceType, type);
+                Logger.Debug($"Registered {serviceType} to match {type.Name} in the dependency container.");
             }
         }
 
@@ -107,8 +107,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="IHarvester{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterHarvesters(Assembly assembly)
         {
-            dependencyManager.AddTransient(typeof(IHarvester<TExpander>), typeof(RegionHarvester<TExpander>));
-            logger.Debug($"Registered harvester {typeof(IHarvester<TExpander>)} to match {nameof(RegionHarvester<TExpander>)} in the dependency container.");
+            DependencyManager.AddTransient(typeof(IHarvester<TExpander>), typeof(RegionHarvester<TExpander>));
+            Logger.Debug($"Registered harvester {typeof(IHarvester<TExpander>)} to match {nameof(RegionHarvester<TExpander>)} in the dependency container.");
 
             RegisterFromAssembly(assembly, typeof(IHarvester<TExpander>));
         }
@@ -119,8 +119,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="PostProcessor{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterPostProcessors(Assembly assembly)
         {
-            logger.Debug($"Registering {nameof(UnInstallDotNetTemplate<TExpander>)} as a {nameof(IPostProcessor<TExpander>)}");
-            dependencyManager.AddTransient(typeof(IPostProcessor<TExpander>), typeof(UnInstallDotNetTemplate<TExpander>));
+            Logger.Debug($"Registering {nameof(UnInstallDotNetTemplate<TExpander>)} as a {nameof(IPostProcessor<TExpander>)}");
+            DependencyManager.AddTransient(typeof(IPostProcessor<TExpander>), typeof(UnInstallDotNetTemplate<TExpander>));
 
             RegisterFromAssembly(assembly, typeof(IPostProcessor<TExpander>));
         }
@@ -131,8 +131,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="assembly">The <seealso cref="Assembly"/> that contain the <seealso cref="PreProcessor{TExpander}">types</seealso> that should be registered.</param>
         public virtual void RegisterPreProcessors(Assembly assembly)
         {
-            logger.Debug($"Registering {nameof(InstallDotNetTemplate<TExpander>)} as a {nameof(IPreProcessor<TExpander>)}");
-            dependencyManager.AddTransient(typeof(IPreProcessor<TExpander>), typeof(InstallDotNetTemplate<TExpander>));
+            Logger.Debug($"Registering {nameof(InstallDotNetTemplate<TExpander>)} as a {nameof(IPreProcessor<TExpander>)}");
+            DependencyManager.AddTransient(typeof(IPreProcessor<TExpander>), typeof(InstallDotNetTemplate<TExpander>));
 
             RegisterFromAssembly(assembly, typeof(IPreProcessor<TExpander>));
         }
@@ -143,6 +143,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="assembly"><seealso cref="Assembly"/></param>
         public virtual void RegisterHandlers(Assembly assembly)
         {
+            ArgumentNullException.ThrowIfNull(assembly);
+
             var listOfHandlers = assembly
                 .GetExportedTypes()
                 .Where(x => x.IsClass && !x.IsAbstract)
@@ -151,14 +153,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
 
             if (!listOfHandlers.Any())
             {
-                logger.Warn($"Expander '{expander.Name}' does not have any {nameof(IExpanderTask<IExpander>)} implememntations.");
+                Logger.Warn($"Expander '{Model.Name}' does not have any {nameof(IExpanderTask<IExpander>)} implememntations.");
                 return;
             }
 
             foreach (Type handlerType in listOfHandlers)
             {
-                dependencyManager.AddTransient(typeof(IExpanderTask<TExpander>), handlerType);
-                logger.Trace($"Registered {typeof(IExpanderTask<TExpander>)} to match {handlerType} in the dependency container.");
+                DependencyManager.AddTransient(typeof(IExpanderTask<TExpander>), handlerType);
+                Logger.Trace($"Registered {typeof(IExpanderTask<TExpander>)} to match {handlerType} in the dependency container.");
             }
         }
 
@@ -168,19 +170,21 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="assembly"><seealso cref="Assembly"/></param>
         public virtual void RegisterExpander(Assembly assembly)
         {
+            ArgumentNullException.ThrowIfNull(assembly);
+
             try
             {
                 Type expanderType = assembly.GetExportedTypes()
                     .Where(x => x.IsClass && !x.IsAbstract)
                     .Single(x => x.GetInterfaces().Contains(typeof(IExpander)));
 
-                dependencyManager.AddTransient(typeof(IExpander), expanderType);
-                dependencyManager.AddTransient(expanderType, expanderType);
-                logger.Trace($"Registered {expanderType} to match {typeof(IExpander)} in the dependency container.");
+                DependencyManager.AddTransient(typeof(IExpander), expanderType);
+                DependencyManager.AddTransient(expanderType, expanderType);
+                Logger.Trace($"Registered {expanderType} to match {typeof(IExpander)} in the dependency container.");
             }
             catch (InvalidOperationException exception)
             {
-                throw new InitializationException($"Unable to load plugin '{expander.Name}'. No valid {nameof(IExpander)} derivatives found. The derivatives should be a non-abstract class.", exception);
+                throw new InitializationException($"Unable to load plugin '{Model.Name}'. No valid {nameof(IExpander)} derivatives found. The derivatives should be a non-abstract class.", exception);
             }
         }
     }

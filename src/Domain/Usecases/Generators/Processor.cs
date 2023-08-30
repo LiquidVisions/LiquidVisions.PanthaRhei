@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Domain.Entities;
+﻿using System;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
@@ -13,12 +14,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
     public abstract class Processor<TExpander> : IProcessor<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly App app;
-        private readonly ICommandLine commandLine;
-        private readonly IDirectory directoryService;
-        private readonly ILogger logger;
-        private readonly GenerationOptions options;
-        private readonly TExpander expander;
+        private readonly App _app;
+        private readonly ICommandLine _commandLine;
+        private readonly IDirectory _directoryService;
+        private readonly ILogger _logger;
+        private readonly GenerationOptions _options;
+        private readonly TExpander _expander;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Processor{TExpander}"/> class.
@@ -26,19 +27,21 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         protected Processor(IDependencyFactory dependencyFactory)
         {
-            app = dependencyFactory.Get<App>();
-            commandLine = dependencyFactory.Get<ICommandLine>();
-            directoryService = dependencyFactory.Get<IDirectory>();
-            logger = dependencyFactory.Get<ILogger>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            expander = dependencyFactory.Get<TExpander>();
+            ArgumentNullException.ThrowIfNull(dependencyFactory);
+
+            _app = dependencyFactory.Resolve<App>();
+            _commandLine = dependencyFactory.Resolve<ICommandLine>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _logger = dependencyFactory.Resolve<ILogger>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _expander = dependencyFactory.Resolve<TExpander>();
         }
 
         /// <inheritdoc/>
-        public App App => app;
+        public App App => _app;
 
         /// <inheritdoc/>
-        public TExpander Expander => expander;
+        public TExpander Expander => _expander;
 
         /// <inheritdoc/>
         public abstract bool Enabled { get; }
@@ -46,22 +49,22 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.
         /// </summary>
-        public ILogger Logger => logger;
+        public ILogger Logger => _logger;
 
         /// <summary>
         /// Gets the <seealso cref="IDirectory"/>.
         /// </summary>
-        public IDirectory DirectoryService => directoryService;
+        public IDirectory DirectoryService => _directoryService;
 
         /// <summary>
         /// Gets the <seealso cref="ICommandLine"/>.
         /// </summary>
-        public ICommandLine CommandLine => commandLine;
+        public ICommandLine CommandLine => _commandLine;
 
         /// <summary>
         /// Gets the <seealso cref="Options"/>.
         /// </summary>
-        public GenerationOptions Options => options;
+        public GenerationOptions Options => _options;
 
         /// <inheritdoc/>
         public abstract void Execute();

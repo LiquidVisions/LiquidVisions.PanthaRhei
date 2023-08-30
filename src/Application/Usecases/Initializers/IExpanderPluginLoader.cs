@@ -20,6 +20,6 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         /// </summary>
         /// <param name="path">Path to the expander folder.</param>
         /// <returns>A list of <seealso cref="IExpander"/>.</returns>
-        List<IExpander> ShallowLoadAllExpanders(string path);
+        ICollection<IExpander> ShallowLoadAllExpanders(string path);
     }
 }

@@ -14,6 +14,13 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateException"/> class.
         /// </summary>
+        public TemplateException()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TemplateException"/> class.
+        /// </summary>
         /// <param name="message">The Message of the exception.</param>
         public TemplateException(string message)
             : base(message)

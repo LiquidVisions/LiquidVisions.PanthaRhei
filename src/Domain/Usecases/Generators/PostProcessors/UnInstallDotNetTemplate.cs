@@ -13,9 +13,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
     internal sealed class UnInstallDotNetTemplate<TExpander> : PostProcessor<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly ICommandLine commandLine;
-        private readonly IDirectory directoryService;
-        private readonly ILogger logger;
+        private readonly ICommandLine _commandLine;
+        private readonly IDirectory _directoryService;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UnInstallDotNetTemplate{TExpander}"/> class.
@@ -24,9 +24,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
         public UnInstallDotNetTemplate(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            commandLine = dependencyFactory.Get<ICommandLine>();
-            directoryService = dependencyFactory.Get<IDirectory>();
-            logger = dependencyFactory.Get<ILogger>();
+            _commandLine = dependencyFactory.Resolve<ICommandLine>();
+            _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _logger = dependencyFactory.Resolve<ILogger>();
         }
 
         /// <inheritdoc/>
@@ -39,13 +39,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
         {
             string templatePath = Path.Combine(Options.ExpandersFolder, Expander.Model.Name, Resources.TemplatesFolder);
 
-            string[] dotnetTemplateDirectories = directoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
+            string[] dotnetTemplateDirectories = _directoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
             foreach (string dotnetTemplateDirectory in dotnetTemplateDirectories)
             {
-                string path = directoryService.GetNameOfParentDirectory(dotnetTemplateDirectory);
+                string path = _directoryService.GetNameOfParentDirectory(dotnetTemplateDirectory);
 
-                logger.Info($"Uninstalling template from location {path}");
-                commandLine.Start($"dotnet new uninstall {path}");
+                _logger.Info($"Uninstalling template from location {path}");
+                _commandLine.Start($"dotnet new uninstall {path}");
             }
         }
     }

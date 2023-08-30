@@ -9,18 +9,18 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
     internal class GenericRepository<TEntity> : GenericRepository, ICreateRepository<TEntity>, IGetRepository<TEntity>, IUpdateRepository<TEntity>, IDeleteRepository<TEntity>
         where TEntity : class
     {
-        private readonly IDependencyFactory dependencyFactory;
+        private readonly IDependencyFactory _dependencyFactory;
 
         public GenericRepository(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            this.dependencyFactory = dependencyFactory;
+            _dependencyFactory = dependencyFactory;
         }
 
         public Type ContextType => Context.GetType();
 
-        public Type ConfigurationType => dependencyFactory
-            .Get<IEntityTypeConfiguration<TEntity>>()
+        public Type ConfigurationType => _dependencyFactory
+            .Resolve<IEntityTypeConfiguration<TEntity>>()
             .GetType();
 
         public bool Create(TEntity entity)

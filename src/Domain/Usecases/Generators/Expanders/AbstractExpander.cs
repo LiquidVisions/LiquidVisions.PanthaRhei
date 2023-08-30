@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Logging;
@@ -17,8 +19,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
     public abstract class AbstractExpander<TExpander> : IExpander
         where TExpander : class, IExpander
     {
-        private readonly ILogger logger;
-        private readonly IDependencyFactory dependencyFactory;
+        private readonly ILogger _logger;
+        private readonly IDependencyFactory _dependencyFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpander{TExpander}"/> class.
@@ -33,31 +35,41 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         protected AbstractExpander(IDependencyFactory dependencyFactory)
         {
-            this.dependencyFactory = dependencyFactory;
+            ArgumentNullException.ThrowIfNull(dependencyFactory);
 
-            logger = this.dependencyFactory.Get<ILogger>();
-            App = dependencyFactory.Get<App>();
+            _dependencyFactory = dependencyFactory;
+
+            _logger = _dependencyFactory.Resolve<ILogger>();
+            App = _dependencyFactory.Resolve<App>();
             Model = App.Expanders
                 .Single(x => x.Name == Name);
         }
 
         /// <inheritdoc/>
         public virtual string Name => typeof(TExpander).Name
-            .Replace("Expander", string.Empty);
+            .Replace("Expander", string.Empty, StringComparison.InvariantCulture);
 
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.
         /// </summary>
-        public ILogger Logger => logger;
+        public ILogger Logger => _logger;
 
         /// <summary>
         /// Gets the Model of the <seealso cref="AbstractExpander{TExpander}" /> as a <seealso cref="Expand"/>.
         /// </summary>
         public virtual Expander Model { get; }
 
+        /// <summary>
+        /// Gets the <seealso cref="App"/>.
+        /// </summary>
         public virtual App App { get; }
 
+        /// <summary>
+        /// Gets the order of the <seealso cref="AbstractExpander{TExpander}"/>.
+        /// </summary>
+#pragma warning disable CA1721 // Property names should not match get methods
         public virtual int Order => Model == null ? GetOrder() : Model.Order;
+#pragma warning restore CA1721 // Property names should not match get methods
 
         /// <summary>
         /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderTask{TExpander}"/>.
@@ -65,7 +77,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderTask{TExpander}"/>.</returns>
         public virtual IEnumerable<IExpanderTask<TExpander>> GetHandlers()
         {
-            IEnumerable<IExpanderTask<TExpander>> handlers = dependencyFactory.GetAll<IExpanderTask<TExpander>>();
+            IEnumerable<IExpanderTask<TExpander>> handlers = _dependencyFactory.ResolveAll<IExpanderTask<TExpander>>();
 
             return handlers;
         }
@@ -76,7 +88,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvester{TExpander}"/>.</returns>
         public virtual IEnumerable<IHarvester<TExpander>> GetHarvesters()
         {
-            IEnumerable<IHarvester<TExpander>> harvesters = dependencyFactory.GetAll<IHarvester<TExpander>>();
+            IEnumerable<IHarvester<TExpander>> harvesters = _dependencyFactory.ResolveAll<IHarvester<TExpander>>();
 
             return harvesters;
         }
@@ -87,7 +99,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessor{TExpander}"/>.</returns>
         public virtual IEnumerable<IPostProcessor<TExpander>> GetPostProcessor()
         {
-            IEnumerable<IPostProcessor<TExpander>> postProcessors = dependencyFactory.GetAll<IPostProcessor<TExpander>>();
+            IEnumerable<IPostProcessor<TExpander>> postProcessors = _dependencyFactory.ResolveAll<IPostProcessor<TExpander>>();
 
             return postProcessors;
         }
@@ -98,7 +110,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessor{TExpander}"/>.</returns>
         public virtual IEnumerable<IPreProcessor<TExpander>> GetPreProcessor()
         {
-            IEnumerable<IPreProcessor<TExpander>> preProcessors = dependencyFactory.GetAll<IPreProcessor<TExpander>>();
+            IEnumerable<IPreProcessor<TExpander>> preProcessors = _dependencyFactory.ResolveAll<IPreProcessor<TExpander>>();
 
             return preProcessors;
         }
@@ -109,7 +121,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenator{TExpander}"/>.</returns>
         public virtual IEnumerable<IRejuvenator<TExpander>> GetRejuvenators()
         {
-            IEnumerable<IRejuvenator<TExpander>> rejuvenators = dependencyFactory.GetAll<IRejuvenator<TExpander>>();
+            IEnumerable<IRejuvenator<TExpander>> rejuvenators = _dependencyFactory.ResolveAll<IRejuvenator<TExpander>>();
 
             return rejuvenators;
         }
@@ -133,7 +145,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
             Logger.Trace($"Harvesting expander {Name} for expander {typeof(TExpander).Name}");
 
             IEnumerable<IHarvester<TExpander>> selectedHarvestHandlers = GetHarvesters();
-            foreach (var task in selectedHarvestHandlers.Where(x => x.Enabled))
+            foreach (IHarvester<TExpander> task in selectedHarvestHandlers.Where(x => x.Enabled))
             {
                 task.Execute();
             }
@@ -144,8 +156,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         {
             Logger.Trace($"Rejuvenating expander {Name}");
 
-            var selectedRejuvenateHandlers = GetRejuvenators();
-            foreach (var task in selectedRejuvenateHandlers.Where(x => x.Enabled))
+            IEnumerable<IRejuvenator<TExpander>> selectedRejuvenateHandlers = GetRejuvenators();
+            foreach (IRejuvenator<TExpander> task in selectedRejuvenateHandlers.Where(x => x.Enabled))
             {
                 task.Execute();
             }
@@ -156,8 +168,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         {
             Logger.Trace($"PostProcessing expander {Name}");
 
-            var selectedPostProcessHandlers = GetPostProcessor();
-            foreach (var task in selectedPostProcessHandlers.Where(x => x.Enabled))
+            IEnumerable<IPostProcessor<TExpander>> selectedPostProcessHandlers = GetPostProcessor();
+            foreach (IPostProcessor<TExpander> task in selectedPostProcessHandlers.Where(x => x.Enabled))
             {
                 task.Execute();
             }
@@ -168,8 +180,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         {
             Logger.Trace($"PreProcessing expander {Name}");
 
-            var selectedPrePocessors = GetPreProcessor();
-            foreach (var task in selectedPrePocessors.Where(x => x.Enabled))
+            IEnumerable<IPreProcessor<TExpander>> selectedPrePocessors = GetPreProcessor();
+            foreach (IPreProcessor<TExpander> task in selectedPrePocessors.Where(x => x.Enabled))
             {
                 task.Execute();
             }

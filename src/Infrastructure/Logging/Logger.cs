@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using NLog.Targets;
@@ -15,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
     [ExcludeFromCodeCoverage]
     internal class Logger : ILogger
     {
-        private readonly NLogger.ILogger logger;
+        private readonly NLogger.ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Logger"/> class.
@@ -28,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
                 throw new ArgumentNullException(nameof(name));
             }
 
-            logger = NLogger.LogManager.GetLogger(name);
+            _logger = NLogger.LogManager.GetLogger(name);
         }
 
         internal Logger(string name, string root)
@@ -48,7 +49,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The message that needs to be logged.</param>
         public void Trace(string message)
         {
-            logger.Trace(message);
+            _logger.Trace(message);
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="args">Arguments to format.</param>
         public void Trace(string message, params object[] args)
         {
-            logger.Trace(message, args);
+            _logger.Trace(CultureInfo.InvariantCulture, message, args);
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The log message.</param>
         public void Debug(string message)
         {
-            logger.Debug(message);
+            _logger.Debug(message);
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="args">Arguments to format.</param>
         public void Debug(string message, params object[] args)
         {
-            logger.Debug(message, args);
+            _logger.Debug(CultureInfo.InvariantCulture, message, args);
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The log message.</param>
         public void Info(string message)
         {
-            logger.Info(message);
+            _logger.Info(message);
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="args">Arguments to format.</param>
         public void Info(string message, params object[] args)
         {
-            logger.Info(message, args);
+            _logger.Info(CultureInfo.InvariantCulture, message, args);
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The diagnostic message.</param>
         public void Warn(string message)
         {
-            logger.Warn(message);
+            _logger.Warn(message);
         }
 
         /// <summary>
@@ -115,7 +116,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="args">Arguments to format.</param>
         public void Warn(string message, params object[] args)
         {
-            logger.Warn(message, args);
+            _logger.Warn(CultureInfo.InvariantCulture, message, args);
         }
 
         /// <summary>
@@ -125,7 +126,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">A string to be written.</param>
         public void Warn(Exception exception, string message)
         {
-            logger.Warn(exception, message);
+            _logger.Warn(exception, CultureInfo.InvariantCulture, message);
         }
 
         /// <summary>
@@ -136,7 +137,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="args">Arguments to format.</param>
         public void Warn(Exception exception, string message, params object[] args)
         {
-            logger.Warn(exception, message, args);
+            _logger.Warn(exception, CultureInfo.InvariantCulture, message, args);
         }
 
         /// <summary>
@@ -145,7 +146,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">The log message.</param>
         public void Fatal(string message)
         {
-            logger.Fatal(message);
+            _logger.Fatal(message);
         }
 
         /// <summary>
@@ -155,7 +156,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="args">Arguments to format.</param>
         public void Fatal(string message, params object[] args)
         {
-            logger.Fatal(message, args);
+            _logger.Fatal(CultureInfo.InvariantCulture, message, args);
         }
 
         /// <summary>
@@ -165,7 +166,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="message">An exception to be logged.</param>
         public void Fatal(Exception exception, string message)
         {
-            logger.Fatal(exception, message);
+            _logger.Fatal(exception, CultureInfo.InvariantCulture, message);
         }
 
         /// <summary>
@@ -176,7 +177,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
         /// <param name="args">Arguments to format.</param>
         public void Fatal(Exception exception, string message, params object[] args)
         {
-            logger.Fatal(exception, message, args);
+            _logger.Fatal(exception, message, args);
         }
     }
 }

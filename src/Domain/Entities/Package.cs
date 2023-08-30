@@ -2,6 +2,9 @@
 
 namespace LiquidVisions.PanthaRhei.Domain.Entities
 {
+    /// <summary>
+    /// Represents a <see cref="Package"/> entity.
+    /// </summary>
     public class Package
     {
         /// <summary>

@@ -13,9 +13,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     [ExcludeFromCodeCoverage]
     public class CommandLine : ICommandLine
     {
-        private readonly ILogger logger;
-        private bool silent = false;
-        private bool hasError;
+        private readonly ILogger _logger;
+        private bool _silent;
+        private bool _hasError;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandLine"/> class.
@@ -23,17 +23,17 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <param name="logger"><seealso cref="ILogger"/></param>
         public CommandLine(ILogger logger)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
         /// <inheritdoc/>
-        public bool UseWindow { get; set; } = false;
+        public bool UseWindow { get; set; }
 
         /// <inheritdoc/>
-        public bool UseShellExecution { get; set; } = false;
+        public bool UseShellExecution { get; set; }
 
         /// <inheritdoc/>
-        public List<string> Output { get; private set; }
+        public ICollection<string> Output { get; private set; }
 
         /// <inheritdoc/>
         public void Start(string command)
@@ -56,13 +56,13 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <inheritdoc/>
         public void Start(string command, string workingDirectory, bool silent)
         {
-            this.silent = silent;
-            hasError = false;
+            _silent = silent;
+            _hasError = false;
 
-            logger.Debug($"Executing command '{command}'");
+            _logger.Debug($"Executing command '{command}'");
             if (!string.IsNullOrWhiteSpace(workingDirectory))
             {
-                logger.Debug($"Working directory '{workingDirectory}'");
+                _logger.Debug($"Working directory '{workingDirectory}'");
             }
 
             Output = new List<string>();
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             process.WaitForExit();
             process.Dispose();
 
-            if (hasError)
+            if (_hasError)
             {
                 throw new InvalidProgramException();
             }
@@ -98,9 +98,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             if (!string.IsNullOrEmpty(e.Data))
             {
                 Output.Add(e.Data);
-                if (!silent)
+                if (!_silent)
                 {
-                    logger.Debug(e.Data);
+                    _logger.Debug(e.Data);
                 }
             }
         }
@@ -109,8 +109,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             if (!string.IsNullOrEmpty(e.Data))
             {
-                logger.Fatal(e.Data);
-                hasError = true;
+                _logger.Fatal(e.Data);
+                _hasError = true;
             }
         }
     }

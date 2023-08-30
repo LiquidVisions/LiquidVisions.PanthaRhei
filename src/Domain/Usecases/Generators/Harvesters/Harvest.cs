@@ -7,15 +7,20 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
     /// </summary>
     public class Harvest
     {
-        private readonly string type;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Harvest"/> class.
+        /// </summary>
         public Harvest()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Harvest"/> class.
+        /// </summary>
+        /// <param name="type"></param>
         public Harvest(string type)
         {
-            this.type = type;
+            HarvestType = type;
         }
 
         /// <summary>
@@ -26,12 +31,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
         /// <summary>
         /// Gets the harvest of harvest.
         /// </summary>
-        public string HarvestType => type;
+        public string HarvestType { get; }
 
         /// <summary>
         /// Gets or sets the list of <seealso cref="HarvestItem">HarvestItems</seealso>.
         /// </summary>
-        public List<HarvestItem> Items { get; set; }
+        public ICollection<HarvestItem> Items { get; set; }
             = new List<HarvestItem>();
     }
 }

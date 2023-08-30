@@ -12,21 +12,21 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
     /// </summary>
     internal sealed class CodeGenerator : ICodeGenerator
     {
-        private readonly IEnumerable<IExpander> expanders;
-        private readonly GenerationOptions options;
-        private readonly IDirectory directory;
+        private readonly IEnumerable<IExpander> _expanders;
+        private readonly GenerationOptions _options;
+        private readonly IDirectory _directory;
 
         public CodeGenerator(IDependencyFactory dependencyFactory)
         {
-            options = dependencyFactory.Get<GenerationOptions>();
-            directory = dependencyFactory.Get<IDirectory>();
-            expanders = dependencyFactory.GetAll<IExpander>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _directory = dependencyFactory.Resolve<IDirectory>();
+            _expanders = dependencyFactory.ResolveAll<IExpander>();
         }
 
         /// <inheritdoc/>
         public void Execute()
         {
-            foreach (IExpander expander in expanders.OrderBy(x => x.Model.Order))
+            foreach (IExpander expander in _expanders.OrderBy(x => x.Model.Order))
             {
                 expander.Harvest();
 
@@ -41,11 +41,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
 
         private void Clean(IExpander expander)
         {
-            if (options.Clean)
+            if (_options.Clean)
             {
                 expander.Clean();
 
-                directory.Delete(options.OutputFolder);
+                _directory.Delete(_options.OutputFolder);
             }
         }
     }

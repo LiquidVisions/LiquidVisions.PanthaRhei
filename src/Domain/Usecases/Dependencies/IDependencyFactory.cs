@@ -12,13 +12,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
         /// </summary>
         /// <typeparam name="TService">The type of the service to get.</typeparam>
         /// <returns><seealso cref="IEnumerable{T}"/></returns>
-        IEnumerable<TService> GetAll<TService>();
+        IEnumerable<TService> ResolveAll<TService>();
 
         /// <summary>
         /// Gets the services from the dependecy container.
         /// </summary>
         /// <typeparam name="T">The service type to resolve.</typeparam>
         /// <returns><typeparamref name="T"/>.</returns>
-        T Get<T>();
+        T Resolve<T>();
     }
 }

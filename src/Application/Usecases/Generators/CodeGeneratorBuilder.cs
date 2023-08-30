@@ -11,11 +11,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
     /// </summary>
     internal class CodeGeneratorBuilder : ICodeGeneratorBuilder
     {
-        private readonly IGetRepository<App> gateway;
-        private readonly GenerationOptions options;
-        private readonly IExpanderPluginLoader pluginLoader;
-        private readonly IDependencyManager dependencyManager;
-        private readonly IDependencyFactory dependencyFactory;
+        private readonly IGetRepository<App> _gateway;
+        private readonly GenerationOptions _options;
+        private readonly IExpanderPluginLoader _pluginLoader;
+        private readonly IDependencyManager _dependencyManager;
+        private readonly IDependencyFactory _dependencyFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeGeneratorBuilder"/> class.
@@ -23,23 +23,23 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public CodeGeneratorBuilder(IDependencyFactory dependencyFactory)
         {
-            gateway = dependencyFactory.Get<IGetRepository<App>>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            pluginLoader = dependencyFactory.Get<IExpanderPluginLoader>();
-            dependencyManager = dependencyFactory.Get<IDependencyManager>();
-            this.dependencyFactory = dependencyFactory;
+            _gateway = dependencyFactory.Resolve<IGetRepository<App>>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
+            _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
+            _dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
+            _dependencyFactory = dependencyFactory;
         }
 
         /// <inheritdoc/>
         public ICodeGenerator Build()
         {
-            App app = gateway.GetById(options.AppId) ?? throw new CodeGenerationException($"No application model available with the provided Id {options.AppId}.");
+            App app = _gateway.GetById(_options.AppId) ?? throw new CodeGenerationException($"No application model available with the provided Id {_options.AppId}.");
 
-            pluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
-            dependencyManager.AddSingleton(app);
-            dependencyManager.Build();
+            _pluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
+            _dependencyManager.AddSingleton(app);
+            _dependencyManager.Build();
 
-            return dependencyFactory.Get<ICodeGenerator>();
+            return _dependencyFactory.Resolve<ICodeGenerator>();
         }
     }
 }

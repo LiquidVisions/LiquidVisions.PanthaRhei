@@ -14,12 +14,12 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
     /// </summary>
     internal class ExpandBoundary : IExpandBoundary
     {
-        private readonly ILogger logger;
-        private readonly ILogger exceptionLogger;
-        private readonly GenerationOptions options;
-        private readonly ISeeder seeder;
-        private readonly ICodeGeneratorBuilder builder;
-        private readonly IMigrationService migrationService;
+        private readonly ILogger _logger;
+        private readonly ILogger _exceptionLogger;
+        private readonly GenerationOptions _options;
+        private readonly ISeeder _seeder;
+        private readonly ICodeGeneratorBuilder _builder;
+        private readonly IMigrationService _migrationService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandBoundary"/> class.
@@ -27,21 +27,21 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
         public ExpandBoundary(IDependencyFactory dependencyFactory)
         {
-            seeder = dependencyFactory.Get<ISeeder>();
-            builder = dependencyFactory.Get<ICodeGeneratorBuilder>();
-            logger = dependencyFactory.Get<ILogger>();
-            migrationService = dependencyFactory.Get<IMigrationService>();
-            options = dependencyFactory.Get<GenerationOptions>();
+            _seeder = dependencyFactory.Resolve<ISeeder>();
+            _builder = dependencyFactory.Resolve<ICodeGeneratorBuilder>();
+            _logger = dependencyFactory.Resolve<ILogger>();
+            _migrationService = dependencyFactory.Resolve<IMigrationService>();
+            _options = dependencyFactory.Resolve<GenerationOptions>();
 
-            exceptionLogger = dependencyFactory
-                .Get<ILogManager>()
+            _exceptionLogger = dependencyFactory
+                .Resolve<ILogManager>()
                 .GetExceptionLogger();
         }
 
         /// <inheritdoc/>
         public void Execute()
         {
-            logger.Info(options.ToString());
+            _logger.Info(_options.ToString());
 
             TryMigrate();
             TrySeed();
@@ -50,50 +50,54 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
 
         private void TryMigrate()
         {
-            if (options.Migrate)
+            if (_options.Migrate)
             {
-                migrationService.Migrate();
+                _migrationService.Migrate();
             }
         }
 
         private void TryExpand()
         {
-            if (options.Modes != GenerationModes.None)
+            if (_options.Modes != GenerationModes.None)
             {
                 try
                 {
-                    ICodeGenerator generator = builder.Build();
+                    ICodeGenerator generator = _builder.Build();
                     generator.Execute();
 
-                    logger.Info("Successfully completed the expanding process.");
+                    _logger.Info("Successfully completed the expanding process.");
                 }
                 catch (CodeGenerationException ex)
                 {
-                    logger.Fatal(ex, ex.Message);
+                    _logger.Fatal(ex, ex.Message);
+                    throw;
                 }
                 catch (Exception ex)
                 {
-                    exceptionLogger.Fatal(ex, $"An unexpected error has occured during the expanding procecess with the following message: {ex.Message}.");
+                    _exceptionLogger.Fatal(ex, $"An unexpected error has occured during the expanding procecess with the following message: {ex.Message}.");
+                    throw;
                 }
             }
         }
 
         private void TrySeed()
         {
-            if (seeder.Enabled)
+            if (_seeder.Enabled)
             {
                 try
                 {
-                    seeder.Execute();
-                    logger.Info("Successfully completed the seeding generation process.");
+                    _seeder.Execute();
+                    _logger.Info("Successfully completed the seeding generation process.");
                 }
                 catch (CodeGenerationException ex)
                 {
-                    logger.Fatal(ex, ex.Message);
+                    _logger.Fatal(ex, ex.Message);
+                    throw;
                 }
                 catch (Exception ex)
                 {
-                    exceptionLogger.Fatal(ex, $"An unexpected error has occured during the seeding processes with the following message: {ex.Message}.");
+                    _exceptionLogger.Fatal(ex, $"An unexpected error has occured during the seeding processes with the following message: {ex.Message}.");
+                    throw;
                 }
             }
         }
