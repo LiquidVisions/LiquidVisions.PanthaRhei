@@ -1,0 +1,17 @@
+name: Update Nuget packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: text
+        required: true
+        description: The version of the packages
+
+jobs:
+  update:
+    runs-on: windows-latest
+
+    steps:
+    - name: print
+    - run: echo "The version is: ${{ github.events.input.version }}"
