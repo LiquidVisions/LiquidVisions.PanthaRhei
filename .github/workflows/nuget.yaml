@@ -1,4 +1,4 @@
-name: Publish nuget packages
+name: Push nuget packages
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ env:
   PACKAGE_FOLDER: D:\a\LiquidVisions.PanthaRhei\LiquidVisions.PanthaRhei\src\package\
 
 jobs:
-  push-to-master:
+  push-nuget-packages:
 
     runs-on: windows-latest
 
