@@ -1,17 +1,47 @@
-name: Update Nuget packages
+name: Publish nuget packages
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        type: text
-        required: true
-        description: The version of the packages
+  push:
+    branches: [ master ]
+
+env:
+  PACKAGE_FOLDER: D:\a\LiquidVisions.PanthaRhei\LiquidVisions.PanthaRhei\src\package\
 
 jobs:
-  update:
-    runs-on: ubuntu-latest
+  push-to-master:
+
+    runs-on: windows-latest
 
     steps:
-    - name: print
-      run: echo ${{ github.event.inputs.version }}
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Pack PanthaRhei.Presentation.Cli
+      run: |  
+        cd src/Presentation.Cli/
+        dotnet pack -c Release -o ${{env.PACKAGE_FOLDER}}
+        
+    - name: Pack PanthaRhei.Domain.Core
+      run: |  
+        cd src/Domain/
+        dotnet pack -c Release -o ${{env.PACKAGE_FOLDER}}
+
+    - name: Pack PanthaRhei.Tests
+      run: |  
+        cd src/tests/PanthaRhei.Tests/
+        dotnet pack -c Release -o ${{env.PACKAGE_FOLDER}}
+        
+
+    - name: Push generated package to GitHub registry
+      run: dotnet nuget push ${{env.PACKAGE_FOLDER}}*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
