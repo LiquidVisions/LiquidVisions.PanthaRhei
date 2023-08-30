@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>LiquidVisions.PanthaRhei.Presentation.Cli</AssemblyName>
     <RootNamespace>LiquidVisions.PanthaRhei.Presentation.Cli</RootNamespace>
     <PackAsTool>true</PackAsTool>
@@ -12,8 +11,8 @@
     <UserSecretsId>2e79a899-7cc7-4b80-91c2-866f6d30200e</UserSecretsId>
   </PropertyGroup>
 
-  <Import Project="$(SolutionDir)src\global.props"/>
-  <Import Project="$(SolutionDir)src\package.version.props" />
+  <Import Project="..\global.props"/>
+  <Import Project="..\package.version.props" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

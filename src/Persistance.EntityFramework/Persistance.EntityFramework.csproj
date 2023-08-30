@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>LiquidVisions.PanthaRhei.Infrastructure.EntityFramework</AssemblyName>
     <RootNamespace>LiquidVisions.PanthaRhei.Infrastructure.EntityFramework</RootNamespace>
     <UserSecretsId>2e79a899-7cc7-4b80-91c2-866f6d30200e</UserSecretsId>
   </PropertyGroup>
 
-  <Import Project="$(SolutionDir)src\global.props"/>
+  <Import Project="..\global.props"/>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

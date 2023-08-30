@@ -10,8 +10,8 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
-  <Import Project="$(SolutionDir)src\global.props" />
-  <Import Project="$(SolutionDir)src\package.version.props" />
+  <Import Project="..\..\global.props"/>
+  <Import Project="..\..\package.version.props" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

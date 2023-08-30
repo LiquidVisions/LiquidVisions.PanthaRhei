@@ -8,8 +8,7 @@
     <PackageId>LiquidVisions.PanthaRhei.Core</PackageId>
   </PropertyGroup>
 
-  <Import Project="$(SolutionDir)src\global.props"/>
-  <Import Project="$(SolutionDir)src\package.version.props" />
+  <Import Project="..\global.props" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
