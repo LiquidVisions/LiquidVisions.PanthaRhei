@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <Import Project="..\global.props" />
+  <Import Project="..\package.version.props" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
