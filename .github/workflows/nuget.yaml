@@ -14,4 +14,4 @@ jobs:
 
     steps:
     - name: print
-    - run: echo "The version is: ${{ github.events.input.version }}"
+    - run: echo "The version is: ${{ github.event.input.version }}"
