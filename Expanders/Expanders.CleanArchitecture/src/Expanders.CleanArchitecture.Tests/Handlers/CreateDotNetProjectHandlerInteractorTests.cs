@@ -26,9 +26,9 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers
             // arrange
             // act
             // assert
-            fakes.IDependencyFactory.Verify(x => x.Get<IApplication>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IApplication>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
         }
 
         [Fact]

@@ -34,9 +34,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture
         public CleanArchitectureExpander(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            commandLine = dependencyFactory.Get<ICommandLine>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            directory = dependencyFactory.Get<IDirectory>();
+            commandLine = dependencyFactory.Resolve<ICommandLine>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            directory = dependencyFactory.Resolve<IDirectory>();
         }
         
         /// <inheritdoc/>

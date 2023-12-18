@@ -27,9 +27,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         {
             this.expander = expander;
 
-            commandLine = dependencyFactory.Get<ICommandLine>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            app = dependencyFactory.Get<App>();
+            commandLine = dependencyFactory.Resolve<ICommandLine>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            app = dependencyFactory.Resolve<App>();
         }
 
         /// <inheritdoc/>

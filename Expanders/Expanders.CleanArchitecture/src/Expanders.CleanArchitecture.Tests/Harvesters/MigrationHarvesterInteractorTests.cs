@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
         public MigrationHarvesterInteractorTests()
         {
             fakes.MockCleanArchitectureExpander();
-            fakes.IDependencyFactory.Setup(x => x.Get<ICreateRepository<Harvest>>()).Returns(mockedICreateGateWay.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Harvest>>()).Returns(mockedICreateGateWay.Object);
 
             interactor = new MigrationHarvester(fakes.IDependencyFactory.Object);
 
@@ -44,12 +44,12 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Harvesters
             // arrange
             // act
             // assert
-            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(5));
-            fakes.IDependencyFactory.Verify(x => x.Get<ICreateRepository<Harvest>>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<IDirectory>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<CleanArchitectureExpander>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Harvest>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<CleanArchitectureExpander>(), Times.Once);
         }
 
         /// <summary>

@@ -34,10 +34,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         {
             this.expander = expander;
 
-            options = dependencyFactory.Get<GenerationOptions>();
-            app = dependencyFactory.Get<App>();
-            file = dependencyFactory.Get<IFile>();
-            writer = dependencyFactory.Get<IWriter>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            app = dependencyFactory.Resolve<App>();
+            file = dependencyFactory.Resolve<IFile>();
+            writer = dependencyFactory.Resolve<IWriter>();
 
             component = Expander.GetComponentByName(Resources.Api);
             string fullPathToApiComponent = expander.GetComponentOutputFolder(component);

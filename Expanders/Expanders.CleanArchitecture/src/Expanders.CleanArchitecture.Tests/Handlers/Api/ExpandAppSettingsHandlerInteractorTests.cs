@@ -60,11 +60,11 @@ namespace LiquidVisions.PanthaRhei.CleanArchitecture.Tests.Handlers.Api
             // arrange
             // act
             // assert
-            fakes.IDependencyFactory.Verify(x => x.Get<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<App>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<IFile>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<IWriter>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Get<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IWriter>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(4));
         }
 
         /// <summary>

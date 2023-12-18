@@ -30,11 +30,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         {
             this.expander = expander;
 
-            directory = dependencyFactory.Get<IDirectory>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            writer = dependencyFactory.Get<IWriter>();
-            templateService = dependencyFactory.Get<ITemplate>();
-            app = dependencyFactory.Get<App>();
+            directory = dependencyFactory.Resolve<IDirectory>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            writer = dependencyFactory.Resolve<IWriter>();
+            templateService = dependencyFactory.Resolve<ITemplate>();
+            app = dependencyFactory.Resolve<App>();
         }
 
         /// <inheritdoc/>

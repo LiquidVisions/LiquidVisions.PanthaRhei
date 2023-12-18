@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
 {
     /// <summary>
-    /// Represents a model that contains the information needed tot persist the Harvested infomration.
+    /// Represents a model that contains the information needed tot persist the Harvested information.
     /// </summary>
     public class Harvest
     {
@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
         /// <summary>
         /// Gets or sets the list of <seealso cref="HarvestItem">HarvestItems</seealso>.
         /// </summary>
-        public ICollection<HarvestItem> Items { get; set; }
-            = new List<HarvestItem>();
+        public Collection<HarvestItem> Items { get; set; }
+            = new Collection<HarvestItem>();
     }
 }

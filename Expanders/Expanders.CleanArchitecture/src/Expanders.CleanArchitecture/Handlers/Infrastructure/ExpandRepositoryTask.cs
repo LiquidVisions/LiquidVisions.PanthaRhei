@@ -32,15 +32,15 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         {
             this.expander = expander;
 
-            templateService = dependencyFactory.Get<ITemplate>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            app = dependencyFactory.Get<App>();
+            templateService = dependencyFactory.Resolve<ITemplate>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            app = dependencyFactory.Resolve<App>();
 
             component = expander.GetComponentByName(Resources.EntityFramework);
             applicationComponent = expander.GetComponentByName(Resources.Application);
 
             fullPathToRepositoryFolder = System.IO.Path.Combine(expander.GetComponentOutputFolder(component), Resources.RepositoryFolder);
-            directory = dependencyFactory.Get<IDirectory>();
+            directory = dependencyFactory.Resolve<IDirectory>();
 
             fullPathToTemplate = Expander.Model.GetPathToTemplate(options, Resources.RepositoryTemplate);
         }

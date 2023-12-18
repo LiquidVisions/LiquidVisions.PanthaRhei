@@ -18,8 +18,8 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="LiquidVisions.PanthaRhei.Core" Version="0.3.3-alpha.0.0.1" />
-		<PackageReference Include="LiquidVisions.PanthaRhei.Tests" Version="0.1.1" />
+		<PackageReference Include="LiquidVisions.PanthaRhei.Tests" Version="0.3.3-alpha.3" />
+		<PackageReference Include="LiquidVisions.PanthaRhei.Core" Version="0.3.3-alpha.3" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
 		<PackageReference Include="xunit" Version="2.5.0" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">

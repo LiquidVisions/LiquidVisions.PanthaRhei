@@ -36,10 +36,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            options = dependencyFactory.Get<GenerationOptions>();
-            templateService = dependencyFactory.Get<ITemplate>();
-            app = dependencyFactory.Get<App>();
-            directory = dependencyFactory.Get<IDirectory>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            templateService = dependencyFactory.Resolve<ITemplate>();
+            app = dependencyFactory.Resolve<App>();
+            directory = dependencyFactory.Resolve<IDirectory>();
 
             actions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries).ToList();
             component = expander.GetComponentByName(Resources.Application);

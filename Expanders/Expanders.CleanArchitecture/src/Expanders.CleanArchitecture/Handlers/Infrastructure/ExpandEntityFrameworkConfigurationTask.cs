@@ -29,10 +29,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         {
             this.expander = expander;
 
-            writer = dependencyFactory.Get<IWriter>();
-            templateService = dependencyFactory.Get<ITemplate>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            app = dependencyFactory.Get<App>();
+            writer = dependencyFactory.Resolve<IWriter>();
+            templateService = dependencyFactory.Resolve<ITemplate>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            app = dependencyFactory.Resolve<App>();
 
             Component component = Expander.GetComponentByName(Resources.EntityFramework);
             string componentOutputPath = expander.GetComponentOutputFolder(component);

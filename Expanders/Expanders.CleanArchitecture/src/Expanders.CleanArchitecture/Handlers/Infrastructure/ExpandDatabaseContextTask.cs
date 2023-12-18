@@ -28,9 +28,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Infrastr
         {
             this.expander = expander;
 
-            templateService = dependencyFactory.Get<ITemplate>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            app = dependencyFactory.Get<App>();
+            templateService = dependencyFactory.Resolve<ITemplate>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            app = dependencyFactory.Resolve<App>();
 
             domain = Expander.GetComponentByName(Resources.Domain);
             infrastructure = Expander.GetComponentByName(Resources.EntityFramework);

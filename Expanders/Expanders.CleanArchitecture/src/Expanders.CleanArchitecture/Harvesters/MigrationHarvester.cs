@@ -28,11 +28,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Harvesters
         /// <param name="factory"><seealso cref="IDependencyFactory"/></param>
         public MigrationHarvester(IDependencyFactory factory)
         {
-            gateway = factory.Get<ICreateRepository<Harvest>>();
-            options = factory.Get<GenerationOptions>();
-            expander = factory.Get<CleanArchitectureExpander>();
-            file = factory.Get<IFile>();
-            directory = factory.Get<IDirectory>();
+            gateway = factory.Resolve<ICreateRepository<Harvest>>();
+            options = factory.Resolve<GenerationOptions>();
+            expander = factory.Resolve<CleanArchitectureExpander>();
+            file = factory.Resolve<IFile>();
+            directory = factory.Resolve<IDirectory>();
 
             migrationsFolder = System.IO.Path.Combine(options.OutputFolder, Resources.InfrastructureMigrationsFolder);
         }

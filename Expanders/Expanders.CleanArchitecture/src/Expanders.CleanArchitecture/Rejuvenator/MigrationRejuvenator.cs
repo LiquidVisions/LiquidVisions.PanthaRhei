@@ -26,11 +26,11 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Rejuvenator
         public MigrationRejuvenator(IDependencyFactory factory)
             : base(factory)
         {
-            GenerationOptions options = factory.Get<GenerationOptions>();
+            GenerationOptions options = factory.Resolve<GenerationOptions>();
 
-            directoryService = factory.Get<IDirectory>();
-            getGateway = factory.Get<IGetRepository<Harvest>>();
-            fileService = factory.Get<IFile>();
+            directoryService = factory.Resolve<IDirectory>();
+            getGateway = factory.Resolve<IGetRepository<Harvest>>();
+            fileService = factory.Resolve<IFile>();
             folder = Path.Combine(options.HarvestFolder, Expander.Model.Name);
         }
 

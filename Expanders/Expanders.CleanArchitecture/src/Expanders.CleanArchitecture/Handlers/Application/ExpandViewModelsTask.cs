@@ -31,10 +31,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Applicat
         {
             this.expander = expander;
 
-            templateService = dependencyFactory.Get<ITemplate>();
-            app = dependencyFactory.Get<App>();
-            options = dependencyFactory.Get<GenerationOptions>();
-            directory = dependencyFactory.Get<IDirectory>();
+            templateService = dependencyFactory.Resolve<ITemplate>();
+            app = dependencyFactory.Resolve<App>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            directory = dependencyFactory.Resolve<IDirectory>();
 
             component = expander.GetComponentByName(Resources.Api);
             string fullPathToComponentOutput = expander.GetComponentOutputFolder(component);

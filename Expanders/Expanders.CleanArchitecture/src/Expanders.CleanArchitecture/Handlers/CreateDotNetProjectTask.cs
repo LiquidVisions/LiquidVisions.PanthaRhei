@@ -21,8 +21,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public CreateDotNetProjectTask(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
-            application = dependencyFactory.Get<IApplication>();
-            options = dependencyFactory.Get<GenerationOptions>();
+            application = dependencyFactory.Resolve<IApplication>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
             this.expander = expander;
         }
 

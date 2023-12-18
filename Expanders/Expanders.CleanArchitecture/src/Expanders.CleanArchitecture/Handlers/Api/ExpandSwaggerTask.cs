@@ -22,8 +22,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
         public ExpandSwaggerTask(CleanArchitectureExpander expander, IDependencyFactory dependencyFactory)
         {
-            writer = dependencyFactory.Get<IWriter>();
-            options = dependencyFactory.Get<GenerationOptions>();
+            writer = dependencyFactory.Resolve<IWriter>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
             this.expander = expander;
         }
 

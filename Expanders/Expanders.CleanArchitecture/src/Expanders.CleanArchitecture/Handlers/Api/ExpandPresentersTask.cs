@@ -33,10 +33,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Handlers.Api
         {
             this.expander = expander;
 
-            options = dependencyFactory.Get<GenerationOptions>();
-            app = dependencyFactory.Get<App>();
-            directory = dependencyFactory.Get<IDirectory>();
-            templateService = dependencyFactory.Get<ITemplate>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            app = dependencyFactory.Resolve <App>();
+            directory = dependencyFactory.Resolve<IDirectory>();
+            templateService = dependencyFactory.Resolve<ITemplate>();
 
             requestActions = Resources.DefaultRequestActions.Split(',', System.StringSplitOptions.TrimEntries);
 
