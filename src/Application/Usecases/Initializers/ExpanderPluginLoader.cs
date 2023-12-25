@@ -89,16 +89,25 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         {
             List<Assembly> plugins = new();
 
+            AssemblyName entryAssemblyName = Assembly.GetEntryAssembly().GetName();
+            _logger.Info($"Loading plugins for with compatibility version {entryAssemblyName.Version}...");
+
             foreach (string assemblyFile in assemblyFiles)
             {
                 try
                 {
                     Assembly assembly = LoadPlugin(assemblyFile);
+                    AssemblyName pluginAssemblyName = assembly.GetReferencedAssemblies().Single(x => x.Name == Resources.PackageAssemblyName);
+                    _logger.Info($"Attempting to load plugin {pluginAssemblyName.Name} with compatibility version {pluginAssemblyName.Version}...");
+
+                    ValidateAssemblyVersion(entryAssemblyName, pluginAssemblyName);
+
+
                     plugins.Add(assembly);
                 }
                 catch (Exception innerException)
                 {
-                    throw new InitializationException($"Failed to load plugin '{assemblyFile}'.", innerException);
+                    throw new InitializationException($"Failed to load plugin '{assemblyFile}'. {innerException}", innerException);
                 }
             }
 
@@ -108,7 +117,6 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         private Assembly LoadPlugin(string assemblyFile)
         {
             Assembly assembly = LoadAssembly(assemblyFile);
-            ValidateAssemblyVersion(assembly, assemblyFile);
             _logger.Trace($"Plugin context {assemblyFile} has been successfully loaded...");
             return assembly;
         }
@@ -118,18 +126,16 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
             return _assemblyContext.Load(assemblyFile);
         }
 
-        private void ValidateAssemblyVersion(Assembly assembly, string assemblyFile)
+        private void ValidateAssemblyVersion(AssemblyName entryAssembly, AssemblyName pluginAssembly)
         {
-            string assemblyVersionCli = Assembly.GetEntryAssembly().GetName().Version.ToString().ToUpperInvariant();
-            string pluginVersion = assembly.GetReferencedAssemblies().Single(x => x.Name == Resources.PackageAssemblyName).Version.ToString().ToUpperInvariant();
+            Version entryAssemblyVersion = entryAssembly.Version;
+            Version pluginAssemblyVersion = pluginAssembly.Version;
 
-            string incompatibilityMessage = GenerateIncompatibleVersionMessage(assemblyFile, assemblyVersionCli, pluginVersion);
-            _logger.Info(incompatibilityMessage);
-
-            bool incompatibleVersionsUsed = assemblyVersionCli != pluginVersion;
+            bool incompatibleVersionsUsed = entryAssemblyVersion != pluginAssemblyVersion;
             if (incompatibleVersionsUsed)
             {
-                throw new InitializationException(GenerateIncompatibleVersionMessage(assemblyFile, assemblyVersionCli, pluginVersion));
+                string message = $"Incompatible versions used. Entry assembly version: {entryAssemblyVersion}, Plugin assembly version: {pluginAssemblyVersion}";
+                throw new InitializationException(message);
             }
         }
 
