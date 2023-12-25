@@ -120,44 +120,27 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
 
         private void ValidateAssemblyVersion(Assembly assembly, string assemblyFile)
         {
-            string currentVersion = CheckAssemblyVersion(Assembly.GetEntryAssembly());
-            string pluginVersion = GetPluginVersion(assembly);
+            string assemblyVersionCli = Assembly.GetEntryAssembly().GetName().Version.ToString().ToUpperInvariant();
+            string pluginVersion = assembly.GetReferencedAssemblies().Single(x => x.Name == Resources.PackageAssemblyName).Version.ToString().ToUpperInvariant();
 
-            string incompatibilityMessage = GenerateIncompatibleVersionMessage(assemblyFile, currentVersion, pluginVersion);
+            string incompatibilityMessage = GenerateIncompatibleVersionMessage(assemblyFile, assemblyVersionCli, pluginVersion);
             _logger.Info(incompatibilityMessage);
 
-            bool incompatibleVersionsUsed = currentVersion != pluginVersion;
+            bool incompatibleVersionsUsed = assemblyVersionCli != pluginVersion;
             if (incompatibleVersionsUsed)
             {
-                throw new InitializationException(GenerateIncompatibleVersionMessage(assemblyFile, currentVersion, pluginVersion));
+                throw new InitializationException(GenerateIncompatibleVersionMessage(assemblyFile, assemblyVersionCli, pluginVersion));
             }
         }
 
-        private string GetPluginVersion(Assembly assembly)
-        {
-            Assembly pluginAssembly = _assemblyContext.Load(assembly.GetReferencedAssemblies().Single(x => x.Name == Resources.PackageAssemblyName));
-            return CheckAssemblyVersion(pluginAssembly);
-        }
-
-        private string GenerateIncompatibleVersionMessage(string assemblyFile, string currentVersion, string pluginVersion)
+        private string GenerateIncompatibleVersionMessage(string assemblyFile, string assemblyVersionCli, string pluginVersion)
         {
             StringBuilder sb = new();
             sb.AppendLine(CultureInfo.CurrentCulture, $"Plugin '{assemblyFile}' has an incompatible version.");
-            sb.AppendLine(CultureInfo.CurrentCulture, $"Current version: {currentVersion}");
+            sb.AppendLine(CultureInfo.CurrentCulture, $"CLI version: {assemblyVersionCli}");
             sb.AppendLine(CultureInfo.CurrentCulture, $"Plugin version: {pluginVersion}");
             return sb.ToString();
         }
-
-        private string CheckAssemblyVersion(Assembly assembly)
-        {
-            return assembly?
-                .GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)
-                .OfType<AssemblyFileVersionAttribute>()
-                .SingleOrDefault()?
-                .Version
-                .ToUpperInvariant();
-        }
-
 
         private void BootstrapPlugin(Expander expander, Assembly assembly)
         {
