@@ -1,7 +1,7 @@
 ﻿namespace LiquidVisions.PanthaRhei.Domain.Models
 {
     /// <summary>
-    /// Represents a <see cref="RelationshipDto"/> Data transferobject.
+    /// Represents a <see cref="RelationshipDto"/> Data transfer object.
     /// </summary>
     public class RelationshipDto
     {

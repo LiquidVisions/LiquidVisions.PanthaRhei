@@ -10,7 +10,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
     /// <summary>
     /// An abstract implementation of the <see cref="IProcessor"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
+    /// <typeparam name="TExpander">A derived type of <see cref="IExpander"/>.</typeparam>
     public abstract class Processor<TExpander> : IProcessor<TExpander>
         where TExpander : class, IExpander
     {

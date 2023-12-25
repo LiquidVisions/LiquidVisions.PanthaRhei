@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
@@ -27,6 +25,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         private readonly ILogger _logger;
         private readonly IObjectActivator _activator;
         private readonly IDependencyManager _dependencyManager;
+        private readonly IAssemblyProvider _assemblyProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpanderPluginLoader"/> class.
@@ -39,6 +38,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
             _assemblyContext = dependencyFactory.Resolve<IAssemblyContext>();
             _logger = dependencyFactory.Resolve<ILogger>();
             _activator = dependencyFactory.Resolve<IObjectActivator>();
+            _assemblyProvider = dependencyFactory.Resolve<IAssemblyProvider>();
             _dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
         }
 
@@ -89,7 +89,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         {
             List<Assembly> plugins = new();
 
-            AssemblyName entryAssemblyName = Assembly.GetEntryAssembly().GetName();
+            AssemblyName entryAssemblyName = _assemblyProvider.EntryAssembly.GetName();
             _logger.Info($"Loading plugins for with compatibility version {entryAssemblyName.Version}...");
 
             foreach (string assemblyFile in assemblyFiles)
@@ -101,7 +101,6 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
                     _logger.Info($"Attempting to load plugin {pluginAssemblyName.Name} with compatibility version {pluginAssemblyName.Version}...");
 
                     ValidateAssemblyVersion(entryAssemblyName, pluginAssemblyName);
-
 
                     plugins.Add(assembly);
                 }
@@ -137,15 +136,6 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
                 string message = $"Incompatible versions used. Entry assembly version: {entryAssemblyVersion}, Plugin assembly version: {pluginAssemblyVersion}";
                 throw new InitializationException(message);
             }
-        }
-
-        private string GenerateIncompatibleVersionMessage(string assemblyFile, string assemblyVersionCli, string pluginVersion)
-        {
-            StringBuilder sb = new();
-            sb.AppendLine(CultureInfo.CurrentCulture, $"Plugin '{assemblyFile}' has an incompatible version.");
-            sb.AppendLine(CultureInfo.CurrentCulture, $"CLI version: {assemblyVersionCli}");
-            sb.AppendLine(CultureInfo.CurrentCulture, $"Plugin version: {pluginVersion}");
-            return sb.ToString();
         }
 
         private void BootstrapPlugin(Expander expander, Assembly assembly)

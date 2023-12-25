@@ -54,7 +54,15 @@ namespace LiquidVisions.PanthaRhei.Application
                 .AddInitializers()
                 .AddSeeders()
                 .AddBoundaries()
-                .AddTemplate();
+                .AddTemplate()
+                .AddUseCases();
+        }
+
+        private static IServiceCollection AddUseCases(this IServiceCollection services)
+        {
+            services.AddTransient<IAssemblyContext, AssemblyContext>();
+
+            return services;
         }
 
         private static IServiceCollection AddTemplate(this IServiceCollection services)

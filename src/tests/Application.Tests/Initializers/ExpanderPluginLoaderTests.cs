@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using LiquidVisions.PanthaRhei.Application.Usecases.Initializers;
+using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
@@ -23,11 +24,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
 
         private readonly ApplicationFakes _fakes = new();
         private readonly ExpanderPluginLoader _interactor;
+        private readonly Mock<Assembly> _mockedEntryAssembly = new();
         private readonly Mock<Assembly> _mockedAssembly = new();
         private readonly App _app;
+        private readonly Version _version = new(1, 1, 1, 1);
 
         /// <summary>
-        /// INitializes a new instance of the <see cref="ExpanderPluginLoaderTests"/> class.
+        /// Initializes a new instance of the <see cref="ExpanderPluginLoaderTests"/> class.
         /// </summary>
         public ExpanderPluginLoaderTests()
         {
@@ -35,6 +38,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
             _app.Expanders.Add(new Expander() { Name = _expanderName });
 
             _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Returns(_mockedAssembly.Object);
+            _mockedEntryAssembly.Setup(x => x.GetName()).Returns(new AssemblyName("EntryAssembly") { Version = _version });
+            _fakes.IAssemblyProvider.Setup(x => x.EntryAssembly).Returns(_mockedEntryAssembly.Object);
 
             _interactor = new ExpanderPluginLoader(_fakes.IDependencyFactory.Object);
 
@@ -67,6 +72,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         public void LoadLoadAssemblyFilesThrowsExceptionShouldRethrowWithMessage()
         {
             // arrange
+            _fakes.IAssemblyProvider.Setup(x => x.EntryAssembly).Returns(_mockedEntryAssembly.Object);
+            
+
+
             _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Throws<Exception>();
 
             // act
@@ -74,7 +83,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
 
             // assert
             InitializationException ex = Assert.Throws<InitializationException>(Action);
-            Assert.Equal($"Failed to load plugin '{_pluginAssembly}'.", ex.Message);
+            Assert.StartsWith($"Failed to load plugin '{_pluginAssembly}'.", ex.Message, StringComparison.Ordinal);
         }
 
         /// <summary>
@@ -85,6 +94,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         {
             // arrange
             _mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { _fakes.IExpanderDependencyManager.Object.GetType() });
+            _mockedAssembly.Setup(x => x.GetReferencedAssemblies()).Returns(new[] { new AssemblyName(Resources.PackageAssemblyName) { Version = _version } });
 
             _fakes.IObjectActivator.Setup(x => x.CreateInstance(
                 _fakes.IExpanderDependencyManager.Object.GetType(),
@@ -98,6 +108,27 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
             // assert
             _fakes.IObjectActivator.Verify(x => x.CreateInstance(_fakes.IExpanderDependencyManager.Object.GetType(), _app.Expanders.First(), _fakes.IDependencyManager.Object), Times.Once);
             _fakes.IExpanderDependencyManager.Verify(x => x.Register(), Times.Once);
+        }
+
+        /// <summary>
+        /// Tests from <seealso cref="ExpanderPluginLoader.LoadAllRegisteredPluginsAndBootstrap(App)"/> where the assembly version is incompatible.
+        /// </summary>
+        [Fact]
+        public void LoadShouldThrowInitializationExceptionBecauseAssemblyVersionsAreIncompatible()
+        {
+            // arrange
+            _mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { _fakes.IExpanderDependencyManager.Object.GetType() });
+            _mockedAssembly.Setup(x => x.GetReferencedAssemblies()).Returns(new[] { new AssemblyName(Resources.PackageAssemblyName) { Version = new Version("1.0.0.0") } });
+
+            _fakes.IObjectActivator.Setup(x => x.CreateInstance(
+                _fakes.IExpanderDependencyManager.Object.GetType(),
+                _app.Expanders.First(),
+                _fakes.IDependencyManager.Object))
+                .Returns(_fakes.IExpanderDependencyManager.Object);
+
+            // act & assert
+            InitializationException exception = Assert.Throws<InitializationException>(() => _interactor.LoadAllRegisteredPluginsAndBootstrap(_app));
+            Assert.StartsWith($"Failed to load plugin '{_pluginAssembly}'. LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers.InitializationException: Incompatible versions used. Entry assembly version: {_version}, Plugin assembly version: 1.0.0.0", exception.Message, StringComparison.Ordinal);
         }
 
         /// <summary>

@@ -32,4 +32,8 @@
     <ProjectReference Include="..\..\Application\Application.csproj" />
     <ProjectReference Include="..\PanthaRhei.Tests\PanthaRhei.Tests.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+  </ItemGroup>
 </Project>
