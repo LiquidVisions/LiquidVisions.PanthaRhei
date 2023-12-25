@@ -17,9 +17,9 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tasks
 
         public CreateProjectSolutionTask(DomainExpander expander, IDependencyFactory dependencyFactory)
         {
-            options = dependencyFactory.Get<GenerationOptions>();
-            application = dependencyFactory.Get<IApplication>();
-            app = dependencyFactory.Get<App>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            application = dependencyFactory.Resolve<IApplication>();
+            app = dependencyFactory.Resolve<App>();
 
             this.expander = expander;
             this.dependencyFactory = dependencyFactory;

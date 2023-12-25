@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain
         public DomainExpander(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            options = dependencyFactory.Get<GenerationOptions>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
         }
         
         /// <inheritdoc/>
