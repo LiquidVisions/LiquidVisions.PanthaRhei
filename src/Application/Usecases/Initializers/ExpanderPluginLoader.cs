@@ -150,7 +150,12 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
 
         private string CheckAssemblyVersion(Assembly assembly)
         {
-            return assembly.GetName().Version.ToString();
+            return assembly?
+                .GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)
+                .OfType<AssemblyFileVersionAttribute>()
+                .SingleOrDefault()?
+                .Version
+                .ToUpperInvariant();
         }
 
 
