@@ -13,5 +13,6 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         /// <param name="assemblyFilePath">The name of the assembly.</param>
         /// <returns><see cref="Assembly"/>.</returns>
         Assembly Load(string assemblyFilePath);
+        Assembly Load(AssemblyName assemblyName);
     }
 }

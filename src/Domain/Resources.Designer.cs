@@ -115,6 +115,15 @@ namespace LiquidVisions.PanthaRhei.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LiquidVisions.PanthaRhei.Domain.
+        /// </summary>
+        public static string PackageAssemblyName {
+            get {
+                return ResourceManager.GetString("PackageAssemblyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to src.
         /// </summary>
         public static string ProjectFolder {

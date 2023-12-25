@@ -135,6 +135,9 @@
   <data name="MigrationsFolder" xml:space="preserve">
     <value>Migrations</value>
   </data>
+  <data name="PackageAssemblyName" xml:space="preserve">
+    <value>LiquidVisions.PanthaRhei.Domain</value>
+  </data>
   <data name="ProjectFolder" xml:space="preserve">
     <value>src</value>
   </data>

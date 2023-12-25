@@ -18,5 +18,12 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
 
             return loadedAssembly;
         }
+
+        public Assembly Load(AssemblyName assemblyName)
+        {
+            Assembly loadedAssembly = Assembly.Load(assemblyName);
+
+            return loadedAssembly;
+        }
     }
 }
