@@ -96,7 +96,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             App app = new();
-            MockEntityToSeerderGetAll(new Type[] { typeof(PublicClassSet) });
+            MockEntityToSeederGetAll([typeof(PublicClassSet)]);
 
             // act
             _interactor.Seed(app);
@@ -113,7 +113,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             App app = new();
-            MockEntityToSeerderGetAll(new Type[] { typeof(PublicClassSet) });
+            MockEntityToSeederGetAll([typeof(PublicClassSet)]);
 
             // act
             _interactor.Seed(app);
@@ -123,14 +123,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         }
 
         /// <summary>
-        /// Test for <see cref="EntitySeeder.Seed"/> testing the callsite of the Seeder.
+        /// Test for <see cref="EntitySeeder.Seed"/> testing the call site of the Seeder.
         /// </summary>
         [Fact]
-        public void SeedCallsiteShouldValidate()
+        public void SeedCallSiteShouldValidate()
         {
             // arrange
             App app = new() { FullName = "App.Full.Name" };
-            MockEntityToSeerderGetAll(new Type[] { typeof(PublicClassSet) });
+            MockEntityToSeederGetAll([typeof(PublicClassSet)]);
 
             // act
             _interactor.Seed(app);
@@ -147,7 +147,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             App app = new() { FullName = "App.Full.Name" };
-            MockEntityToSeerderGetAll(new Type[] { typeof(PublicClassSet) });
+            MockEntityToSeederGetAll([typeof(PublicClassSet)]);
 
             // act
             _interactor.Seed(app);
@@ -163,14 +163,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// <param name="type"><seealso cref="Type"/> of tte entity</param>
         /// <param name="expectedResult">Expected result.</param>
         [Theory]
-        [InlineData(typeof(ProptectedClass), "protected")]
+        [InlineData(typeof(ProtectedClass), "protected")]
         [InlineData(typeof(PrivateClass), "private")]
         [InlineData(typeof(PublicClassSet), "public")]
         public void SeedModifierShouldValidate(Type type, string expectedResult)
         {
             // arrange
             App app = new() { };
-            MockEntityToSeerderGetAll(new Type[] { type });
+            MockEntityToSeederGetAll([type]);
 
             // act
             _interactor.Seed(app);
@@ -191,7 +191,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             App app = new() { };
-            MockEntityToSeerderGetAll(new Type[] { type });
+            MockEntityToSeederGetAll([type]);
 
             // act
             _interactor.Seed(app);
@@ -213,7 +213,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             App app = new() { };
-            MockEntityToSeerderGetAll(new Type[] { type });
+            MockEntityToSeederGetAll([type]);
 
             // act
             _interactor.Seed(app);
@@ -222,7 +222,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             _mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Type == expectedResult)), Times.Once);
         }
 
-        private void MockEntityToSeerderGetAll(Type[] types)
+        private void MockEntityToSeederGetAll(Type[] types)
         {
             _mockedEntityToSeedGateway
                 .Setup(x => x.GetAll())
@@ -232,15 +232,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// <summary>
         /// mock class used for testing.
         /// </summary>
-#pragma warning disable S2094 // Classes should not be empty
-        protected class ProptectedClass
-#pragma warning restore S2094 // Classes should not be empty
+        protected class ProtectedClass
         {
         }
 
-#pragma warning disable S2094 // Classes should not be empty
         private class PrivateClass
-#pragma warning restore S2094 // Classes should not be empty
         {
         }
     }

@@ -1,8 +1,7 @@
 ﻿using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator
+namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
 {
     /// <summary>
     /// Represents an interface that executes rejuvenators.

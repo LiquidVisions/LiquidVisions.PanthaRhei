@@ -14,26 +14,17 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     /// <summary>
     /// Repository for <see cref="Harvest"/> entities.
     /// </summary>
-    internal class HarvestRepository : ICreateRepository<Harvest>, IGetRepository<Harvest>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="HarvestRepository"/> class.
+    /// </remarks>
+    /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+    internal class HarvestRepository(IDependencyFactory dependencyFactory) : ICreateRepository<Harvest>, IGetRepository<Harvest>
     {
-        private readonly IHarvestSerializer _serializer;
-        private readonly GenerationOptions _expandRequestModel;
-        private readonly App _app;
-        private readonly IDeserializer<Harvest> _deserializer;
-        private readonly IFile _file;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HarvestRepository"/> class.
-        /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
-        public HarvestRepository(IDependencyFactory dependencyFactory)
-        {
-            _file = dependencyFactory.Resolve<IFile>();
-            _deserializer = dependencyFactory.Resolve<IDeserializer<Harvest>>();
-            _serializer = dependencyFactory.Resolve<IHarvestSerializer>();
-            _expandRequestModel = dependencyFactory.Resolve<GenerationOptions>();
-            _app = dependencyFactory.Resolve<App>();
-        }
+        private readonly IHarvestSerializer _serializer = dependencyFactory.Resolve<IHarvestSerializer>();
+        private readonly GenerationOptions _expandRequestModel = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly App _app = dependencyFactory.Resolve<App>();
+        private readonly IDeserializer<Harvest> _deserializer = dependencyFactory.Resolve<IDeserializer<Harvest>>();
+        private readonly IFile _file = dependencyFactory.Resolve<IFile>();
 
         /// <inheritdoc/>
         public bool Create(Harvest entity)

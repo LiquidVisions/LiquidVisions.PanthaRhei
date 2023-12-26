@@ -6,7 +6,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 
-namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator
+namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
 {
     /// <summary>
     /// An abstract implementation of the <see cref="IRejuvenator{TExpander}"/>.

@@ -7,30 +7,24 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
     /// <summary>
     /// The <see cref="IServiceCollection">dependency container</see>.
     /// </summary>
-    internal class DependencyManager : IDependencyFactory, IDependencyManager
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="DependencyManager"/> class.
+    /// </remarks>
+    /// <param name="serviceCollection">The <see cref="IServiceCollection"/>.</param>
+    internal class DependencyManager(IServiceCollection serviceCollection) : IDependencyFactory, IDependencyManager
     {
-        private readonly IServiceCollection _serviceCollection;
         private IServiceProvider _provider;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyManager"/> class.
-        /// </summary>
-        /// <param name="serviceCollection">The <see cref="IServiceCollection"/>.</param>
-        public DependencyManager(IServiceCollection serviceCollection)
-        {
-            _serviceCollection = serviceCollection;
-        }
 
         /// <inheritdoc/>
         public void AddTransient(Type serviceType, Type implementationType)
         {
-            _serviceCollection.AddTransient(serviceType, implementationType);
+            serviceCollection.AddTransient(serviceType, implementationType);
         }
 
         /// <inheritdoc/>
         public IDependencyFactory Build()
         {
-            _provider = _serviceCollection.BuildServiceProvider();
+            _provider = serviceCollection.BuildServiceProvider();
 
             return this;
         }
@@ -59,12 +53,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
 
         /// <inheritdoc/>
         public void AddSingleton<T>(T singletonObject)
-            where T : class => _serviceCollection.AddSingleton(singletonObject);
+            where T : class => serviceCollection.AddSingleton(singletonObject);
 
         /// <inheritdoc/>
         public void AddSingleton(Type serviceType, Type implementationType)
         {
-            _serviceCollection.AddSingleton(serviceType, implementationType);
+            serviceCollection.AddSingleton(serviceType, implementationType);
         }
     }
 }

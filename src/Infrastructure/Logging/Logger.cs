@@ -5,7 +5,6 @@ using System.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using NLog.Targets;
 using NLog.Targets.Wrappers;
-using NLogger = NLog;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
 {
@@ -16,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
     [ExcludeFromCodeCoverage]
     internal class Logger : ILogger
     {
-        private readonly NLogger.ILogger _logger;
+        private readonly NLog.Logger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Logger"/> class.
@@ -29,16 +28,16 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
                 throw new ArgumentNullException(nameof(name));
             }
 
-            _logger = NLogger.LogManager.GetLogger(name);
+            _logger = NLog.LogManager.GetLogger(name);
         }
 
         internal Logger(string name, string root)
             : this(name)
         {
             string logPath = Path.Combine(root, "Logs");
-            if (NLogger.LogManager.Configuration?.FindTargetByName("file") is AsyncTargetWrapper { WrappedTarget: FileTarget target })
+            if (NLog.LogManager.Configuration?.FindTargetByName("file") is AsyncTargetWrapper { WrappedTarget: FileTarget target })
             {
-                target.FileName = Path.Combine(logPath, "currentlog.log");
+                target.FileName = Path.Combine(logPath, "current.log");
                 target.ArchiveFileName = Path.Combine(logPath, DateTime.Now.ToShortDateString(), "archived{###}.log");
             }
         }

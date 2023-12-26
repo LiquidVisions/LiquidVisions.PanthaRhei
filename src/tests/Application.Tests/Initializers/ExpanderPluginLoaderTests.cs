@@ -45,7 +45,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
 
             _fakes.IFile.Setup(x => x.GetDirectory(_fakes.GenerationOptions.Object.ExpandersFolder)).Returns(@"C:\Some\Fake\");
             _fakes.IAssemblyContext.Setup(x => x.Load(_pluginAssembly)).Returns(_mockedAssembly.Object);
-            _fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expanderName), _searchPattern, SearchOption.TopDirectoryOnly)).Returns(new string[] { _pluginAssembly });
+            _fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expanderName), _searchPattern, SearchOption.TopDirectoryOnly)).Returns([_pluginAssembly]);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         public void LoadRootFolderDoesNotContainPluginAssembliesShouldThrowException()
         {
             // arrange
-            _fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expanderName), _searchPattern, SearchOption.TopDirectoryOnly)).Returns(Array.Empty<string>());
+            _fakes.IDirectory.Setup(x => x.GetFiles(Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expanderName), _searchPattern, SearchOption.TopDirectoryOnly)).Returns([]);
 
             // act
             void Action() => _interactor.LoadAllRegisteredPluginsAndBootstrap(_app);
@@ -93,8 +93,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         public void LoadShouldVerify()
         {
             // arrange
-            _mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { _fakes.IExpanderDependencyManager.Object.GetType() });
-            _mockedAssembly.Setup(x => x.GetReferencedAssemblies()).Returns(new[] { new AssemblyName(Resources.PackageAssemblyName) { Version = _version } });
+            _mockedAssembly.Setup(x => x.GetExportedTypes()).Returns([_fakes.IExpanderDependencyManager.Object.GetType()]);
+            _mockedAssembly.Setup(x => x.GetReferencedAssemblies()).Returns([new AssemblyName(Resources.PackageAssemblyName) { Version = _version }]);
 
             _fakes.IObjectActivator.Setup(x => x.CreateInstance(
                 _fakes.IExpanderDependencyManager.Object.GetType(),
@@ -117,8 +117,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
         public void LoadShouldThrowInitializationExceptionBecauseAssemblyVersionsAreIncompatible()
         {
             // arrange
-            _mockedAssembly.Setup(x => x.GetExportedTypes()).Returns(new[] { _fakes.IExpanderDependencyManager.Object.GetType() });
-            _mockedAssembly.Setup(x => x.GetReferencedAssemblies()).Returns(new[] { new AssemblyName(Resources.PackageAssemblyName) { Version = new Version("1.0.0.0") } });
+            _mockedAssembly.Setup(x => x.GetExportedTypes()).Returns([_fakes.IExpanderDependencyManager.Object.GetType()]);
+            _mockedAssembly.Setup(x => x.GetReferencedAssemblies()).Returns([new AssemblyName(Resources.PackageAssemblyName) { Version = new Version("1.0.0.0") }]);
 
             _fakes.IObjectActivator.Setup(x => x.CreateInstance(
                 _fakes.IExpanderDependencyManager.Object.GetType(),
@@ -144,11 +144,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Initializers
 
             _mockedAssembly
                 .Setup(x => x.GetExportedTypes())
-                .Returns(new[] { mockedIExpander.Object.GetType() });
+                .Returns([mockedIExpander.Object.GetType()]);
 
             _fakes.IDirectory
                 .Setup(x => x.GetFiles(path, _searchPattern, SearchOption.AllDirectories))
-                .Returns(new string[] { _pluginAssembly });
+                .Returns([_pluginAssembly]);
 
             _fakes.IAssemblyContext
                 .Setup(x => x.Load(_pluginAssembly))

@@ -11,16 +11,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
     /// Wrapper for the NLog LogManager Class.
     /// </summary>
     /// <seealso cref="ILogManager" />
-    internal class LogManager : ILogManager
+    internal class LogManager(GenerationOptions options) : ILogManager
     {
         private static readonly ConcurrentDictionary<string, ILogger> s_loggerCache = new();
         private static readonly IEnumerable<string> s_loggerNames = new List<string> { Loggers.DefaultLogger, Loggers.ExceptionLogger, Loggers.AuthenticationLogger };
-        private readonly GenerationOptions _requestModel;
-
-        public LogManager(GenerationOptions options)
-        {
-            _requestModel = options;
-        }
 
         /// <summary>
         /// Gets an instance of the default logger.
@@ -63,7 +57,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
                 throw new ArgumentOutOfRangeException(nameof(loggerName));
             }
 
-            return s_loggerCache.GetOrAdd(loggerName, new Logger(loggerName, _requestModel.Root));
+            return s_loggerCache.GetOrAdd(loggerName, new Logger(loggerName, options.Root));
         }
     }
 }

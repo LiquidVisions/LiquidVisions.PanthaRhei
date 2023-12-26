@@ -35,16 +35,5 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers
             : base(message, innerException)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InitializationException"/> class.
-        /// </summary>
-        /// <param name="info"><seealso cref="SerializationInfo"/></param>
-        /// <param name="context"><seealso cref="StreamingContext"/></param>
-        [ExcludeFromCodeCoverage]
-        protected InitializationException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
     }
 }

@@ -157,7 +157,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
 
             // assert
             Assert.Throws<Exception>(action);
-            _fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occured during the expanding procecess with the following message: {exceptionMessage}."), Times.Once);
+            _fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occurred during the expanding processes with the following message: {exceptionMessage}."), Times.Once);
         }
     }
 }

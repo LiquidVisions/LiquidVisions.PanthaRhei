@@ -28,10 +28,7 @@ namespace LiquidVisions.PanthaRhei.Application
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services, ExpandOptionsRequestModel requestModel)
         {
-            if (requestModel == null)
-            {
-                throw new ArgumentNullException(nameof(requestModel));
-            }
+            ArgumentNullException.ThrowIfNull(requestModel);
 
             GenerationOptions options = new()
             {

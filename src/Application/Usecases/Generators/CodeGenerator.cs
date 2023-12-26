@@ -10,18 +10,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
     /// <summary>
     /// Implements the contract <seealso cref="ICodeGenerator"/>.
     /// </summary>
-    internal sealed class CodeGenerator : ICodeGenerator
+    internal sealed class CodeGenerator(IDependencyFactory dependencyFactory) : ICodeGenerator
     {
-        private readonly IEnumerable<IExpander> _expanders;
-        private readonly GenerationOptions _options;
-        private readonly IDirectory _directory;
-
-        public CodeGenerator(IDependencyFactory dependencyFactory)
-        {
-            _options = dependencyFactory.Resolve<GenerationOptions>();
-            _directory = dependencyFactory.Resolve<IDirectory>();
-            _expanders = dependencyFactory.ResolveAll<IExpander>();
-        }
+        private readonly IEnumerable<IExpander> _expanders = dependencyFactory.ResolveAll<IExpander>();
+        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly IDirectory _directory = dependencyFactory.Resolve<IDirectory>();
 
         /// <inheritdoc/>
         public void Execute()

@@ -141,8 +141,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             _fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(true);
             _fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(true);
 
-            _fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories)).Returns(new string[] { $"{actualTemplatePathExpander1}\\NAME.Project1.csproj", string.Empty });
-            _fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories)).Returns(new string[] { $"{actualTemplatePathExpander2}\\NAME.Project2.csproj", string.Empty });
+            _fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories)).Returns([$"{actualTemplatePathExpander1}\\NAME.Project1.csproj", string.Empty]);
+            _fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories)).Returns([$"{actualTemplatePathExpander2}\\NAME.Project2.csproj", string.Empty]);
 
             _fakes.IFile.Setup(x => x.GetFileNameWithoutExtension($"{actualTemplatePathExpander1}\\NAME.Project1.csproj")).Returns("Project1");
             _fakes.IFile.Setup(x => x.GetFileNameWithoutExtension($"{actualTemplatePathExpander2}\\NAME.Project2.csproj")).Returns("Project2");

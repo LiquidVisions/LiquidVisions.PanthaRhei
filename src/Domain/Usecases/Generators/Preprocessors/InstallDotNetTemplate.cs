@@ -8,17 +8,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Preprocessors
     /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpander"/>.
     /// </summary>
     /// <typeparam name="TExpander">A specific type of <see cref="IExpander"/>.</typeparam>
-    internal sealed class InstallDotNetTemplate<TExpander> : PreProcessor<TExpander>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="InstallDotNetTemplate{TExpander}"/> class.
+    /// </remarks>
+    /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+    internal sealed class InstallDotNetTemplate<TExpander>(IDependencyFactory dependencyFactory) : PreProcessor<TExpander>(dependencyFactory)
         where TExpander : class, IExpander
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InstallDotNetTemplate{TExpander}"/> class.
-        /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
-        public InstallDotNetTemplate(IDependencyFactory dependencyFactory)
-            : base(dependencyFactory)
-        {
-        }
 
         /// <inheritdoc/>
         public override bool Enabled => Options.Clean;

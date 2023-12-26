@@ -12,10 +12,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         /// <inheritdoc/>
         public Assembly Load(string assemblyFilePath)
         {
-#pragma warning disable S3885 // "Assembly.Load" should be used
             Assembly loadedAssembly = Assembly.LoadFrom(assemblyFilePath);
-#pragma warning restore S3885 // "Assembly.Load" should be used
-
             return loadedAssembly;
         }
 

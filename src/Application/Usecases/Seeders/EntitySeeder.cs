@@ -6,18 +6,11 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
-    internal class EntitySeeder : IEntitySeeder<App>
+    internal class EntitySeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Entity> _createGateway;
-        private readonly IDeleteRepository<Entity> _deleteGateway;
-        private readonly IEntitiesToSeedRepository _entitySeederGateway;
-
-        public EntitySeeder(IDependencyFactory dependencyFactory)
-        {
-            _createGateway = dependencyFactory.Resolve<ICreateRepository<Entity>>();
-            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Entity>>();
-            _entitySeederGateway = dependencyFactory.Resolve<IEntitiesToSeedRepository>();
-        }
+        private readonly ICreateRepository<Entity> _createGateway = dependencyFactory.Resolve<ICreateRepository<Entity>>();
+        private readonly IDeleteRepository<Entity> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Entity>>();
+        private readonly IEntitiesToSeedRepository _entitySeederGateway = dependencyFactory.Resolve<IEntitiesToSeedRepository>();
 
         public int SeedOrder => 5;
 

@@ -8,7 +8,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Preprocessors;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators;
 
 namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
 {

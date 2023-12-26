@@ -6,16 +6,10 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
-    internal class ConnectionStringsSeeder : IEntitySeeder<App>
+    internal class ConnectionStringsSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<ConnectionString> _createGateway;
-        private readonly IDeleteRepository<ConnectionString> _deleteGateway;
-
-        public ConnectionStringsSeeder(IDependencyFactory dependencyFactory)
-        {
-            _createGateway = dependencyFactory.Resolve<ICreateRepository<ConnectionString>>();
-            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<ConnectionString>>();
-        }
+        private readonly ICreateRepository<ConnectionString> _createGateway = dependencyFactory.Resolve<ICreateRepository<ConnectionString>>();
+        private readonly IDeleteRepository<ConnectionString> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<ConnectionString>>();
 
         public int SeedOrder => 1;
 

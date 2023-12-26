@@ -10,21 +10,15 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     /// <summary>
     /// Default object that executes cli commands.
     /// </summary>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="CommandLine"/> class.
+    /// </remarks>
+    /// <param name="logger"><seealso cref="ILogger"/></param>
     [ExcludeFromCodeCoverage]
-    public class CommandLine : ICommandLine
+    public class CommandLine(ILogger logger) : ICommandLine
     {
-        private readonly ILogger _logger;
         private bool _silent;
         private bool _hasError;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CommandLine"/> class.
-        /// </summary>
-        /// <param name="logger"><seealso cref="ILogger"/></param>
-        public CommandLine(ILogger logger)
-        {
-            _logger = logger;
-        }
 
         /// <inheritdoc/>
         public bool UseWindow { get; set; }
@@ -59,10 +53,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             _silent = silent;
             _hasError = false;
 
-            _logger.Debug($"Executing command '{command}'");
+            logger.Debug($"Executing command '{command}'");
             if (!string.IsNullOrWhiteSpace(workingDirectory))
             {
-                _logger.Debug($"Working directory '{workingDirectory}'");
+                logger.Debug($"Working directory '{workingDirectory}'");
             }
 
             Output = new List<string>();
@@ -100,7 +94,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                 Output.Add(e.Data);
                 if (!_silent)
                 {
-                    _logger.Debug(e.Data);
+                    logger.Debug(e.Data);
                 }
             }
         }
@@ -109,7 +103,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             if (!string.IsNullOrEmpty(e.Data))
             {
-                _logger.Fatal(e.Data);
+                logger.Fatal(e.Data);
                 _hasError = true;
             }
         }

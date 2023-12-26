@@ -14,7 +14,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
     public class CustomScripts : ScriptObject
     {
         private static readonly Pluralizer s_pluralizer = new();
-        private static readonly Dictionary<string, IElementTemplateParameters> s_elementTemplateParameters = new();
+        private static readonly Dictionary<string, IElementTemplateParameters> s_elementTemplateParameters = [];
 
         /// <summary>
         /// default constructor.
@@ -26,10 +26,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
 
             foreach (IElementTemplateParameters par in parameters)
             {
-                if (!s_elementTemplateParameters.ContainsKey(par.ElementType))
-                {
-                    s_elementTemplateParameters.Add(par.ElementType, par);
-                }
+                s_elementTemplateParameters.TryAdd(par.ElementType, par);
             }
         }
 
@@ -55,7 +52,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="component">The <seealso cref="Component"/>.</param>
         /// <param name="segments">The segments.</param>
         /// <returns></returns>
-        public static string ComponentFullname(Component component, params string[] segments)
+        public static string ComponentFullName(Component component, params string[] segments)
         {
             ArgumentNullException.ThrowIfNull(component);
 
@@ -74,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="component">The <seealso cref="Component"/>.</param>
         /// <param name="segments"></param>
         /// <returns></returns>
-        public static string AppFullname(Component component, params string[] segments)
+        public static string AppFullName(Component component, params string[] segments)
         {
             ArgumentNullException.ThrowIfNull(component);
 

@@ -6,16 +6,10 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
-    internal class Seeder : ISeeder
+    internal class Seeder(IDependencyFactory dependencyFactory) : ISeeder
     {
-        private readonly GenerationOptions _options;
-        private readonly List<IEntitySeeder<App>> _seeders;
-
-        public Seeder(IDependencyFactory dependencyFactory)
-        {
-            _options = dependencyFactory.Resolve<GenerationOptions>();
-            _seeders = dependencyFactory.ResolveAll<IEntitySeeder<App>>().ToList();
-        }
+        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly List<IEntitySeeder<App>> _seeders = dependencyFactory.ResolveAll<IEntitySeeder<App>>().ToList();
 
         public bool Enabled => _options.Seed;
 

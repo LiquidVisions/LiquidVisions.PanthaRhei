@@ -300,7 +300,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LiquidVisions.Jafar.Tests.Domain
+namespace LiquidVisions.PanthaRhei.Tests.Domain
 {
    public class Class1
    {
@@ -335,7 +335,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LiquidVisions.Jafar.Tests.Domain
+namespace LiquidVisions.PanthaRhei.Tests.Domain
 {
    public class Class1
    {
