@@ -370,5 +370,40 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
             // arrange
             Assert.Throws<IndexOutOfRangeException>(() => _writer.AddOrReplaceMethod(string.Empty));
         }
+
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.AddBetween(string, string, string)"/>."/>
+        /// </summary>
+        [Fact]
+        public void AddBetweenShouldAddBetweenBeginMatchAndEndMatch()
+        {
+            // arrange
+            string beginMatch = "public class Class1";
+            string endMatch = "}";
+            string replaceValue = "Replacement";
+
+            // act
+            _writer.AddBetween(beginMatch, endMatch, replaceValue);
+
+            // assert
+            Assert.Contains("   Replacement", _writer.Lines);
+        }
+
+        [Fact]
+        public void AddOrReplaceMethodCoversIfCondition()
+        {
+            // Arrange
+            var text = "SomeText";
+
+            // Act
+            _writer.AddOrReplaceMethod(text);
+
+            // Assert
+            // Check if index is greater than 0
+            Assert.True(_writer.IndexOf(text) > 0);
+
+            // Check if lines are removed correctly
+            Assert.Contains("SomeText", _writer.Lines);
+        }
     }
 }

@@ -128,10 +128,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                 return "private";
             }
 
-            if (methodInfo.IsAssembly)
-            {
-                return "internal";
-            }
+            //if (methodInfo.IsAssembly)
+            //{
+            //    return "internal";
+            //}
 
             throw new NotImplementedException();
         }
@@ -148,10 +148,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                 return "private";
             }
 
-            if (prop.GetMethod.IsAssembly || prop.SetMethod.IsAssembly)
-            {
-                return "internal";
-            }
+            //if (prop.GetMethod.IsAssembly || prop.SetMethod.IsAssembly)
+            //{
+            //    return "internal";
+            //}
 
             throw new NotImplementedException();
         }

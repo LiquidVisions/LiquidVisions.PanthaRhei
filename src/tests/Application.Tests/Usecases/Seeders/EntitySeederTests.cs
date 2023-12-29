@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.SeedOrder"/>.
         /// </summary>
         [Fact]
-        public void SeedOrderShouldBe1()
+        public void SeedOrderShouldBe5()
         {
             // arrange
             // act
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.ResetOrder"/>.
         /// </summary>
         [Fact]
-        public void ResetOrderShouldBe1()
+        public void ResetOrderShouldBe5()
         {
             // arrange
             // act
