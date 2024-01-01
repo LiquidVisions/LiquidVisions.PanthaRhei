@@ -4,8 +4,8 @@ using System.Linq;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Repositories;
+using LiquidVisions.PanthaRhei.Domain.Tests.Mocks;
 using LiquidVisions.PanthaRhei.Domain.Usecases;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators;
 using LiquidVisions.PanthaRhei.Tests;
@@ -135,38 +135,5 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             _fakes.IWriter.Verify(x => x.Load(harvestFile1), Times.Once);
             _fakes.IWriter.Verify(x => x.AddBetween($"#region ns-custom-{harvest.Items.Single().Tag}", $"#endregion ns-custom-{harvest.Items.Single().Tag}", $"{harvest.Items.Single().Content}"), Times.Once);
         }
-
-
     }
-
-
-#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
-    public class FakeExpander : IExpander
-    {
-        public bool Enabled => throw new NotImplementedException();
-
-        public string Name => throw new NotImplementedException();
-
-        public int Order => throw new NotImplementedException();
-
-        public virtual Expander Model => throw new NotImplementedException();
-
-        public void Clean() => throw new NotImplementedException();
-
-        public void Execute()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Expand() => throw new NotImplementedException();
-        public void Harvest() => throw new NotImplementedException();
-        public void PostProcess() => throw new NotImplementedException();
-        public void PreProcess() => throw new NotImplementedException();
-        public void Rejuvenate() => throw new NotImplementedException();
-    }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
-
 }

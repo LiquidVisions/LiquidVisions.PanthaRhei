@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using LiquidVisions.PanthaRhei.Domain.Entities;
@@ -17,7 +18,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
     /// Initializes a new instance of the <see cref="RegionHarvester{TExpander}"/> class.
     /// </remarks>
     /// <param name="dependencyProvider"><seealso cref="IDependencyFactory"/></param>
-    internal sealed class RegionHarvester<TExpander>(IDependencyFactory dependencyProvider) : IHarvester<TExpander>
+    internal sealed class RegionHarvester<TExpander>([NotNull]IDependencyFactory dependencyProvider) : IHarvester<TExpander>
         where TExpander : class, IExpander
     {
         private readonly string _regexPattern = @"#region ns-custom-(?'tag'.*)(?'content'(?s).*?)#endregion ns-custom-(?'tag'.*)";
@@ -25,6 +26,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
         private readonly IDirectory _directory = dependencyProvider.Resolve<IDirectory>();
         private readonly IFile _file = dependencyProvider.Resolve<IFile>();
         private readonly ICreateRepository<Harvest> _gateway = dependencyProvider.Resolve<ICreateRepository<Harvest>>();
+
 
         /// <inheritdoc/>
         public bool Enabled => _options.Modes.HasFlag(GenerationModes.Harvest)

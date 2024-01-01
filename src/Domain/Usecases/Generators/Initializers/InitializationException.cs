@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 
 namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers
 {
@@ -13,6 +12,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers
         /// <summary>
         /// Initializes a new instance of the <see cref="InitializationException"/> class.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public InitializationException()
         {
         }
