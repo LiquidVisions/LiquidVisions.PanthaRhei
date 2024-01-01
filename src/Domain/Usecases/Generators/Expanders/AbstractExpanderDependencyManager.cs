@@ -153,7 +153,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
 
             if (listOfHandlers.Count == 0)
             {
-                Logger.Warn($"Expander '{Model.Name}' does not have any {nameof(IExpanderTask<IExpander>)} implememntations.");
+                Logger.Warn($"Expander '{Model.Name}' does not have any {nameof(IExpanderTask<IExpander>)} implementations.");
                 return;
             }
 
