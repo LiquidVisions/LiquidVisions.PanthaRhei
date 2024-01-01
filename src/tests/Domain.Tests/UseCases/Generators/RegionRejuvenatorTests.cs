@@ -92,7 +92,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         }
 
         /// <summary>
-        /// Tests for <see cref="RegionRejuvenator{TExpander}.Expander"/>.
+        /// Tests for <see cref="RegionRejuvenator{TExpander}"/> Expander property.
         /// </summary>
         [Fact]
         public void ExpanderPropertyShouldReturnResolvedExpander()
@@ -121,9 +121,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
                 Items = [new HarvestItem { Tag = "tag", Content = "content" }]
             };
             _fakes.IDirectory.Setup(x => x.GetFiles(It.IsAny<string>(), $"*.{Resources.RegionHarvesterExtensionFile}", SearchOption.TopDirectoryOnly)).Returns([harvestFile1]);
-            Mock<IGetRepository<Harvest>> mockedIGetRepostitory = new();
-            mockedIGetRepostitory.Setup(x => x.GetById(harvestFile1)).Returns(harvest);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IGetRepository<Harvest>>()).Returns(mockedIGetRepostitory.Object);
+            Mock<IGetRepository<Harvest>> mockedIGetRepository = new();
+            mockedIGetRepository.Setup(x => x.GetById(harvestFile1)).Returns(harvest);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<IGetRepository<Harvest>>()).Returns(mockedIGetRepository.Object);
             RegionRejuvenator<FakeExpander> rejuvenator = new(_fakes.IDependencyFactory.Object);
 
             // act
@@ -131,7 +131,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
 
             // assert
             _fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), $"*.{Resources.RegionHarvesterExtensionFile}", SearchOption.TopDirectoryOnly), Times.Once);
-            mockedIGetRepostitory.Verify(x => x.GetById(harvestFile1), Times.Once);
+            mockedIGetRepository.Verify(x => x.GetById(harvestFile1), Times.Once);
             _fakes.IWriter.Verify(x => x.Load(harvestFile1), Times.Once);
             _fakes.IWriter.Verify(x => x.AddBetween($"#region ns-custom-{harvest.Items.Single().Tag}", $"#endregion ns-custom-{harvest.Items.Single().Tag}", $"{harvest.Items.Single().Content}"), Times.Once);
         }

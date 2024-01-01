@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         }
 
         /// <summary>
-        /// Tests for <see cref="InstallDotNetTemplate{TExpander}".Expander./>.
+        /// Tests for <see cref="InstallDotNetTemplate{TExpander}"/> Expander property.
         /// </summary>
         [Fact]
         public void ExpanderPropertyShouldReturnResolvedExpander()

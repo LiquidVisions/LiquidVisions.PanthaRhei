@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
-using LiquidVisions.PanthaRhei.Domain.Tests.Mocks;
 using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
@@ -18,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
     public class DotNetApplicationTests
     {
         private readonly Fakes _fakes = new();
-        private readonly DotNetApplication application;
+        private readonly DotNetApplication _application;
         private readonly Mock<App> _mockedApp = new();
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
         {
             _fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(_mockedApp.Object);
             _mockedApp.Setup(x => x.FullName).Returns("LiquidVisions.PanthaRhei.Tests");
-            application = new DotNetApplication(_fakes.IDependencyFactory.Object);
+            _application = new DotNetApplication(_fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             // arrange
             // act
             // assert
-            Assert.Throws<NotImplementedException>(() => application.AddPackages(new Component()));
+            Assert.Throws<NotImplementedException>(() => _application.AddPackages(new Component()));
         }
 
         /// <summary>
@@ -79,7 +77,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             _fakes.IDependencyFactory.Setup(x => x.Resolve<IDirectory>().Exists(expectedSolutionFolder)).Returns(folderExists);
 
             // act
-            application.MaterializeProject();
+            _application.MaterializeProject();
 
             // assert
             _fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedSolutionFolder}"), Times.Exactly(times));
@@ -113,7 +111,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             _fakes.IDependencyFactory.Setup(x => x.Resolve<IFile>().Exists(expectedSolutionConfigurationFile)).Returns(solutionFileExists);
 
             // act
-            application.MaterializeComponent(mockedComponent.Object);
+            _application.MaterializeComponent(mockedComponent.Object);
 
             // assert
             _fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedSolutionFolder}"), Times.Exactly(timesToCreateFolder));
