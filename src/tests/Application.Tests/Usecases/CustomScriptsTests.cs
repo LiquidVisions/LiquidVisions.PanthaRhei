@@ -27,7 +27,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases
             string input = "Hello World";
             string expectedOutput = "World";
 
-            Mock<IElementTemplateParameters> mockedElements = new Mock<IElementTemplateParameters>();
+            Mock<IElementTemplateParameters> mockedElements = new();
             mockedElements.Setup(x => x.ElementType).Returns(input);
             mockedElements.Setup(x => x.NamePostfix).Returns(expectedOutput);
             _ = new CustomScripts(new List<IElementTemplateParameters>() { mockedElements.Object });

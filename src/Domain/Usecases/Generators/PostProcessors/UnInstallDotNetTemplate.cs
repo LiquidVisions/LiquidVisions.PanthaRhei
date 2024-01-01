@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Domain.IO;
-using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
@@ -17,10 +15,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
     internal sealed class UnInstallDotNetTemplate<TExpander>(IDependencyFactory dependencyFactory) : PostProcessor<TExpander>(dependencyFactory)
         where TExpander : class, IExpander
     {
-        private readonly ICommandLine _commandLine = dependencyFactory.Resolve<ICommandLine>();
-        private readonly IDirectory _directoryService = dependencyFactory.Resolve<IDirectory>();
-        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
-
         /// <inheritdoc/>
         public override bool Enabled => Options.Clean;
 
@@ -31,13 +25,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
         {
             string templatePath = Path.Combine(Options.ExpandersFolder, Expander.Model.Name, Resources.TemplatesFolder);
 
-            string[] dotnetTemplateDirectories = _directoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
+            string[] dotnetTemplateDirectories = DirectoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
             foreach (string dotnetTemplateDirectory in dotnetTemplateDirectories)
             {
-                string path = _directoryService.GetNameOfParentDirectory(dotnetTemplateDirectory);
+                string path = DirectoryService.GetNameOfParentDirectory(dotnetTemplateDirectory);
 
-                _logger.Info($"Uninstalling template from location {path}");
-                _commandLine.Start($"dotnet new uninstall {path}");
+                Logger.Info($"Uninstalling template from location {path}");
+                CommandLine.Start($"dotnet new uninstall {path}");
             }
         }
     }

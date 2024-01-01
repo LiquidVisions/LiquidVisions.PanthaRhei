@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using Castle.Components.DictionaryAdapter;
+using LiquidVisions.PanthaRhei.Application.Tests.Mocks;
 using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Repositories;
@@ -97,13 +98,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         /// Test for <see cref="EntitySeeder.Seed"/>.
         /// </summary>
         [Theory]
-        [InlineData(typeof(publicClassWithIntField), nameof(publicClassWithIntField.IntField), "public", "int", false, null, null, "virtual")]
-        [InlineData(typeof(abstractClassWithStringField), nameof(abstractClassWithStringField.StringField), "public", "string", false, null, null, "abstract")]
-        [InlineData(typeof(publicClassWithBooleanField), nameof(publicClassWithBooleanField.BooleanField), "public", "bool", false, null, null, null)]
-        [InlineData(typeof(publicClassWithDecimalField), nameof(publicClassWithDecimalField.DecimalField), "public", "decimal", false, null, null, null)]
-        [InlineData(typeof(publicClassWithStringField), nameof(publicClassWithStringField.StringField), "public", "string", false, null, new string[] { nameof(publicClassWithStringField.StringField) }, null)]
-        [InlineData(typeof(publicClassWithGuidField), nameof(publicClassWithGuidField.GuidField), "public", "Guid", false, new string[] { nameof(publicClassWithGuidField.GuidField) }, null, null)]
-        [InlineData(typeof(publicClassWithCollectionField), nameof(publicClassWithCollectionField.CollectionField), "public", "string", true, null, null, null)]
+        [InlineData(typeof(PublicClassWithIntField), nameof(PublicClassWithIntField.IntField), "public", "int", false, null, null, "virtual")]
+        [InlineData(typeof(AbstractClassWithStringField), nameof(AbstractClassWithStringField.StringField), "public", "string", false, null, null, "abstract")]
+        [InlineData(typeof(PublicClassWithBooleanField), nameof(PublicClassWithBooleanField.BooleanField), "public", "bool", false, null, null, null)]
+        [InlineData(typeof(PublicClassWithDecimalField), nameof(PublicClassWithDecimalField.DecimalField), "public", "decimal", false, null, null, null)]
+        [InlineData(typeof(PublicClassWithStringField), nameof(PublicClassWithStringField.StringField), "public", "string", false, null, new string[] { nameof(PublicClassWithStringField.StringField) }, null)]
+        [InlineData(typeof(PublicClassWithGuidField), nameof(PublicClassWithGuidField.GuidField), "public", "Guid", false, new string[] { nameof(PublicClassWithGuidField.GuidField) }, null, null)]
+        [InlineData(typeof(PublicClassWithCollectionField), nameof(PublicClassWithCollectionField.CollectionField), "public", "string", true, null, null, null)]
         public void SeedShouldCreate(Type type, string expectedName, string expectedModifier, string expectedReturnType, bool isCollection, string[] keys = null, string[] indexes = null, string behaviour = null)
         {
             ArgumentNullException.ThrowIfNull(type, nameof(type));
@@ -126,8 +127,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Assert.Equal(field.IsIndex, indexes != null);
             Assert.Null(field.Size);
             Assert.False(field.Required);
+            Assert.Equal(behaviour, field.Behaviour);
             Assert.Equal(expectedModifier, field.Modifier);
-            
+
             _mockedCreateGateway.Verify(x => x.Create(It.Is<Field>(x => x == field)), Times.Once);
         }
 
@@ -137,21 +139,21 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             App app = new();
             app.Entities.Add(entity);
 
-            if(keys != null)
+            if (keys != null)
             {
                 _mockedModelConfiguration
                     .Setup(x => x.GetKeys(type))
                     .Returns(keys);
             }
 
-            if(indexes != null)
+            if (indexes != null)
             {
                 _mockedModelConfiguration
                     .Setup(x => x.GetIndexes(type))
                     .Returns(indexes);
             }
 
-            if(size != null)
+            if (size != null)
             {
                 _mockedModelConfiguration
                     .Setup(x => x.GetSize(type, It.IsAny<string>()))
@@ -163,46 +165,6 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
                 .Returns([type]);
 
             return app;
-        }
-
-        public class publicClassWithIntField
-        {
-            public virtual int IntField  { get; set; }
-        }
-
-        public class publicClassWithStringField
-        {
-            public string StringField { get; set; }
-        }
-
-        public abstract class abstractClassWithStringField
-        {
-            public abstract string StringField { get; set; }
-        }
-
-        public class publicClassWithBooleanField
-        {
-            public bool BooleanField { get; set; }
-        }
-
-        public class publicClassWithDecimalField
-        {
-            public decimal DecimalField { get; set; }
-        }
-
-        public class publicClassWithGuidField
-        {
-            public Guid GuidField { get; set; }
-        }
-
-        public class publicClassWithCollectionField
-        {
-            public ICollection<string> CollectionField { get; set; }
-        }
-
-        public class publicClassWithPrivateField
-        {
-            private string PrivateField { get; set; }
         }
     }
 }

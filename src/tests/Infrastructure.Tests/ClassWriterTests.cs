@@ -389,11 +389,14 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
             Assert.Contains("   Replacement", _writer.Lines);
         }
 
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.AddBetween(string, string, string)"/>."/>
+        /// </summary>
         [Fact]
         public void AddOrReplaceMethodCoversIfCondition()
         {
             // Arrange
-            var text = "SomeText";
+            string text = "SomeText";
 
             // Act
             _writer.AddOrReplaceMethod(text);
@@ -404,6 +407,28 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
 
             // Check if lines are removed correctly
             Assert.Contains("SomeText", _writer.Lines);
+        }
+
+        /// <summary>
+        /// Test for <seealso cref="ClassWriter.AddOrReplaceMethod(string)"/>."/>
+        /// </summary>
+        [Fact]
+        public void AppendToMethodShouldInsertStatementInMethod()
+        {
+            // Arrange
+            _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
+            ClassWriter writer = new(_mockedFileService.Object, _mockedLogger.Object);
+            writer.Load(_fakePath);
+
+
+            string method = "public void Test()";
+            string statement = "Console.WriteLine(\"Hello, World!\");";
+
+            // Act
+            writer.AppendToMethod(method, statement);
+
+            // Assert
+            Assert.Contains(statement, writer.Lines);
         }
     }
 }

@@ -1,7 +1,8 @@
 using Xunit;
 using System.Reflection;
+using LiquidVisions.PanthaRhei.Application.Usecases;
 
-namespace LiquidVisions.PanthaRhei.Application.Usecases.Tests
+namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases
 {
     /// <summary>
     /// Tests for <see cref="AssemblyProvider"/>.
@@ -15,10 +16,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Tests
         public void EntryAssemblyShouldReturnEntryAssembly()
         {
             // Arrange
-            var assemblyProvider = new AssemblyProvider();
+            AssemblyProvider assemblyProvider = new();
 
             // Act
-            var result = assemblyProvider.EntryAssembly;
+            Assembly result = assemblyProvider.EntryAssembly;
 
             // Assert
             Assert.Equal(Assembly.GetEntryAssembly(), result);
