@@ -45,9 +45,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             _fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
             _fakes.IDependencyFactory.Verify(x => x.Resolve<ICommandLine>(), Times.Once);
             _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
-
-
-
         }
 
         /// <summary>
