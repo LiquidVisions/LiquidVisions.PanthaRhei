@@ -9,6 +9,22 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Mocks
 #pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
+    public class FakeAbstractExpander : AbstractExpander<FakeAbstractExpander>
+    {
+        public FakeAbstractExpander()
+        {
+        }
+
+        public FakeAbstractExpander(IDependencyFactory dependencyFactory)
+            : base(dependencyFactory)
+        {
+        }
+
+
+        public override void Clean() => throw new NotImplementedException();
+        protected override int GetOrder() => 12;
+    }
+
     public class FakeExpander : IExpander
     {
         public bool Enabled => throw new NotImplementedException();

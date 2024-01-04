@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Logging;
@@ -75,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderTask{TExpander}"/>.
         /// </summary>e
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderTask{TExpander}"/>.</returns>
-        public virtual IEnumerable<IExpanderTask<TExpander>> GetHandlers()
+        public virtual IEnumerable<IExpanderTask<TExpander>> GetTasks()
         {
             IEnumerable<IExpanderTask<TExpander>> handlers = _dependencyFactory.ResolveAll<IExpanderTask<TExpander>>();
 
@@ -131,7 +130,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         {
             Logger.Trace($"Expanding expander {Name}");
 
-            foreach (IExpanderTask<TExpander> task in GetHandlers()
+            foreach (IExpanderTask<TExpander> task in GetTasks()
                 .Where(x => x.Enabled)
                 .OrderBy(x => x.Order))
             {

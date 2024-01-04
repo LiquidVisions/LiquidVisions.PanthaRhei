@@ -10,21 +10,21 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
     /// <remarks>
     /// Initializes a new instance of the <see cref="DependencyManager"/> class.
     /// </remarks>
-    /// <param name="serviceCollection">The <see cref="IServiceCollection"/>.</param>
-    internal class DependencyManager(IServiceCollection serviceCollection) : IDependencyFactory, IDependencyManager
+    /// <param name="wrapper">The <see cref="IServiceCollectionWrapper"/>.</param>
+    internal class DependencyManager(IServiceCollectionWrapper wrapper) : IDependencyFactory, IDependencyManager
     {
         private IServiceProvider _provider;
 
         /// <inheritdoc/>
         public void AddTransient(Type serviceType, Type implementationType)
         {
-            serviceCollection.AddTransient(serviceType, implementationType);
+            wrapper.AddTransient(serviceType, implementationType);
         }
 
         /// <inheritdoc/>
         public IDependencyFactory Build()
         {
-            _provider = serviceCollection.BuildServiceProvider();
+            _provider = wrapper.BuildServiceProvider();
 
             return this;
         }
@@ -53,12 +53,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
 
         /// <inheritdoc/>
         public void AddSingleton<T>(T singletonObject)
-            where T : class => serviceCollection.AddSingleton(singletonObject);
+            where T : class => wrapper.AddSingleton(singletonObject);
 
         /// <inheritdoc/>
         public void AddSingleton(Type serviceType, Type implementationType)
         {
-            serviceCollection.AddSingleton(serviceType, implementationType);
+            wrapper.AddSingleton(serviceType, implementationType);
         }
     }
 }
