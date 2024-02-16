@@ -60,6 +60,7 @@ namespace LiquidVisions.PanthaRhei.Application
         {
             services.AddTransient<IAssemblyContext, AssemblyContext>();
             services.AddTransient<IXDocument, XDocumentAgent>();
+            services.AddTransient<IAssemblyProvider, AssemblyProvider>();
 
             return services;
         }
