@@ -9,7 +9,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
     internal class Seeder(IDependencyFactory dependencyFactory) : ISeeder
     {
         private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly List<IEntitySeeder<App>> _seeders = dependencyFactory.ResolveAll<IEntitySeeder<App>>().ToList();
+        private readonly IEnumerable<IEntitySeeder<App>> _seeders = dependencyFactory.ResolveAll<IEntitySeeder<App>>();
 
         public bool Enabled => _options.Seed;
 

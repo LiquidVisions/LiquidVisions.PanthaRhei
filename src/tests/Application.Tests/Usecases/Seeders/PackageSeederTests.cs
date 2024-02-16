@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using LiquidVisions.PanthaRhei.Application.Usecases;
 using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
@@ -12,7 +7,6 @@ using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Repositories;
-using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
 
