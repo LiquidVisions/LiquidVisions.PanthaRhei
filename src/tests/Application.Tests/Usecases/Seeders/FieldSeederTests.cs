@@ -105,20 +105,20 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         [InlineData(typeof(PublicClassWithStringField), nameof(PublicClassWithStringField.StringField), "public", "string", false, null, new string[] { nameof(PublicClassWithStringField.StringField) }, null)]
         [InlineData(typeof(PublicClassWithGuidField), nameof(PublicClassWithGuidField.GuidField), "public", "Guid", false, new string[] { nameof(PublicClassWithGuidField.GuidField) }, null, null)]
         [InlineData(typeof(PublicClassWithCollectionField), nameof(PublicClassWithCollectionField.CollectionField), "public", "string", true, null, null, null)]
-        public void SeedShouldCreate(Type type, string expectedName, string expectedModifier, string expectedReturnType, bool isCollection, string[] keys = null, string[] indexes = null, string behaviour = null)
+        [InlineData(typeof(ClassWithComplexField), nameof(ClassWithComplexField.ComplexField), "public", nameof(ComplexField), false, null, null, null, nameof(ComplexField))]
+        public void SeedShouldCreate(Type type, string expectedName, string expectedModifier, string expectedReturnType, bool isCollection, string[] keys = null, string[] indexes = null, string behaviour = null, string complexFieldName = null)
         {
             ArgumentNullException.ThrowIfNull(type, nameof(type));
 
             // arrange
-            App app = Arrange(type, keys, indexes, null);
+            App app = Arrange(type, keys, indexes, null, complexFieldName);
 
             // act
             _interactor.Seed(app);
 
             // assert
-            Assert.Single(app.Entities);
-            Assert.Single(app.Entities.Single().Fields);
-            Field field = app.Entities.Single().Fields.Single();
+            Assert.Single(app.Entities.Single(x => x.Name == type.Name).Fields);
+            Field field = app.Entities.Single(x => x.Name == type.Name).Fields.Single();
             Assert.Equal(expectedName, field.Name);
             Assert.Equal(1, field.Order);
             Assert.Equal(expectedReturnType, field.ReturnType);
@@ -133,11 +133,16 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             _mockedCreateGateway.Verify(x => x.Create(It.Is<Field>(x => x == field)), Times.Once);
         }
 
-        private App Arrange(Type type, string[] keys = null, string[] indexes = null, int? size = null)
+        private App Arrange(Type type, string[] keys = null, string[] indexes = null, int? size = null, string complexFieldName = null)
         {
-            Entity entity = new() { Name = type.Name };
             App app = new();
+
+            Entity entity = new() { Name = type.Name };
             app.Entities.Add(entity);
+            if(!string.IsNullOrEmpty(complexFieldName))
+            {
+                app.Entities.Add(new Entity() { Name = complexFieldName });
+            }
 
             if (keys != null)
             {
