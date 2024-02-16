@@ -10,22 +10,14 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     /// <summary>
     /// A File writer helper.
     /// </summary>
-    internal class ClassWriter : IWriter
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="ClassWriter"/> class.
+    /// </remarks>
+    /// <param name="fileService"><seealso cref="IFile"/></param>
+    /// <param name="logger"><seealso cref="ILogger"/></param>
+    internal class ClassWriter(IFile fileService, ILogger logger) : IWriter
     {
-        private readonly IFile _fileService;
-        private readonly ILogger _logger;
         private List<string> _lines;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClassWriter"/> class.
-        /// </summary>
-        /// <param name="fileService"><seealso cref="IFile"/></param>
-        /// <param name="logger"><seealso cref="ILogger"/></param>
-        public ClassWriter(IFile fileService, ILogger logger)
-        {
-            _fileService = fileService;
-            _logger = logger;
-        }
 
         /// <summary>
         /// Gets the list of lines representing the file.
@@ -39,9 +31,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int index = IndexOf(text);
             if (index == -1)
             {
-                index = _lines.IndexOf(_lines.LastOrDefault(x => x.Contains("using ", StringComparison.InvariantCulture) && x.EndsWith(";", StringComparison.InvariantCulture)));
+                index = _lines.IndexOf(_lines.LastOrDefault(x => x.Contains("using ", StringComparison.InvariantCulture) && x.EndsWith(';')));
 
-                _logger.Trace($"Adding namespace {name} to the file.");
+                logger.Trace($"Adding namespace {name} to the file.");
 
                 WriteAt(index, $"using {name};");
             }
@@ -50,19 +42,17 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <inheritdoc/>
         public void Load(string path)
         {
-            _logger.Trace($"Reading file {path}");
+            logger.Trace($"Reading file {path}");
 
-            _lines = _fileService
-                .ReadAllLines(path)
-                .ToList();
+            _lines = [..fileService.ReadAllLines(path)];
         }
 
         /// <inheritdoc/>
         public void Save(string path)
         {
-            _logger.Trace($"Saving file {path}.");
+            logger.Trace($"Saving file {path}.");
 
-            _fileService.WriteAllLines(path, _lines);
+            fileService.WriteAllLines(path, _lines);
             _lines = null;
         }
 
@@ -72,7 +62,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int index = IndexOf(match);
             if (index > -1)
             {
-                _logger.Trace($"Writing {text} to file.");
+                logger.Trace($"Writing {text} to file.");
                 WriteAt(index, text);
             }
 
@@ -118,7 +108,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             int index = _lines.IndexOf(_lines.Find(x => x.Contains(match, StringComparison.InvariantCulture)));
 
-            _logger.Trace($"Matched index on match '{match}' is {index}");
+            logger.Trace($"Matched index on match '{match}' is {index}");
 
             return index;
         }
@@ -160,7 +150,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int count = endIndex - 1 - beginIndex;
             _lines.RemoveRange(beginIndex + 1, count);
 
-            _logger.Trace($"Writing {replaceValue} to file.");
+            logger.Trace($"Writing {replaceValue} to file.");
 
             string line = _lines[beginIndex];
             int padCount = line.TakeWhile(char.IsWhiteSpace).Count();
@@ -186,7 +176,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             int index = _lines.LastIndexOf(_lines.LastOrDefault(x => x.Contains(match, StringComparison.InvariantCulture)));
 
-            _logger.Trace($"Matched index on match '{match}' is {index}");
+            logger.Trace($"Matched index on match '{match}' is {index}");
 
             return index;
         }
@@ -266,7 +256,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             int result = _lines.IndexOf(_lines.Find(x => x.Contains(match, StringComparison.InvariantCulture)), index);
 
-            _logger.Trace($"Matched index on match '{match}' is {result}");
+            logger.Trace($"Matched index on match '{match}' is {result}");
 
             return result;
         }

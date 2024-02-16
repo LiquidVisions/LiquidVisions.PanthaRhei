@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LiquidVisions.PanthaRhei.Domain.Entities
 {
     /// <summary>
     /// Represents a <see cref="Relationship"/> entity.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Relationship
     {
         /// <summary>

@@ -9,26 +9,17 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
     /// <summary>
     /// Implements the contract <seealso cref="ICodeGeneratorBuilder"/>.
     /// </summary>
-    internal class CodeGeneratorBuilder : ICodeGeneratorBuilder
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="CodeGeneratorBuilder"/> class.
+    /// </remarks>
+    /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+    internal class CodeGeneratorBuilder(IDependencyFactory dependencyFactory) : ICodeGeneratorBuilder
     {
-        private readonly IGetRepository<App> _gateway;
-        private readonly GenerationOptions _options;
-        private readonly IExpanderPluginLoader _pluginLoader;
-        private readonly IDependencyManager _dependencyManager;
-        private readonly IDependencyFactory _dependencyFactory;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CodeGeneratorBuilder"/> class.
-        /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
-        public CodeGeneratorBuilder(IDependencyFactory dependencyFactory)
-        {
-            _gateway = dependencyFactory.Resolve<IGetRepository<App>>();
-            _options = dependencyFactory.Resolve<GenerationOptions>();
-            _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
-            _dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
-            _dependencyFactory = dependencyFactory;
-        }
+        private readonly IGetRepository<App> _gateway = dependencyFactory.Resolve<IGetRepository<App>>();
+        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly IExpanderPluginLoader _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
+        private readonly IDependencyManager _dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
+        private readonly IDependencyFactory _dependencyFactory = dependencyFactory;
 
         /// <inheritdoc/>
         public ICodeGenerator Build()

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LiquidVisions.PanthaRhei.Domain.Entities
 {
     /// <summary>
     /// Represents a <see cref="Component"/> entity.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Component
     {
         /// <summary>

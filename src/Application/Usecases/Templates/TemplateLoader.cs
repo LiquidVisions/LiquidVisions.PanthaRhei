@@ -8,20 +8,14 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
     /// <summary>
     /// Loads static templates.
     /// </summary>
-    internal class TemplateLoader : ITemplateLoader
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="TemplateLoader"/> class.
+    /// </remarks>
+    /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
+    internal class TemplateLoader(IDependencyFactory dependencyFactory) : ITemplateLoader
     {
-        private readonly IFile _fileService;
-        private readonly ILogger _logger;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemplateLoader"/> class.
-        /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
-        public TemplateLoader(IDependencyFactory dependencyFactory)
-        {
-            _fileService = dependencyFactory.Resolve<IFile>();
-            _logger = dependencyFactory.Resolve<ILogger>();
-        }
+        private readonly IFile _fileService = dependencyFactory.Resolve<IFile>();
+        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
 
         /// <inheritdoc/>
         public string Load(string fullPathToTemplateFile)

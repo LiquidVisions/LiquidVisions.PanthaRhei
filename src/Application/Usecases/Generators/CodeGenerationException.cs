@@ -36,16 +36,5 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
             : base(message, innerException)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CodeGenerationException"/> class.
-        /// </summary>
-        /// <param name="info"><seealso cref="SerializationInfo"/></param>
-        /// <param name="context"><seealso cref="StreamingContext"/></param>
-        [ExcludeFromCodeCoverage]
-        protected CodeGenerationException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
     }
 }

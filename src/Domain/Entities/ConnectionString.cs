@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LiquidVisions.PanthaRhei.Domain.Entities
 {
     /// <summary>
     /// Represents a <see cref="ConnectionString"/> entity.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ConnectionString
     {
         /// <summary>

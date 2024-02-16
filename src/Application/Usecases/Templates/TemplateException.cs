@@ -36,15 +36,5 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
             : base(message, innerException)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemplateException"/> class.
-        /// </summary>
-        /// <param name="info"><seealso cref="SerializationInfo"/></param>
-        /// <param name="context"><seealso cref="StreamingContext"/></param>
-        protected TemplateException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
     }
 }

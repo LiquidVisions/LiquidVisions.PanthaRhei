@@ -9,20 +9,12 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
-    internal class FieldSeeder : IEntitySeeder<App>
+    internal class FieldSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Field> _createGateway;
-        private readonly IDeleteRepository<Field> _deleteGateway;
-        private readonly IEntitiesToSeedRepository _entitySeedGateway;
-        private readonly IModelConfiguration _modelConfiguration;
-
-        public FieldSeeder(IDependencyFactory dependencyFactory)
-        {
-            _createGateway = dependencyFactory.Resolve<ICreateRepository<Field>>();
-            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Field>>();
-            _entitySeedGateway = dependencyFactory.Resolve<IEntitiesToSeedRepository>();
-            _modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
-        }
+        private readonly ICreateRepository<Field> _createGateway = dependencyFactory.Resolve<ICreateRepository<Field>>();
+        private readonly IDeleteRepository<Field> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Field>>();
+        private readonly IEntitiesToSeedRepository _entitySeedGateway = dependencyFactory.Resolve<IEntitiesToSeedRepository>();
+        private readonly IModelConfiguration _modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
 
         public int SeedOrder => 6;
 
@@ -136,10 +128,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                 return "private";
             }
 
-            if (methodInfo.IsAssembly)
-            {
-                return "internal";
-            }
+            //if (methodInfo.IsAssembly)
+            //{
+            //    return "internal";
+            //}
 
             throw new NotImplementedException();
         }
@@ -156,10 +148,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                 return "private";
             }
 
-            if (prop.GetMethod.IsAssembly || prop.SetMethod.IsAssembly)
-            {
-                return "internal";
-            }
+            //if (prop.GetMethod.IsAssembly || prop.SetMethod.IsAssembly)
+            //{
+            //    return "internal";
+            //}
 
             throw new NotImplementedException();
         }

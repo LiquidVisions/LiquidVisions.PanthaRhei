@@ -6,24 +6,14 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Domain.Usecases
 {
-    internal class DotNetApplication : IApplication
+    internal class DotNetApplication(IDependencyFactory dependencyFactory) : IApplication
     {
-        private readonly GenerationOptions _options;
-        private readonly ILogger _logger;
-        private readonly IDirectory _directory;
-        private readonly IFile _file;
-        private readonly ICommandLine _cli;
-        private readonly App _app;
-
-        public DotNetApplication(IDependencyFactory dependencyFactory)
-        {
-            _options = dependencyFactory.Resolve<GenerationOptions>();
-            _logger = dependencyFactory.Resolve<ILogger>();
-            _directory = dependencyFactory.Resolve<IDirectory>();
-            _file = dependencyFactory.Resolve<IFile>();
-            _cli = dependencyFactory.Resolve<ICommandLine>();
-            _app = dependencyFactory.Resolve<App>();
-        }
+        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
+        private readonly IDirectory _directory = dependencyFactory.Resolve<IDirectory>();
+        private readonly IFile _file = dependencyFactory.Resolve<IFile>();
+        private readonly ICommandLine _cli = dependencyFactory.Resolve<ICommandLine>();
+        private readonly App _app = dependencyFactory.Resolve<App>();
 
         public void MaterializeProject()
         {

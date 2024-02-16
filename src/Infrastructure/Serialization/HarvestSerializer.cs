@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
             ArgumentNullException.ThrowIfNull(harvest);
 
             bool serialize = _file.Exists(fullPath);
-            serialize &= harvest.Items.Any();
+            serialize &= harvest.Items.Count != 0;
             if (serialize)
             {
                 string dir = _file.GetDirectory(fullPath);

@@ -12,31 +12,20 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
     /// <summary>
     /// An implemented type of the contract <seealso cref="IExpandBoundary"/>.
     /// </summary>
-    internal class ExpandBoundary : IExpandBoundary
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="ExpandBoundary"/> class.
+    /// </remarks>
+    /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
+    internal class ExpandBoundary(IDependencyFactory dependencyFactory) : IExpandBoundary
     {
-        private readonly ILogger _logger;
-        private readonly ILogger _exceptionLogger;
-        private readonly GenerationOptions _options;
-        private readonly ISeeder _seeder;
-        private readonly ICodeGeneratorBuilder _builder;
-        private readonly IMigrationService _migrationService;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExpandBoundary"/> class.
-        /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
-        public ExpandBoundary(IDependencyFactory dependencyFactory)
-        {
-            _seeder = dependencyFactory.Resolve<ISeeder>();
-            _builder = dependencyFactory.Resolve<ICodeGeneratorBuilder>();
-            _logger = dependencyFactory.Resolve<ILogger>();
-            _migrationService = dependencyFactory.Resolve<IMigrationService>();
-            _options = dependencyFactory.Resolve<GenerationOptions>();
-
-            _exceptionLogger = dependencyFactory
+        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly ISeeder _seeder = dependencyFactory.Resolve<ISeeder>();
+        private readonly ICodeGeneratorBuilder _builder = dependencyFactory.Resolve<ICodeGeneratorBuilder>();
+        private readonly IMigrationService _migrationService = dependencyFactory.Resolve<IMigrationService>();
+        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
+        private readonly ILogger _exceptionLogger = dependencyFactory
                 .Resolve<ILogManager>()
                 .GetExceptionLogger();
-        }
 
         /// <inheritdoc/>
         public void Execute()
@@ -74,7 +63,7 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
                 }
                 catch (Exception ex)
                 {
-                    _exceptionLogger.Fatal(ex, $"An unexpected error has occured during the expanding procecess with the following message: {ex.Message}.");
+                    _exceptionLogger.Fatal(ex, $"An unexpected error has occurred during the expanding processes with the following message: {ex.Message}.");
                     throw;
                 }
             }
@@ -96,7 +85,7 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
                 }
                 catch (Exception ex)
                 {
-                    _exceptionLogger.Fatal(ex, $"An unexpected error has occured during the seeding processes with the following message: {ex.Message}.");
+                    _exceptionLogger.Fatal(ex, $"An unexpected error has occurred during the seeding processes with the following message: {ex.Message}.");
                     throw;
                 }
             }

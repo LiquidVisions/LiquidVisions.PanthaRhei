@@ -3,12 +3,12 @@ using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
-namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator
+namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
 {
     /// <summary>
     /// An abstract implementation of the <see cref="IRejuvenator{TExpander}"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
+    /// <typeparam name="TExpander">A derived type of <see cref="IExpander"/>.</typeparam>
     public abstract class Rejuvenator<TExpander> : IRejuvenator<TExpander>
         where TExpander : class, IExpander
     {

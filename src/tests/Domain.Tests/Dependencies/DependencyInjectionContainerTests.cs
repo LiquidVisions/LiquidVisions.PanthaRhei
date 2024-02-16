@@ -19,7 +19,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         /// </summary>
         public DependencyInjectionContainerTests()
         {
-            _container = new DependencyManager(new ServiceCollection());
+            _container = new DependencyManager(new ServiceCollectionWrapper(new ServiceCollection()));
         }
 
         /// <summary>

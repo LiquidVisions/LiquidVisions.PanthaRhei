@@ -11,26 +11,17 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
     /// <summary>
     /// <see cref="Template"/> implementation of <see cref="ITemplate"/>.
     /// </summary>
-    internal class ScribanTemplate : ITemplate
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="ScribanTemplate"/> class.
+    /// </remarks>
+    /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
+    internal class ScribanTemplate(IDependencyFactory dependencyFactory) : ITemplate
     {
-        private readonly ILogger _logger;
-        private readonly ITemplateLoader _templateLoader;
-        private readonly IFile _fileService;
-        private readonly IDirectory _directoryService;
-        private readonly ScriptObject _scriptObject;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ScribanTemplate"/> class.
-        /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
-        public ScribanTemplate(IDependencyFactory dependencyFactory)
-        {
-            _logger = dependencyFactory.Resolve<ILogger>();
-            _templateLoader = dependencyFactory.Resolve<Domain.Usecases.Templates.ITemplateLoader>();
-            _fileService = dependencyFactory.Resolve<IFile>();
-            _directoryService = dependencyFactory.Resolve<IDirectory>();
-            _scriptObject = dependencyFactory.Resolve<ScriptObject>();
-        }
+        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
+        private readonly ITemplateLoader _templateLoader = dependencyFactory.Resolve<Domain.Usecases.Templates.ITemplateLoader>();
+        private readonly IFile _fileService = dependencyFactory.Resolve<IFile>();
+        private readonly IDirectory _directoryService = dependencyFactory.Resolve<IDirectory>();
+        private readonly ScriptObject _scriptObject = dependencyFactory.Resolve<ScriptObject>();
 
         /// <inheritdoc/>
         public string Render(string fullTemplatePath, object model)

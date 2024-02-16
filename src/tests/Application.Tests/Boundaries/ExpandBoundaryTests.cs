@@ -14,16 +14,16 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
     /// <summary>
     /// Tests for <seealso cref="ExpandBoundary"/>.
     /// </summary>
-    public class CodeGeneratorServiceBoundaryTests
+    public class ExpandBoundaryTests
     {
         private readonly ApplicationFakes _fakes = new();
         private readonly ExpandBoundary _boundary;
         private readonly Mock<ISeeder> _mockedSeeder = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeGeneratorServiceBoundaryTests"/> class.
+        /// Initializes a new instance of the <see cref="ExpandBoundaryTests"/> class.
         /// </summary>
-        public CodeGeneratorServiceBoundaryTests()
+        public ExpandBoundaryTests()
         {
             _fakes.IDependencyFactory.Setup(x => x.Resolve<ISeeder>()).Returns(_mockedSeeder.Object);
             _fakes.ILogManager.Setup(x => x.GetExceptionLogger()).Returns(_fakes.ILogger.Object);
@@ -138,17 +138,15 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         }
 
         /// <summary>
-        /// Tests the throwing and catching of the <seealso cref="Exception"/>.
+        /// Tests the throwing and catching of the <seealso cref="CodeGenerationException"/> while expanding.
         /// </summary>
         [Fact]
-        public void ExecuteShouldThrowCodeException()
+        public void ExecuteShouldThrowExpandException()
         {
             // arrange
             _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
             string exceptionMessage = "Random Exception Message";
-#pragma warning disable CA2201 // Do not raise reserved exception types
-            Exception exception = new(exceptionMessage);
-#pragma warning restore CA2201 // Do not raise reserved exception types
+            InvalidOperationException exception = new(exceptionMessage);
             _fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
             _mockedSeeder.Setup(x => x.Enabled).Returns(false);
 
@@ -156,8 +154,51 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             void action() => _boundary.Execute();
 
             // assert
-            Assert.Throws<Exception>(action);
-            _fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occured during the expanding procecess with the following message: {exceptionMessage}."), Times.Once);
+            Assert.Throws<InvalidOperationException>(action);
+            _fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occurred during the expanding processes with the following message: {exceptionMessage}."), Times.Once);
+        }
+
+        /// <summary>
+        /// Tests the throwing and catching of the <seealso cref="CodeGenerationException"/> while seeding.
+        /// </summary>
+        [Fact]
+        public void ExecuteShouldThrowSeedException()
+        {
+            // arrange
+            _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
+            string exceptionMessage = "Random Exception Message";
+            _mockedSeeder.Setup(x => x.Enabled).Returns(true);
+
+            InvalidOperationException exception = new(exceptionMessage);
+            _mockedSeeder.Setup(x => x.Execute()).Throws(exception);
+
+            // act
+            void action() => _boundary.Execute();
+
+            // assert
+            Assert.Throws<InvalidOperationException>(action);
+            _fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occurred during the seeding processes with the following message: {exceptionMessage}."), Times.Once);
+        }
+
+        /// <summary>
+        /// Tests the throwing and catching of the <seealso cref="CodeGenerationException"/> while seeding.
+        /// </summary>
+        [Fact]
+        public void ExecuteShouldThrowSeedCodeGenerationException()
+        {
+            // arrange
+            _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
+            string exceptionMessage = "Random Exception Message";
+            _mockedSeeder.Setup(x => x.Enabled).Returns(true);
+            var exception = new CodeGenerationException(exceptionMessage);
+            _mockedSeeder.Setup(x => x.Execute()).Throws(exception);
+
+            // act
+            void action() => _boundary.Execute();
+
+            // assert
+            Assert.Throws<CodeGenerationException>(action);
+            _fakes.ILogger.Verify(x => x.Fatal(exception, exceptionMessage), Times.Once);
         }
     }
 }

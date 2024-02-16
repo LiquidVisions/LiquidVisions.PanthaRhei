@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -38,7 +39,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
         /// <summary>
         /// Gets or sets the tag as an XML CData block, deeded for serialisation.
         /// </summary>
-        [XmlElement(nameof(Tag))]
         public XmlCDataSection TagXml
         {
             get { return new XmlDocument().CreateCDataSection(Tag); }

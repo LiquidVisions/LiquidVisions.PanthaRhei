@@ -4,20 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
 {
-    internal class GenericRepository : IMigrationService
+    internal class GenericRepository(IDependencyFactory dependencyFactory) : IMigrationService
     {
-        private readonly Context _context;
-
-        public GenericRepository(IDependencyFactory dependencyFactory)
-        {
-            _context = dependencyFactory.Resolve<Context>();
-        }
-
-        internal Context Context => _context;
+         internal Context Context => dependencyFactory.Resolve<Context>();
 
         public void Migrate()
         {
-            _context.Database.Migrate();
+            Context.Database.Migrate();
         }
     }
 }

@@ -20,10 +20,10 @@ namespace LiquidVisions.PanthaRhei.Domain
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddDomainLayer(this IServiceCollection services, GenerationOptions options)
         {
-            var container = new DependencyManager(services);
+            IDependencyManager container = new DependencyManager(new ServiceCollectionWrapper(services));
 
-            return services.AddSingleton<IDependencyManager>(container)
-                .AddSingleton<IDependencyFactory>(container)
+            return services.AddSingleton(container)
+                .AddSingleton((IDependencyFactory)container)
                 .AddTransient<IApplication, DotNetApplication>()
                 .AddSingleton(options)
                 .AddInitializers();

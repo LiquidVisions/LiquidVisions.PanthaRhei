@@ -10,7 +10,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Preprocessors;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenator;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators;
 
 namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
 {
@@ -151,9 +151,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
                 .Where(x => x.GetInterfaces().Contains(typeof(IExpanderTask<TExpander>)))
                 .ToList();
 
-            if (!listOfHandlers.Any())
+            if (listOfHandlers.Count == 0)
             {
-                Logger.Warn($"Expander '{Model.Name}' does not have any {nameof(IExpanderTask<IExpander>)} implememntations.");
+                Logger.Warn($"Expander '{Model.Name}' does not have any {nameof(IExpanderTask<IExpander>)} implementations.");
                 return;
             }
 

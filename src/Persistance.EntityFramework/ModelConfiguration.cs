@@ -9,32 +9,25 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 {
-    internal class ModelConfiguration : IModelConfiguration
+    internal sealed class ModelConfiguration(DbContext context) : IModelConfiguration
     {
-        private readonly DbContext _context;
-
-        public ModelConfiguration(DbContext context)
-        {
-            _context = context;
-        }
-
         public IEnumerable<string> GetIndexes(Type entityType)
         {
-            return _context.Model.GetEntityTypes()
+            return context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType)
                 .GetIndexes().SelectMany(x => x.Properties.Select(p => p.Name));
         }
 
         public IEnumerable<string> GetKeys(Type entityType)
         {
-            return _context.Model.GetEntityTypes()
+            return context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType)
                 .GetKeys().SelectMany(x => x.Properties.Select(p => p.Name));
         }
 
         public int? GetSize(Type entityType, string propertyName)
         {
-            IEntityType entity = _context.Model.GetEntityTypes()
+            IEntityType entity = context.Model.GetEntityTypes()
                 .Single(x => x.ClrType == entityType);
 
             IProperty prop = entity.FindProperty(propertyName);
@@ -48,7 +41,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 
         public bool GetIsRequired(Type entityType, string propertyName)
         {
-            IEntityType entity = _context.Model.GetEntityTypes()
+            IEntityType entity = context.Model.GetEntityTypes()
                     .Single(x => x.ClrType == entityType);
 
             IProperty prop = entity.FindProperty(propertyName);
@@ -68,10 +61,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
 
         public ICollection<RelationshipDto> GetRelationshipInfo(Entity entity)
         {
-            IEntityType mutableEntity = _context.Model.GetEntityTypes()
+            IEntityType mutableEntity = context.Model.GetEntityTypes()
                 .Single(x => x.ClrType.Name == entity.Name);
 
-            List<RelationshipDto> result = new();
+            List<RelationshipDto> result = [];
 
             var navigations = mutableEntity.GetNavigations().Where(x => x.ForeignKey.DeclaringEntityType.ClrType.Name == entity.Name).ToList();
 

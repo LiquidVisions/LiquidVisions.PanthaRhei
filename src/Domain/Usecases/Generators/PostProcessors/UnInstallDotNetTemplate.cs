@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using LiquidVisions.PanthaRhei.Domain.IO;
-using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
@@ -10,25 +8,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
     /// Install's the required dotnet visual studio templates that are required by the <see cref="IExpander"/>.
     /// </summary>
     /// <typeparam name="TExpander">A specific type of <see cref="IExpander"/>.</typeparam>
-    internal sealed class UnInstallDotNetTemplate<TExpander> : PostProcessor<TExpander>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="UnInstallDotNetTemplate{TExpander}"/> class.
+    /// </remarks>
+    /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
+    internal sealed class UnInstallDotNetTemplate<TExpander>(IDependencyFactory dependencyFactory) : PostProcessor<TExpander>(dependencyFactory)
         where TExpander : class, IExpander
     {
-        private readonly ICommandLine _commandLine;
-        private readonly IDirectory _directoryService;
-        private readonly ILogger _logger;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnInstallDotNetTemplate{TExpander}"/> class.
-        /// </summary>
-        /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
-        public UnInstallDotNetTemplate(IDependencyFactory dependencyFactory)
-            : base(dependencyFactory)
-        {
-            _commandLine = dependencyFactory.Resolve<ICommandLine>();
-            _directoryService = dependencyFactory.Resolve<IDirectory>();
-            _logger = dependencyFactory.Resolve<ILogger>();
-        }
-
         /// <inheritdoc/>
         public override bool Enabled => Options.Clean;
 
@@ -39,13 +25,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.PostProcessors
         {
             string templatePath = Path.Combine(Options.ExpandersFolder, Expander.Model.Name, Resources.TemplatesFolder);
 
-            string[] dotnetTemplateDirectories = _directoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
+            string[] dotnetTemplateDirectories = DirectoryService.GetDirectories(templatePath, ".template.config", SearchOption.AllDirectories);
             foreach (string dotnetTemplateDirectory in dotnetTemplateDirectories)
             {
-                string path = _directoryService.GetNameOfParentDirectory(dotnetTemplateDirectory);
+                string path = DirectoryService.GetNameOfParentDirectory(dotnetTemplateDirectory);
 
-                _logger.Info($"Uninstalling template from location {path}");
-                _commandLine.Start($"dotnet new uninstall {path}");
+                Logger.Info($"Uninstalling template from location {path}");
+                CommandLine.Start($"dotnet new uninstall {path}");
             }
         }
     }

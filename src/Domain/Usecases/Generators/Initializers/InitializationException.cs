@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 
 namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers
 {
@@ -13,6 +12,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers
         /// <summary>
         /// Initializes a new instance of the <see cref="InitializationException"/> class.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public InitializationException()
         {
         }
@@ -33,17 +33,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers
         /// <param name="innerException">The inner exception.</param>
         public InitializationException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InitializationException"/> class.
-        /// </summary>
-        /// <param name="info"><seealso cref="SerializationInfo"/></param>
-        /// <param name="context"><seealso cref="StreamingContext"/></param>
-        [ExcludeFromCodeCoverage]
-        protected InitializationException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }

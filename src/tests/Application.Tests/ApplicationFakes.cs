@@ -1,4 +1,5 @@
-﻿using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
+﻿using LiquidVisions.PanthaRhei.Application.Usecases;
+using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Application.Usecases.Initializers;
 using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
@@ -43,6 +44,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests
         internal Mock<IObjectActivator> IObjectActivator { get; } = new();
 
         /// <summary>
+        /// Gets a mocked instance of <seealso cref="IAssemblyProvider"/>.
+        /// </summary>
+        internal Mock<IAssemblyProvider> IAssemblyProvider { get; } = new();
+
+        /// <summary>
         /// Configures the mocks globally.
         /// </summary>
         public override void Configure()
@@ -65,6 +71,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests
             IDependencyFactory.Setup(x => x.Resolve<ICodeGeneratorBuilder>()).Returns(ICodeGeneratorBuilder.Object);
             IDependencyFactory.Setup(x => x.Resolve<IExpanderPluginLoader>()).Returns(IExpanderPluginLoader.Object);
             IDependencyFactory.Setup(x => x.Resolve<IMigrationService>()).Returns(IMigrationService.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IAssemblyProvider>()).Returns(IAssemblyProvider.Object);
         }
     }
 }

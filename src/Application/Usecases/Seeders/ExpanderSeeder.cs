@@ -9,20 +9,12 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
-    internal class ExpanderSeeder : IEntitySeeder<App>
+    internal class ExpanderSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly IExpanderPluginLoader _pluginLoader;
-        private readonly GenerationOptions _options;
-        private readonly ICreateRepository<Expander> _createGateway;
-        private readonly IDeleteRepository<Expander> _deleteGateway;
-
-        public ExpanderSeeder(IDependencyFactory dependencyFactory)
-        {
-            _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
-            _options = dependencyFactory.Resolve<GenerationOptions>();
-            _createGateway = dependencyFactory.Resolve<ICreateRepository<Expander>>();
-            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Expander>>();
-        }
+        private readonly IExpanderPluginLoader _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
+        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly ICreateRepository<Expander> _createGateway = dependencyFactory.Resolve<ICreateRepository<Expander>>();
+        private readonly IDeleteRepository<Expander> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Expander>>();
 
         public int SeedOrder => 2;
 

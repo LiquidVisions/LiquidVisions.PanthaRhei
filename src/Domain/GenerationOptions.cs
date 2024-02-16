@@ -10,7 +10,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 namespace LiquidVisions.PanthaRhei.Domain
 {
     /// <summary>
-    /// Global requestmodel for the generation operations.
+    /// Global request model for the generation operations.
     /// </summary>
     public class GenerationOptions
     {

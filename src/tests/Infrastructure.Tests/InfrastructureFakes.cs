@@ -5,7 +5,7 @@ using Moq;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 {
-    internal class InfrastructureFakes : Fakes
+    internal sealed class InfrastructureFakes : Fakes
     {
         public Mock<IDeserializer<Harvest>> IHarvestDeserializer { get; } = new();
 
@@ -14,43 +14,43 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         public Mock<IHarvestSerializer> IHarvestSerializer { get; } = new();
 
         /// <summary>
-        /// Gets a mock of an empy class file as a <see cref="string"/>.
+        /// Gets a mock of an empty class file as a <see cref="string"/>.
         /// </summary>
         /// <returns><seealso cref="string"/></returns>
         public static string[] GetEmptyClass()
         {
-            return new string[]
-            {
+            return
+            [
                 "using System;",
                 "using System.Collections.Generic;",
                 "using System.Linq;",
                 "using System.Text;",
                 "using System.Threading.Tasks;",
                 string.Empty,
-                "namespace LiquidVisions.Jafar.Tests.Domain",
+                "namespace LiquidVisions.PanthaRhei.Tests.Domain",
                 "{",
                 "   public class Class1",
                 "   {",
                 "   }",
                 "}",
-            };
+            ];
         }
 
         /// <summary>
-        /// Gets a mock of an empy class file as a <see cref="string"/>.
+        /// Gets a mock of an empty class file as a <see cref="string"/>.
         /// </summary>
         /// <returns><seealso cref="string"/></returns>
         public static string[] GetEmptyClassWithEmptyMethod()
         {
-            return new string[]
-            {
+            return
+            [
                 "using System;",
                 "using System.Collections.Generic;",
                 "using System.Linq;",
                 "using System.Text;",
                 "using System.Threading.Tasks;",
                 string.Empty,
-                "namespace LiquidVisions.Jafar.Tests.Domain",
+                "namespace LiquidVisions.PanthaRhei.Tests.Domain",
                 "{",
                 "   public class Class1",
                 "   {",
@@ -61,7 +61,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
                 "       }",
                 "   }",
                 "}",
-            };
+            ];
         }
 
         public override void ConfigureIDependencyFactory()

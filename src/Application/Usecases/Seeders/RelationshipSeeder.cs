@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Models;
@@ -9,18 +8,11 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
-    internal class RelationshipSeeder : IEntitySeeder<App>
+    internal class RelationshipSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Relationship> _createGateway;
-        private readonly IDeleteRepository<Relationship> _deleteGateway;
-        private readonly IModelConfiguration _modelConfiguration;
-
-        public RelationshipSeeder(IDependencyFactory dependencyFactory)
-        {
-            _createGateway = dependencyFactory.Resolve<ICreateRepository<Relationship>>();
-            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Relationship>>();
-            _modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
-        }
+        private readonly ICreateRepository<Relationship> _createGateway = dependencyFactory.Resolve<ICreateRepository<Relationship>>();
+        private readonly IDeleteRepository<Relationship> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Relationship>>();
+        private readonly IModelConfiguration _modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
 
         public int SeedOrder => 7;
 

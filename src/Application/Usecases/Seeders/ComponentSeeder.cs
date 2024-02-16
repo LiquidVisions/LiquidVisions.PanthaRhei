@@ -10,22 +10,13 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
-    internal class ComponentSeeder : IEntitySeeder<App>
+    internal class ComponentSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Component> _createGateway;
-        private readonly IDeleteRepository<Component> _deleteGateway;
-        private readonly GenerationOptions _options;
-        private readonly IDirectory _directoryService;
-        private readonly IFile _fileService;
-
-        public ComponentSeeder(IDependencyFactory dependencyFactory)
-        {
-            _createGateway = dependencyFactory.Resolve<ICreateRepository<Component>>();
-            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Component>>();
-            _options = dependencyFactory.Resolve<GenerationOptions>();
-            _directoryService = dependencyFactory.Resolve<IDirectory>();
-            _fileService = dependencyFactory.Resolve<IFile>();
-        }
+        private readonly ICreateRepository<Component> _createGateway = dependencyFactory.Resolve<ICreateRepository<Component>>();
+        private readonly IDeleteRepository<Component> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Component>>();
+        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly IDirectory _directoryService = dependencyFactory.Resolve<IDirectory>();
+        private readonly IFile _fileService = dependencyFactory.Resolve<IFile>();
 
         public int SeedOrder => 3;
 

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LiquidVisions.PanthaRhei.Domain.Entities
 {
     /// <summary>
     /// Represents a model of an expander.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Expander
     {
         /// <summary>
