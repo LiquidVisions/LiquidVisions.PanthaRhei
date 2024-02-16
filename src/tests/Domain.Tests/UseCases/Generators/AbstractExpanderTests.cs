@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Tests.Mocks;
-using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
@@ -20,11 +15,17 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
 {
+    /// <summary>
+    /// Tests for the <see cref="AbstractExpander{TExpander}"/> class.
+    /// </summary>
     public class AbstractExpanderTests
     {
         private readonly Fakes _fakes = new();
         private readonly FakeAbstractExpander _expander;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AbstractExpanderTests"/> class.
+        /// </summary>
         public AbstractExpanderTests()
         {
             App app = new()

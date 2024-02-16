@@ -18,9 +18,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         public void ProperTestName()
         {
             // arrange
-            HarvestItem item = new();
-            item.Content = "content_test";
-            item.Tag = "tag_test";
+            HarvestItem item = new()
+            {
+                Content = "content_test",
+                Tag = "tag_test"
+            };
 
             // act
             XmlCDataSection contentSection = item.ContentXml;

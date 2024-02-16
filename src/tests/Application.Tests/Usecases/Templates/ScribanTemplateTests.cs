@@ -15,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
     {
         private readonly ApplicationFakes _fakes = new();
         private readonly ScribanTemplate _scribanTemplate;
-        private readonly Mock<ITemplateLoader> mockedTemplateLoader = new();
+        private readonly Mock<ITemplateLoader> _mockedTemplateLoader = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScribanTemplateTests"/> class.
@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
         public ScribanTemplateTests()
         {
             _fakes.IDependencyFactory.Setup(x => x.Resolve<Scriban.Runtime.ScriptObject>()).Returns([]);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<ITemplateLoader>()).Returns(mockedTemplateLoader.Object);
+            _fakes.IDependencyFactory.Setup(x => x.Resolve<ITemplateLoader>()).Returns(_mockedTemplateLoader.Object);
             _scribanTemplate = new(_fakes.IDependencyFactory.Object);
         }
 
@@ -38,7 +38,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
             // assert
             _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
             _fakes.IDependencyFactory.Verify(x => x.Resolve<Scriban.Runtime.ScriptObject>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<Domain.Usecases.Templates.ITemplateLoader>(), Times.Once);
+            _fakes.IDependencyFactory.Verify(x => x.Resolve<ITemplateLoader>(), Times.Once);
             _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
             _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
             _fakes.IDependencyFactory.VerifyNoOtherCalls();
@@ -58,7 +58,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
             string result = _scribanTemplate.Render(path, model);
 
             // assert
-            mockedTemplateLoader.Verify(x => x.Load(path), Times.Once);
+            _mockedTemplateLoader.Verify(x => x.Load(path), Times.Once);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
             _fakes.IFile.Verify(x => x.GetDirectory(fullPathToOutput), Times.Once);
             _fakes.IDirectory.Verify(x => x.Exists(outputDirectory), Times.Once);
             _fakes.IDirectory.Verify(x => x.Create(outputDirectory), Times.Exactly(times));
-            mockedTemplateLoader.Verify(x => x.Load(pathToTemplate), Times.Once);
+            _mockedTemplateLoader.Verify(x => x.Load(pathToTemplate), Times.Once);
             _fakes.IFile.Verify(x => x.WriteAllText(fullPathToOutput, It.IsAny<string>()), Times.Once);
         }
     }

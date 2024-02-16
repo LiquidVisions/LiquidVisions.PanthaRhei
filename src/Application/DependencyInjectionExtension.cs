@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using LiquidVisions.PanthaRhei.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Application.Usecases;
 using LiquidVisions.PanthaRhei.Application.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Application.Usecases.Initializers;
 using LiquidVisions.PanthaRhei.Application.Usecases.Seeders;
@@ -58,6 +59,7 @@ namespace LiquidVisions.PanthaRhei.Application
         private static IServiceCollection AddUseCases(this IServiceCollection services)
         {
             services.AddTransient<IAssemblyContext, AssemblyContext>();
+            services.AddTransient<IXDocument, XDocumentAgent>();
 
             return services;
         }

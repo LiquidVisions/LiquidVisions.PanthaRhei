@@ -18,6 +18,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
     {
         private readonly ICreateRepository<Package> _createGateway;
         private readonly IDeleteRepository<Package> _deleteGateway;
+        private readonly IXDocument _xDocument;
         private readonly IDirectory _directoryService;
         private readonly GenerationOptions _options;
 
@@ -32,6 +33,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             _createGateway = dependencyFactory.Resolve<ICreateRepository<Package>>();
             _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Package>>();
             _directoryService = dependencyFactory.Resolve<IDirectory>();
+            _xDocument = dependencyFactory.Resolve<IXDocument>();
             _options = dependencyFactory.Resolve<GenerationOptions>();
         }
 
@@ -67,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             string[] files = _directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories);
             foreach (string csproj in files)
             {
-                XDocument xml = XDocument.Load(csproj);
+                XDocument xml = _xDocument.Load(csproj);
                 IEnumerable<XElement> packageReferenceElements = xml.Descendants("PackageReference");
                 foreach (XElement packageReferenceElement in packageReferenceElements)
                 {
@@ -81,7 +83,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             Package package = new()
             {
                 Id = Guid.NewGuid(),
-                Name = packageReferenceElement.Attribute("Include").Value,
+                Name = packageReferenceElement.Attribute("Update").Value,
                 Version = packageReferenceElement.Attribute("Version").Value,
                 Component = component,
             };
