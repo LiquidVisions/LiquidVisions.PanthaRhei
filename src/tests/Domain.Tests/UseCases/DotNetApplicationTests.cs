@@ -15,18 +15,18 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
     /// </summary>
     public class DotNetApplicationTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly DotNetApplication _application;
-        private readonly Mock<App> _mockedApp = new();
+        private readonly Fakes fakes = new();
+        private readonly DotNetApplication application;
+        private readonly Mock<App> mockedApp = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DotNetApplicationTests"/> class.
         /// </summary>
         public DotNetApplicationTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(_mockedApp.Object);
-            _mockedApp.Setup(x => x.FullName).Returns("LiquidVisions.PanthaRhei.Tests");
-            _application = new DotNetApplication(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(mockedApp.Object);
+            mockedApp.Setup(x => x.FullName).Returns("LiquidVisions.PanthaRhei.Tests");
+            application = new DotNetApplication(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -38,13 +38,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICommandLine>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICommandLine>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             // arrange
             // act
             // assert
-            Assert.Throws<NotImplementedException>(() => _application.AddPackages(new Component()));
+            Assert.Throws<NotImplementedException>(() => application.AddPackages(new Component()));
         }
 
         /// <summary>
@@ -70,16 +70,16 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
         public void MaterializeProjectShouldExecuteDotNetNewCommand(bool folderExists, int times)
         {
             // arrange
-            string expectedSolutionFolder = Path.Combine(_fakes.GenerationOptions.Object.OutputFolder, _mockedApp.Object.FullName);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDirectory>().Exists(expectedSolutionFolder)).Returns(folderExists);
+            string expectedSolutionFolder = Path.Combine(fakes.GenerationOptions.Object.OutputFolder, mockedApp.Object.FullName);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IDirectory>().Exists(expectedSolutionFolder)).Returns(folderExists);
 
             // act
-            _application.MaterializeProject();
+            application.MaterializeProject();
 
             // assert
-            _fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedSolutionFolder}"), Times.Exactly(times));
-            _fakes.ICommandLine.Verify(x => x.Start($"mkdir {expectedSolutionFolder}"), Times.Exactly(times));
-            _fakes.ICommandLine.Verify(x => x.Start($"dotnet new liquidvisions-expanders-{_mockedApp.Object.Name} --NAME {_mockedApp.Object.Name} --NS {_mockedApp.Object.FullName}", expectedSolutionFolder), Times.Once);
+            fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedSolutionFolder}"), Times.Exactly(times));
+            fakes.ICommandLine.Verify(x => x.Start($"mkdir {expectedSolutionFolder}"), Times.Exactly(times));
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet new liquidvisions-expanders-{mockedApp.Object.Name} --NAME {mockedApp.Object.Name} --NS {mockedApp.Object.FullName}", expectedSolutionFolder), Times.Once);
         }
 
         /// <summary>
@@ -98,27 +98,27 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             Mock<Component> mockedComponent = new();
             mockedComponent.Setup(x => x.Name).Returns("Component");
 
-            string expectedSolutionFolder = Path.Combine(_fakes.GenerationOptions.Object.OutputFolder, _mockedApp.Object.FullName);
+            string expectedSolutionFolder = Path.Combine(fakes.GenerationOptions.Object.OutputFolder, mockedApp.Object.FullName);
             string expectedComponentFolder = Path.Combine(expectedSolutionFolder, "src", mockedComponent.Object.Name);
             string expectedComponentConfigurationFile = Path.Combine(expectedComponentFolder, $"{mockedComponent.Object.Name}.csproj");
-            string expectedSolutionConfigurationFile = Path.Combine(expectedSolutionFolder, $"{_mockedApp.Object.FullName}.sln");
+            string expectedSolutionConfigurationFile = Path.Combine(expectedSolutionFolder, $"{mockedApp.Object.FullName}.sln");
 
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDirectory>().Exists(expectedSolutionFolder)).Returns(folderExists);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDirectory>().Exists(expectedComponentFolder)).Returns(folderExists);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IFile>().Exists(expectedSolutionConfigurationFile)).Returns(solutionFileExists);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IDirectory>().Exists(expectedSolutionFolder)).Returns(folderExists);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IDirectory>().Exists(expectedComponentFolder)).Returns(folderExists);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IFile>().Exists(expectedSolutionConfigurationFile)).Returns(solutionFileExists);
 
             // act
-            _application.MaterializeComponent(mockedComponent.Object);
+            application.MaterializeComponent(mockedComponent.Object);
 
             // assert
-            _fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedSolutionFolder}"), Times.Exactly(timesToCreateFolder));
-            _fakes.ICommandLine.Verify(x => x.Start($"mkdir {expectedSolutionFolder}"), Times.Exactly(timesToCreateFolder));
-            _fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedComponentFolder}"), Times.Exactly(timesToCreateFolder));
-            _fakes.ICommandLine.Verify(x => x.Start($"mkdir {expectedComponentFolder}"), Times.Exactly(timesToCreateFolder));
-            _fakes.IFile.Verify(x => x.Exists(expectedSolutionConfigurationFile), Times.Once);
-            _fakes.ICommandLine.Verify(x => x.Start($"dotnet new sln", expectedSolutionFolder), Times.Exactly(timesToCreateSolutionFile));
-            _fakes.ICommandLine.Verify(x => x.Start($"dotnet new liquidvisions-expanders-{mockedComponent.Object.Name} --NAME {mockedComponent.Object.Name} --NS {_mockedApp.Object.FullName}", expectedComponentFolder), Times.Once);
-            _fakes.ICommandLine.Verify(x => x.Start($"dotnet sln {expectedSolutionConfigurationFile} add {expectedComponentConfigurationFile}"), Times.Once);
+            fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedSolutionFolder}"), Times.Exactly(timesToCreateFolder));
+            fakes.ICommandLine.Verify(x => x.Start($"mkdir {expectedSolutionFolder}"), Times.Exactly(timesToCreateFolder));
+            fakes.ILogger.Verify(x => x.Info($"Creating directory {expectedComponentFolder}"), Times.Exactly(timesToCreateFolder));
+            fakes.ICommandLine.Verify(x => x.Start($"mkdir {expectedComponentFolder}"), Times.Exactly(timesToCreateFolder));
+            fakes.IFile.Verify(x => x.Exists(expectedSolutionConfigurationFile), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet new sln", expectedSolutionFolder), Times.Exactly(timesToCreateSolutionFile));
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet new liquidvisions-expanders-{mockedComponent.Object.Name} --NAME {mockedComponent.Object.Name} --NS {mockedApp.Object.FullName}", expectedComponentFolder), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet sln {expectedSolutionConfigurationFile} add {expectedComponentConfigurationFile}"), Times.Once);
 
         }
     }

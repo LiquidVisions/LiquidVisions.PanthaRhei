@@ -12,14 +12,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
     /// </summary>
     public class DependencyInjectionContainerTests
     {
-        private readonly DependencyManager _container;
+        private readonly DependencyManager container;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyInjectionContainerTests"/> class.
         /// </summary>
         public DependencyInjectionContainerTests()
         {
-            _container = new DependencyManager(new ServiceCollectionWrapper(new ServiceCollection()));
+            container = new DependencyManager(new ServiceCollectionWrapper(new ServiceCollection()));
         }
 
         /// <summary>
@@ -30,11 +30,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         public void GetServicesCalllBeforeBuildingResolverShouldNotReturnEmptyCollection()
         {
             // arrange
-            _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
-            _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass2));
+            container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
+            container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass2));
 
             // act
-            System.Collections.Generic.IEnumerable<IFakeInterface> result = _container.ResolveAll<IFakeInterface>();
+            System.Collections.Generic.IEnumerable<IFakeInterface> result = container.ResolveAll<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);
@@ -49,12 +49,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         public void GetServicesAfterRegistrationShouldResolveCollection()
         {
             // arrange
-            _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
-            _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass2));
+            container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
+            container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass2));
 
             // act
-            _container.Build();
-            IEnumerable<IFakeInterface> result = _container.ResolveAll<IFakeInterface>();
+            container.Build();
+            IEnumerable<IFakeInterface> result = container.ResolveAll<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);
@@ -69,11 +69,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         public void GetServicesAfterRegistrationWithoutBuildingShouldResolveCollection()
         {
             // arrange
-            _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
-            _container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass2));
+            container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass1));
+            container.AddTransient(typeof(IFakeInterface), typeof(FakeTestClass2));
 
             // act
-            IEnumerable<IFakeInterface> result = _container.ResolveAll<IFakeInterface>();
+            IEnumerable<IFakeInterface> result = container.ResolveAll<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);
@@ -88,11 +88,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         {
             // arrange
             FakeTestClass1 fakeTestClass1 = new();
-            _container.AddSingleton<IFakeInterface>(fakeTestClass1);
+            container.AddSingleton<IFakeInterface>(fakeTestClass1);
 
             // act
-            _container.Build();
-            IFakeInterface result = _container.Resolve<IFakeInterface>();
+            container.Build();
+            IFakeInterface result = container.Resolve<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);
@@ -108,10 +108,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Dependencies
         {
             // arrange
             FakeTestClass1 fakeTestClass1 = new();
-            _container.AddSingleton<IFakeInterface>(fakeTestClass1);
+            container.AddSingleton<IFakeInterface>(fakeTestClass1);
 
             // act
-            IFakeInterface result = _container.Resolve<IFakeInterface>();
+            IFakeInterface result = container.Resolve<IFakeInterface>();
 
             // assert
             Assert.NotNull(result);

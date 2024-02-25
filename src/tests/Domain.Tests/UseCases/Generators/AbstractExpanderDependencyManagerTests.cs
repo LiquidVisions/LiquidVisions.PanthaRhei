@@ -21,9 +21,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
     /// </summary>
     public class AbstractExpanderDependencyManagerTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly FakeExpanderDependencyManager _manager;
-        private readonly Mock<IAssemblyManager> _mockedAssemblyManager = new();
+        private readonly Fakes fakes = new();
+        private readonly FakeExpanderDependencyManager manager;
+        private readonly Mock<IAssemblyManager> mockedAssemblyManager = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpanderDependencyManagerTests"/> class.
@@ -34,11 +34,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             {
                 Name = "FakeExpander"
             };
-            _fakes.IDependencyManager.Setup(x => x.Build()).Returns(_fakes.IDependencyFactory.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IAssemblyManager>()).Returns(_mockedAssemblyManager.Object);
+            fakes.IDependencyManager.Setup(x => x.Build()).Returns(fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IAssemblyManager>()).Returns(mockedAssemblyManager.Object);
 
 
-            _manager = new FakeExpanderDependencyManager(expander, _fakes.IDependencyManager.Object);
+            manager = new FakeExpanderDependencyManager(expander, fakes.IDependencyManager.Object);
         }
 
         /// <summary>
@@ -50,10 +50,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IAssemblyManager>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IAssemblyManager>(), Times.Once);
 
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
         }
 
         /// <summary>
@@ -72,29 +72,29 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
 
             Mock<Assembly> mockedAssembly = new();
             mockedAssembly.Setup(x => x.GetExportedTypes()).Returns([preprocessors.Object, expanders.Object, tasks.Object, rejuvenators.Object, harvesters.Object, postprocessors.Object]);
-            _mockedAssemblyManager.Setup(x => x.GetAssembly(It.IsAny<Type>())).Returns(mockedAssembly.Object);
+            mockedAssemblyManager.Setup(x => x.GetAssembly(It.IsAny<Type>())).Returns(mockedAssembly.Object);
 
             // act
-            _manager.Register();
+            manager.Register();
 
             // assert
-            _mockedAssemblyManager.Verify(x => x.GetAssembly(It.IsAny<Type>()), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IPreProcessor<FakeExpander>), typeof(InstallDotNetTemplate<FakeExpander>)), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IPreProcessor<FakeExpander>), preprocessors.Object), Times.Once);
+            mockedAssemblyManager.Verify(x => x.GetAssembly(It.IsAny<Type>()), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IPreProcessor<FakeExpander>), typeof(InstallDotNetTemplate<FakeExpander>)), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IPreProcessor<FakeExpander>), preprocessors.Object), Times.Once);
 
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IPostProcessor<FakeExpander>), typeof(UnInstallDotNetTemplate<FakeExpander>)), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IPostProcessor<FakeExpander>), postprocessors.Object), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IPostProcessor<FakeExpander>), typeof(UnInstallDotNetTemplate<FakeExpander>)), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IPostProcessor<FakeExpander>), postprocessors.Object), Times.Once);
 
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IExpander), expanders.Object), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(expanders.Object, expanders.Object), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IExpanderTask<FakeExpander>), tasks.Object), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IExpander), expanders.Object), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(expanders.Object, expanders.Object), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IExpanderTask<FakeExpander>), tasks.Object), Times.Once);
 
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IRejuvenator<FakeExpander>), typeof(RegionRejuvenator<FakeExpander>)), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IRejuvenator<FakeExpander>), rejuvenators.Object), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IRejuvenator<FakeExpander>), typeof(RegionRejuvenator<FakeExpander>)), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IRejuvenator<FakeExpander>), rejuvenators.Object), Times.Once);
 
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IHarvester<FakeExpander>), typeof(RegionHarvester<FakeExpander>)), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IHarvester<FakeExpander>), harvesters.Object), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(It.IsAny<Type>(), It.IsAny<Type>()), Times.Exactly(11));
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IHarvester<FakeExpander>), typeof(RegionHarvester<FakeExpander>)), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IHarvester<FakeExpander>), harvesters.Object), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(It.IsAny<Type>(), It.IsAny<Type>()), Times.Exactly(11));
         }
 
         /// <summary>
@@ -110,13 +110,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
 
             Mock<Assembly> mockedAssembly = new();
             mockedAssembly.Setup(x => x.GetExportedTypes()).Returns([MockExpanders().Object, result.Object]);
-            _mockedAssemblyManager.Setup(x => x.GetAssembly(It.IsAny<Type>())).Returns(mockedAssembly.Object);
+            mockedAssemblyManager.Setup(x => x.GetAssembly(It.IsAny<Type>())).Returns(mockedAssembly.Object);
             
             // act
-            _manager.Register();
+            manager.Register();
 
             // assert
-            _fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IExpanderTask<FakeExpander>), result.Object), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddTransient(typeof(IExpanderTask<FakeExpander>), result.Object), Times.Once);
         }
 
         /// <summary>
@@ -127,11 +127,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             // arrange
             Mock<Assembly> mockedAssembly = new();
-            _mockedAssemblyManager.Setup(x => x.GetAssembly(It.IsAny<Type>())).Returns(mockedAssembly.Object);
+            mockedAssemblyManager.Setup(x => x.GetAssembly(It.IsAny<Type>())).Returns(mockedAssembly.Object);
 
             // act
             // assert
-            InitializationException exception = Assert.Throws<InitializationException>(() => _manager.Register());
+            InitializationException exception = Assert.Throws<InitializationException>(() => manager.Register());
             Assert.Equal($"Unable to load plugin '{nameof(FakeExpander)}'. No valid {nameof(IExpander)} derivatives found. The derivatives should be a non-abstract class.", exception.Message);
         }
 

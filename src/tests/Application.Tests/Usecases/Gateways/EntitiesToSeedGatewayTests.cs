@@ -9,14 +9,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Gateways
     /// </summary>
     public class EntitiesToSeedGatewayTests
     {
-        private readonly EntitiesToSeedGateway _gateway;
+        private readonly EntitiesToSeedGateway gateway;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitiesToSeedGatewayTests"/> class.
         /// </summary>
         public EntitiesToSeedGatewayTests()
         {
-            _gateway = new EntitiesToSeedGateway();
+            gateway = new EntitiesToSeedGateway();
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Gateways
             // arrange
 
             // act
-            Func<object, Type> action = _gateway.GetById;
+            Func<object, Type> action = gateway.GetById;
 
             // assert
             Assert.Throws<NotImplementedException>(() => action(1));

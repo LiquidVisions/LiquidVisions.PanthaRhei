@@ -18,18 +18,18 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
     /// </summary>
     public class InstallDotNetTemplateTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly InstallDotNetTemplate<FakeExpander> _processor;
-        private readonly Mock<FakeExpander> _expander = new();
+        private readonly Fakes fakes = new();
+        private readonly InstallDotNetTemplate<FakeExpander> processor;
+        private readonly Mock<FakeExpander> expander = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InstallDotNetTemplateTests"/> class.
         /// </summary>
         public InstallDotNetTemplateTests()
         {
-            _expander.Setup(expander => expander.Model.Name).Returns("FakeExpander");
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<FakeExpander>()).Returns(_expander.Object);
-            _processor = new InstallDotNetTemplate<FakeExpander>(_fakes.IDependencyFactory.Object);
+            expander.Setup(expander => expander.Model.Name).Returns("FakeExpander");
+            fakes.IDependencyFactory.Setup(x => x.Resolve<FakeExpander>()).Returns(expander.Object);
+            processor = new InstallDotNetTemplate<FakeExpander>(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -41,14 +41,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICommandLine>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<FakeExpander>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICommandLine>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<FakeExpander>(), Times.Once);
 
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
         }
 
         /// <summary>
@@ -72,11 +72,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             // arrange
 
-            InstallDotNetTemplate<FakeExpander> processor = new(_fakes.IDependencyFactory.Object);
+            InstallDotNetTemplate<FakeExpander> processor = new(fakes.IDependencyFactory.Object);
 
             // act
             // assert
-            Assert.Equal(_expander.Object, processor.Expander);
+            Assert.Equal(expander.Object, processor.Expander);
         }
 
         /// <summary>
@@ -88,11 +88,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         public void ShouldVerifyEnabledProperty(bool clean, bool expectedResult)
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
+            fakes.GenerationOptions.Setup(x => x.Clean).Returns(clean);
 
             // act
             // assert
-            Assert.Equal(expectedResult, _processor.Enabled);
+            Assert.Equal(expectedResult, processor.Enabled);
         }
 
         /// <summary>
@@ -104,20 +104,20 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // arrange
             string expectedPath = "C:/Random/Path/";
 
-            string expectedTemplatePath = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, _expander.Object.Model.Name, Resources.TemplatesFolder);
-            _fakes.IDirectory.Setup(x => x.Exists(expectedTemplatePath)).Returns(true);
-            _fakes.IDirectory.Setup(x => x.GetDirectories(expectedTemplatePath, ".template.config", SearchOption.AllDirectories)).Returns([$"{expectedPath}.template.config"]);
-            _fakes.IDirectory.Setup(x => x.GetNameOfParentDirectory($"{expectedPath}.template.config")).Returns(expectedPath);
+            string expectedTemplatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander.Object.Model.Name, Resources.TemplatesFolder);
+            fakes.IDirectory.Setup(x => x.Exists(expectedTemplatePath)).Returns(true);
+            fakes.IDirectory.Setup(x => x.GetDirectories(expectedTemplatePath, ".template.config", SearchOption.AllDirectories)).Returns([$"{expectedPath}.template.config"]);
+            fakes.IDirectory.Setup(x => x.GetNameOfParentDirectory($"{expectedPath}.template.config")).Returns(expectedPath);
 
             // act
-            _processor.Execute();
+            processor.Execute();
 
             // assert
-            _fakes.IDirectory.Verify(x => x.Exists(expectedTemplatePath), Times.Once);
-            _fakes.IDirectory.Verify(x => x.GetDirectories(expectedTemplatePath, ".template.config", SearchOption.AllDirectories), Times.Once);
-            _fakes.IDirectory.Verify(x => x.GetNameOfParentDirectory($"{expectedPath}.template.config"), Times.Once);
-            _fakes.ICommandLine.Verify(x => x.Start($"dotnet new install {expectedPath} --force"), Times.Once);
-            _fakes.ILogger.Verify(x => x.Info($"Installing template from location {expectedPath}"), Times.Once);
+            fakes.IDirectory.Verify(x => x.Exists(expectedTemplatePath), Times.Once);
+            fakes.IDirectory.Verify(x => x.GetDirectories(expectedTemplatePath, ".template.config", SearchOption.AllDirectories), Times.Once);
+            fakes.IDirectory.Verify(x => x.GetNameOfParentDirectory($"{expectedPath}.template.config"), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet new install {expectedPath} --force"), Times.Once);
+            fakes.ILogger.Verify(x => x.Info($"Installing template from location {expectedPath}"), Times.Once);
         }
 
     }

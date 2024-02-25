@@ -18,19 +18,19 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
     /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
     internal class ExpandBoundary(IDependencyFactory dependencyFactory) : IExpandBoundary
     {
-        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly ISeeder _seeder = dependencyFactory.Resolve<ISeeder>();
-        private readonly ICodeGeneratorBuilder _builder = dependencyFactory.Resolve<ICodeGeneratorBuilder>();
-        private readonly IMigrationService _migrationService = dependencyFactory.Resolve<IMigrationService>();
-        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
-        private readonly ILogger _exceptionLogger = dependencyFactory
+        private readonly GenerationOptions options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly ISeeder seeder = dependencyFactory.Resolve<ISeeder>();
+        private readonly ICodeGeneratorBuilder builder = dependencyFactory.Resolve<ICodeGeneratorBuilder>();
+        private readonly IMigrationService migrationService = dependencyFactory.Resolve<IMigrationService>();
+        private readonly ILogger logger = dependencyFactory.Resolve<ILogger>();
+        private readonly ILogger exceptionLogger = dependencyFactory
                 .Resolve<ILogManager>()
                 .GetExceptionLogger();
 
         /// <inheritdoc/>
         public void Execute()
         {
-            _logger.Info(_options.ToString());
+            logger.Info(options.ToString());
 
             TryMigrate();
             TrySeed();
@@ -39,31 +39,31 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
 
         private void TryMigrate()
         {
-            if (_options.Migrate)
+            if (options.Migrate)
             {
-                _migrationService.Migrate();
+                migrationService.Migrate();
             }
         }
 
         private void TryExpand()
         {
-            if (_options.Modes != GenerationModes.None)
+            if (options.Modes != GenerationModes.None)
             {
                 try
                 {
-                    ICodeGenerator generator = _builder.Build();
+                    ICodeGenerator generator = builder.Build();
                     generator.Execute();
 
-                    _logger.Info("Successfully completed the expanding process.");
+                    logger.Info("Successfully completed the expanding process.");
                 }
                 catch (CodeGenerationException ex)
                 {
-                    _logger.Fatal(ex, ex.Message);
+                    logger.Fatal(ex, ex.Message);
                     throw;
                 }
                 catch (Exception ex)
                 {
-                    _exceptionLogger.Fatal(ex, $"An unexpected error has occurred during the expanding processes with the following message: {ex.Message}.");
+                    exceptionLogger.Fatal(ex, $"An unexpected error has occurred during the expanding processes with the following message: {ex.Message}.");
                     throw;
                 }
             }
@@ -71,21 +71,21 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
 
         private void TrySeed()
         {
-            if (_seeder.Enabled)
+            if (seeder.Enabled)
             {
                 try
                 {
-                    _seeder.Execute();
-                    _logger.Info("Successfully completed the seeding generation process.");
+                    seeder.Execute();
+                    logger.Info("Successfully completed the seeding generation process.");
                 }
                 catch (CodeGenerationException ex)
                 {
-                    _logger.Fatal(ex, ex.Message);
+                    logger.Fatal(ex, ex.Message);
                     throw;
                 }
                 catch (Exception ex)
                 {
-                    _exceptionLogger.Fatal(ex, $"An unexpected error has occurred during the seeding processes with the following message: {ex.Message}.");
+                    exceptionLogger.Fatal(ex, $"An unexpected error has occurred during the seeding processes with the following message: {ex.Message}.");
                     throw;
                 }
             }

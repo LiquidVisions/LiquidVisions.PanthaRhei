@@ -17,8 +17,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     [ExcludeFromCodeCoverage]
     public class CommandLine(ILogger logger) : ICommandLine
     {
-        private bool _silent;
-        private bool _hasError;
+        private bool silent;
+        private bool hasError;
 
         /// <inheritdoc/>
         public bool UseWindow { get; set; }
@@ -50,8 +50,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <inheritdoc/>
         public void Start(string command, string workingDirectory, bool silent)
         {
-            _silent = silent;
-            _hasError = false;
+            silent = silent;
+            hasError = false;
 
             logger.Debug($"Executing command '{command}'");
             if (!string.IsNullOrWhiteSpace(workingDirectory))
@@ -71,8 +71,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                     RedirectStandardError = true,
                 },
             };
-            process.OutputDataReceived += Process_OutputDataReceived;
-            process.ErrorDataReceived += Process_ErrorDataReceived;
+            process.OutputDataReceived += ProcessOutputDataReceived;
+            process.ErrorDataReceived += ProcessErrorDataReceived;
 
             process.Start();
             process.BeginOutputReadLine();
@@ -81,30 +81,30 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             process.WaitForExit();
             process.Dispose();
 
-            if (_hasError)
+            if (hasError)
             {
                 throw new InvalidProgramException();
             }
         }
 
-        private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        private void ProcessOutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.Data))
             {
                 Output.Add(e.Data);
-                if (!_silent)
+                if (!silent)
                 {
                     logger.Debug(e.Data);
                 }
             }
         }
 
-        private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        private void ProcessErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.Data))
             {
                 logger.Fatal(e.Data);
-                _hasError = true;
+                hasError = true;
             }
         }
     }

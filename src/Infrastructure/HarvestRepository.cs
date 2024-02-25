@@ -20,11 +20,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
     internal class HarvestRepository(IDependencyFactory dependencyFactory) : ICreateRepository<Harvest>, IGetRepository<Harvest>
     {
-        private readonly IHarvestSerializer _serializer = dependencyFactory.Resolve<IHarvestSerializer>();
-        private readonly GenerationOptions _expandRequestModel = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly App _app = dependencyFactory.Resolve<App>();
-        private readonly IDeserializer<Harvest> _deserializer = dependencyFactory.Resolve<IDeserializer<Harvest>>();
-        private readonly IFile _file = dependencyFactory.Resolve<IFile>();
+        private readonly IHarvestSerializer serializer = dependencyFactory.Resolve<IHarvestSerializer>();
+        private readonly GenerationOptions expandRequestModel = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly App app = dependencyFactory.Resolve<App>();
+        private readonly IDeserializer<Harvest> deserializer = dependencyFactory.Resolve<IDeserializer<Harvest>>();
+        private readonly IFile file = dependencyFactory.Resolve<IFile>();
 
         /// <inheritdoc/>
         public bool Create(Harvest entity)
@@ -35,11 +35,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             }
 
             string fullPath = Path.Combine(
-                _expandRequestModel.HarvestFolder,
-                _app.FullName,
-                $"{_file.GetFileNameWithoutExtension(entity.Path)}.{entity.HarvestType}");
+                expandRequestModel.HarvestFolder,
+                app.FullName,
+                $"{file.GetFileNameWithoutExtension(entity.Path)}.{entity.HarvestType}");
 
-            _serializer.Serialize(entity, fullPath);
+            serializer.Serialize(entity, fullPath);
 
             return true;
         }
@@ -54,12 +54,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         public Harvest GetById(object id)
         {
             string path = (string)id;
-            if (!_file.Exists(path))
+            if (!file.Exists(path))
             {
                 throw new FileNotFoundException($"Harvest file not found on path {path}");
             }
 
-            return _deserializer.Deserialize(path);
+            return deserializer.Deserialize(path);
         }
     }
 }

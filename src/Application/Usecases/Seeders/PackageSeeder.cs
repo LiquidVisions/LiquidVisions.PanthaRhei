@@ -16,11 +16,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
     /// </summary>
     public class PackageSeeder : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Package> _createGateway;
-        private readonly IDeleteRepository<Package> _deleteGateway;
-        private readonly IXDocument _xDocument;
-        private readonly IDirectory _directoryService;
-        private readonly GenerationOptions _options;
+        private readonly ICreateRepository<Package> createGateway;
+        private readonly IDeleteRepository<Package> deleteGateway;
+        private readonly IXDocument xDocument;
+        private readonly IDirectory directoryService;
+        private readonly GenerationOptions options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PackageSeeder"/> class.
@@ -30,11 +30,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             ArgumentNullException.ThrowIfNull(dependencyFactory);
 
-            _createGateway = dependencyFactory.Resolve<ICreateRepository<Package>>();
-            _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Package>>();
-            _directoryService = dependencyFactory.Resolve<IDirectory>();
-            _xDocument = dependencyFactory.Resolve<IXDocument>();
-            _options = dependencyFactory.Resolve<GenerationOptions>();
+            createGateway = dependencyFactory.Resolve<ICreateRepository<Package>>();
+            deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Package>>();
+            directoryService = dependencyFactory.Resolve<IDirectory>();
+            xDocument = dependencyFactory.Resolve<IXDocument>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
         }
 
         /// <inheritdoc/>
@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         public int ResetOrder => 2;
 
         /// <inheritdoc/>
-        public void Reset() => _deleteGateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
 
         /// <summary>
         /// Seeds the <see cref="Package"/> entity.
@@ -56,8 +56,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
             foreach (Component component in entity.Expanders.SelectMany(x => x.Components))
             {
-                string templatePath = Path.Combine(_options.ExpandersFolder, component.Expander.Name, Resources.TemplatesFolder);
-                if (_directoryService.Exists(templatePath))
+                string templatePath = Path.Combine(options.ExpandersFolder, component.Expander.Name, Resources.TemplatesFolder);
+                if (directoryService.Exists(templatePath))
                 {
                     HandleTemplate(component, templatePath);
                 }
@@ -66,10 +66,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         private void HandleTemplate(Component component, string templatePath)
         {
-            string[] files = _directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories);
+            string[] files = directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories);
             foreach (string csproj in files)
             {
-                XDocument xml = _xDocument.Load(csproj);
+                XDocument xml = xDocument.Load(csproj);
                 IEnumerable<XElement> packageReferenceElements = xml.Descendants("PackageReference");
                 foreach (XElement packageReferenceElement in packageReferenceElements)
                 {
@@ -90,7 +90,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
             component.Packages.Add(package);
 
-            _createGateway.Create(package);
+            createGateway.Create(package);
         }
     }
 }

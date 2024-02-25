@@ -21,7 +21,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
     public abstract class AbstractExpanderDependencyManager<TExpander> : IExpanderDependencyManager
         where TExpander : class, IExpander
     {
-        private readonly IAssemblyManager _assemblyManager;
+        private readonly IAssemblyManager assemblyManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpanderDependencyManager{TExpander}"/> class.
@@ -35,7 +35,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
 
             Model = expander;
             Logger = dependencyFactory.Resolve<ILogger>();
-            _assemblyManager = dependencyFactory.Resolve<IAssemblyManager>();
+            assemblyManager = dependencyFactory.Resolve<IAssemblyManager>();
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <inheritdoc/>
         public virtual void Register()
         {
-            Assembly assembly = _assemblyManager.GetAssembly(GetType());
+            Assembly assembly = assemblyManager.GetAssembly(GetType());
 
             RegisterPreProcessors(assembly);
             RegisterExpander(assembly);

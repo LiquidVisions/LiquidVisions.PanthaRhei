@@ -11,15 +11,15 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
     /// </summary>
     public class TemplateLoaderTests
     {
-        private readonly ApplicationFakes _fakes = new();
-        private readonly TemplateLoader _templateLoader;
+        private readonly ApplicationFakes fakes = new();
+        private readonly TemplateLoader templateLoader;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateLoaderTests"/> class.
         /// </summary>
         public TemplateLoaderTests()
         {
-            _templateLoader = new(_fakes.IDependencyFactory.Object);
+            templateLoader = new(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
-            _fakes.IDependencyFactory.VerifyNoOtherCalls();
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            fakes.IDependencyFactory.VerifyNoOtherCalls();
         }
 
         /// <summary>
@@ -44,15 +44,15 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
         {
             // arrange
             string path = "C:\\Path\\To\\Template.template";
-            _fakes.IFile.Setup(x => x.Exists(path)).Returns(true);
+            fakes.IFile.Setup(x => x.Exists(path)).Returns(true);
 
             // act
-            _templateLoader.Load(path);
+            templateLoader.Load(path);
 
             // assert
-            _fakes.IFile.Verify(x => x.Exists(path), Times.Once);
-            _fakes.IFile.Verify(x => x.ReadAllText(path), Times.Once);
-            _fakes.ILogger.Verify(x => x.Info($"Loading template on path '{path}'"), Times.Once);
+            fakes.IFile.Verify(x => x.Exists(path), Times.Once);
+            fakes.IFile.Verify(x => x.ReadAllText(path), Times.Once);
+            fakes.ILogger.Verify(x => x.Info($"Loading template on path '{path}'"), Times.Once);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
 
             // act
             // assert
-            TemplateException exception = Assert.Throws<TemplateException>(() => _templateLoader.Load(path));
+            TemplateException exception = Assert.Throws<TemplateException>(() => templateLoader.Load(path));
             Assert.Equal($"Failed to load template '{path}'", exception.Message);
         }
     }

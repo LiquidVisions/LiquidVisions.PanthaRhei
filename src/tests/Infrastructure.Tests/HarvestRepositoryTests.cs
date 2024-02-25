@@ -15,21 +15,21 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
     /// </summary>
     public class HarvestRepositoryTests
     {
-        private readonly HarvestRepository _repository;
-        private readonly InfrastructureFakes _fakes = new();
-        private readonly App _app;
+        private readonly HarvestRepository repository;
+        private readonly InfrastructureFakes fakes = new();
+        private readonly App app;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HarvestRepositoryTests"/> class.
         /// </summary>
         public HarvestRepositoryTests()
         {
-            _app = new()
+            app = new()
             {
                 FullName = "AppFullName",
             };
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(_app);
-            _repository = new HarvestRepository(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);
+            repository = new HarvestRepository(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -41,12 +41,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeserializer<Harvest>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IHarvestSerializer>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDeserializer<Harvest>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IHarvestSerializer>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(5));
         }
 
         /// <summary>
@@ -59,20 +59,20 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string extension = Resources.RegionHarvesterExtensionFile;
             string pathWithoutExtension = $"C:\\Full\\Path\\To\\Harvest\\File";
             string path = $"{pathWithoutExtension}.cs";
-            _fakes.IFile.Setup(x => x.GetFileNameWithoutExtension(path)).Returns(pathWithoutExtension);
+            fakes.IFile.Setup(x => x.GetFileNameWithoutExtension(path)).Returns(pathWithoutExtension);
             Harvest entity = new(extension)
             {
                 Path = path,
             };
 
-            string fullSavePath = Path.Combine(_fakes.GenerationOptions.Object.HarvestFolder, _app.FullName, $"{pathWithoutExtension}.{extension}");
+            string fullSavePath = Path.Combine(fakes.GenerationOptions.Object.HarvestFolder, app.FullName, $"{pathWithoutExtension}.{extension}");
 
             // act
-            bool result = _repository.Create(entity);
+            bool result = repository.Create(entity);
 
             // assert
             Assert.True(result);
-            _fakes.IHarvestSerializer.Verify(x => x.Serialize(entity, fullSavePath), Times.Once);
+            fakes.IHarvestSerializer.Verify(x => x.Serialize(entity, fullSavePath), Times.Once);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 
             // act
             // assert
-            InvalidProgramException exception = Assert.Throws<InvalidProgramException>(() => _repository.Create(harvest));
+            InvalidProgramException exception = Assert.Throws<InvalidProgramException>(() => repository.Create(harvest));
             Assert.Equal("Expected harvest type.", exception.Message);
         }
 
@@ -101,7 +101,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             // act
             // assert
-            Assert.Throws<NotImplementedException>(() => _repository.GetAll());
+            Assert.Throws<NotImplementedException>(() => repository.GetAll());
         }
 
         /// <summary>
@@ -113,14 +113,14 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             // arrange
             string somePath = $"C:\\Some\\To\\HarvestFile{Resources.RegionHarvesterExtensionFile}";
-            _fakes.IFile.Setup(x => x.Exists(somePath)).Returns(true);
+            fakes.IFile.Setup(x => x.Exists(somePath)).Returns(true);
 
             // act
-            _repository.GetById(somePath);
+            repository.GetById(somePath);
 
             // assert
-            _fakes.IFile.Verify(x => x.Exists(somePath), Times.Once);
-            _fakes.IHarvestDeserializer.Verify(x => x.Deserialize(somePath), Times.Once);
+            fakes.IFile.Verify(x => x.Exists(somePath), Times.Once);
+            fakes.IHarvestDeserializer.Verify(x => x.Deserialize(somePath), Times.Once);
         }
 
         /// <summary>
@@ -132,11 +132,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             // arrange
             string somePath = $"C:\\Some\\To\\HarvestFile{Resources.RegionHarvesterExtensionFile}";
-            _fakes.IFile.Setup(x => x.Exists(somePath)).Returns(false);
+            fakes.IFile.Setup(x => x.Exists(somePath)).Returns(false);
 
             // act
             // assert
-            FileNotFoundException exception = Assert.Throws<FileNotFoundException>(() => _repository.GetById(somePath));
+            FileNotFoundException exception = Assert.Throws<FileNotFoundException>(() => repository.GetById(somePath));
             Assert.Equal($"Harvest file not found on path {somePath}", exception.Message);
         }
     }

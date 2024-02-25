@@ -21,23 +21,23 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
     internal sealed class RegionHarvester<TExpander>([NotNull]IDependencyFactory dependencyProvider) : IHarvester<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly string _regexPattern = @"#region ns-custom-(?'tag'.*)(?'content'(?s).*?)#endregion ns-custom-(?'tag'.*)";
-        private readonly GenerationOptions _options = dependencyProvider.Resolve<GenerationOptions>();
-        private readonly IDirectory _directory = dependencyProvider.Resolve<IDirectory>();
-        private readonly IFile _file = dependencyProvider.Resolve<IFile>();
-        private readonly ICreateRepository<Harvest> _gateway = dependencyProvider.Resolve<ICreateRepository<Harvest>>();
+        private readonly string regexPattern = @"#region ns-custom-(?'tag'.*)(?'content'(?s).*?)#endregion ns-custom-(?'tag'.*)";
+        private readonly GenerationOptions options = dependencyProvider.Resolve<GenerationOptions>();
+        private readonly IDirectory directory = dependencyProvider.Resolve<IDirectory>();
+        private readonly IFile file = dependencyProvider.Resolve<IFile>();
+        private readonly ICreateRepository<Harvest> gateway = dependencyProvider.Resolve<ICreateRepository<Harvest>>();
 
 
         /// <inheritdoc/>
-        public bool Enabled => _options.Modes.HasFlag(GenerationModes.Harvest)
-            && _directory.Exists(_options.OutputFolder);
+        public bool Enabled => options.Modes.HasFlag(GenerationModes.Harvest)
+            && directory.Exists(options.OutputFolder);
 
         public TExpander Expander { get; } = dependencyProvider.Resolve<TExpander>();
 
         /// <inheritdoc/>
         public void Execute()
         {
-            string[] filePaths = _directory.GetFiles(_options.OutputFolder, "*.cs", SearchOption.AllDirectories);
+            string[] filePaths = directory.GetFiles(options.OutputFolder, "*.cs", SearchOption.AllDirectories);
 
             ExecuteAllFiles(filePaths);
         }
@@ -74,9 +74,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
 
         private void ExecuteFile(string pathToFile)
         {
-            string fileText = _file.ReadAllText(pathToFile);
+            string fileText = file.ReadAllText(pathToFile);
 
-            MatchCollection result = Regex.Matches(fileText, _regexPattern, RegexOptions.Multiline);
+            MatchCollection result = Regex.Matches(fileText, regexPattern, RegexOptions.Multiline);
             if (result.Count != 0)
             {
                 Harvest harvest = new(Resources.RegionHarvesterExtensionFile)
@@ -89,7 +89,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
                     HandleMatch(harvest, match);
                 }
 
-                _gateway.Create(harvest);
+                gateway.Create(harvest);
             }
         }
     }

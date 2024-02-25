@@ -12,8 +12,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
     public abstract class Rejuvenator<TExpander> : IRejuvenator<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly TExpander _expander;
-        private readonly App _app;
+        private readonly TExpander expander;
+        private readonly App app;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rejuvenator{TExpander}"/> class.
@@ -23,18 +23,18 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
         {
             ArgumentNullException.ThrowIfNull(dependencyFactory);
 
-            _app = dependencyFactory.Resolve<App>();
-            _expander = dependencyFactory.Resolve<TExpander>();
+            app = dependencyFactory.Resolve<App>();
+            expander = dependencyFactory.Resolve<TExpander>();
         }
 
         /// <inheritdoc/>
         public abstract bool Enabled { get; }
 
         /// <inheritdoc/>
-        public App App => _app;
+        public App App => app;
 
         /// <inheritdoc/>
-        public TExpander Expander => _expander;
+        public TExpander Expander => expander;
 
         /// <summary>
         /// Gets the extension of the harvest file.

@@ -16,18 +16,18 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
     /// </summary>
     public class ExpandBoundaryTests
     {
-        private readonly ApplicationFakes _fakes = new();
-        private readonly ExpandBoundary _boundary;
-        private readonly Mock<ISeeder> _mockedSeeder = new();
+        private readonly ApplicationFakes fakes = new();
+        private readonly ExpandBoundary boundary;
+        private readonly Mock<ISeeder> mockedSeeder = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandBoundaryTests"/> class.
         /// </summary>
         public ExpandBoundaryTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<ISeeder>()).Returns(_mockedSeeder.Object);
-            _fakes.ILogManager.Setup(x => x.GetExceptionLogger()).Returns(_fakes.ILogger.Object);
-            _boundary = new ExpandBoundary(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<ISeeder>()).Returns(mockedSeeder.Object);
+            fakes.ILogManager.Setup(x => x.GetExceptionLogger()).Returns(fakes.ILogger.Object);
+            boundary = new ExpandBoundary(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -39,13 +39,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICodeGeneratorBuilder>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ISeeder>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogManager>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IMigrationService>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICodeGeneratorBuilder>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ISeeder>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogManager>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IMigrationService>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
         }
 
         /// <summary>
@@ -65,14 +65,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void ExecuteExpandTests(GenerationModes modes, int times)
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Modes).Returns(modes);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(modes);
 
             // act
-            _boundary.Execute();
+            boundary.Execute();
 
             // assert
-            _fakes.ICodeGeneratorBuilder.Verify(x => x.Build(), Times.Exactly(times));
-            _fakes.ICodeGenerator.Verify(x => x.Execute(), Times.Exactly(times));
+            fakes.ICodeGeneratorBuilder.Verify(x => x.Build(), Times.Exactly(times));
+            fakes.ICodeGenerator.Verify(x => x.Execute(), Times.Exactly(times));
         }
 
         /// <summary>
@@ -86,13 +86,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void ExecuteMigrateTests(bool migrate, int times)
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Migrate).Returns(migrate);
+            fakes.GenerationOptions.Setup(x => x.Migrate).Returns(migrate);
 
             // act
-            _boundary.Execute();
+            boundary.Execute();
 
             // assert
-            _fakes.IMigrationService.Verify(x => x.Migrate(), Times.Exactly(times));
+            fakes.IMigrationService.Verify(x => x.Migrate(), Times.Exactly(times));
         }
 
         /// <summary>
@@ -106,14 +106,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void ExecuteSeedTests(bool seed, int times)
         {
             // arrange
-            _mockedSeeder.Setup(x => x.Enabled).Returns(seed);
+            mockedSeeder.Setup(x => x.Enabled).Returns(seed);
 
             // act
-            _boundary.Execute();
+            boundary.Execute();
 
             // assert
-            _mockedSeeder.Verify(x => x.Enabled, Times.Exactly(1));
-            _mockedSeeder.Verify(x => x.Execute(), Times.Exactly(times));
+            mockedSeeder.Verify(x => x.Enabled, Times.Exactly(1));
+            mockedSeeder.Verify(x => x.Execute(), Times.Exactly(times));
         }
 
         /// <summary>
@@ -123,18 +123,18 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void ExecuteShouldThrowCodeGenerationException()
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
             string exceptionMessage = "Random Exception Message";
             var exception = new CodeGenerationException(exceptionMessage);
-            _fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
-            _mockedSeeder.Setup(x => x.Enabled).Returns(false);
+            fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
+            mockedSeeder.Setup(x => x.Enabled).Returns(false);
 
             // act
-            void action() => _boundary.Execute();
+            void action() => boundary.Execute();
 
             // assert
             Assert.Throws<CodeGenerationException>(action);
-            _fakes.ILogger.Verify(x => x.Fatal(exception, exceptionMessage), Times.Once);
+            fakes.ILogger.Verify(x => x.Fatal(exception, exceptionMessage), Times.Once);
         }
 
         /// <summary>
@@ -144,18 +144,18 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void ExecuteShouldThrowExpandException()
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
             string exceptionMessage = "Random Exception Message";
             InvalidOperationException exception = new(exceptionMessage);
-            _fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
-            _mockedSeeder.Setup(x => x.Enabled).Returns(false);
+            fakes.ICodeGeneratorBuilder.Setup(x => x.Build()).Throws(exception);
+            mockedSeeder.Setup(x => x.Enabled).Returns(false);
 
             // act
-            void action() => _boundary.Execute();
+            void action() => boundary.Execute();
 
             // assert
             Assert.Throws<InvalidOperationException>(action);
-            _fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occurred during the expanding processes with the following message: {exceptionMessage}."), Times.Once);
+            fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occurred during the expanding processes with the following message: {exceptionMessage}."), Times.Once);
         }
 
         /// <summary>
@@ -165,19 +165,19 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void ExecuteShouldThrowSeedException()
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
             string exceptionMessage = "Random Exception Message";
-            _mockedSeeder.Setup(x => x.Enabled).Returns(true);
+            mockedSeeder.Setup(x => x.Enabled).Returns(true);
 
             InvalidOperationException exception = new(exceptionMessage);
-            _mockedSeeder.Setup(x => x.Execute()).Throws(exception);
+            mockedSeeder.Setup(x => x.Execute()).Throws(exception);
 
             // act
-            void action() => _boundary.Execute();
+            void action() => boundary.Execute();
 
             // assert
             Assert.Throws<InvalidOperationException>(action);
-            _fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occurred during the seeding processes with the following message: {exceptionMessage}."), Times.Once);
+            fakes.ILogger.Verify(x => x.Fatal(exception, $"An unexpected error has occurred during the seeding processes with the following message: {exceptionMessage}."), Times.Once);
         }
 
         /// <summary>
@@ -187,18 +187,18 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         public void ExecuteShouldThrowSeedCodeGenerationException()
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(GenerationModes.Default);
             string exceptionMessage = "Random Exception Message";
-            _mockedSeeder.Setup(x => x.Enabled).Returns(true);
+            mockedSeeder.Setup(x => x.Enabled).Returns(true);
             var exception = new CodeGenerationException(exceptionMessage);
-            _mockedSeeder.Setup(x => x.Execute()).Throws(exception);
+            mockedSeeder.Setup(x => x.Execute()).Throws(exception);
 
             // act
-            void action() => _boundary.Execute();
+            void action() => boundary.Execute();
 
             // assert
             Assert.Throws<CodeGenerationException>(action);
-            _fakes.ILogger.Verify(x => x.Fatal(exception, exceptionMessage), Times.Once);
+            fakes.ILogger.Verify(x => x.Fatal(exception, exceptionMessage), Times.Once);
         }
     }
 }

@@ -13,18 +13,18 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
     /// </summary>
     public class ScribanTemplateTests
     {
-        private readonly ApplicationFakes _fakes = new();
-        private readonly ScribanTemplate _scribanTemplate;
-        private readonly Mock<ITemplateLoader> _mockedTemplateLoader = new();
+        private readonly ApplicationFakes fakes = new();
+        private readonly ScribanTemplate scribanTemplate;
+        private readonly Mock<ITemplateLoader> mockedTemplateLoader = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScribanTemplateTests"/> class.
         /// </summary>
         public ScribanTemplateTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<Scriban.Runtime.ScriptObject>()).Returns([]);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<ITemplateLoader>()).Returns(_mockedTemplateLoader.Object);
-            _scribanTemplate = new(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<Scriban.Runtime.ScriptObject>()).Returns([]);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<ITemplateLoader>()).Returns(mockedTemplateLoader.Object);
+            scribanTemplate = new(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -36,12 +36,12 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<Scriban.Runtime.ScriptObject>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ITemplateLoader>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
-            _fakes.IDependencyFactory.VerifyNoOtherCalls();
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<Scriban.Runtime.ScriptObject>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ITemplateLoader>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.VerifyNoOtherCalls();
         }
 
         /// <summary>
@@ -55,10 +55,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
             object model = new();
 
             // act
-            string result = _scribanTemplate.Render(path, model);
+            string result = scribanTemplate.Render(path, model);
 
             // assert
-            _mockedTemplateLoader.Verify(x => x.Load(path), Times.Once);
+            mockedTemplateLoader.Verify(x => x.Load(path), Times.Once);
         }
 
         /// <summary>
@@ -76,20 +76,20 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Templates
             string outputDirectory = "C:\\Path\\To";
             string file = "Output.txt";
             string fullPathToOutput = Path.Combine(outputDirectory, file);
-            _fakes.IDirectory.Setup(x => x.Exists(outputDirectory)).Returns(folderExists);
-            _fakes.IFile.Setup(x => x.GetDirectory(fullPathToOutput)).Returns(outputDirectory);
+            fakes.IDirectory.Setup(x => x.Exists(outputDirectory)).Returns(folderExists);
+            fakes.IFile.Setup(x => x.GetDirectory(fullPathToOutput)).Returns(outputDirectory);
 
             object model = new();
 
             // act
-            _scribanTemplate.RenderAndSave(pathToTemplate, model, fullPathToOutput);
+            scribanTemplate.RenderAndSave(pathToTemplate, model, fullPathToOutput);
 
             // assert
-            _fakes.IFile.Verify(x => x.GetDirectory(fullPathToOutput), Times.Once);
-            _fakes.IDirectory.Verify(x => x.Exists(outputDirectory), Times.Once);
-            _fakes.IDirectory.Verify(x => x.Create(outputDirectory), Times.Exactly(times));
-            _mockedTemplateLoader.Verify(x => x.Load(pathToTemplate), Times.Once);
-            _fakes.IFile.Verify(x => x.WriteAllText(fullPathToOutput, It.IsAny<string>()), Times.Once);
+            fakes.IFile.Verify(x => x.GetDirectory(fullPathToOutput), Times.Once);
+            fakes.IDirectory.Verify(x => x.Exists(outputDirectory), Times.Once);
+            fakes.IDirectory.Verify(x => x.Create(outputDirectory), Times.Exactly(times));
+            mockedTemplateLoader.Verify(x => x.Load(pathToTemplate), Times.Once);
+            fakes.IFile.Verify(x => x.WriteAllText(fullPathToOutput, It.IsAny<string>()), Times.Once);
         }
     }
 }

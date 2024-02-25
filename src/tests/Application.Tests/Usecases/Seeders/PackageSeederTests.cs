@@ -17,22 +17,22 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     /// </summary>
     public class PackageSeederTests
     {
-        private readonly ApplicationFakes _fakes = new();
-        private readonly PackageSeeder _seeder;
-        private readonly Mock<ICreateRepository<Package>> _mockedCreateGateway = new();
-        private readonly Mock<IDeleteRepository<Package>> _mockedDeleteGateway = new();
-        private readonly Mock<IXDocument> _mockedXDocument = new();
+        private readonly ApplicationFakes fakes = new();
+        private readonly PackageSeeder seeder;
+        private readonly Mock<ICreateRepository<Package>> mockedCreateGateway = new();
+        private readonly Mock<IDeleteRepository<Package>> mockedDeleteGateway = new();
+        private readonly Mock<IXDocument> mockedXDocument = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PackageSeederTests"/> class.
         /// </summary>
         public PackageSeederTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Package>>()).Returns(_mockedCreateGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Package>>()).Returns(_mockedDeleteGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IXDocument>()).Returns(_mockedXDocument.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Package>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Package>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IXDocument>()).Returns(mockedXDocument.Object);
 
-            _seeder = new PackageSeeder(_fakes.IDependencyFactory.Object);
+            seeder = new PackageSeeder(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -44,13 +44,13 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Package>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Package>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IXDocument>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(5));
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Package>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Package>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IXDocument>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(4, _seeder.SeedOrder);
+            Assert.Equal(4, seeder.SeedOrder);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(2, _seeder.ResetOrder);
+            Assert.Equal(2, seeder.ResetOrder);
         }
 
         /// <summary>
@@ -85,10 +85,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             // act
-            _seeder.Reset();
+            seeder.Reset();
 
             // assert
-            _mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
+            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Throws<ArgumentNullException>(() => _seeder.Seed(null));
+            Assert.Throws<ArgumentNullException>(() => seeder.Seed(null));
         }
 
         /// <summary>
@@ -137,9 +137,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             app.Expanders.Add(expander);
 
             string file = "test.csproj";
-            string templatePath = Path.Combine(_fakes.GenerationOptions.Object.ExpandersFolder, component.Expander.Name, Resources.TemplatesFolder);
-            _fakes.IDirectory.Setup(x => x.Exists(templatePath)).Returns(true);
-            _fakes.IDirectory.Setup(x => x.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)).Returns([file]);
+            string templatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, component.Expander.Name, Resources.TemplatesFolder);
+            fakes.IDirectory.Setup(x => x.Exists(templatePath)).Returns(true);
+            fakes.IDirectory.Setup(x => x.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)).Returns([file]);
 
             string xmlString = @"<Project Sdk=""Microsoft.NET.Sdk"">
   <ItemGroup>
@@ -149,16 +149,16 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
 </Project>";
 
             XDocument xml = XDocument.Parse(xmlString);
-            _mockedXDocument.Setup(x => x.Load(file)).Returns(xml);
+            mockedXDocument.Setup(x => x.Load(file)).Returns(xml);
 
 
             // act
-            _seeder.Seed(app);
+            seeder.Seed(app);
 
             // assert
-            _fakes.IDirectory.Verify(x => x.Exists(templatePath), Times.Once);
-            _fakes.IDirectory.Verify(x => x.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories), Times.Once);
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Package>(x => x.Id != Guid.Empty && x.Name == "Test.Package" && x.Version == "4.8.0")), Times.Once);
+            fakes.IDirectory.Verify(x => x.Exists(templatePath), Times.Once);
+            fakes.IDirectory.Verify(x => x.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Package>(x => x.Id != Guid.Empty && x.Name == "Test.Package" && x.Version == "4.8.0")), Times.Once);
         }
     }
 }

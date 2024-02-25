@@ -19,8 +19,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
     /// </summary>
     public class RegionRejuvenatorTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly RegionRejuvenator<FakeExpander> _rejuvenator;
+        private readonly Fakes fakes = new();
+        private readonly RegionRejuvenator<FakeExpander> rejuvenator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionRejuvenatorTests"/> class.
@@ -33,8 +33,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             };
 
 
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);
-            _rejuvenator = new RegionRejuvenator<FakeExpander>(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);
+            rejuvenator = new RegionRejuvenator<FakeExpander>(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -46,14 +46,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IGetRepository<Harvest>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IWriter>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<FakeExpander>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IGetRepository<Harvest>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IWriter>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<FakeExpander>(), Times.Once);
 
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(6));
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         /// Tests for <see cref="RegionRejuvenator{TExpander}.Enabled"/>.
         /// </summary>
         /// <param name="mode"><seealso cref="GenerationModes"/></param>
-        /// <param name="folderExists">boolean to mock _directory.Exists()</param>
+        /// <param name="folderExists">boolean to mock directory.Exists()</param>
         /// <param name="expectedResult">Expected result</param>
         [Theory]
         [InlineData(GenerationModes.Deploy, false, false)]
@@ -83,12 +83,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         public void ShouldVerifyEnabledProperty(GenerationModes mode, bool folderExists, bool expectedResult)
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Modes).Returns(mode);
-            _fakes.IDirectory.Setup(x => x.Exists(It.IsAny<string>())).Returns(folderExists);
+            fakes.GenerationOptions.Setup(x => x.Modes).Returns(mode);
+            fakes.IDirectory.Setup(x => x.Exists(It.IsAny<string>())).Returns(folderExists);
 
             // act
             // assert
-            Assert.Equal(expectedResult, _rejuvenator.Enabled);
+            Assert.Equal(expectedResult, rejuvenator.Enabled);
         }
 
         /// <summary>
@@ -99,8 +99,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             // arrange
             FakeExpander expander = new Mock<FakeExpander>().Object;
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<FakeExpander>()).Returns(expander);
-            RegionRejuvenator<FakeExpander> rejuvenator = new(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<FakeExpander>()).Returns(expander);
+            RegionRejuvenator<FakeExpander> rejuvenator = new(fakes.IDependencyFactory.Object);
 
             // act
             // assert
@@ -120,20 +120,20 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
                 Path = harvestFile1,
                 Items = [new HarvestItem { Tag = "tag", Content = "content" }]
             };
-            _fakes.IDirectory.Setup(x => x.GetFiles(It.IsAny<string>(), $"*.{Resources.RegionHarvesterExtensionFile}", SearchOption.TopDirectoryOnly)).Returns([harvestFile1]);
+            fakes.IDirectory.Setup(x => x.GetFiles(It.IsAny<string>(), $"*.{Resources.RegionHarvesterExtensionFile}", SearchOption.TopDirectoryOnly)).Returns([harvestFile1]);
             Mock<IGetRepository<Harvest>> mockedIGetRepository = new();
             mockedIGetRepository.Setup(x => x.GetById(harvestFile1)).Returns(harvest);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IGetRepository<Harvest>>()).Returns(mockedIGetRepository.Object);
-            RegionRejuvenator<FakeExpander> rejuvenator = new(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IGetRepository<Harvest>>()).Returns(mockedIGetRepository.Object);
+            RegionRejuvenator<FakeExpander> rejuvenator = new(fakes.IDependencyFactory.Object);
 
             // act
             rejuvenator.Execute();
 
             // assert
-            _fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), $"*.{Resources.RegionHarvesterExtensionFile}", SearchOption.TopDirectoryOnly), Times.Once);
+            fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), $"*.{Resources.RegionHarvesterExtensionFile}", SearchOption.TopDirectoryOnly), Times.Once);
             mockedIGetRepository.Verify(x => x.GetById(harvestFile1), Times.Once);
-            _fakes.IWriter.Verify(x => x.Load(harvestFile1), Times.Once);
-            _fakes.IWriter.Verify(x => x.AddBetween($"#region ns-custom-{harvest.Items.Single().Tag}", $"#endregion ns-custom-{harvest.Items.Single().Tag}", $"{harvest.Items.Single().Content}"), Times.Once);
+            fakes.IWriter.Verify(x => x.Load(harvestFile1), Times.Once);
+            fakes.IWriter.Verify(x => x.AddBetween($"#region ns-custom-{harvest.Items.Single().Tag}", $"#endregion ns-custom-{harvest.Items.Single().Tag}", $"{harvest.Items.Single().Content}"), Times.Once);
         }
     }
 }

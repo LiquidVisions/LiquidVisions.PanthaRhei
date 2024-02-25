@@ -17,22 +17,22 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
     /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/>.</param>
     internal class ScribanTemplate(IDependencyFactory dependencyFactory) : ITemplate
     {
-        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
-        private readonly ITemplateLoader _templateLoader = dependencyFactory.Resolve<Domain.Usecases.Templates.ITemplateLoader>();
-        private readonly IFile _fileService = dependencyFactory.Resolve<IFile>();
-        private readonly IDirectory _directoryService = dependencyFactory.Resolve<IDirectory>();
-        private readonly ScriptObject _scriptObject = dependencyFactory.Resolve<ScriptObject>();
+        private readonly ILogger logger = dependencyFactory.Resolve<ILogger>();
+        private readonly ITemplateLoader templateLoader = dependencyFactory.Resolve<Domain.Usecases.Templates.ITemplateLoader>();
+        private readonly IFile fileService = dependencyFactory.Resolve<IFile>();
+        private readonly IDirectory directoryService = dependencyFactory.Resolve<IDirectory>();
+        private readonly ScriptObject scriptObject = dependencyFactory.Resolve<ScriptObject>();
 
         /// <inheritdoc/>
         public string Render(string fullTemplatePath, object model)
         {
-            _scriptObject.Import(model);
+            scriptObject.Import(model);
 
-            string template = _templateLoader.Load(fullTemplatePath);
+            string template = templateLoader.Load(fullTemplatePath);
             Template scribanTemplate = Template.Parse(template);
 
             TemplateContext context = new();
-            context.PushGlobal(_scriptObject);
+            context.PushGlobal(scriptObject);
             string result = scribanTemplate.Render(context);
             context.PopGlobal();
 
@@ -43,16 +43,16 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         public void RenderAndSave(string fullPathToTemplate, object templateModel, string fullPathToOutput)
         {
             string result = Render(fullPathToTemplate, templateModel);
-            string folder = _fileService.GetDirectory(fullPathToOutput);
+            string folder = fileService.GetDirectory(fullPathToOutput);
 
-            if (!_directoryService.Exists(folder))
+            if (!directoryService.Exists(folder))
             {
-                _directoryService.Create(folder);
-                _logger.Trace($"Folder {folder} has been created.");
+                directoryService.Create(folder);
+                logger.Trace($"Folder {folder} has been created.");
             }
 
-            _logger.Trace($"Writing generated template to {fullPathToOutput}.");
-            _fileService.WriteAllText(fullPathToOutput, result);
+            logger.Trace($"Writing generated template to {fullPathToOutput}.");
+            fileService.WriteAllText(fullPathToOutput, result);
         }
     }
 }

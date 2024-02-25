@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     /// </summary>
     public class SeederTests
     {
-        private readonly ApplicationFakes _fakes = new();
+        private readonly ApplicationFakes fakes = new();
 
         /// <summary>
         /// Tests that the constructor verifies dependencies.
@@ -21,14 +21,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             // act
-            _ = new Seeder(_fakes.IDependencyFactory.Object);
+            _ = new Seeder(fakes.IDependencyFactory.Object);
 
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<IEntitySeeder<App>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<IEntitySeeder<App>>(), Times.Once);
 
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(1));
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Exactly(1));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(1));
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Exactly(1));
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         public void SeederEnabledShouldUseValueFromGenerationOptions(bool shouldSeed)
         {
             // arrange
-            _fakes.GenerationOptions.Setup(x => x.Seed).Returns(shouldSeed);
-            Seeder seeder = new(_fakes.IDependencyFactory.Object);
+            fakes.GenerationOptions.Setup(x => x.Seed).Returns(shouldSeed);
+            Seeder seeder = new(fakes.IDependencyFactory.Object);
 
 
             // act
@@ -82,9 +82,9 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             entitySeeder3.Setup(x => x.SeedOrder).Returns(3);
             entitySeeder3.Setup(x => x.Seed(It.IsAny<App>())).Callback(() => Assert.Equal(6, ++order));
 
-            _fakes.IDependencyFactory.Setup(x => x.ResolveAll<IEntitySeeder<App>>()).Returns([entitySeeder1.Object, entitySeeder2.Object, entitySeeder3.Object]);
+            fakes.IDependencyFactory.Setup(x => x.ResolveAll<IEntitySeeder<App>>()).Returns([entitySeeder1.Object, entitySeeder2.Object, entitySeeder3.Object]);
 
-            Seeder seeder = new(_fakes.IDependencyFactory.Object);
+            Seeder seeder = new(fakes.IDependencyFactory.Object);
 
             // act
             seeder.Execute();

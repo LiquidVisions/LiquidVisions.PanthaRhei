@@ -14,20 +14,20 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     /// </summary>
     public class AppSeederTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly AppSeeder _interactor;
-        private readonly Mock<ICreateRepository<App>> _mockedCreateGateway = new();
-        private readonly Mock<IDeleteRepository<App>> _mockedDeleteGateway = new();
+        private readonly Fakes fakes = new();
+        private readonly AppSeeder interactor;
+        private readonly Mock<ICreateRepository<App>> mockedCreateGateway = new();
+        private readonly Mock<IDeleteRepository<App>> mockedDeleteGateway = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppSeederTests"/> class.
         /// </summary>
         public AppSeederTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<App>>()).Returns(_mockedCreateGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<App>>()).Returns(_mockedDeleteGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<App>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<App>>()).Returns(mockedDeleteGateway.Object);
 
-            _interactor = new AppSeeder(_fakes.IDependencyFactory.Object);
+            interactor = new AppSeeder(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -39,11 +39,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<App>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<App>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<App>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<App>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(1, _interactor.SeedOrder);
+            Assert.Equal(1, interactor.SeedOrder);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(1, _interactor.ResetOrder);
+            Assert.Equal(1, interactor.ResetOrder);
         }
 
         /// <summary>
@@ -78,10 +78,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             // act
-            _interactor.Reset();
+            interactor.Reset();
 
             // assert
-            _mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
+            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
         /// <summary>
@@ -96,14 +96,14 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Guid appId = Guid.NewGuid();
             App app = new();
 
-            _fakes.GenerationOptions.Setup(x => x.AppId).Returns(appId);
+            fakes.GenerationOptions.Setup(x => x.AppId).Returns(appId);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
-            _fakes.GenerationOptions.Verify(x => x.AppId, Times.Once);
-            _mockedCreateGateway.Verify(x => x.Create(app), Times.Once);
+            fakes.GenerationOptions.Verify(x => x.AppId, Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(app), Times.Once);
             Assert.Equal(actualName, app.Name);
             Assert.Equal(actualFullName, app.FullName);
             Assert.Equal(appId, app.Id);

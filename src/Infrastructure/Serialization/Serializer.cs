@@ -13,12 +13,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
     internal sealed class Serializer<TModel> : IDeserializer<TModel>, ISerializer<TModel>
         where TModel : class
     {
-        private readonly XmlSerializer _serializer = new(typeof(TModel));
+        private readonly XmlSerializer serializer = new(typeof(TModel));
 
         /// <inheritdoc/>
         public TModel Deserialize(XDocument xml)
         {
-            TModel result = (TModel)_serializer.Deserialize(xml.Root.CreateReader());
+            TModel result = (TModel)serializer.Deserialize(xml.Root.CreateReader());
 
             return result;
         }
@@ -44,14 +44,14 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
         public void Serialize(string path, TModel model)
         {
             using TextWriter writer = new StreamWriter(path);
-            _serializer.Serialize(writer, model);
+            serializer.Serialize(writer, model);
         }
 
         /// <inheritdoc/>
         public string SerializeToString(TModel model)
         {
             using StringWriter textWriter = new();
-            _serializer.Serialize(textWriter, model);
+            serializer.Serialize(textWriter, model);
             return textWriter.ToString();
         }
     }

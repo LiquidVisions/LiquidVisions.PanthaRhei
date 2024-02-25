@@ -8,19 +8,19 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class EntitySeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Entity> _createGateway = dependencyFactory.Resolve<ICreateRepository<Entity>>();
-        private readonly IDeleteRepository<Entity> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Entity>>();
-        private readonly IEntitiesToSeedRepository _entitySeederGateway = dependencyFactory.Resolve<IEntitiesToSeedRepository>();
+        private readonly ICreateRepository<Entity> createGateway = dependencyFactory.Resolve<ICreateRepository<Entity>>();
+        private readonly IDeleteRepository<Entity> deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Entity>>();
+        private readonly IEntitiesToSeedRepository entitySeederGateway = dependencyFactory.Resolve<IEntitiesToSeedRepository>();
 
         public int SeedOrder => 5;
 
         public int ResetOrder => 5;
 
-        public void Reset() => _deleteGateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
 
         public void Seed(App app)
         {
-            IEnumerable<Type> all = _entitySeederGateway.GetAll();
+            IEnumerable<Type> all = entitySeederGateway.GetAll();
 
             foreach (Type type in all)
             {
@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                 };
                 app.Entities.Add(entity);
 
-                _createGateway.Create(entity);
+                createGateway.Create(entity);
             }
         }
 

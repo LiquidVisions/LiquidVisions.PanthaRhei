@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
     /// <param name="wrapper">The <see cref="IServiceCollectionWrapper"/>.</param>
     internal class DependencyManager(IServiceCollectionWrapper wrapper) : IDependencyFactory, IDependencyManager
     {
-        private IServiceProvider _provider;
+        private IServiceProvider provider;
 
         /// <inheritdoc/>
         public void AddTransient(Type serviceType, Type implementationType)
@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
         /// <inheritdoc/>
         public IDependencyFactory Build()
         {
-            _provider = wrapper.BuildServiceProvider();
+            provider = wrapper.BuildServiceProvider();
 
             return this;
         }
@@ -32,23 +32,23 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies
         /// <inheritdoc/>
         public IEnumerable<T> ResolveAll<T>()
         {
-            if (_provider == null)
+            if (provider == null)
             {
                 Build();
             }
 
-            return _provider.GetServices<T>();
+            return provider.GetServices<T>();
         }
 
         /// <inheritdoc/>
         public T Resolve<T>()
         {
-            if (_provider == null)
+            if (provider == null)
             {
                 Build();
             }
 
-            return _provider.GetRequiredService<T>();
+            return provider.GetRequiredService<T>();
         }
 
         /// <inheritdoc/>

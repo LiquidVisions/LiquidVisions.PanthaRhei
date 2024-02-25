@@ -8,42 +8,42 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
 {
     internal class DotNetApplication(IDependencyFactory dependencyFactory) : IApplication
     {
-        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
-        private readonly IDirectory _directory = dependencyFactory.Resolve<IDirectory>();
-        private readonly IFile _file = dependencyFactory.Resolve<IFile>();
-        private readonly ICommandLine _cli = dependencyFactory.Resolve<ICommandLine>();
-        private readonly App _app = dependencyFactory.Resolve<App>();
+        private readonly GenerationOptions options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly ILogger logger = dependencyFactory.Resolve<ILogger>();
+        private readonly IDirectory directory = dependencyFactory.Resolve<IDirectory>();
+        private readonly IFile file = dependencyFactory.Resolve<IFile>();
+        private readonly ICommandLine cli = dependencyFactory.Resolve<ICommandLine>();
+        private readonly App app = dependencyFactory.Resolve<App>();
 
         public void MaterializeProject()
         {
-            string root = Path.Combine(_options.OutputFolder, _app.FullName);
+            string root = Path.Combine(options.OutputFolder, app.FullName);
 
             CreateFolderIfNeeded(root);
 
-            _cli.Start($"dotnet new liquidvisions-expanders-{_app.Name} --NAME {_app.Name} --NS {_app.FullName}", root);
+            cli.Start($"dotnet new liquidvisions-expanders-{app.Name} --NAME {app.Name} --NS {app.FullName}", root);
         }
 
         public void MaterializeComponent(Component component)
         {
-            string solutionRoot = Path.Combine(_options.OutputFolder, _app.FullName);
+            string solutionRoot = Path.Combine(options.OutputFolder, app.FullName);
             string componentRoot = GetComponentRoot(component);
 
             CreateFolderIfNeeded(solutionRoot);
             CreateFolderIfNeeded(componentRoot);
 
-            if (!_file.Exists(Path.Combine(solutionRoot, $"{_app.FullName}.sln")))
+            if (!file.Exists(Path.Combine(solutionRoot, $"{app.FullName}.sln")))
             {
-                _cli.Start($"dotnet new sln", solutionRoot);
+                cli.Start($"dotnet new sln", solutionRoot);
             }
 
-            _cli.Start($"dotnet new liquidvisions-expanders-{component.Name} --NAME {component.Name} --NS {_app.FullName}", componentRoot);
-            _cli.Start($"dotnet sln {Path.Combine(solutionRoot, $"{_app.FullName}.sln")} add {GetComponentConfigurationFile(component)}");
+            cli.Start($"dotnet new liquidvisions-expanders-{component.Name} --NAME {component.Name} --NS {app.FullName}", componentRoot);
+            cli.Start($"dotnet sln {Path.Combine(solutionRoot, $"{app.FullName}.sln")} add {GetComponentConfigurationFile(component)}");
         }
 
         public virtual string GetComponentRoot(Component component)
         {
-            return Path.Combine(_options.OutputFolder, _app.FullName, "src", $"{component.Name}");
+            return Path.Combine(options.OutputFolder, app.FullName, "src", $"{component.Name}");
         }
 
         public virtual string GetComponentConfigurationFile(Component component)
@@ -58,10 +58,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
 
         private void CreateFolderIfNeeded(string root)
         {
-            if (!_directory.Exists(root))
+            if (!directory.Exists(root))
             {
-                _logger.Info($"Creating directory {root}");
-                _cli.Start($"mkdir {root}");
+                logger.Info($"Creating directory {root}");
+                cli.Start($"mkdir {root}");
             }
         }
     }
