@@ -2,9 +2,13 @@
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tests
 {
+    /// <summary>
+    /// <see cref="Fakes" /> for the DomainExpander.
+    /// </summary>
     internal class DomainExpanderFakes : Fakes
     {
-        override public void Configure()
+        /// <inheritdoc/>
+        public override void Configure()
         {
             base.Configure();
         }

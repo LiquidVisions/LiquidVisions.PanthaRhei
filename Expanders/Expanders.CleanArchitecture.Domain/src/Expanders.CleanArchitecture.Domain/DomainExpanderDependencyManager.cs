@@ -20,11 +20,6 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain
             : base(expander, dependencyManager)
         {
         }
-
-        public override void Register()
-        {
-            base.Register();
-        }
     }
 }
 

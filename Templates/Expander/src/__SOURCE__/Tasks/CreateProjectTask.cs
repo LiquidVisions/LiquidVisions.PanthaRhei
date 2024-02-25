@@ -6,25 +6,20 @@ using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 
-namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tasks
+namespace __PREFIX____SOURCE__
 {
     /// <summary>
     /// An <seealso cref="IExpanderTask{T}"/> that creates the project."/>
     /// </summary>
-    public class CreateProjectSolutionTask : IExpanderTask<DomainExpander>
+    public class CreateProjectTask : IExpanderTask<__NAME__Expander>
     {
-        private readonly DomainExpander expander;
+        private readonly __NAME__Expander expander;
         private readonly IDependencyFactory dependencyFactory;
         private readonly IApplication application;
         private readonly GenerationOptions options;
         private readonly App app;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CreateProjectSolutionTask"/> class.
-        /// </summary>
-        /// <param name="expander"></param>
-        /// <param name="dependencyFactory"></param>
-        public CreateProjectSolutionTask(DomainExpander expander, IDependencyFactory dependencyFactory)
+        public CreateProjectTask(__NAME__Expander expander, IDependencyFactory dependencyFactory)
         {
             ArgumentNullException.ThrowIfNull(expander, nameof(expander));
             ArgumentNullException.ThrowIfNull(dependencyFactory, nameof(dependencyFactory));
@@ -38,13 +33,13 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tasks
         }
 
         /// <inheritdoc/>
-        public string Name => nameof(CreateProjectSolutionTask);
+        public string Name => nameof(CreateProjectTask);
 
         /// <inheritdoc/>
         public int Order => 1;
 
         /// <inheritdoc/>
-        public DomainExpander Expander => expander;
+        public __NAME__Expander Expander => expander;
 
         /// <inheritdoc/>
         public bool Enabled => options.Clean;
