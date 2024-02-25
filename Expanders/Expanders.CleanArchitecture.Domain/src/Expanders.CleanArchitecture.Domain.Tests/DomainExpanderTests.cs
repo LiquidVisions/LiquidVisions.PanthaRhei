@@ -8,7 +8,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tests
 {
     public class DomainExpanderTests
     {
-        private readonly DomainExpanderFakes _fakes = new();
+        private readonly DomainExpanderFakes fakes = new();
         private readonly DomainExpander _expander;
 
         public DomainExpanderTests()
@@ -20,8 +20,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tests
             };
             app.Expanders.Add(expander);
 
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);
-            _expander = new DomainExpander(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);
+            _expander = new DomainExpander(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -33,10 +33,10 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tests
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
         }
 
         [Fact]
