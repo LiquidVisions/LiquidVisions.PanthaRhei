@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tests
             App app = new ();
             Expander expander = new ()
             {
-                Name = "CleanArchitecture.Domain"
+                Name = "CleanArchitecture.Domain",
             };
             app.Expanders.Add(expander);
 
