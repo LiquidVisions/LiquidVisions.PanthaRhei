@@ -50,7 +50,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <inheritdoc/>
         public void Start(string command, string workingDirectory, bool silent)
         {
-            silent = silent;
+            this.silent = silent;
             hasError = false;
 
             logger.Debug($"Executing command '{command}'");
