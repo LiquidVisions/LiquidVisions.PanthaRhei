@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<AssemblyName>__PREFIX____SOURCE__</AssemblyName>
-		<RootNamespace>__PREFIX____SOURCE__</RootNamespace>
+		<AssemblyName>__PREFIX__.__SOURCE__</AssemblyName>
+		<RootNamespace>__PREFIX__.__SOURCE__</RootNamespace>
 		<TargetFramework>net8.0</TargetFramework>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
@@ -31,7 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="__PREFIX____SOURCE__.Tests" />
+		<InternalsVisibleTo Include="__PREFIX__.__SOURCE__.Tests" />
 		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
 

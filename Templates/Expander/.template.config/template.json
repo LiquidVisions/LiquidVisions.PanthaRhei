@@ -10,7 +10,7 @@
   "defaultName": "Expanders.CleanArchitecture.Domain",
   "tags": {
     "language": "C#",
-    "type": "solution"
+    "type": "project"
   },
   "sourceName": "__SOURCE__",
   "preferNameDirectory": true,
@@ -21,7 +21,8 @@
       "EDB38097-8100-42BD-B85B-7C899B00F58B"
   ],
   "symbols":{
-    "Name of the Expander": {
+    "expandername": {
+      "displayName": "Name of the Expander",
       "type": "parameter",
       "datatype": "text",
       "defaultValue": "Domain",
@@ -29,29 +30,32 @@
       "fileRename": "__NAME__",
       "isRequired": true
     },
-    "Namespace Prefix": {
+    "prefix": {
+      "displayName": "Namespace Prefix",
       "type": "parameter",
       "datatype": "text",
       "defaultValue": "LiquidVisions.PanthaRhei.Expanders",
       "replaces": "__PREFIX__",
       "fileRename": "__PREFIX__",
-      "isRequired": true
+      "isRequired": false
     },
-    "Data Source": {
+    "storage": {
+      "displayName": "Data Source",
       "type": "parameter",
       "description": "The name of the database",
       "datatype": "text",
       "defaultValue": "PanthaRheiDev",
       "replaces": "__DATABASE_NAME__",
-      "isRequired": true
+      "isRequired": false
     },
-    "Model ID": {
+    "model": {
+      "displayName": "Model ID",
       "type": "parameter",
       "description": "The ID of the model",
       "datatype": "text",
       "defaultValue": "6c6984a1-c87a-429b-b91f-2a976adb3c0e",
       "replaces": "__MODEL_ID__",
-      "isRequired": true
+      "isRequired": false
     },
     "IncludeTemplates":
     {
@@ -68,8 +72,11 @@
           "condition": "(!IncludeTemplates)",
           "exclude": [
             "./.Templates/**",
-            "./.Templates/DOTNET/_template.config/template.json"
-          ]
+            "./.Templates/DOTNET/t.config/t.json"
+          ],
+          "rename": { 
+              "./.Templates/DOTNET/t.config/t.json": "./.Templates/DOTNET/.template.config/template.json"
+            }
         }
       ]
     }

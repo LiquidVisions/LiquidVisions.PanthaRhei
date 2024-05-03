@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<AssemblyName>__PREFIX____SOURCE__.Tests</AssemblyName>
-		<RootNamespace>__PREFIX____SOURCE__.Tests</RootNamespace>
+		<AssemblyName>__PREFIX__.__SOURCE__.Tests</AssemblyName>
+		<RootNamespace>__PREFIX__.__SOURCE__.Tests</RootNamespace>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 		<RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>

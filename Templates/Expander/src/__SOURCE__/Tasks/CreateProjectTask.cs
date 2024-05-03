@@ -6,7 +6,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 
-namespace __PREFIX____SOURCE__
+namespace __PREFIX__.__SOURCE__
 {
     /// <summary>
     /// An <seealso cref="IExpanderTask{T}"/> that creates the project."/>
