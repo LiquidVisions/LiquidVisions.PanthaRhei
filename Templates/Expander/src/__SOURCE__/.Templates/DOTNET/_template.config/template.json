@@ -3,7 +3,7 @@
     "classifications": [ "LiquidVisions", "Expanders", "__NAME__" ],
     "identity": "__PREFIX__.__SOURCE__",
     "name": "__PREFIX__.__SOURCE__",
-    "shortName": "expanders-__NAME__",
+    "shortName": "liquidvisions-expanders-__NAME__",
     "tags": {
       "language": "C#",
       "type": "item"
@@ -15,7 +15,7 @@
         "Replaces": "NAME",
         "defaultValue": "NAME"
       },
-      "ns": {
+      "NS": {
         "type": "parameter",
         "FileRename": "NS",
         "Replaces": "NS",
