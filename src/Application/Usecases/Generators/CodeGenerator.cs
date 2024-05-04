@@ -19,11 +19,13 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
         /// <inheritdoc/>
         public void Execute()
         {
+            Clean();
+
             foreach (IExpander expander in expanders.OrderBy(x => x.Model.Order))
             {
                 expander.Harvest();
 
-                Clean(expander);
+                expander.Clean();
 
                 expander.PreProcess();
                 expander.Expand();
@@ -32,12 +34,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
             }
         }
 
-        private void Clean(IExpander expander)
+        private void Clean()
         {
             if (options.Clean)
             {
-                expander.Clean();
-
                 directory.Delete(options.OutputFolder);
             }
         }
