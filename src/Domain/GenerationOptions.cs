@@ -14,9 +14,9 @@ namespace LiquidVisions.PanthaRhei.Domain
     /// </summary>
     public class GenerationOptions
     {
-        private string _harvestFolder = Resources.DefaultHarvestFolder;
-        private string _expanderFolder = Resources.DefaultExpanderFolder;
-        private string _outputFolder = Resources.DefaultOutputFolder;
+        private string harvestFolder = Resources.DefaultHarvestFolder;
+        private string expanderFolder = Resources.DefaultExpanderFolder;
+        private string outputFolder = Resources.DefaultOutputFolder;
 
         /// <summary>
         /// Gets or sets the AppId parameter.
@@ -59,8 +59,8 @@ namespace LiquidVisions.PanthaRhei.Domain
         /// </summary>
         public virtual string ExpandersFolder
         {
-            get => Path.Combine(Root, _expanderFolder);
-            set => _expanderFolder = value;
+            get => Path.Combine(Root, expanderFolder);
+            set => expanderFolder = value;
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace LiquidVisions.PanthaRhei.Domain
         /// </summary>
         public virtual string HarvestFolder
         {
-            get => Path.Combine(Root, _harvestFolder);
-            set => _harvestFolder = value;
+            get => Path.Combine(Root, harvestFolder);
+            set => harvestFolder = value;
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace LiquidVisions.PanthaRhei.Domain
         /// </summary>
         public virtual string OutputFolder
         {
-            get => Path.Combine(Root, _outputFolder, AppId.ToString());
-            set => _outputFolder = value;
+            get => Path.Combine(Root, outputFolder, AppId.ToString());
+            set => outputFolder = value;
         }
 
         /// <summary>

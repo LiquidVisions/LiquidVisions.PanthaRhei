@@ -14,12 +14,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
     public abstract class Processor<TExpander> : IProcessor<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly App _app;
-        private readonly ICommandLine _commandLine;
-        private readonly IDirectory _directoryService;
-        private readonly ILogger _logger;
-        private readonly GenerationOptions _options;
-        private readonly TExpander _expander;
+        private readonly App app;
+        private readonly ICommandLine commandLine;
+        private readonly IDirectory directoryService;
+        private readonly ILogger logger;
+        private readonly GenerationOptions options;
+        private readonly TExpander expander;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Processor{TExpander}"/> class.
@@ -29,19 +29,19 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         {
             ArgumentNullException.ThrowIfNull(dependencyFactory);
 
-            _app = dependencyFactory.Resolve<App>();
-            _commandLine = dependencyFactory.Resolve<ICommandLine>();
-            _directoryService = dependencyFactory.Resolve<IDirectory>();
-            _logger = dependencyFactory.Resolve<ILogger>();
-            _options = dependencyFactory.Resolve<GenerationOptions>();
-            _expander = dependencyFactory.Resolve<TExpander>();
+            app = dependencyFactory.Resolve<App>();
+            commandLine = dependencyFactory.Resolve<ICommandLine>();
+            directoryService = dependencyFactory.Resolve<IDirectory>();
+            logger = dependencyFactory.Resolve<ILogger>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
+            expander = dependencyFactory.Resolve<TExpander>();
         }
 
         /// <inheritdoc/>
-        public App App => _app;
+        public App App => app;
 
         /// <inheritdoc/>
-        public TExpander Expander => _expander;
+        public TExpander Expander => expander;
 
         /// <inheritdoc/>
         public abstract bool Enabled { get; }
@@ -49,22 +49,22 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.
         /// </summary>
-        public ILogger Logger => _logger;
+        public ILogger Logger => logger;
 
         /// <summary>
         /// Gets the <seealso cref="IDirectory"/>.
         /// </summary>
-        public IDirectory DirectoryService => _directoryService;
+        public IDirectory DirectoryService => directoryService;
 
         /// <summary>
         /// Gets the <seealso cref="ICommandLine"/>.
         /// </summary>
-        public ICommandLine CommandLine => _commandLine;
+        public ICommandLine CommandLine => commandLine;
 
         /// <summary>
         /// Gets the <seealso cref="Options"/>.
         /// </summary>
-        public GenerationOptions Options => _options;
+        public GenerationOptions Options => options;
 
         /// <inheritdoc/>
         public abstract void Execute();

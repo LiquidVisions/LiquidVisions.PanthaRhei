@@ -9,17 +9,17 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
     /// </summary>
     public class GenerationOptionsTests
     {
-        private readonly GenerationOptions _model;
-        private readonly string _root = @"C:\Root";
+        private readonly GenerationOptions model;
+        private readonly string root = @"C:\Root";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GenerationOptionsTests"/> class.
         /// </summary>
         public GenerationOptionsTests()
         {
-            _model = new()
+            model = new()
             {
-                Root = _root,
+                Root = root,
             };
         }
 
@@ -31,10 +31,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         {
             // arrange
             // act
-            string result = _model.ExpandersFolder;
+            string result = model.ExpandersFolder;
 
             // assert
-            Assert.Equal(result, Path.Combine(_root, "Expanders"));
+            Assert.Equal(result, Path.Combine(root, "Expanders"));
         }
 
         /// <summary>
@@ -44,13 +44,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         public void OutputFolderDefaultValueShouldBeEqual()
         {
             // arrange
-            _model.AppId = Guid.NewGuid();
+            model.AppId = Guid.NewGuid();
 
             // act
-            string result = _model.OutputFolder;
+            string result = model.OutputFolder;
 
             // assert
-            Assert.Equal(result, Path.Combine(_root, "Output", _model.AppId.ToString()));
+            Assert.Equal(result, Path.Combine(root, "Output", model.AppId.ToString()));
         }
 
         /// <summary>
@@ -61,10 +61,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         {
             // arrange
             // act
-            string result = _model.HarvestFolder;
+            string result = model.HarvestFolder;
 
             // assert
-            Assert.Equal(result, Path.Combine(_root, "Harvest"));
+            Assert.Equal(result, Path.Combine(root, "Harvest"));
         }
 
         /// <summary>
@@ -75,13 +75,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         {
             // arrange
             string customvalue = "Custom";
-            _model.ExpandersFolder = customvalue;
+            model.ExpandersFolder = customvalue;
 
             // act
-            string result = _model.ExpandersFolder;
+            string result = model.ExpandersFolder;
 
             // assert
-            Assert.Equal(result, Path.Combine(_root, customvalue));
+            Assert.Equal(result, Path.Combine(root, customvalue));
         }
 
         /// <summary>
@@ -92,14 +92,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         {
             // arrange
             string customvalue = "Custom";
-            _model.OutputFolder = customvalue;
-            _model.AppId = Guid.NewGuid();
+            model.OutputFolder = customvalue;
+            model.AppId = Guid.NewGuid();
 
             // act
-            string result = _model.OutputFolder;
+            string result = model.OutputFolder;
 
             // assert
-            Assert.Equal(result, Path.Combine(_root, customvalue, _model.AppId.ToString()));
+            Assert.Equal(result, Path.Combine(root, customvalue, model.AppId.ToString()));
         }
 
         /// <summary>
@@ -110,13 +110,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Models
         {
             // arrange
             string customvalue = "Custom";
-            _model.HarvestFolder = customvalue;
+            model.HarvestFolder = customvalue;
 
             // act
-            string result = _model.HarvestFolder;
+            string result = model.HarvestFolder;
 
             // assert
-            Assert.Equal(result, Path.Combine(_root, customvalue));
+            Assert.Equal(result, Path.Combine(root, customvalue));
         }
     }
 }

@@ -3,7 +3,7 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using System.Diagnostics.CodeAnalysis;
 
-namespace __PREFIX____SOURCE__
+namespace __PREFIX__.__SOURCE__
 {
     /// <summary>
     /// Represents an implementation of <seealso cref="IExpanderDependencyManager"/> that allows dependency registration as part of a <seealso cref="__NAME__Expander"/>.

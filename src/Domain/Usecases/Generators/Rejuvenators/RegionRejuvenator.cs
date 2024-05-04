@@ -15,11 +15,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
     internal sealed class RegionRejuvenator<TExpander> : Rejuvenator<TExpander>
         where TExpander : class, IExpander
     {
-        private readonly IDirectory _directoryService;
-        private readonly IGetRepository<Harvest> _harvestGateway;
-        private readonly IWriter _writer;
-        private readonly string _folder;
-        private readonly GenerationOptions _options;
+        private readonly IDirectory directoryService;
+        private readonly IGetRepository<Harvest> harvestGateway;
+        private readonly IWriter writer;
+        private readonly string folder;
+        private readonly GenerationOptions options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionRejuvenator{TExpander}"/> class.
@@ -28,17 +28,17 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
         public RegionRejuvenator(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
-            _options = dependencyFactory.Resolve<GenerationOptions>();
+            options = dependencyFactory.Resolve<GenerationOptions>();
 
-            _directoryService = dependencyFactory.Resolve<IDirectory>();
-            _harvestGateway = dependencyFactory.Resolve<IGetRepository<Harvest>>();
-            _writer = dependencyFactory.Resolve<IWriter>();
-            _folder = Path.Combine(_options.HarvestFolder, App.FullName);
+            directoryService = dependencyFactory.Resolve<IDirectory>();
+            harvestGateway = dependencyFactory.Resolve<IGetRepository<Harvest>>();
+            writer = dependencyFactory.Resolve<IWriter>();
+            folder = Path.Combine(options.HarvestFolder, App.FullName);
         }
 
         /// <inheritdoc/>
-        public override bool Enabled => _options.Modes.HasFlag(GenerationModes.Rejuvenate)
-            && _directoryService.Exists(_folder);
+        public override bool Enabled => options.Modes.HasFlag(GenerationModes.Rejuvenate)
+            && directoryService.Exists(folder);
 
         /// <inheritdoc/>
         protected override string Extension => Resources.RegionHarvesterExtensionFile;
@@ -46,19 +46,19 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
         /// <inheritdoc/>
         public override void Execute()
         {
-            string[] files = _directoryService.GetFiles(_folder, $"*.{Extension}", SearchOption.TopDirectoryOnly);
+            string[] files = directoryService.GetFiles(folder, $"*.{Extension}", SearchOption.TopDirectoryOnly);
             foreach (string file in files)
             {
-                Harvest harvest = _harvestGateway.GetById(file);
+                Harvest harvest = harvestGateway.GetById(file);
                 HandleReplace(harvest);
 
-                _writer.Save(harvest.Path);
+                writer.Save(harvest.Path);
             }
         }
 
         private void HandleReplace(Harvest harvest)
         {
-            _writer.Load(harvest.Path);
+            writer.Load(harvest.Path);
 
             foreach (HarvestItem item in harvest.Items)
             {
@@ -68,7 +68,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
                 string end = $"#endregion ns-custom-{tag}";
                 string content = item.Content.Trim().ReplaceLineEndings();
 
-                _writer.AddBetween(begin, end, content);
+                writer.AddBetween(begin, end, content);
             }
         }
     }

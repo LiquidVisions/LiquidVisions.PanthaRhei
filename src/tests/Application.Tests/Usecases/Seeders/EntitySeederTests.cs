@@ -16,22 +16,22 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     /// </summary>
     public class EntitySeederTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly EntitySeeder _interactor;
-        private readonly Mock<IDeleteRepository<Entity>> _mockedDeleteGateway = new();
-        private readonly Mock<ICreateRepository<Entity>> _mockedCreateGateway = new();
-        private readonly Mock<IEntitiesToSeedRepository> _mockedEntityToSeedGateway = new();
+        private readonly Fakes fakes = new();
+        private readonly EntitySeeder interactor;
+        private readonly Mock<IDeleteRepository<Entity>> mockedDeleteGateway = new();
+        private readonly Mock<ICreateRepository<Entity>> mockedCreateGateway = new();
+        private readonly Mock<IEntitiesToSeedRepository> mockedEntityToSeedGateway = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitySeederTests"/> class.
         /// </summary>
         public EntitySeederTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Entity>>()).Returns(_mockedCreateGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Entity>>()).Returns(_mockedDeleteGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IEntitiesToSeedRepository>()).Returns(_mockedEntityToSeedGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Entity>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Entity>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IEntitiesToSeedRepository>()).Returns(mockedEntityToSeedGateway.Object);
 
-            _interactor = new EntitySeeder(_fakes.IDependencyFactory.Object);
+            interactor = new EntitySeeder(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -43,11 +43,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Entity>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Entity>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IEntitiesToSeedRepository>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Entity>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Entity>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IEntitiesToSeedRepository>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(5, _interactor.SeedOrder);
+            Assert.Equal(5, interactor.SeedOrder);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(5, _interactor.ResetOrder);
+            Assert.Equal(5, interactor.ResetOrder);
         }
 
         /// <summary>
@@ -82,10 +82,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             // act
-            _interactor.Reset();
+            interactor.Reset();
 
             // assert
-            _mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
+            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
         /// <summary>
@@ -99,10 +99,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             MockEntityToSeederGetAll([typeof(PublicClassSet)]);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
-            _mockedCreateGateway.Verify(x => x.Create(It.IsAny<Entity>()), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.IsAny<Entity>()), Times.Once);
         }
 
         /// <summary>
@@ -116,10 +116,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             MockEntityToSeederGetAll([typeof(PublicClassSet)]);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Name == nameof(PublicClassSet) && x.Id != Guid.Empty)), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Name == nameof(PublicClassSet) && x.Id != Guid.Empty)), Times.Once);
         }
 
         /// <summary>
@@ -133,10 +133,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             MockEntityToSeederGetAll([typeof(PublicClassSet)]);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Callsite == $"{app.FullName}.Domain.Entities")), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Callsite == $"{app.FullName}.Domain.Entities")), Times.Once);
         }
 
         /// <summary>
@@ -150,10 +150,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             MockEntityToSeederGetAll([typeof(PublicClassSet)]);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.App == app)), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.App == app)), Times.Once);
             Assert.Single(app.Entities.Where(x => x.App == app));
         }
 
@@ -173,10 +173,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             MockEntityToSeederGetAll([type]);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Modifier == expectedResult)), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Modifier == expectedResult)), Times.Once);
         }
 
         /// <summary>
@@ -194,10 +194,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             MockEntityToSeederGetAll([type]);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Behaviour == expectedResult)), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Behaviour == expectedResult)), Times.Once);
         }
 
         /// <summary>
@@ -216,15 +216,15 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             MockEntityToSeederGetAll([type]);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Type == expectedResult)), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Type == expectedResult)), Times.Once);
         }
 
         private void MockEntityToSeederGetAll(Type[] types)
         {
-            _mockedEntityToSeedGateway
+            mockedEntityToSeedGateway
                 .Setup(x => x.GetAll())
                 .Returns(types);
         }

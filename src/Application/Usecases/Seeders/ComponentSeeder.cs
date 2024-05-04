@@ -12,11 +12,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class ComponentSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Component> _createGateway = dependencyFactory.Resolve<ICreateRepository<Component>>();
-        private readonly IDeleteRepository<Component> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Component>>();
-        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly IDirectory _directoryService = dependencyFactory.Resolve<IDirectory>();
-        private readonly IFile _fileService = dependencyFactory.Resolve<IFile>();
+        private readonly ICreateRepository<Component> createGateway = dependencyFactory.Resolve<ICreateRepository<Component>>();
+        private readonly IDeleteRepository<Component> deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Component>>();
+        private readonly GenerationOptions options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly IDirectory directoryService = dependencyFactory.Resolve<IDirectory>();
+        private readonly IFile fileService = dependencyFactory.Resolve<IFile>();
 
         public int SeedOrder => 3;
 
@@ -26,17 +26,17 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             foreach (Expander expander in app.Expanders)
             {
-                string templatePath = Path.Combine(_options.ExpandersFolder, expander.Name, Resources.TemplatesFolder);
-                if (_directoryService.Exists(templatePath))
+                string templatePath = Path.Combine(options.ExpandersFolder, expander.Name, Resources.TemplatesFolder);
+                if (directoryService.Exists(templatePath))
                 {
-                    IEnumerable<string> files = _directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)
+                    IEnumerable<string> files = directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)
                         .Where(x => !string.IsNullOrEmpty(x));
 
                     ArgumentNullException.ThrowIfNull(files);
 
                     foreach (string file in files)
                     {
-                        string fileName = _fileService.GetFileNameWithoutExtension(file);
+                        string fileName = fileService.GetFileNameWithoutExtension(file);
                         string componentName = fileName.Replace("NAME.", string.Empty, StringComparison.InvariantCulture);
 
                         Component component = new()
@@ -46,12 +46,12 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                             Expander = expander,
                         };
 
-                        _createGateway.Create(component);
+                        createGateway.Create(component);
                     }
                 }
             }
         }
 
-        public void Reset() => _deleteGateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
     }
 }

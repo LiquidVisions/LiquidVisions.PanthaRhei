@@ -14,24 +14,24 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     /// </summary>
     public class ConnectionStringSeederTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly ConnectionStringsSeeder _interactor;
-        private readonly Mock<ICreateRepository<ConnectionString>> _mockedCreateGateway = new();
-        private readonly Mock<IDeleteRepository<ConnectionString>> _mockedDeleteGateway = new();
+        private readonly Fakes fakes = new();
+        private readonly ConnectionStringsSeeder interactor;
+        private readonly Mock<ICreateRepository<ConnectionString>> mockedCreateGateway = new();
+        private readonly Mock<IDeleteRepository<ConnectionString>> mockedDeleteGateway = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectionStringSeederTests"/> class.
         /// </summary>
         public ConnectionStringSeederTests()
         {
-            _fakes.IDependencyFactory
+            fakes.IDependencyFactory
                 .Setup(x => x.Resolve<ICreateRepository<ConnectionString>>())
-                .Returns(_mockedCreateGateway.Object);
-            _fakes.IDependencyFactory
+                .Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactory
                 .Setup(x => x.Resolve<IDeleteRepository<ConnectionString>>())
-                .Returns(_mockedDeleteGateway.Object);
+                .Returns(mockedDeleteGateway.Object);
 
-            _interactor = new ConnectionStringsSeeder(_fakes.IDependencyFactory.Object);
+            interactor = new ConnectionStringsSeeder(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -43,10 +43,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<ConnectionString>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<ConnectionString>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<ConnectionString>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<ConnectionString>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(1, _interactor.SeedOrder);
+            Assert.Equal(1, interactor.SeedOrder);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(1, _interactor.ResetOrder);
+            Assert.Equal(1, interactor.ResetOrder);
         }
 
         /// <summary>
@@ -81,10 +81,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             // act
-            _interactor.Reset();
+            interactor.Reset();
 
             // assert
-            _mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
+            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
         /// <summary>
@@ -97,11 +97,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             App app = new();
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
             ConnectionString connectionString = app.ConnectionStrings.Single();
 
             // assert
-            _mockedCreateGateway.Verify(x => x.Create(connectionString), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(connectionString), Times.Once);
             Assert.Equal(Resources.ConnectionStringName, connectionString.Name);
             Assert.Equal(Resources.ConnectionStringDefintion, connectionString.Definition);
             Assert.Equal(connectionString.App, app);

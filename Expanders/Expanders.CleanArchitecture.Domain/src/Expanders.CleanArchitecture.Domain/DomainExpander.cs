@@ -1,11 +1,11 @@
-﻿using LiquidVisions.PanthaRhei.Domain;
-using LiquidVisions.PanthaRhei.Domain.Entities;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 
 namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain
 {
@@ -30,6 +30,8 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain
         public DomainExpander(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
+            ArgumentNullException.ThrowIfNull(dependencyFactory, nameof(dependencyFactory));
+
             options = dependencyFactory.Resolve<GenerationOptions>();
         }
         
@@ -61,7 +63,7 @@ namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain
             foreach (string componentName in componentNames)
             {
                 Component components = GetComponentByName(componentName);
-                yield return this.GetComponentOutputFolder(components);
+                yield return GetComponentOutputFolder(components);
             }
         }
 

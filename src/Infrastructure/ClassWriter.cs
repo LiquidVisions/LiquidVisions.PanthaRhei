@@ -17,12 +17,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
     /// <param name="logger"><seealso cref="ILogger"/></param>
     internal class ClassWriter(IFile fileService, ILogger logger) : IWriter
     {
-        private List<string> _lines;
+        private List<string> lines;
 
         /// <summary>
         /// Gets the list of lines representing the file.
         /// </summary>
-        public List<string> Lines => _lines;
+        public List<string> Lines => lines;
 
         /// <inheritdoc/>
         public void AddNameSpace(string name)
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int index = IndexOf(text);
             if (index == -1)
             {
-                index = _lines.IndexOf(_lines.LastOrDefault(x => x.Contains("using ", StringComparison.InvariantCulture) && x.EndsWith(';')));
+                index = lines.IndexOf(lines.LastOrDefault(x => x.Contains("using ", StringComparison.InvariantCulture) && x.EndsWith(';')));
 
                 logger.Trace($"Adding namespace {name} to the file.");
 
@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             logger.Trace($"Reading file {path}");
 
-            _lines = [..fileService.ReadAllLines(path)];
+            lines = [..fileService.ReadAllLines(path)];
         }
 
         /// <inheritdoc/>
@@ -52,8 +52,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             logger.Trace($"Saving file {path}.");
 
-            fileService.WriteAllLines(path, _lines);
-            _lines = null;
+            fileService.WriteAllLines(path, lines);
+            lines = null;
         }
 
         /// <inheritdoc/>
@@ -74,9 +74,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         {
             if (string.IsNullOrEmpty(text))
             {
-                if (!string.IsNullOrEmpty(_lines[index - 1]))
+                if (!string.IsNullOrEmpty(lines[index - 1]))
                 {
-                    _lines.Insert(index, string.Empty);
+                    lines.Insert(index, string.Empty);
                 }
 
                 return;
@@ -85,9 +85,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int textIndex = IndexOf(text);
             if (textIndex < 0 && textIndex != index)
             {
-                int count = _lines[index].TakeWhile(char.IsWhiteSpace).Count();
+                int count = lines[index].TakeWhile(char.IsWhiteSpace).Count();
                 text = text.PadLeft(count + text.Length, ' ');
-                _lines.Insert(index, text);
+                lines.Insert(index, text);
             }
         }
 
@@ -95,7 +95,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         public void WriteAtEmptyRow(string match, string text)
         {
             int index = LastIndexOf(match);
-            while (!string.IsNullOrEmpty(_lines[index]))
+            while (!string.IsNullOrEmpty(lines[index]))
             {
                 index++;
             }
@@ -106,7 +106,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <inheritdoc/>
         public int IndexOf(string match)
         {
-            int index = _lines.IndexOf(_lines.Find(x => x.Contains(match, StringComparison.InvariantCulture)));
+            int index = lines.IndexOf(lines.Find(x => x.Contains(match, StringComparison.InvariantCulture)));
 
             logger.Trace($"Matched index on match '{match}' is {index}");
 
@@ -121,7 +121,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             {
                 int until = IndexOf(matchUntil, index) - index;
                 ++until;
-                _lines.RemoveRange(index, until);
+                lines.RemoveRange(index, until);
             }
         }
 
@@ -138,7 +138,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int index = IndexOf(match);
             if (index > -1)
             {
-                _lines[index] = _lines[index].Replace(match, replaceValue, StringComparison.InvariantCulture);
+                lines[index] = lines[index].Replace(match, replaceValue, StringComparison.InvariantCulture);
             }
         }
 
@@ -148,11 +148,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             int endIndex = IndexOf(endMatch);
 
             int count = endIndex - 1 - beginIndex;
-            _lines.RemoveRange(beginIndex + 1, count);
+            lines.RemoveRange(beginIndex + 1, count);
 
             logger.Trace($"Writing {replaceValue} to file.");
 
-            string line = _lines[beginIndex];
+            string line = lines[beginIndex];
             int padCount = line.TakeWhile(char.IsWhiteSpace).Count();
             int total = 0;
             for (int i = 0; i < padCount; i++)
@@ -168,13 +168,13 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             }
 
             replaceValue = replaceValue.PadLeft(total + replaceValue.Length, ' ');
-            _lines.Insert(beginIndex + 1, replaceValue);
+            lines.Insert(beginIndex + 1, replaceValue);
         }
 
         /// <inheritdoc/>
         public int LastIndexOf(string match)
         {
-            int index = _lines.LastIndexOf(_lines.LastOrDefault(x => x.Contains(match, StringComparison.InvariantCulture)));
+            int index = lines.LastIndexOf(lines.LastOrDefault(x => x.Contains(match, StringComparison.InvariantCulture)));
 
             logger.Trace($"Matched index on match '{match}' is {index}");
 
@@ -190,13 +190,13 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             {
                 int until = 1;
                 int i = index;
-                while (_lines[i].Trim() != "}")
+                while (lines[i].Trim() != "}")
                 {
                     i++;
                     until++;
                 }
 
-                _lines.RemoveRange(index, until);
+                lines.RemoveRange(index, until);
             }
 
             AppendMethodToClass(text);
@@ -208,7 +208,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// <param name="text">the text that will be append.</param>
         public void AppendMethodToClass(string text)
         {
-            _lines.Insert(_lines.Count - 2, text);
+            lines.Insert(lines.Count - 2, text);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             Stack<string> stack = new();
 
             index++;
-            string str = _lines[index].Trim();
+            string str = lines[index].Trim();
             if (str != "{")
             {
                 throw new InvalidOperationException("Bracket open expected.");
@@ -234,7 +234,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
             while (stack.Count != 0)
             {
                 index++;
-                str = _lines[index].Trim();
+                str = lines[index].Trim();
 
                 if (str.Contains('{', StringComparison.InvariantCulture))
                 {
@@ -254,7 +254,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
 
         private int IndexOf(string match, int index)
         {
-            int result = _lines.IndexOf(_lines.Find(x => x.Contains(match, StringComparison.InvariantCulture)), index);
+            int result = lines.IndexOf(lines.Find(x => x.Contains(match, StringComparison.InvariantCulture)), index);
 
             logger.Trace($"Matched index on match '{match}' is {result}");
 

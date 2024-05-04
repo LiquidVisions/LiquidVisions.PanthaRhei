@@ -1,11 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<AssemblyName>LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tests</AssemblyName>
 		<RootNamespace>LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Domain.Tests</RootNamespace>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
-		<IsPackable>false</IsPackable>
+      <EnableNETAnalyzers>True</EnableNETAnalyzers>
+      <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+      <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+      <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+      <AnalysisMode>All</AnalysisMode>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -14,22 +17,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="coverlet.msbuild" Version="6.0.0">
+		<PackageReference Include="coverlet.msbuild" Version="6.0.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="LiquidVisions.PanthaRhei.Tests" Version="0.3.3.10" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
-		<PackageReference Include="xunit" Version="2.5.0" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+		<PackageReference Include="LiquidVisions.PanthaRhei.Tests" Version="0.3.3.13" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+		<PackageReference Include="xunit" Version="2.7.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.7">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="coverlet.collector" Version="6.0.0">
+		<PackageReference Include="coverlet.collector" Version="6.0.1">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.8.0.76515">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.20.0.85982">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -39,7 +42,15 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.16.0.82469">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
 		<ProjectReference Include="..\..\src\Expanders.CleanArchitecture.Domain\Expanders.CleanArchitecture.Domain.csproj" />
 	</ItemGroup>
 

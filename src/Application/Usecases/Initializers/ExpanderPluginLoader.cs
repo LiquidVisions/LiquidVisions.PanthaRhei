@@ -22,34 +22,34 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
     /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
     internal class ExpanderPluginLoader(IDependencyFactory dependencyFactory) : IExpanderPluginLoader
     {
-        private readonly string _searchPattern = "*.Expanders.*.dll";
-        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly IDirectory _directoryService = dependencyFactory.Resolve<IDirectory>();
-        private readonly IAssemblyContext _assemblyContext = dependencyFactory.Resolve<IAssemblyContext>();
-        private readonly ILogger _logger = dependencyFactory.Resolve<ILogger>();
-        private readonly IObjectActivator _activator = dependencyFactory.Resolve<IObjectActivator>();
-        private readonly IDependencyManager _dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
-        private readonly IAssemblyProvider _assemblyProvider = dependencyFactory.Resolve<IAssemblyProvider>();
+        private readonly string searchPattern = "*.Expanders.*.dll";
+        private readonly GenerationOptions options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly IDirectory directoryService = dependencyFactory.Resolve<IDirectory>();
+        private readonly IAssemblyContext assemblyContext = dependencyFactory.Resolve<IAssemblyContext>();
+        private readonly ILogger logger = dependencyFactory.Resolve<ILogger>();
+        private readonly IObjectActivator activator = dependencyFactory.Resolve<IObjectActivator>();
+        private readonly IDependencyManager dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
+        private readonly IAssemblyProvider assemblyProvider = dependencyFactory.Resolve<IAssemblyProvider>();
 
         /// <inheritdoc/>
         public void LoadAllRegisteredPluginsAndBootstrap(App app)
         {
             foreach (Expander expander in app.Expanders.Where(x => x.Enabled))
             {
-                _logger.Info($"===Loading Expander {expander.Name}===");
+                logger.Info($"===Loading Expander {expander.Name}===");
 
-                string rootDirectory = Path.Combine(_options.ExpandersFolder, expander.Name);
-                string[] files = _directoryService.GetFiles(rootDirectory, _searchPattern, SearchOption.TopDirectoryOnly);
+                string rootDirectory = Path.Combine(options.ExpandersFolder, expander.Name);
+                string[] files = directoryService.GetFiles(rootDirectory, searchPattern, SearchOption.TopDirectoryOnly);
                 if (files.Length == 0)
                 {
-                    throw new InitializationException($"No plugin assembly detected in '{rootDirectory}'. The plugin assembly should match the following '{_searchPattern}' pattern");
+                    throw new InitializationException($"No plugin assembly detected in '{rootDirectory}'. The plugin assembly should match the following '{searchPattern}' pattern");
                 }
 
                 LoadPlugins(files)
                     .ForEach(assembly => BootstrapPlugin(expander, assembly));
 
-                _logger.Info($"===End Loading Expander {expander.Name}===");
-                _logger.Trace(string.Empty);
+                logger.Info($"===End Loading Expander {expander.Name}===");
+                logger.Trace(string.Empty);
             }
         }
 
@@ -57,7 +57,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         {
             List<IExpander> result = [];
 
-            string[] assemblyPaths = _directoryService.GetFiles(path, _searchPattern, SearchOption.AllDirectories);
+            string[] assemblyPaths = directoryService.GetFiles(path, searchPattern, SearchOption.AllDirectories);
             foreach (string assemblyPath in assemblyPaths)
             {
                 Assembly assembly = LoadPlugin(assemblyPath);
@@ -67,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
                     .Single(x => x.GetInterfaces()
                     .Contains(typeof(IExpander)));
 
-                IExpander expander = (IExpander)_activator.CreateInstance(expanderType);
+                IExpander expander = (IExpander)activator.CreateInstance(expanderType);
                 result.Add(expander);
             }
 
@@ -78,8 +78,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         {
             List<Assembly> plugins = [];
 
-            AssemblyName entryAssemblyName = _assemblyProvider.EntryAssembly.GetName();
-            _logger.Info($"Loading plugins for with compatibility version {entryAssemblyName.Version}...");
+            AssemblyName entryAssemblyName = assemblyProvider.EntryAssembly.GetName();
+            logger.Info($"Loading plugins for with compatibility version {entryAssemblyName.Version}...");
 
             foreach (string assemblyFile in assemblyFiles)
             {
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
                 {
                     Assembly assembly = LoadPlugin(assemblyFile);
                     AssemblyName pluginAssemblyName = assembly.GetReferencedAssemblies().Single(x => x.Name == Resources.PackageAssemblyName);
-                    _logger.Info($"Attempting to load plugin {pluginAssemblyName.Name} with compatibility version {pluginAssemblyName.Version}...");
+                    logger.Info($"Attempting to load plugin {pluginAssemblyName.Name} with compatibility version {pluginAssemblyName.Version}...");
 
                     ValidateAssemblyVersion(entryAssemblyName, pluginAssemblyName);
 
@@ -105,13 +105,13 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
         private Assembly LoadPlugin(string assemblyFile)
         {
             Assembly assembly = LoadAssembly(assemblyFile);
-            _logger.Trace($"Plugin context {assemblyFile} has been successfully loaded...");
+            logger.Trace($"Plugin context {assemblyFile} has been successfully loaded...");
             return assembly;
         }
 
         private Assembly LoadAssembly(string assemblyFile)
         {
-            return _assemblyContext.Load(assemblyFile);
+            return assemblyContext.Load(assemblyFile);
         }
 
         private static void ValidateAssemblyVersion(AssemblyName entryAssembly, AssemblyName pluginAssembly)
@@ -134,8 +134,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Initializers
                 .Single(x => x.GetInterfaces()
                 .Contains(typeof(IExpanderDependencyManager)));
 
-            IExpanderDependencyManager expanderDependencyManager = (IExpanderDependencyManager)_activator
-                .CreateInstance(bootstrapperType, expander, _dependencyManager);
+            IExpanderDependencyManager expanderDependencyManager = (IExpanderDependencyManager)activator
+                .CreateInstance(bootstrapperType, expander, dependencyManager);
 
             expanderDependencyManager.Register();
         }

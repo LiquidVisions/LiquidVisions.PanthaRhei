@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
     /// </summary>
     public class LogManagerTests
     {
-        private readonly LogManager _logManager = new(new GenerationOptions { Root = "C:\\Some\\Root\\Path" });
+        private readonly LogManager logManager = new(new GenerationOptions { Root = "C:\\Some\\Root\\Path" });
 
         /// <summary>
         /// Test for <see cref="LogManager.Logger"/>.
@@ -21,7 +21,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         {
             // arrange
             // act
-            ILogger logger = _logManager.Logger;
+            ILogger logger = logManager.Logger;
 
             // assert
             Assert.NotNull(logger);
@@ -37,8 +37,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         {
             // arrange
             // act
-            ILogger logger1 = _logManager.Logger;
-            ILogger logger2 = _logManager.Logger;
+            ILogger logger1 = logManager.Logger;
+            ILogger logger2 = logManager.Logger;
 
             // assert
             Assert.NotNull(logger1);
@@ -55,8 +55,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         {
             // arrange
             // act
-            ILogger logger1 = _logManager.Logger;
-            ILogger logger2 = _logManager.GetLoggerByName(Loggers.DefaultLogger);
+            ILogger logger1 = logManager.Logger;
+            ILogger logger2 = logManager.GetLoggerByName(Loggers.DefaultLogger);
 
             // assert
             Assert.NotNull(logger1);
@@ -73,8 +73,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         {
             // arrange
             // act
-            ILogger logger1 = _logManager.GetAuthenticationLogger();
-            ILogger logger2 = _logManager.GetLoggerByName(Loggers.AuthenticationLogger);
+            ILogger logger1 = logManager.GetAuthenticationLogger();
+            ILogger logger2 = logManager.GetLoggerByName(Loggers.AuthenticationLogger);
 
             // assert
             Assert.NotNull(logger1);
@@ -91,8 +91,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
         {
             // arrange
             // act
-            ILogger logger1 = _logManager.GetExceptionLogger();
-            ILogger logger2 = _logManager.GetLoggerByName(Loggers.ExceptionLogger);
+            ILogger logger1 = logManager.GetExceptionLogger();
+            ILogger logger2 = logManager.GetLoggerByName(Loggers.ExceptionLogger);
 
             // assert
             Assert.NotNull(logger1);
@@ -111,7 +111,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
             string loggerName = "InvalidName";
 
             // act
-            void Action() => _logManager.GetLoggerByName(loggerName);
+            void Action() => logManager.GetLoggerByName(loggerName);
 
             // assert
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(() => Action());
@@ -128,7 +128,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
             // arrange
 
             // act
-            void Action() => _logManager.GetLoggerByName(string.Empty);
+            void Action() => logManager.GetLoggerByName(string.Empty);
 
             // assert
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => Action());

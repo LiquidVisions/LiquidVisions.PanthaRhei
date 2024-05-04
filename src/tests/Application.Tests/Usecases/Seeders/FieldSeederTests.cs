@@ -19,24 +19,24 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     /// </summary>
     public class FieldSeederTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly FieldSeeder _interactor;
-        private readonly Mock<IDeleteRepository<Field>> _mockedDeleteGateway = new();
-        private readonly Mock<ICreateRepository<Field>> _mockedCreateGateway = new();
-        private readonly Mock<IEntitiesToSeedRepository> _mockedEntityToSeedGateway = new();
-        private readonly Mock<IModelConfiguration> _mockedModelConfiguration = new();
+        private readonly Fakes fakes = new();
+        private readonly FieldSeeder interactor;
+        private readonly Mock<IDeleteRepository<Field>> mockedDeleteGateway = new();
+        private readonly Mock<ICreateRepository<Field>> mockedCreateGateway = new();
+        private readonly Mock<IEntitiesToSeedRepository> mockedEntityToSeedGateway = new();
+        private readonly Mock<IModelConfiguration> mockedModelConfiguration = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FieldSeederTests"/> class.
         /// </summary>
         public FieldSeederTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Field>>()).Returns(_mockedCreateGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Field>>()).Returns(_mockedDeleteGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IEntitiesToSeedRepository>()).Returns(_mockedEntityToSeedGateway.Object);
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IModelConfiguration>()).Returns(_mockedModelConfiguration.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Field>>()).Returns(mockedCreateGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Field>>()).Returns(mockedDeleteGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IEntitiesToSeedRepository>()).Returns(mockedEntityToSeedGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IModelConfiguration>()).Returns(mockedModelConfiguration.Object);
 
-            _interactor = new FieldSeeder(_fakes.IDependencyFactory.Object);
+            interactor = new FieldSeeder(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -48,12 +48,12 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Field>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Field>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IEntitiesToSeedRepository>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IModelConfiguration>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(4));
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Field>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Field>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IEntitiesToSeedRepository>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IModelConfiguration>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(4));
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(6, _interactor.SeedOrder);
+            Assert.Equal(6, interactor.SeedOrder);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(6, _interactor.ResetOrder);
+            Assert.Equal(6, interactor.ResetOrder);
         }
 
         /// <summary>
@@ -88,10 +88,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             // act
-            _interactor.Reset();
+            interactor.Reset();
 
             // assert
-            _mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
+            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             App app = Arrange(type, keys, indexes, null, complexFieldName);
 
             // act
-            _interactor.Seed(app);
+            interactor.Seed(app);
 
             // assert
             Assert.Single(app.Entities.Single(x => x.Name == type.Name).Fields);
@@ -130,7 +130,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Assert.Equal(behaviour, field.Behaviour);
             Assert.Equal(expectedModifier, field.Modifier);
 
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Field>(x => x == field)), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Field>(x => x == field)), Times.Once);
         }
 
         private App Arrange(Type type, string[] keys = null, string[] indexes = null, int? size = null, string complexFieldName = null)
@@ -146,26 +146,26 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
 
             if (keys != null)
             {
-                _mockedModelConfiguration
+                mockedModelConfiguration
                     .Setup(x => x.GetKeys(type))
                     .Returns(keys);
             }
 
             if (indexes != null)
             {
-                _mockedModelConfiguration
+                mockedModelConfiguration
                     .Setup(x => x.GetIndexes(type))
                     .Returns(indexes);
             }
 
             if (size != null)
             {
-                _mockedModelConfiguration
+                mockedModelConfiguration
                     .Setup(x => x.GetSize(type, It.IsAny<string>()))
                     .Returns(size);
             }
 
-            _mockedEntityToSeedGateway
+            mockedEntityToSeedGateway
                 .Setup(x => x.GetAll())
                 .Returns([type]);
 

@@ -16,27 +16,27 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
     /// </summary>
     public class RelationshipSeederTests
     {
-        private readonly ApplicationFakes _fakes = new();
-        private readonly RelationshipSeeder _seeder;
-        private readonly Mock<IDeleteRepository<Relationship>> _mockedDeleteGateway = new();
-        private readonly Mock<ICreateRepository<Relationship>> _mockedCreateGateway = new();
-        private readonly Mock<IModelConfiguration> _mockedModelConfiguration = new();
+        private readonly ApplicationFakes fakes = new();
+        private readonly RelationshipSeeder seeder;
+        private readonly Mock<IDeleteRepository<Relationship>> mockedDeleteGateway = new();
+        private readonly Mock<ICreateRepository<Relationship>> mockedCreateGateway = new();
+        private readonly Mock<IModelConfiguration> mockedModelConfiguration = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RelationshipSeederTests"/> class.
         /// </summary>
         public RelationshipSeederTests()
         {
-            _mockedCreateGateway = new();
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Relationship>>()).Returns(_mockedCreateGateway.Object);
+            mockedCreateGateway = new();
+            fakes.IDependencyFactory.Setup(x => x.Resolve<ICreateRepository<Relationship>>()).Returns(mockedCreateGateway.Object);
 
-            _mockedDeleteGateway = new();
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Relationship>>()).Returns(_mockedDeleteGateway.Object);
+            mockedDeleteGateway = new();
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IDeleteRepository<Relationship>>()).Returns(mockedDeleteGateway.Object);
 
-            _mockedModelConfiguration = new();
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IModelConfiguration>()).Returns(_mockedModelConfiguration.Object);
+            mockedModelConfiguration = new();
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IModelConfiguration>()).Returns(mockedModelConfiguration.Object);
 
-            _seeder = new(_fakes.IDependencyFactory.Object);
+            seeder = new(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -48,10 +48,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Relationship>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Relationship>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IModelConfiguration>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Relationship>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Relationship>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IModelConfiguration>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(7, _seeder.SeedOrder);
+            Assert.Equal(7, seeder.SeedOrder);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(0, _seeder.ResetOrder);
+            Assert.Equal(0, seeder.ResetOrder);
         }
 
         /// <summary>
@@ -86,10 +86,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
         {
             // arrange
             // act
-            _seeder.Reset();
+            seeder.Reset();
 
             // assert
-            _mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
+            mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
         /// <summary>
@@ -102,11 +102,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             App app = MockRelationshipDto();
 
             // act
-            _seeder.Seed(app);
+            seeder.Seed(app);
 
             // assert
-            _mockedModelConfiguration.Verify(x => x.GetRelationshipInfo(It.IsAny<Entity>()), Times.Exactly(app.Entities.Count));
-            _mockedCreateGateway.Verify(x => x.Create(It.Is<Relationship>(rel =>
+            mockedModelConfiguration.Verify(x => x.GetRelationshipInfo(It.IsAny<Entity>()), Times.Exactly(app.Entities.Count));
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Relationship>(rel =>
                 rel.Required == true
                 && rel.Key.Name == "Id"
                 && rel.Key.RelationshipKeys.Single().Entity == app.Entities.First()
@@ -158,8 +158,8 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             };
             app.Entities.Add(entity2);
 
-            _mockedModelConfiguration.Setup(x => x.GetRelationshipInfo(entity2)).Returns([]);
-            _mockedModelConfiguration.Setup(x => x.GetRelationshipInfo(entity1)).Returns(new List<RelationshipDto>
+            mockedModelConfiguration.Setup(x => x.GetRelationshipInfo(entity2)).Returns([]);
+            mockedModelConfiguration.Setup(x => x.GetRelationshipInfo(entity1)).Returns(new List<RelationshipDto>
             {
                 new() {
                     Key = "Id",

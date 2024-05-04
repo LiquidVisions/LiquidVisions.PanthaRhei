@@ -13,19 +13,19 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
     /// </summary>
     public class ClassWriterTests
     {
-        private readonly ClassWriter _writer;
-        private readonly Mock<IFile> _mockedFileService = new();
-        private readonly Mock<ILogger> _mockedLogger = new();
-        private readonly string _fakePath = "C://Some/Fake/Path.cs";
+        private readonly ClassWriter writer;
+        private readonly Mock<IFile> mockedFileService = new();
+        private readonly Mock<ILogger> mockedLogger = new();
+        private readonly string fakePath = "C://Some/Fake/Path.cs";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClassWriterTests"/> class.
         /// </summary>
         public ClassWriterTests()
         {
-            _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClass());
-            _writer = new ClassWriter(_mockedFileService.Object, _mockedLogger.Object);
-            _writer.Load(_fakePath);
+            mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClass());
+            writer = new ClassWriter(mockedFileService.Object, mockedLogger.Object);
+            writer.Load(fakePath);
         }
 
         /// <summary>
@@ -37,9 +37,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             // act
             // assert
-            Assert.NotEmpty(_writer.Lines);
-            _mockedLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Once);
-            _mockedFileService.Verify(x => x.ReadAllLines(_fakePath), Times.Once);
+            Assert.NotEmpty(writer.Lines);
+            mockedLogger.Verify(x => x.Trace(It.IsAny<string>()), Times.Once);
+            mockedFileService.Verify(x => x.ReadAllLines(fakePath), Times.Once);
         }
 
         /// <summary>
@@ -52,11 +52,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string nameSpace = "Just.Some.NameSpace";
 
             // act
-            _writer.AddNameSpace(nameSpace);
+            writer.AddNameSpace(nameSpace);
 
             // assert
-            Assert.Contains($"using {nameSpace};", _writer.Lines);
-            _mockedLogger.Verify(x => x.Trace($"Adding namespace {nameSpace} to the file."), Times.Once);
+            Assert.Contains($"using {nameSpace};", writer.Lines);
+            mockedLogger.Verify(x => x.Trace($"Adding namespace {nameSpace} to the file."), Times.Once);
         }
 
         /// <summary>
@@ -70,12 +70,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string nameSpace = "System.Collections.Generic";
 
             // act
-            _writer.AddNameSpace(nameSpace);
+            writer.AddNameSpace(nameSpace);
 
             // assert
-            Assert.Contains($"using {nameSpace};", _writer.Lines);
-            Assert.Equal(1, _writer.Lines.Count(x => x == $"using {nameSpace};"));
-            _mockedLogger.Verify(x => x.Trace($"Adding namespace using {nameSpace}; to the file."), Times.Never);
+            Assert.Contains($"using {nameSpace};", writer.Lines);
+            Assert.Equal(1, writer.Lines.Count(x => x == $"using {nameSpace};"));
+            mockedLogger.Verify(x => x.Trace($"Adding namespace using {nameSpace}; to the file."), Times.Never);
         }
 
         /// <summary>
@@ -85,15 +85,15 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         public void SaveShouldSucceed()
         {
             // arrange
-            List<string> lines = _writer.Lines;
+            List<string> lines = writer.Lines;
 
             // act
-            _writer.Save(_fakePath);
+            writer.Save(fakePath);
 
             // assert
-            Assert.Null(_writer.Lines);
-            _mockedFileService.Verify(x => x.WriteAllLines(_fakePath, lines));
-            _mockedLogger.Verify(x => x.Trace($"Saving file {_fakePath}."));
+            Assert.Null(writer.Lines);
+            mockedFileService.Verify(x => x.WriteAllLines(fakePath, lines));
+            mockedLogger.Verify(x => x.Trace($"Saving file {fakePath}."));
         }
 
         /// <summary>
@@ -107,12 +107,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string match = "class Class1";
 
             // act
-            int index = _writer.WriteAt(match, text);
+            int index = writer.WriteAt(match, text);
 
             // assert
-            _mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Once);
-            Assert.Equal($"   {text}", _writer.Lines.First(x => x.Contains(text, StringComparison.InvariantCulture)));
-            Assert.Equal(index, _writer.IndexOf(text));
+            mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Once);
+            Assert.Equal($"   {text}", writer.Lines.First(x => x.Contains(text, StringComparison.InvariantCulture)));
+            Assert.Equal(index, writer.IndexOf(text));
         }
 
         /// <summary>
@@ -127,11 +127,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string match = "Match";
 
             // act
-            int index = _writer.WriteAt(match, text);
+            int index = writer.WriteAt(match, text);
 
             // assert
             Assert.Equal(-1, index);
-            _mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Never);
+            mockedLogger.Verify(x => x.Trace($"Writing {text} to file."), Times.Never);
         }
 
         /// <summary>
@@ -143,13 +143,13 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             // arrange
             string text = string.Empty;
-            int totalLines = _writer.Lines.Count;
+            int totalLines = writer.Lines.Count;
 
             // act
-            _writer.WriteAt(1, text);
+            writer.WriteAt(1, text);
 
             // assert
-            Assert.Equal(totalLines + 1, _writer.Lines.Count);
+            Assert.Equal(totalLines + 1, writer.Lines.Count);
         }
 
         /// <summary>
@@ -162,13 +162,13 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
 
             string text = string.Empty;
-            int totalLines = _writer.Lines.Count;
+            int totalLines = writer.Lines.Count;
 
             // act
-            _writer.WriteAt(6, text);
+            writer.WriteAt(6, text);
 
             // assert
-            Assert.Equal(totalLines, _writer.Lines.Count);
+            Assert.Equal(totalLines, writer.Lines.Count);
         }
 
         /// <summary>
@@ -179,17 +179,17 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             // arrange
 
-            int totalLines = _writer.Lines.Count;
+            int totalLines = writer.Lines.Count;
             string match = "public class Class1";
             string matchUntil = "}";
 
             // act
-            _writer.RemoveLinesUntil(match, matchUntil);
+            writer.RemoveLinesUntil(match, matchUntil);
 
             // assert
-            Assert.NotEqual(totalLines, _writer.Lines.Count);
-            Assert.Equal(totalLines - 3, _writer.Lines.Count);
-            Assert.Equal(-1, _writer.IndexOf(match));
+            Assert.NotEqual(totalLines, writer.Lines.Count);
+            Assert.Equal(totalLines - 3, writer.Lines.Count);
+            Assert.Equal(-1, writer.IndexOf(match));
         }
 
         /// <summary>
@@ -204,11 +204,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string replaceValue = "SomeReplaceValue";
 
             // act
-            _writer.Replace(match, replaceValue);
+            writer.Replace(match, replaceValue);
 
             // assert
-            Assert.Equal(-1, _writer.IndexOf(match));
-            Assert.Equal(8, _writer.IndexOf(replaceValue));
+            Assert.Equal(-1, writer.IndexOf(match));
+            Assert.Equal(8, writer.IndexOf(replaceValue));
         }
 
         /// <summary>
@@ -224,11 +224,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string match = "SomeReplaceValue";
 
             // act
-            _writer.Replace(match, replaceValue);
+            writer.Replace(match, replaceValue);
 
             // assert
-            Assert.Equal(-1, _writer.IndexOf(match));
-            Assert.Equal(8, _writer.IndexOf(replaceValue));
+            Assert.Equal(-1, writer.IndexOf(match));
+            Assert.Equal(8, writer.IndexOf(replaceValue));
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 
 
             // act
-            int index = _writer.LastIndexOf(match);
+            int index = writer.LastIndexOf(match);
 
             // assert
             Assert.Equal(11, index);
@@ -260,7 +260,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
 
 
             // act
-            int index = _writer.LastIndexOf(match);
+            int index = writer.LastIndexOf(match);
 
             // assert
             Assert.Equal(-1, index);
@@ -278,12 +278,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             string text = "JustATest";
 
             // act
-            _writer.WriteAtEmptyRow("using", text);
-            int index = _writer.LastIndexOf(text);
+            writer.WriteAtEmptyRow("using", text);
+            int index = writer.LastIndexOf(text);
 
             // arrange
             Assert.Equal(5, index);
-            Assert.Equal(string.Empty, _writer.Lines[index + 1]);
+            Assert.Equal(string.Empty, writer.Lines[index + 1]);
         }
 
         /// <summary>
@@ -309,8 +309,8 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
 }";
 
             // act
-            _writer.AppendMethodToClass(string.Empty);
-            string result = string.Join(Environment.NewLine, _writer.Lines);
+            writer.AppendMethodToClass(string.Empty);
+            string result = string.Join(Environment.NewLine, writer.Lines);
 
             // arrange
             Assert.Equal(expectedResult, result);
@@ -323,7 +323,7 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
         public void ReplaceShouldSkipEmptyString()
         {
             // arrange
-            _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
+            mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
 
             string replaceString = @"       public void Test()
        {
@@ -348,8 +348,8 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
     ;
 
             // act
-            _writer.AddOrReplaceMethod(replaceString);
-            string result = string.Join(Environment.NewLine, _writer.Lines);
+            writer.AddOrReplaceMethod(replaceString);
+            string result = string.Join(Environment.NewLine, writer.Lines);
 
             // arrange
             Assert.Equal(expectedResult, result);
@@ -363,12 +363,12 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
         public void ReplaceEmptyStringShouldThrowException()
         {
             // arrange
-            _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
+            mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
 
 
             // act
             // arrange
-            Assert.Throws<IndexOutOfRangeException>(() => _writer.AddOrReplaceMethod(string.Empty));
+            Assert.Throws<IndexOutOfRangeException>(() => writer.AddOrReplaceMethod(string.Empty));
         }
 
         /// <summary>
@@ -383,10 +383,10 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
             string replaceValue = "Replacement";
 
             // act
-            _writer.AddBetween(beginMatch, endMatch, replaceValue);
+            writer.AddBetween(beginMatch, endMatch, replaceValue);
 
             // assert
-            Assert.Contains("   Replacement", _writer.Lines);
+            Assert.Contains("   Replacement", writer.Lines);
         }
 
         /// <summary>
@@ -399,14 +399,14 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
             string text = "SomeText";
 
             // Act
-            _writer.AddOrReplaceMethod(text);
+            writer.AddOrReplaceMethod(text);
 
             // Assert
             // Check if index is greater than 0
-            Assert.True(_writer.IndexOf(text) > 0);
+            Assert.True(writer.IndexOf(text) > 0);
 
             // Check if lines are removed correctly
-            Assert.Contains("SomeText", _writer.Lines);
+            Assert.Contains("SomeText", writer.Lines);
         }
 
         /// <summary>
@@ -416,9 +416,9 @@ namespace LiquidVisions.PanthaRhei.Tests.Domain
         public void AppendToMethodShouldInsertStatementInMethod()
         {
             // Arrange
-            _mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
-            ClassWriter writer = new(_mockedFileService.Object, _mockedLogger.Object);
-            writer.Load(_fakePath);
+            mockedFileService.Setup(x => x.ReadAllLines(It.IsAny<string>())).Returns(InfrastructureFakes.GetEmptyClassWithEmptyMethod());
+            ClassWriter writer = new(mockedFileService.Object, mockedLogger.Object);
+            writer.Load(fakePath);
 
 
             string method = "public void Test()";

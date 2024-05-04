@@ -18,8 +18,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
     public abstract class AbstractExpander<TExpander> : IExpander
         where TExpander : class, IExpander
     {
-        private readonly ILogger _logger;
-        private readonly IDependencyFactory _dependencyFactory;
+        private readonly ILogger logger;
+        private readonly IDependencyFactory dependencyFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpander{TExpander}"/> class.
@@ -36,10 +36,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         {
             ArgumentNullException.ThrowIfNull(dependencyFactory);
 
-            _dependencyFactory = dependencyFactory;
+            this.dependencyFactory = dependencyFactory;
 
-            _logger = _dependencyFactory.Resolve<ILogger>();
-            App = _dependencyFactory.Resolve<App>();
+            logger = dependencyFactory.Resolve<ILogger>();
+            App = dependencyFactory.Resolve<App>();
             Model = App.Expanders
                 .Single(x => x.Name == Name);
         }
@@ -51,7 +51,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.
         /// </summary>
-        public ILogger Logger => _logger;
+        public ILogger Logger => logger;
 
         /// <summary>
         /// Gets the Model of the <seealso cref="AbstractExpander{TExpander}" /> as a <seealso cref="Expand"/>.
@@ -76,7 +76,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderTask{TExpander}"/>.</returns>
         public virtual IEnumerable<IExpanderTask<TExpander>> GetTasks()
         {
-            IEnumerable<IExpanderTask<TExpander>> handlers = _dependencyFactory.ResolveAll<IExpanderTask<TExpander>>();
+            IEnumerable<IExpanderTask<TExpander>> handlers = dependencyFactory.ResolveAll<IExpanderTask<TExpander>>();
 
             return handlers;
         }
@@ -87,7 +87,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IHarvester{TExpander}"/>.</returns>
         public virtual IEnumerable<IHarvester<TExpander>> GetHarvesters()
         {
-            IEnumerable<IHarvester<TExpander>> harvesters = _dependencyFactory.ResolveAll<IHarvester<TExpander>>();
+            IEnumerable<IHarvester<TExpander>> harvesters = dependencyFactory.ResolveAll<IHarvester<TExpander>>();
 
             return harvesters;
         }
@@ -98,7 +98,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPostProcessor{TExpander}"/>.</returns>
         public virtual IEnumerable<IPostProcessor<TExpander>> GetPostProcessor()
         {
-            IEnumerable<IPostProcessor<TExpander>> postProcessors = _dependencyFactory.ResolveAll<IPostProcessor<TExpander>>();
+            IEnumerable<IPostProcessor<TExpander>> postProcessors = dependencyFactory.ResolveAll<IPostProcessor<TExpander>>();
 
             return postProcessors;
         }
@@ -109,7 +109,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IPreProcessor{TExpander}"/>.</returns>
         public virtual IEnumerable<IPreProcessor<TExpander>> GetPreProcessor()
         {
-            IEnumerable<IPreProcessor<TExpander>> preProcessors = _dependencyFactory.ResolveAll<IPreProcessor<TExpander>>();
+            IEnumerable<IPreProcessor<TExpander>> preProcessors = dependencyFactory.ResolveAll<IPreProcessor<TExpander>>();
 
             return preProcessors;
         }
@@ -120,7 +120,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <returns><seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IRejuvenator{TExpander}"/>.</returns>
         public virtual IEnumerable<IRejuvenator<TExpander>> GetRejuvenators()
         {
-            IEnumerable<IRejuvenator<TExpander>> rejuvenators = _dependencyFactory.ResolveAll<IRejuvenator<TExpander>>();
+            IEnumerable<IRejuvenator<TExpander>> rejuvenators = dependencyFactory.ResolveAll<IRejuvenator<TExpander>>();
 
             return rejuvenators;
         }

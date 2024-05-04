@@ -11,10 +11,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class ExpanderSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly IExpanderPluginLoader _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
-        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly ICreateRepository<Expander> _createGateway = dependencyFactory.Resolve<ICreateRepository<Expander>>();
-        private readonly IDeleteRepository<Expander> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Expander>>();
+        private readonly IExpanderPluginLoader pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
+        private readonly GenerationOptions options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly ICreateRepository<Expander> createGateway = dependencyFactory.Resolve<ICreateRepository<Expander>>();
+        private readonly IDeleteRepository<Expander> deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Expander>>();
 
         public int SeedOrder => 2;
 
@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public void Seed(App app)
         {
-            foreach (IExpander exp in _pluginLoader.ShallowLoadAllExpanders(_options.ExpandersFolder))
+            foreach (IExpander exp in pluginLoader.ShallowLoadAllExpanders(options.ExpandersFolder))
             {
                 Expander expander = new()
                 {
@@ -35,10 +35,10 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                 expander.Apps.Add(app);
                 app.Expanders.Add(expander);
 
-                _createGateway.Create(expander);
+                createGateway.Create(expander);
             }
         }
 
-        public void Reset() => _deleteGateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
     }
 }

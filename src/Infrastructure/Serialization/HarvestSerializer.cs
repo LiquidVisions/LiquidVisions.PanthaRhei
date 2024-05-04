@@ -11,9 +11,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
     /// </summary>
     public class HarvestSerializer : IHarvestSerializer
     {
-        private readonly ISerializer<Harvest> _serializer;
-        private readonly IFile _file;
-        private readonly IDirectory _directory;
+        private readonly ISerializer<Harvest> serializer;
+        private readonly IFile file;
+        private readonly IDirectory directory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HarvestSerializer"/> class.
@@ -23,9 +23,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
         {
             ArgumentNullException.ThrowIfNull(dependencyFactory);
 
-            _file = dependencyFactory.Resolve<IFile>();
-            _directory = dependencyFactory.Resolve<IDirectory>();
-            _serializer = dependencyFactory.Resolve<ISerializer<Harvest>>();
+            file = dependencyFactory.Resolve<IFile>();
+            directory = dependencyFactory.Resolve<IDirectory>();
+            serializer = dependencyFactory.Resolve<ISerializer<Harvest>>();
         }
 
         /// <inheritdoc/>
@@ -33,17 +33,17 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
         {
             ArgumentNullException.ThrowIfNull(harvest);
 
-            bool serialize = _file.Exists(fullPath);
+            bool serialize = file.Exists(fullPath);
             serialize &= harvest.Items.Count != 0;
             if (serialize)
             {
-                string dir = _file.GetDirectory(fullPath);
-                if (!_directory.Exists(dir))
+                string dir = file.GetDirectory(fullPath);
+                if (!directory.Exists(dir))
                 {
-                    _directory.Create(dir);
+                    directory.Create(dir);
                 }
 
-                _serializer.Serialize(fullPath, harvest);
+                serializer.Serialize(fullPath, harvest);
             }
         }
     }

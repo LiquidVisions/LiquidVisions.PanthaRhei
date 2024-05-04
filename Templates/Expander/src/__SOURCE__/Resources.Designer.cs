@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace __PREFIX____SOURCE__ {
+namespace __PREFIX__.__SOURCE__ {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace __PREFIX____SOURCE__ {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("__PREFIX____SOURCE__", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("__PREFIX__.__SOURCE__", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace LiquidVisions.PanthaRhei.ExpandersExpanders.CleanArchitecture.Domain.Tests
+namespace LiquidVisions.PanthaRhei.Expanders.CleanArchitecture.Application.Tests
 {
     public class UnitTest1
     {

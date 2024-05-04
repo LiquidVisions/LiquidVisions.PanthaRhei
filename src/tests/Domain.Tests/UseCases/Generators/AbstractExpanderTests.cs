@@ -20,8 +20,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
     /// </summary>
     public class AbstractExpanderTests
     {
-        private readonly Fakes _fakes = new();
-        private readonly FakeAbstractExpander _expander;
+        private readonly Fakes fakes = new();
+        private readonly FakeAbstractExpander expander;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpanderTests"/> class.
@@ -40,8 +40,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
                 }
             };
 
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);
-            _expander = new(_fakes.IDependencyFactory.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);
+            expander = new(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // arrange
             // act
             // assert
-            Assert.Equal(nameof(FakeAbstractExpander).Replace("Expander", string.Empty, StringComparison.InvariantCulture), _expander.Name);
+            Assert.Equal(nameof(FakeAbstractExpander).Replace("Expander", string.Empty, StringComparison.InvariantCulture), expander.Name);
         }
 
         /// <summary>
@@ -89,11 +89,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         public void EnsuringTheOrderIsSetCorrectlyDependingOnTheConstructorTypeUsed()
         {
             // arrange
-            FakeAbstractExpander expander = new();
+            FakeAbstractExpander sub = new();
             // act
             // assert
-            Assert.Equal(1, _expander.Order);
-            Assert.Equal(12, expander.Order);
+            Assert.Equal(1, expander.Order);
+            Assert.Equal(12, sub.Order);
         }
 
         /// <summary>
@@ -104,10 +104,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             // arrange
             // act
-            _expander.GetTasks();
+            expander.GetTasks();
 
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<IExpanderTask<FakeAbstractExpander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<IExpanderTask<FakeAbstractExpander>>(), Times.Once);
         }
 
         /// <summary>
@@ -118,10 +118,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             // arrange
             // act
-            _expander.GetHarvesters();
+            expander.GetHarvesters();
 
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<IHarvester<FakeAbstractExpander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<IHarvester<FakeAbstractExpander>>(), Times.Once);
         }
 
         /// <summary>
@@ -132,10 +132,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             // arrange
             // act
-            _expander.GetRejuvenators();
+            expander.GetRejuvenators();
 
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<IRejuvenator<FakeAbstractExpander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<IRejuvenator<FakeAbstractExpander>>(), Times.Once);
         }
 
         /// <summary>
@@ -146,10 +146,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             // arrange
             // act
-            _expander.GetPreProcessor();
+            expander.GetPreProcessor();
 
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<IPreProcessor<FakeAbstractExpander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<IPreProcessor<FakeAbstractExpander>>(), Times.Once);
         }
 
         /// <summary>
@@ -160,10 +160,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             // arrange
             // act
-            _expander.GetPostProcessor();
+            expander.GetPostProcessor();
 
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.ResolveAll<IPostProcessor<FakeAbstractExpander>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.ResolveAll<IPostProcessor<FakeAbstractExpander>>(), Times.Once);
         }
 
         /// <summary>
@@ -194,10 +194,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             task4.Setup(x => x.Enabled).Returns(false);
             task4.InSequence(sequence).Setup(x => x.Execute());
 
-            _fakes.IDependencyFactory.Setup(x => x.ResolveAll<IExpanderTask<FakeAbstractExpander>>()).Returns([task1.Object, task2.Object, task3.Object, task4.Object]);
+            fakes.IDependencyFactory.Setup(x => x.ResolveAll<IExpanderTask<FakeAbstractExpander>>()).Returns([task1.Object, task2.Object, task3.Object, task4.Object]);
 
             // act
-            _expander.Expand();
+            expander.Expand();
 
             // assert
             task1.Verify(x => x.Execute(), Times.Once);
@@ -230,10 +230,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             harvester4.Setup(x => x.Enabled).Returns(false);
             harvester4.InSequence(sequence).Setup(x => x.Execute());
 
-            _fakes.IDependencyFactory.Setup(x => x.ResolveAll<IHarvester<FakeAbstractExpander>>()).Returns([harvester1.Object, harvester2.Object, harvester3.Object, harvester4.Object]);
+            fakes.IDependencyFactory.Setup(x => x.ResolveAll<IHarvester<FakeAbstractExpander>>()).Returns([harvester1.Object, harvester2.Object, harvester3.Object, harvester4.Object]);
 
             // act
-            _expander.Harvest();
+            expander.Harvest();
 
             // assert
             harvester1.Verify(x => x.Execute(), Times.Once);
@@ -266,10 +266,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             rejuvenator4.Setup(x => x.Enabled).Returns(false);
             rejuvenator4.InSequence(sequence).Setup(x => x.Execute());
 
-            _fakes.IDependencyFactory.Setup(x => x.ResolveAll<IRejuvenator<FakeAbstractExpander>>()).Returns([rejuvenator1.Object, rejuvenator2.Object, rejuvenator3.Object, rejuvenator4.Object]);
+            fakes.IDependencyFactory.Setup(x => x.ResolveAll<IRejuvenator<FakeAbstractExpander>>()).Returns([rejuvenator1.Object, rejuvenator2.Object, rejuvenator3.Object, rejuvenator4.Object]);
 
             // act
-            _expander.Rejuvenate();
+            expander.Rejuvenate();
 
             // assert
             rejuvenator1.Verify(x => x.Execute(), Times.Once);
@@ -302,10 +302,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             processor4.Setup(x => x.Enabled).Returns(false);
             processor4.InSequence(sequence).Setup(x => x.Execute());
 
-            _fakes.IDependencyFactory.Setup(x => x.ResolveAll<IPostProcessor<FakeAbstractExpander>>()).Returns([processor1.Object, processor2.Object, processor3.Object, processor4.Object]);
+            fakes.IDependencyFactory.Setup(x => x.ResolveAll<IPostProcessor<FakeAbstractExpander>>()).Returns([processor1.Object, processor2.Object, processor3.Object, processor4.Object]);
 
             // act
-            _expander.PostProcess();
+            expander.PostProcess();
 
             // assert
             processor1.Verify(x => x.Execute(), Times.Once);
@@ -339,10 +339,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             processor4.Setup(x => x.Enabled).Returns(false);
             processor4.InSequence(sequence).Setup(x => x.Execute());
 
-            _fakes.IDependencyFactory.Setup(x => x.ResolveAll<IPreProcessor<FakeAbstractExpander>>()).Returns([processor1.Object, processor2.Object, processor3.Object, processor4.Object]);
+            fakes.IDependencyFactory.Setup(x => x.ResolveAll<IPreProcessor<FakeAbstractExpander>>()).Returns([processor1.Object, processor2.Object, processor3.Object, processor4.Object]);
 
             // act
-            _expander.PreProcess();
+            expander.PreProcess();
 
             // assert
             processor1.Verify(x => x.Execute(), Times.Once);

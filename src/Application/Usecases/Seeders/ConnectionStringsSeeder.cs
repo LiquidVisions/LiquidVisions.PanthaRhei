@@ -8,8 +8,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class ConnectionStringsSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<ConnectionString> _createGateway = dependencyFactory.Resolve<ICreateRepository<ConnectionString>>();
-        private readonly IDeleteRepository<ConnectionString> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<ConnectionString>>();
+        private readonly ICreateRepository<ConnectionString> createGateway = dependencyFactory.Resolve<ICreateRepository<ConnectionString>>();
+        private readonly IDeleteRepository<ConnectionString> deleteGateway = dependencyFactory.Resolve<IDeleteRepository<ConnectionString>>();
 
         public int SeedOrder => 1;
 
@@ -27,9 +27,9 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
             app.ConnectionStrings.Add(connectionString);
             connectionString.App = app;
 
-            _createGateway.Create(connectionString);
+            createGateway.Create(connectionString);
         }
 
-        public void Reset() => _deleteGateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
     }
 }

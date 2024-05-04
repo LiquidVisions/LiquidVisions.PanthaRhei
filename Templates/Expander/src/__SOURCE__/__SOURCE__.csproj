@@ -1,10 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<AssemblyName>__PREFIX____SOURCE__</AssemblyName>
-		<RootNamespace>__PREFIX____SOURCE__</RootNamespace>
-		<TargetFramework>net7.0</TargetFramework>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AssemblyName>__PREFIX__.__SOURCE__</AssemblyName>
+		<RootNamespace>__PREFIX__.__SOURCE__</RootNamespace>
+		<TargetFramework>net8.0</TargetFramework>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+		<AnalysisMode>All</AnalysisMode>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -21,15 +25,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LiquidVisions.PanthaRhei.Core" Version="0.3.0-alpha">
+		<PackageReference Include="LiquidVisions.PanthaRhei.Core" Version="0.3.3.13">
 			<GeneratePathProperty>True</GeneratePathProperty>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="__PREFIX____SOURCE__.Tests" />
+		<InternalsVisibleTo Include="__PREFIX__.__SOURCE__.Tests" />
 		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+		<PackageReference Update="SonarAnalyzer.CSharp" Version="9.16.0.82469">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	  </ItemGroup>
 
 	<ItemGroup>
 		<Compile Update="Resources.Designer.cs">

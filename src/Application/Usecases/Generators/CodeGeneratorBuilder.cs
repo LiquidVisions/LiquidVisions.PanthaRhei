@@ -15,22 +15,22 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Generators
     /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
     internal class CodeGeneratorBuilder(IDependencyFactory dependencyFactory) : ICodeGeneratorBuilder
     {
-        private readonly IGetRepository<App> _gateway = dependencyFactory.Resolve<IGetRepository<App>>();
-        private readonly GenerationOptions _options = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly IExpanderPluginLoader _pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
-        private readonly IDependencyManager _dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
-        private readonly IDependencyFactory _dependencyFactory = dependencyFactory;
+        private readonly IGetRepository<App> gateway = dependencyFactory.Resolve<IGetRepository<App>>();
+        private readonly GenerationOptions options = dependencyFactory.Resolve<GenerationOptions>();
+        private readonly IExpanderPluginLoader pluginLoader = dependencyFactory.Resolve<IExpanderPluginLoader>();
+        private readonly IDependencyManager dependencyManager = dependencyFactory.Resolve<IDependencyManager>();
+        private readonly IDependencyFactory dependencyFactory = dependencyFactory;
 
         /// <inheritdoc/>
         public ICodeGenerator Build()
         {
-            App app = _gateway.GetById(_options.AppId) ?? throw new CodeGenerationException($"No application model available with the provided Id {_options.AppId}.");
+            App app = gateway.GetById(options.AppId) ?? throw new CodeGenerationException($"No application model available with the provided Id {options.AppId}.");
 
-            _pluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
-            _dependencyManager.AddSingleton(app);
-            _dependencyManager.Build();
+            pluginLoader.LoadAllRegisteredPluginsAndBootstrap(app);
+            dependencyManager.AddSingleton(app);
+            dependencyManager.Build();
 
-            return _dependencyFactory.Resolve<ICodeGenerator>();
+            return dependencyFactory.Resolve<ICodeGenerator>();
         }
     }
 }

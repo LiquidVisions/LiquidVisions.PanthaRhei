@@ -12,18 +12,18 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
     /// </summary>
     public class CodeGeneratorBuilderTests
     {
-        private readonly CodeGeneratorBuilder _interactor;
-        private readonly Mock<IGetRepository<App>> _mockedGetGateway = new();
-        private readonly ApplicationFakes _fakes = new();
+        private readonly CodeGeneratorBuilder interactor;
+        private readonly Mock<IGetRepository<App>> mockedGetGateway = new();
+        private readonly ApplicationFakes fakes = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeGeneratorBuilderTests"/> class.
         /// </summary>
         public CodeGeneratorBuilderTests()
         {
-            _fakes.IDependencyFactory.Setup(x => x.Resolve<IGetRepository<App>>()).Returns(_mockedGetGateway.Object);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<IGetRepository<App>>()).Returns(mockedGetGateway.Object);
 
-            _interactor = new CodeGeneratorBuilder(_fakes.IDependencyFactory.Object);
+            interactor = new CodeGeneratorBuilder(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -34,11 +34,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         {
             // arrange
             Guid id = Guid.NewGuid();
-            _fakes.GenerationOptions.Setup(x => x.AppId).Returns(id);
-            _mockedGetGateway.Setup(x => x.GetById(id)).Returns((App)null);
+            fakes.GenerationOptions.Setup(x => x.AppId).Returns(id);
+            mockedGetGateway.Setup(x => x.GetById(id)).Returns((App)null);
 
             // act
-            void Action() => _interactor.Build();
+            void Action() => interactor.Build();
 
             // assert
             CodeGenerationException exception = Assert.Throws<CodeGenerationException>(Action);
@@ -53,18 +53,18 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         {
             // arrange
             Guid id = Guid.NewGuid();
-            _fakes.GenerationOptions.Setup(x => x.AppId).Returns(id);
+            fakes.GenerationOptions.Setup(x => x.AppId).Returns(id);
             App app = new();
-            _mockedGetGateway.Setup(x => x.GetById(id)).Returns(app);
-            _fakes.IDependencyManager.Setup(x => x.Build()).Returns(_fakes.IDependencyFactory.Object);
+            mockedGetGateway.Setup(x => x.GetById(id)).Returns(app);
+            fakes.IDependencyManager.Setup(x => x.Build()).Returns(fakes.IDependencyFactory.Object);
 
             // act
-            _interactor.Build();
+            interactor.Build();
 
             // assert
-            _fakes.IDependencyManager.Verify(x => x.AddSingleton(app), Times.Once);
-            _fakes.IExpanderPluginLoader.Verify(x => x.LoadAllRegisteredPluginsAndBootstrap(app), Times.Once);
-            _fakes.IDependencyManager.Verify(x => x.Build(), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.AddSingleton(app), Times.Once);
+            fakes.IExpanderPluginLoader.Verify(x => x.LoadAllRegisteredPluginsAndBootstrap(app), Times.Once);
+            fakes.IDependencyManager.Verify(x => x.Build(), Times.Once);
         }
     }
 }

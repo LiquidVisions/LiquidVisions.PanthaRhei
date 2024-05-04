@@ -12,15 +12,15 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
     /// </summary>
     public class HarvestSerializerTests
     {
-        private readonly InfrastructureFakes _fakes = new();
-        private readonly HarvestSerializer _serializer;
+        private readonly InfrastructureFakes fakes = new();
+        private readonly HarvestSerializer serializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HarvestSerializerTests"/> class.
         /// </summary>
         public HarvestSerializerTests()
         {
-            _serializer = new HarvestSerializer(_fakes.IDependencyFactory.Object);
+            serializer = new HarvestSerializer(fakes.IDependencyFactory.Object);
         }
 
         /// <summary>
@@ -32,10 +32,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             // act
             // assert
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<ISerializer<Harvest>>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
-            _fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<ISerializer<Harvest>>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(3));
         }
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             string folderPath = "C:\\Some\\Full\\Path\\To\\";
             string filePath = $"{folderPath}File{Resources.RegionHarvesterExtensionFile}";
-            _fakes.IFile.Setup(x => x.Exists(filePath)).Returns(true);
-            _fakes.IFile.Setup(x => x.GetDirectory(filePath)).Returns(folderPath);
-            _fakes.IDirectory.Setup(x => x.Exists(folderPath)).Returns(folderExists);
+            fakes.IFile.Setup(x => x.Exists(filePath)).Returns(true);
+            fakes.IFile.Setup(x => x.GetDirectory(filePath)).Returns(folderPath);
+            fakes.IDirectory.Setup(x => x.Exists(folderPath)).Returns(folderExists);
             Harvest entity = new(Resources.RegionHarvesterExtensionFile)
             {
                 Path = $"{folderPath}File.cs",
@@ -61,12 +61,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             };
 
             // act
-            _serializer.Serialize(entity, filePath);
+            serializer.Serialize(entity, filePath);
 
             // assert
-            _fakes.ISerializer.Verify(x => x.Serialize(filePath, entity), Times.Once);
-            _fakes.IDirectory.Verify(x => x.Exists(folderPath), Times.Once);
-            _fakes.IDirectory.Verify(x => x.Create(folderPath), Times.Exactly(timesCreateFolder));
+            fakes.ISerializer.Verify(x => x.Serialize(filePath, entity), Times.Once);
+            fakes.IDirectory.Verify(x => x.Exists(folderPath), Times.Once);
+            fakes.IDirectory.Verify(x => x.Create(folderPath), Times.Exactly(timesCreateFolder));
         }
 
         /// <summary>
@@ -85,10 +85,10 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             };
 
             // act
-            _serializer.Serialize(entity, filePath);
+            serializer.Serialize(entity, filePath);
 
             // assert
-            _fakes.ISerializer.Verify(x => x.Serialize(filePath, entity), Times.Never);
+            fakes.ISerializer.Verify(x => x.Serialize(filePath, entity), Times.Never);
         }
     }
 }

@@ -20,8 +20,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // arrange
             HarvestItem item = new()
             {
-                Content = "content_test",
-                Tag = "tag_test"
+                Content = "contenttest",
+                Tag = "tagtest"
             };
 
             // act
@@ -29,8 +29,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             XmlCDataSection tagSection = item.TagXml;
 
             // assert
-            Assert.Equal("content_test", contentSection.Value);
-            Assert.Equal("tag_test", tagSection.Value);
+            Assert.Equal("contenttest", contentSection.Value);
+            Assert.Equal("tagtest", tagSection.Value);
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // arrange
             HarvestItem item = new()
             {
-                ContentXml = new XmlDocument().CreateCDataSection("content_test"),
-                TagXml = new XmlDocument().CreateCDataSection("tag_test")
+                ContentXml = new XmlDocument().CreateCDataSection("contenttest"),
+                TagXml = new XmlDocument().CreateCDataSection("tagtest")
             };
 
             // act
@@ -66,8 +66,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             string tag = item.Tag;
 
             // assert
-            Assert.Equal("content_test", content);
-            Assert.Equal("tag_test", tag);
+            Assert.Equal("contenttest", content);
+            Assert.Equal("tagtest", tag);
         }
     }
 }

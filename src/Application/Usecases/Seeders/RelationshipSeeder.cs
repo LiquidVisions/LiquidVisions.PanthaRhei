@@ -10,9 +10,9 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 {
     internal class RelationshipSeeder(IDependencyFactory dependencyFactory) : IEntitySeeder<App>
     {
-        private readonly ICreateRepository<Relationship> _createGateway = dependencyFactory.Resolve<ICreateRepository<Relationship>>();
-        private readonly IDeleteRepository<Relationship> _deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Relationship>>();
-        private readonly IModelConfiguration _modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
+        private readonly ICreateRepository<Relationship> createGateway = dependencyFactory.Resolve<ICreateRepository<Relationship>>();
+        private readonly IDeleteRepository<Relationship> deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Relationship>>();
+        private readonly IModelConfiguration modelConfiguration = dependencyFactory.Resolve<IModelConfiguration>();
 
         public int SeedOrder => 7;
 
@@ -22,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             foreach (Entity entity in app.Entities)
             {
-                foreach (RelationshipDto info in _modelConfiguration.GetRelationshipInfo(entity))
+                foreach (RelationshipDto info in modelConfiguration.GetRelationshipInfo(entity))
                 {
                     Relationship relationship = new()
                     {
@@ -52,11 +52,11 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
                     relationship.Required = info.Required;
 
-                    _createGateway.Create(relationship);
+                    createGateway.Create(relationship);
                 }
             }
         }
 
-        public void Reset() => _deleteGateway.DeleteAll();
+        public void Reset() => deleteGateway.DeleteAll();
     }
 }
