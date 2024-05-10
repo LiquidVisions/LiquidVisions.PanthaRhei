@@ -23,14 +23,14 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
             base.Name = "expander";
 
             CommandOption nameOption = Option(
-                "--name",
-                "Name of the new expander.",
+                "--shortName",
+                "Name of the new expander class.",
                 CommandOptionType.SingleValue)
                 .IsRequired();
 
             CommandOption typeOption = Option(
-                "--type",
-                "Type of the new expander.",
+                "--fullName",
+                "Type of the new expander solution.",
                 CommandOptionType.SingleValue)
                 .IsRequired(false);
 
@@ -55,8 +55,8 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
             {
                 NewExpanderRequestModel model = new()
                 {
-                    Name = nameOption.Value(),
-                    Type = typeOption.Value(),
+                    ShortName = nameOption.Value(),
+                    fullName = typeOption.Value(),
                     Path = pathOption.Value(),
                     BuildPath = buildPathOption.Value(),
                     Build = buildOption.HasValue()

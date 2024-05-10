@@ -1,9 +1,9 @@
 {
     "$schema": "http://json.schemastore.org/template",
-    "classifications": [ "LiquidVisions", "Expanders", "__NAME__" ],
+    "classifications": [ "LiquidVisions", "Expanders", "__SHORTNAME__" ],
     "identity": "__PREFIX__.__SOURCE__",
     "name": "__PREFIX__.__SOURCE__",
-    "shortName": "liquidvisions-expanders-__NAME__",
+    "shortName": "liquidvisions-expanders-__SHORTNAME__",
     "tags": {
       "language": "C#",
       "type": "item"

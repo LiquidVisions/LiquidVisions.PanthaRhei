@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="__NAME__" xml:space="preserve">
-    <value>__NAME__</value>
+  <data name="__SHORTNAME__" xml:space="preserve">
+    <value>__SHORTNAME__</value>
   </data>
   <data name="TemplateName" xml:space="preserve">
-    <value>expanders-__NAME__</value>
+    <value>expanders-__SHORTNAME__</value>
   </data>
 </root>

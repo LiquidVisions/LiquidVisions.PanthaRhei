@@ -61,11 +61,11 @@ namespace __PREFIX__.__SOURCE__ {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to __NAME__.
+        ///   Looks up a localized string similar to __SHORTNAME__.
         /// </summary>
-        internal static string __NAME__ {
+        internal static string __SHORTNAME__ {
             get {
-                return ResourceManager.GetString("__NAME__", resourceCulture);
+                return ResourceManager.GetString("__SHORTNAME__", resourceCulture);
             }
         }
 

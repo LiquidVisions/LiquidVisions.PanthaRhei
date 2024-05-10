@@ -17,8 +17,8 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
         {
             NewExpander dto = new()
             {
-                Name = model.Name,
-                Type = model.Type,
+                ShortName = model.ShortName,
+                FullName = model.fullName,
                 Path = model.Path,
                 BuildPath = model.BuildPath,
                 Build = model.Build,

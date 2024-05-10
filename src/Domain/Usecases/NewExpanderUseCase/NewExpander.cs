@@ -8,12 +8,12 @@
         /// <summary>
         /// Gets or sets the name of the new expander.
         /// </summary>
-        public string Name { get; set; }
+        public string ShortName { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the new expander.
         /// </summary>
-        public string Type { get; set; }
+        public string FullName { get; set; }
 
         /// <summary>
         /// Gets or sets the path where the expander will be created.
