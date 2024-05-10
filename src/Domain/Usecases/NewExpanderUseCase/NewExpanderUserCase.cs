@@ -42,7 +42,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
 
             directory.Rename(source, target);
 
-            commandLine.Start("dotnet build", Path.Combine(model.BuildPath, model.FullName));
+            commandLine.Start("dotnet build", Path.Combine(model.Path, model.FullName));
 
             return Task.FromResult(response);
 
