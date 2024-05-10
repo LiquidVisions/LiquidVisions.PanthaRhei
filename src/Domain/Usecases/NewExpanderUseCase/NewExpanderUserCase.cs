@@ -20,7 +20,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
             string sourceTemplateDirectoryName = "_template.config";
             string targetTemplateDirectoryName = ".template.config";
 
-            string command = $"dotnet new expander -n {model.Type}.{model.Name} --expandername {model.Name} -d";
+            string fullName = $"{model.Type}.{model.Name}";
+
+            string command = $"dotnet new expander -n {fullName} --buildPath {model.BuildPath} --expandername {model.Name} -d";
 
             commandLine.Start(command, model.Path ?? null);
 
@@ -41,6 +43,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
             logger.Trace($"Renaming template directory {source} to {target}");
 
             directory.Rename(source, target);
+
+            commandLine.Start("dotnet build", Path.Combine(model.BuildPath, fullName));
 
             return Task.FromResult(response);
 

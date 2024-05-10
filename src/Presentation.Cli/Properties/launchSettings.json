@@ -34,7 +34,7 @@
         },
         "flux-newExpander": {
             "commandName": "Project",
-            "commandLineArgs": "new expander --path \"C:\\Dev\\PanthaRhei.Output\" --name \"Application\" --type \"CleanArchitecture\""
+            "commandLineArgs": "new expander --path \"C:\\Dev\\PanthaRhei.Output\" --buildPath \"C:\\Dev\\PanthaRhei.Output\" --build --name \"Application\" --type \"CleanArchitecture\""
         }
     }
 }

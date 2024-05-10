@@ -19,5 +19,15 @@
         /// Gets or sets the path where the expander will be created.
         /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path where the expander will output its builds.
+        /// </summary>
+        public string BuildPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the expander should be built.
+        /// </summary>
+        public bool Build { get; set; }
     }
 }

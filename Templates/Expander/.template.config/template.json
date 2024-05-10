@@ -30,6 +30,14 @@
       "fileRename": "__NAME__",
       "isRequired": true
     },
+    "buildPath": {
+      "displayName": "Sets the path where the expander will output its builds",
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "Domain",
+      "replaces": "__OUTPUTPATH__",
+      "isRequired": true
+    },
     "prefix": {
       "displayName": "Namespace Prefix",
       "type": "parameter",

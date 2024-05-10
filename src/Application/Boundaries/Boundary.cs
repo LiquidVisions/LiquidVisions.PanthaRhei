@@ -19,7 +19,9 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
             {
                 Name = model.Name,
                 Type = model.Type,
-                Path = model.Path
+                Path = model.Path,
+                BuildPath = model.BuildPath,
+                Build = model.Build,
             };
 
             Response response = await useCase.Execute(dto)

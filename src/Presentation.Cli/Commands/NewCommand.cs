@@ -40,13 +40,26 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
                 CommandOptionType.SingleValue)
                 .IsRequired(false);
 
+            CommandOption buildPathOption = Option(
+                "--buildPath",
+                "Path where the expander will outputs' its builds.",
+                CommandOptionType.SingleValue)
+                .IsRequired(true);
+
+            CommandOption<bool> buildOption = this.Option<bool>(
+                "--build",
+                "Builds the newly created expander",
+                CommandOptionType.SingleOrNoValue);
+
             this.OnExecute(() =>
             {
                 NewExpanderRequestModel model = new()
                 {
                     Name = nameOption.Value(),
                     Type = typeOption.Value(),
-                    Path = pathOption.Value()
+                    Path = pathOption.Value(),
+                    BuildPath = buildPathOption.Value(),
+                    Build = buildOption.HasValue()
                 };
 
                 ServiceProvider provider = new ServiceCollection()
