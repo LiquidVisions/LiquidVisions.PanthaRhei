@@ -7,24 +7,24 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 namespace __PREFIX__.__SOURCE__
 {
     /// <summary>
-    /// A Custom expander implementing <seealso cref="AbstractExpander{__NAME__Expander}" />.
+    /// A Custom expander implementing <seealso cref="AbstractExpander{__SHORTNAME__Expander}" />.
     /// </summary>
-    public class __NAME__Expander : AbstractExpander<__NAME__Expander>
+    public class __SHORTNAME__Expander : AbstractExpander<__SHORTNAME__Expander>
     {
         private readonly GenerationOptions options;
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="__NAME__Expander"/> class.
+        /// Initializes a new instance of the <see cref="__SHORTNAME__Expander"/> class.
         /// </summary>
-        public __NAME__Expander()
+        public __SHORTNAME__Expander()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="__NAME__Expander"/> class.
+        /// Initializes a new instance of the <see cref="__SHORTNAME__Expander"/> class.
         /// </summary>
         /// <param name="dependencyFactory"><seealso cref="IDependencyFactory"/></param>
-        public __NAME__Expander(IDependencyFactory dependencyFactory)
+        public __SHORTNAME__Expander(IDependencyFactory dependencyFactory)
             : base(dependencyFactory)
         {
             ArgumentNullException.ThrowIfNull(dependencyFactory, nameof(dependencyFactory));

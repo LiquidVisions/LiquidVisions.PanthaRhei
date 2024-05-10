@@ -21,13 +21,21 @@
       "EDB38097-8100-42BD-B85B-7C899B00F58B"
   ],
   "symbols":{
-    "expandername": {
+    "shortName": {
       "displayName": "Name of the Expander",
       "type": "parameter",
       "datatype": "text",
       "defaultValue": "Domain",
-      "replaces": "__NAME__",
-      "fileRename": "__NAME__",
+      "replaces": "__SHORTNAME__",
+      "fileRename": "__SHORTNAME__",
+      "isRequired": true
+    },
+    "buildPath": {
+      "displayName": "Sets the path where the expander will output its builds",
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "Domain",
+      "replaces": "__OUTPUTPATH__",
       "isRequired": true
     },
     "prefix": {

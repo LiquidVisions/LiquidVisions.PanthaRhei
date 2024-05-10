@@ -13,7 +13,7 @@
 
 	<PropertyGroup>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<OutputPath>$(SolutionDir)\..\..\..\PanthaRhei.Output\Expanders\__SOURCE__</OutputPath>
+		<OutputPath>__OUTPUTPATH__\Expanders\__SOURCE__</OutputPath>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NeutralLanguage>en</NeutralLanguage>
 	</PropertyGroup>

@@ -11,15 +11,15 @@ namespace __PREFIX__.__SOURCE__
     /// <summary>
     /// An <seealso cref="IExpanderTask{T}"/> that creates the project."/>
     /// </summary>
-    public class CreateProjectTask : IExpanderTask<__NAME__Expander>
+    public class CreateProjectTask : IExpanderTask<__SHORTNAME__Expander>
     {
-        private readonly __NAME__Expander expander;
+        private readonly __SHORTNAME__Expander expander;
         private readonly IDependencyFactory dependencyFactory;
         private readonly IApplication application;
         private readonly GenerationOptions options;
         private readonly App app;
 
-        public CreateProjectTask(__NAME__Expander expander, IDependencyFactory dependencyFactory)
+        public CreateProjectTask(__SHORTNAME__Expander expander, IDependencyFactory dependencyFactory)
         {
             ArgumentNullException.ThrowIfNull(expander, nameof(expander));
             ArgumentNullException.ThrowIfNull(dependencyFactory, nameof(dependencyFactory));
@@ -39,7 +39,7 @@ namespace __PREFIX__.__SOURCE__
         public int Order => 1;
 
         /// <inheritdoc/>
-        public __NAME__Expander Expander => expander;
+        public __SHORTNAME__Expander Expander => expander;
 
         /// <inheritdoc/>
         public bool Enabled => options.Clean;

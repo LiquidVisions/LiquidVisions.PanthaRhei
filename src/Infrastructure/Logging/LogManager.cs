@@ -57,7 +57,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
                 throw new ArgumentOutOfRangeException(nameof(loggerName));
             }
 
-            return s_loggerCache.GetOrAdd(loggerName, new Logger(loggerName, options.Root));
+            return options == null
+                ? s_loggerCache.GetOrAdd(loggerName, new Logger(loggerName))
+                : s_loggerCache.GetOrAdd(loggerName, new Logger(loggerName, options.Root));
         }
     }
 }

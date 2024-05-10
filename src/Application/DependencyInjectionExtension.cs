@@ -25,6 +25,24 @@ namespace LiquidVisions.PanthaRhei.Application
         /// Adds the dependencies of the project to the dependency inversion object.
         /// </summary>
         /// <param name="services"><seealso cref="IServiceCollection"/></param>
+        /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
+        public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
+        {
+            return services.AddDomainLayer()
+                .AddTransient<ICodeGeneratorBuilder, CodeGeneratorBuilder>()
+                .AddTransient<IEntitiesToSeedRepository, EntitiesToSeedGateway>()
+                .AddTransient<ICodeGenerator, CodeGenerator>()
+                .AddInitializers()
+                .AddSeeders()
+                .AddBoundaries()
+                .AddTemplate()
+                .AddUseCases();
+        }
+
+        /// <summary>
+        /// Adds the dependencies of the project to the dependency inversion object.
+        /// </summary>
+        /// <param name="services"><seealso cref="IServiceCollection"/></param>
         /// <param name="requestModel"><seealso cref="ExpandOptionsRequestModel"/></param>
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services, ExpandOptionsRequestModel requestModel)
@@ -46,14 +64,7 @@ namespace LiquidVisions.PanthaRhei.Application
             };
 
             return services.AddDomainLayer(options)
-                .AddTransient<ICodeGeneratorBuilder, CodeGeneratorBuilder>()
-                .AddTransient<IEntitiesToSeedRepository, EntitiesToSeedGateway>()
-                .AddTransient<ICodeGenerator, CodeGenerator>()
-                .AddInitializers()
-                .AddSeeders()
-                .AddBoundaries()
-                .AddTemplate()
-                .AddUseCases();
+                .AddApplicationLayer();
         }
 
         private static IServiceCollection AddUseCases(this IServiceCollection services)
@@ -86,6 +97,7 @@ namespace LiquidVisions.PanthaRhei.Application
         private static IServiceCollection AddBoundaries(this IServiceCollection services)
         {
             return services.AddTransient<IExpandBoundary, ExpandBoundary>()
+                .AddTransient<IBoundary, Boundary>()
                 .AddTransient<ISeeder, Seeder>();
         }
 

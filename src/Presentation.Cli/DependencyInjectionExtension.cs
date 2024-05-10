@@ -15,6 +15,20 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli
         /// Adds the dependencies of the project to the dependency inversion object.
         /// </summary>
         /// <param name="services"><seealso cref="IServiceCollection"/></param>
+        /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
+        public static IServiceCollection AddPresentationLayer(this IServiceCollection services)
+        {
+            services.AddApplicationLayer()
+                .AddInfrastructureLayer()
+                .AddEntityFrameworkLayer();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the dependencies of the project to the dependency inversion object.
+        /// </summary>
+        /// <param name="services"><seealso cref="IServiceCollection"/></param>
         /// <param name="model"><seealso cref="ExpandOptionsRequestModel"/></param>
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddPresentationLayer(this IServiceCollection services, ExpandOptionsRequestModel model)
