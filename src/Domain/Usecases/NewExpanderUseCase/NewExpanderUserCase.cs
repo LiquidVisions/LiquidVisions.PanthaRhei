@@ -22,7 +22,12 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
             TemplateCommand(model);
             RenameTemplateDirectory(model);
             RenameTemplateFile(model);
-            Build(model);
+
+            if(model.Build)
+            {
+                Build(model);
+            }
+            
             UnInstallCommand();
 
             return Task.FromResult(response);
@@ -37,7 +42,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
 
             if (!AssertAndGetFullPath(".template.json", "template.json", searchResult, out string source, out string target))
             {
-                string errorMessages = $"Expected to find one file named {source} but found {searchResult.Length}.";
+                string errorMessages = $"Expected to find one file named .template.json but found {searchResult.Length}.";
                 logger.Fatal(errorMessages);
 
                 throw new InvalidOperationException(errorMessages);
@@ -54,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
 
             if(!AssertAndGetFullPath("_template.config", ".template.config", searchResult, out string source, out string target))
             {
-                string errorMessages = $"Expected to find one directory named {source} but found {searchResult.Length}.";
+                string errorMessages = $"Expected to find one directory named _template.config but found {searchResult.Length}.";
                 logger.Fatal(errorMessages);
 
                 throw new InvalidOperationException(errorMessages);
