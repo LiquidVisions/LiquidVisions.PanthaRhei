@@ -60,5 +60,11 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.IO
         {
             return Path.GetFileNameWithoutExtension(path);
         }
+
+        /// <inheritdoc/>
+        public void Rename(string source, string target)
+        {
+            File.Move(source, target);
+        }
     }
 }
