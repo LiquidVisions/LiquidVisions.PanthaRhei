@@ -8,44 +8,44 @@ namespace LiquidVisions.PanthaRhei.Domain.IO
     public interface IFile
     {
         /// <summary>
-        /// Gets the fullname of the of the directory of a file.
+        /// Gets the full name of the of the directory of a file.
         /// </summary>
         /// <param name="path">full path to a file.</param>
-        /// <returns>Fullname of the directory.</returns>
+        /// <returns>Full name of the directory.</returns>
         string GetDirectory(string path);
 
         /// <summary>
         /// Checks weather the file exists.
         /// </summary>
         /// <param name="path">Full path to a file.</param>
-        /// <returns>a booleaan indication if the file exists or not.</returns>
+        /// <returns>a boolean indication if the file exists or not.</returns>
         bool Exists(string path);
 
         /// <summary>
         ///  Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
-        /// <param name="path">The fullpath to the file.</param>
+        /// <param name="path">The full path to the file.</param>
         /// <returns>A string array containing all lines of the file.</returns>
         string[] ReadAllLines(string path);
 
         /// <summary>
         ///  Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
-        /// <param name="path">The fullpath to the file.</param>
+        /// <param name="path">The full path to the file.</param>
         /// <returns>A string containing the content of the file.</returns>
         string ReadAllText(string path);
 
         /// <summary>
         /// Creates a new file, write the specified string array to the file, and then closes the file.
         /// </summary>
-        /// <param name="path">The fullpath to the file to write to.</param>
+        /// <param name="path">The full path to the file to write to.</param>
         /// <param name="lines">The string collection to write to the file.</param>
         void WriteAllLines(string path, IEnumerable<string> lines);
 
         /// <summary>
         /// Creates a new file, write the specified string array to the file, and then closes the file.
         /// </summary>
-        /// <param name="path">The fullpath to the file to write to.</param>
+        /// <param name="path">The full path to the file to write to.</param>
         /// <param name="lines">The string array to write to the file.</param>
         void WriteAllLines(string path, string[] lines);
 
@@ -57,10 +57,17 @@ namespace LiquidVisions.PanthaRhei.Domain.IO
         void WriteAllText(string path, string text);
 
         /// <summary>
-        /// eturns the file name without the extension of the specified path string.
+        /// returns the file name without the extension of the specified path string.
         /// </summary>
         /// <param name="path">The path string from which to obtain the file name and extension.</param>
         /// <returns>The characters after the last directory separator character in path, without the extension. If the last character of path is a directory or volume separator character, this method returns System.String.Empty. If path is null, this method returns null.</returns>
         string GetFileNameWithoutExtension(string path);
+
+        /// <summary>
+        /// Moves a specified file to a new location and potentially a new file name.
+        /// </summary>
+        /// <param name="source">The source file</param>
+        /// <param name="target">The target file</param>
+        void Rename(string source, string target);
     }
 }
