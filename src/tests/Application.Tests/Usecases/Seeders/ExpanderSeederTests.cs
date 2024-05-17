@@ -100,7 +100,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             Mock<IExpander> mockedExpanderInteractor = new();
             mockedExpanderInteractor.Setup(x => x.Name).Returns("RandomName");
             mockedExpanderInteractor.Setup(x => x.Order).Returns(2);
-            fakes.IExpanderPluginLoader.Setup(x => x.ShallowLoadAllExpanders(fakes.GenerationOptions.Object.ExpandersFolder)).Returns(new List<IExpander> { mockedExpanderInteractor.Object });
+            fakes.IExpanderPluginLoader.Setup(x => x.ShallowLoadAllExpanders(fakes.GenerationOptions.Object.ExpandersFolder)).Returns([mockedExpanderInteractor.Object]);
 
             // act
             interactor.Seed(app);

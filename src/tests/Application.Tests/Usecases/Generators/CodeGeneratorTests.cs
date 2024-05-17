@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
 
             fakes.IDependencyFactory
                 .Setup(x => x.ResolveAll<IExpander>())
-                .Returns(new List<IExpander> { mockedIExpanderInteractor.Object });
+                .Returns([mockedIExpanderInteractor.Object]);
 
             interactor = new CodeGenerator(fakes.IDependencyFactory.Object);
         }
@@ -37,7 +37,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Generators
         /// Dependency tests.
         /// </summary>
         [Fact]
-        public void ConstructorDependenciesShouldVeryfy()
+        public void ConstructorDependenciesShouldVerify()
         {
             // arrange
             // act

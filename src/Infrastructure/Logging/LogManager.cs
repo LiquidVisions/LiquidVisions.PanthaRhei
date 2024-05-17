@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
     /// <seealso cref="ILogManager" />
     internal class LogManager(GenerationOptions options) : ILogManager
     {
-        private static readonly ConcurrentDictionary<string, ILogger> s_loggerCache = new();
-        private static readonly IEnumerable<string> s_loggerNames = new List<string> { Loggers.DefaultLogger, Loggers.ExceptionLogger, Loggers.AuthenticationLogger };
+        private static readonly ConcurrentDictionary<string, ILogger> loggerCache = new();
+        private static readonly IEnumerable<string> loggerNames = [Loggers.DefaultLogger, Loggers.ExceptionLogger, Loggers.AuthenticationLogger];
 
         /// <summary>
         /// Gets an instance of the default logger.
@@ -52,14 +52,14 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Logging
                 throw new ArgumentNullException(nameof(loggerName));
             }
 
-            if (!s_loggerNames.Contains(loggerName))
+            if (!loggerNames.Contains(loggerName))
             {
                 throw new ArgumentOutOfRangeException(nameof(loggerName));
             }
 
             return options == null
-                ? s_loggerCache.GetOrAdd(loggerName, new Logger(loggerName))
-                : s_loggerCache.GetOrAdd(loggerName, new Logger(loggerName, options.Root));
+                ? loggerCache.GetOrAdd(loggerName, new Logger(loggerName))
+                : loggerCache.GetOrAdd(loggerName, new Logger(loggerName, options.Root));
         }
     }
 }

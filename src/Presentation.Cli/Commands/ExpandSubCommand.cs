@@ -79,7 +79,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
                 Console.WriteLine(x);
                 Console.ResetColor();
 
-                this.ShowHelp();
+                ShowHelp();
             });
         }
     }

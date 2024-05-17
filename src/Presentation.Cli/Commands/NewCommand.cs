@@ -56,7 +56,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
                 NewExpanderRequestModel model = new()
                 {
                     ShortName = nameOption.Value(),
-                    fullName = typeOption.Value(),
+                    FullName = typeOption.Value(),
                     Path = pathOption.Value(),
                     BuildPath = buildPathOption.Value(),
                     Build = buildOption.HasValue()

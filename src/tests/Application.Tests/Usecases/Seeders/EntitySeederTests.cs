@@ -136,7 +136,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             interactor.Seed(app);
 
             // assert
-            mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.Callsite == $"{app.FullName}.Domain.Entities")), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Entity>(x => x.CallSite == $"{app.FullName}.Domain.Entities")), Times.Once);
         }
 
         /// <summary>

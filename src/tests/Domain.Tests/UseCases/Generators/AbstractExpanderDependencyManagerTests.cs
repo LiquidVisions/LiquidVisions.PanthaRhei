@@ -135,7 +135,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             Assert.Equal($"Unable to load plugin '{nameof(FakeExpander)}'. No valid {nameof(IExpander)} derivatives found. The derivatives should be a non-abstract class.", exception.Message);
         }
 
-        private Mock<Type> MockedExpanderTaskTypes()
+        private static Mock<Type> MockedExpanderTaskTypes()
         {
             Mock<Type> result = new();
             result.Setup(x => x.GetInterfaces()).Returns([typeof(IExpanderTask<FakeExpander>)]);

@@ -33,13 +33,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// <summary>
         /// Gets or sets a collection of <seealso cref="App" /> that are applicable for the <seealso cref="Expander"/>.
         /// </summary>
-        public virtual ICollection<App> Apps { get; set; }
-            = new List<App>();
+        public virtual ICollection<App> Apps { get; set; } = [];
 
         /// <summary>
-        /// Gets or sets a collecion of <seealso cref="Component">Handlers</seealso> that are applicable for the <seealso cref="Expander"/>.
+        /// Gets or sets a collection of <seealso cref="Component">Handlers</seealso> that are applicable for the <seealso cref="Expander"/>.
         /// </summary>
-        public virtual ICollection<Component> Components { get; set; }
-            = new List<Component>();
+        public virtual ICollection<Component> Components { get; set; } = [];
     }
 }

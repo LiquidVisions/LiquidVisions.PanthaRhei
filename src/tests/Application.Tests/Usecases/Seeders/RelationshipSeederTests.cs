@@ -128,15 +128,15 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
                 Id = Guid.NewGuid(),
                 Name = "Entity1",
                 App = app,
-                Fields = new List<Field>
-                {
+                Fields =
+                [
                     new() {
                         Id = Guid.NewGuid(),
                         Name = "Id",
                         IsKey = true,
                         Required = true,
                     },
-                },
+                ],
             };
 
             app.Entities.Add(entity1);
@@ -146,21 +146,21 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
                 Id = Guid.NewGuid(),
                 Name = "Entity2",
                 App = app,
-                Fields = new List<Field>
-                {
+                Fields =
+                [
                     new() {
                         Id = Guid.NewGuid(),
                         Name = "Entity1Key",
                         IsKey = true,
                         Required = true,
                     },
-                },
+                ],
             };
             app.Entities.Add(entity2);
 
             mockedModelConfiguration.Setup(x => x.GetRelationshipInfo(entity2)).Returns([]);
-            mockedModelConfiguration.Setup(x => x.GetRelationshipInfo(entity1)).Returns(new List<RelationshipDto>
-            {
+            mockedModelConfiguration.Setup(x => x.GetRelationshipInfo(entity1)).Returns(
+            [
                 new() {
                     Key = "Id",
                     Entity = "Entity1",
@@ -170,7 +170,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
                     WithyCardinality = "WithOne",
                     Required = true,
                 },
-            });
+            ]);
 
             return app;
         }

@@ -28,7 +28,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                 {
                     Id = Guid.NewGuid(),
                     Name = type.Name,
-                    Callsite = $"{app.FullName}.Domain.Entities",
+                    CallSite = $"{app.FullName}.Domain.Entities",
                     Type = GetType(type),
                     Modifier = GetModifier(type),
                     Behaviour = GetBehaviour(type),

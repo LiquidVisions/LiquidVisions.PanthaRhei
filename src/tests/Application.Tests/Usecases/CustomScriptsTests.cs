@@ -30,7 +30,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases
             Mock<IElementTemplateParameters> mockedElements = new();
             mockedElements.Setup(x => x.ElementType).Returns(input);
             mockedElements.Setup(x => x.NamePostfix).Returns(expectedOutput);
-            _ = new CustomScripts(new List<IElementTemplateParameters>() { mockedElements.Object });
+            _ = new CustomScripts([mockedElements.Object]);
 
             // Act
             string actualOutput = CustomScripts.GetPostfix(input);
@@ -69,7 +69,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases
 
             componentMock.Setup(c => c.Expander).Returns(expanderMock.Object);
             componentMock.Setup(c => c.Name).Returns("ComponentName");
-            expanderMock.Setup(e => e.Apps).Returns(new List<App> { appMock.Object });
+            expanderMock.Setup(e => e.Apps).Returns([appMock.Object]);
             appMock.Setup(a => a.FullName).Returns("MockedFullName");
 
             Component component = componentMock.Object;
@@ -105,7 +105,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases
             var appMock = new Mock<App>();
 
             componentMock.Setup(c => c.Expander).Returns(expanderMock.Object);
-            expanderMock.Setup(e => e.Apps).Returns(new List<App> { appMock.Object });
+            expanderMock.Setup(e => e.Apps).Returns([appMock.Object]);
             appMock.Setup(a => a.FullName).Returns("MockedFullName");
 
             Component component = componentMock.Object;

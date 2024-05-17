@@ -30,14 +30,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         {
             App app = new()
             {
-                Expanders = new List<Expander>()
-                {
+                Expanders =
+                [
                     new()
                     {
                         Name = "FakeAbstract",
                         Order = 1,
                     }
-                }
+                ]
             };
 
             fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);

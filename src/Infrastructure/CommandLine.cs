@@ -59,7 +59,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                 logger.Debug($"Working directory '{workingDirectory}'");
             }
 
-            Output = new List<string>();
+            Output = [];
             Process process = new()
             {
                 StartInfo = new("cmd.exe", $"/C {command}")

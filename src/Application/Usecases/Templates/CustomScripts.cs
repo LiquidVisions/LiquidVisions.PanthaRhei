@@ -13,8 +13,8 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
     /// </summary>
     public class CustomScripts : ScriptObject
     {
-        private static readonly Pluralizer s_pluralizer = new();
-        private static readonly Dictionary<string, IElementTemplateParameters> s_elementTemplateParameters = [];
+        private static readonly Pluralizer pluralizer = new();
+        private static readonly Dictionary<string, IElementTemplateParameters> elementTemplateParameters = [];
 
         /// <summary>
         /// default constructor.
@@ -26,7 +26,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
 
             foreach (IElementTemplateParameters par in parameters)
             {
-                s_elementTemplateParameters.TryAdd(par.ElementType, par);
+                elementTemplateParameters.TryAdd(par.ElementType, par);
             }
         }
 
@@ -36,7 +36,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="elementType"></param>
         /// <returns></returns>
         public static string GetPostfix(string elementType)
-            => s_elementTemplateParameters[elementType].NamePostfix;
+            => elementTemplateParameters[elementType].NamePostfix;
 
         /// <summary>
         /// Gets the prefix for the element type.
@@ -44,7 +44,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Templates
         /// <param name="name"></param>
         /// <returns></returns>
         public static string Pluralize(string name)
-            => s_pluralizer.Pluralize(name);
+            => pluralizer.Pluralize(name);
 
         /// <summary>
         /// Gets the prefix for the element type.

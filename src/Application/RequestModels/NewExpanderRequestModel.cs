@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets or sets the type of the new expander.
         /// </summary>
-        public string fullName { get; set; }
+        public string FullName { get; set; }
 
         /// <summary>
         /// Gets or sets the path where the expander will be created.
