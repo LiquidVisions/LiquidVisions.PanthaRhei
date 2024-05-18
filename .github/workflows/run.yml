@@ -1,0 +1,20 @@
+name: Debug GitHub Context
+
+on: [push]
+
+jobs:
+  push-nuget-packages:
+
+    runs-on: windows-latest
+
+    steps:
+    
+    - name: Trigger NuGet Package Update Event
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        curl -X POST \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          https://api.github.com/repos/LiquidVisions/LiquidVisions.PanthaRhei.Templates/dispatches \
+          -d '{"event_type":"nuget-package-update"}'
