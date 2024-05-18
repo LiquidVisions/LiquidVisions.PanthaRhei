@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
 {
-    internal sealed class GenericRepository<TEntity>(IDependencyFactory dependencyFactory) :
-        GenericRepository(dependencyFactory),
+    internal sealed class GenericRepository<TEntity>(IDependencyFactory dependencyFactory) : GenericRepository(dependencyFactory),
         ICreateRepository<TEntity>,
         IGetRepository<TEntity>,
         IUpdateRepository<TEntity>,
@@ -16,7 +15,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
     {
         public Type ContextType => Context.GetType();
 
-        public Type ConfigurationType => dependencyFactory
+        public Type ConfigurationType => base.DependencyFactory
             .Resolve<IEntityTypeConfiguration<TEntity>>()
             .GetType();
 

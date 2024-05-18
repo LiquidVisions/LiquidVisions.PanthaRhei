@@ -29,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Configuration
                 .HasMaxLength(128)
                 .IsRequired(true);
 
-            builder.Property(x => x.Callsite)
+            builder.Property(x => x.CallSite)
                 .HasMaxLength(2048)
                 .IsRequired(true);
 

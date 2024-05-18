@@ -8,6 +8,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Repositories
     {
          internal Context Context => dependencyFactory.Resolve<Context>();
 
+        internal IDependencyFactory DependencyFactory => dependencyFactory;
+
         public void Migrate()
         {
             Context.Database.Migrate();

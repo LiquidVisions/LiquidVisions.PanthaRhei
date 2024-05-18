@@ -21,26 +21,23 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         public virtual string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the fullname of the <seealso cref="App"/>.
+        /// Gets or sets the full name of the <seealso cref="App"/>.
         /// </summary>
         public virtual string FullName { get; set; }
 
         /// <summary>
         /// Gets or sets a collection of <seealso cref="Expander" /> that are applicable for the <seealso cref="App"/>.
         /// </summary>
-        public virtual ICollection<Expander> Expanders { get; set; }
-            = new List<Expander>();
+        public virtual ICollection<Expander> Expanders { get; set; } = [];
 
         /// <summary>
         /// Gets or sets a collection of <seealso cref="Entity" /> that are applicable for the <seealso cref="App"/>.
         /// </summary>
-        public virtual ICollection<Entity> Entities { get; set; }
-            = new List<Entity>();
+        public virtual ICollection<Entity> Entities { get; set; } = [];
 
         /// <summary>
         /// Gets or sets a collection of <seealso cref="ConnectionString" /> that are applicable for the <seealso cref="App"/>.
         /// </summary>
-        public virtual ICollection<ConnectionString> ConnectionStrings { get; set; }
-            = new List<ConnectionString>();
+        public virtual ICollection<ConnectionString> ConnectionStrings { get; set; } = [];
     }
 }

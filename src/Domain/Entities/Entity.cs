@@ -23,7 +23,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// <summary>
         /// Gets or sets the location of the <see cref="Entity"/>.
         /// </summary>
-        public virtual string Callsite { get; set; }
+        public virtual string CallSite { get; set; }
 
         /// <summary>
         /// Gets or sets the Type of the <see cref="Entity"/>.
@@ -48,25 +48,21 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// <summary>
         /// Gets or sets the <seealso cref="Field">Fields</seealso> of the <see cref="Entity"/>.
         /// </summary>
-        public virtual ICollection<Field> Fields { get; set; }
-            = new List<Field>();
+        public virtual ICollection<Field> Fields { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the <seealso cref="Field">Fields</seealso> of the <see cref="Entity"/> that are referenced by other <seealso cref="Entity">Entities</seealso>.
         /// </summary>
-        public virtual ICollection<Field> ReferencedIn { get; set; }
-            = new List<Field>();
+        public virtual ICollection<Field> ReferencedIn { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the <seealso cref="Relationship">Relationships</seealso> of the <see cref="Entity"/>.
         /// </summary>
-        public virtual ICollection<Relationship> Relations { get; set; }
-            = new List<Relationship>();
+        public virtual ICollection<Relationship> Relations { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the <seealso cref="Relationship">Relationships</seealso> of the <see cref="Entity"/> that are referenced by other <seealso cref="Entity">Entities</seealso>.
         /// </summary>
-        public virtual ICollection<Relationship> IsForeignEntityOf { get; set; }
-            = new List<Relationship>();
+        public virtual ICollection<Relationship> IsForeignEntityOf { get; set; } = [];
     }
 }

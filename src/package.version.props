@@ -1,8 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <Version>0.4.0.1</Version>
-        <PackageVersion>0.4.0.1</PackageVersion>
-        <FileVersion>0.4.0.1</FileVersion>
+        <Version>0.4.1.1</Version>
+        <PackageVersion>0.4.1.1</PackageVersion>
+        <FileVersion>0.4.1.1</FileVersion>
         <Authors>Gerco Koks</Authors>
         <Company>LiquidVisions</Company>
         <Product>PanthaRhei</Product>
