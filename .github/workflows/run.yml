@@ -13,8 +13,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        curl -X POST \
-          -H "Accept: application/vnd.github.everest-preview+json" \
-          -H "Authorization: token $GITHUB_TOKEN" \
-          https://api.github.com/repos/LiquidVisions/LiquidVisions.PanthaRhei.Templates/dispatches \
-          -d '{"event_type":"nuget-package-update"}'
+          pwsh -Command "
+          Invoke-RestMethod -Method Post -Uri 'https://api.github.com/repos/LiquidVisions/LiquidVisions.PanthaRhei.Templates/dispatches' -Headers @{
+              Accept = 'application/vnd.github.everest-preview+json'
+              Authorization = 'token $env:GITHUB_TOKEN'
+          } -Body (@{ event_type = 'nuget-package-update' } | ConvertTo-Json)
+          "
