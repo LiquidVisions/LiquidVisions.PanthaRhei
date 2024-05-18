@@ -35,6 +35,11 @@
         "flux-newExpander": {
             "commandName": "Project",
             "commandLineArgs": "new expander --path \"C:\\Dev\\PanthaRhei.Output\" --buildPath \"C:\\Dev\\PanthaRhei.Output\" --build --shortName \"Application\" --fullName \"Application.CleanArchitecture\""
+        },
+        "flux-version": {
+            "commandName": "Project",
+            "commandLineArgs": "version"
+
         }
     }
 }

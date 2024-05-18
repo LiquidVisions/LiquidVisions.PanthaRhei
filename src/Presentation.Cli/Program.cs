@@ -6,10 +6,12 @@ using McMaster.Extensions.CommandLineUtils;
 using var app = new CommandLineApplication();
 using var buildCommand = new ExpandSubCommand();
 using var newCommand = new NewCommand();
+using var versionCommand = new VersionCommand();
 
 app.HelpOption();
 app.AddSubcommand(buildCommand);
 app.AddSubcommand(newCommand);
+app.AddSubcommand(versionCommand);
 
 app.OnExecute(() =>
 {
