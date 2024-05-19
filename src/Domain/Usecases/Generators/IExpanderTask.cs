@@ -12,10 +12,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         /// <summary>
         /// Gets the name of the <see cref="IExpanderTask{TExpander}"/>.
         /// </summary>
-        string Name { get; }
+        string Name => typeof(TExpander).Name;
 
         /// <summary>
-        /// Gets the order in whitch the handler should be executed.
+        /// Gets the order in which the handler should be executed.
         /// </summary>
         int Order { get; }
 

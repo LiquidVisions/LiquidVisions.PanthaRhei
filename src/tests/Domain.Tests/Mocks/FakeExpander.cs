@@ -27,13 +27,17 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Mocks
 
     public class FakeExpander : IExpander
     {
+        private Expander expander;
+
+        public void SetModel(Expander expander) => this.expander = expander;
+
         public bool Enabled => throw new NotImplementedException();
 
         public string Name => throw new NotImplementedException();
 
         public int Order => throw new NotImplementedException();
 
-        public virtual Expander Model => throw new NotImplementedException();
+        public virtual Expander Model => expander ?? throw new NotImplementedException();
 
         public void Clean() => throw new NotImplementedException();
 
