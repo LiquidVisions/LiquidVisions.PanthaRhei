@@ -94,6 +94,11 @@ namespace LiquidVisions.PanthaRhei.Tests
         public Mock<INewExpanderUseCase> INewExpanderUseCase  { get;} = new ();
 
         /// <summary>
+        /// Mock for <see cref="IApplication"/>.
+        /// </summary>
+        public Mock<IApplication> IApplication { get; } = new();
+
+        /// <summary>
         /// Configures the mock objects.
         /// </summary>
         public virtual void Configure()
@@ -123,6 +128,7 @@ namespace LiquidVisions.PanthaRhei.Tests
             IDependencyFactory.Setup(x => x.Resolve<ITemplate>()).Returns(ITemplate.Object);
             IDependencyFactory.Setup(x => x.Resolve<ICommandLine>()).Returns(ICommandLine.Object);
             IDependencyFactory.Setup(x => x.Resolve<IExpanderDependencyManager>()).Returns(IExpanderDependencyManager.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IApplication>()).Returns(IApplication.Object);
         }
     }
 }
