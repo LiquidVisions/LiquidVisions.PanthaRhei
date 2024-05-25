@@ -22,8 +22,9 @@ jobs:
         
         - name: Run Unit Tests with Code Coverage
           run: dotnet test --collect:"XPlat Code Coverage"
-    
-        - name: Upload to Codecov
-          uses: codecov/codecov-action@v2
+
+        - name: Bump version
+          uses: SiqiLu/dotnet-bump-version@master
           with:
-            token: ${{ secrets.CODECOV_TOKEN }}
+            version_files: "**/src/package.version.props"
+            github_token: ${{ secrets.GITHUB_TOKEN }}
