@@ -23,6 +23,14 @@ jobs:
     
     - name: Restore dependencies
       run: dotnet restore
+
+    - name: Bump version
+      uses: SiqiLu/dotnet-bump-version@master
+      with:
+        version_files: "**/src/package.version.props"
+        version_mask: "0.0.1.0"
+        version_overwrite: "*.*.*.*"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Build
       run: dotnet build --configuration Release --no-restore
@@ -44,3 +52,14 @@ jobs:
         
     - name: Push generated package to GitHub registry
       run: dotnet nuget push ${{env.PACKAGE_FOLDER}}*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
+
+    - name: Trigger Template NuGet Package Update Event
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+          pwsh -Command "
+          Invoke-RestMethod -Method Post -Uri 'https://api.github.com/repos/LiquidVisions/LiquidVisions.PanthaRhei.Templates/dispatches' -Headers @{
+              Accept = 'application/vnd.github.everest-preview+json'
+              Authorization = 'token $env:GITHUB_TOKEN'
+          } -Body (@{ event_type = 'nuget-package-update' } | ConvertTo-Json)
+          "
