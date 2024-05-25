@@ -11,7 +11,7 @@ jobs:
     
     - name: Trigger Template NuGet Package Update Event
       env:
-        GITHUB_TOKEN: ${{ secrets.github_admin }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         curl -L \
         -X POST \
