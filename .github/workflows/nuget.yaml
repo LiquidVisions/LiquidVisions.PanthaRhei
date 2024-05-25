@@ -23,15 +23,7 @@ jobs:
     
     - name: Restore dependencies
       run: dotnet restore
-
-    - name: Bump version
-      uses: SiqiLu/dotnet-bump-version@master
-      with:
-        version_files: "**/src/package.version.props"
-        version_mask: "0.0.1.0"
-        version_overwrite: "*.*.*.*"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-      
+    
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
