@@ -27,3 +27,9 @@ jobs:
         
         - name: Test
           run: dotnet test
+
+        - name: Bump version
+          uses: SiqiLu/dotnet-bump-version@master
+          with:
+            version_files: "**/src/package.version.props"
+            github_token: ${{ secrets.GITHUB_TOKEN }}

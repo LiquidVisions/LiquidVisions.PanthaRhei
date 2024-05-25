@@ -22,8 +22,3 @@ jobs:
         
         - name: Run Unit Tests with Code Coverage
           run: dotnet test --collect:"XPlat Code Coverage"
-    
-        - name: Upload to Codecov
-          uses: codecov/codecov-action@v2
-          with:
-            token: ${{ secrets.CODECOV_TOKEN }}
