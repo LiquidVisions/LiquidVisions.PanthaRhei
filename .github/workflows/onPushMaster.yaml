@@ -3,7 +3,7 @@ name: Push nuget packages
 on:
   workflow_dispatch:
   push:
-    branches: [ bla ]
+    branches: [ master ]
 
 env:
   PACKAGE_FOLDER: D:\a\LiquidVisions.PanthaRhei\LiquidVisions.PanthaRhei\src\package\
@@ -43,16 +43,16 @@ jobs:
         dotnet pack -c Release -o ${{env.PACKAGE_FOLDER}}
         
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ${{env.PACKAGE_FOLDER}}*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.GITHUB_TOKEN}}
+      run: dotnet nuget push ${{env.PACKAGE_FOLDER}}*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/liquidvisions/index.json --api-key ${{secrets.PACKAGE_TOKEN}}
 
     - name: Trigger Template NuGet Package Update Event
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_REPO }}
+        TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       run: |
         curl -L \
         -X POST \
         -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer $GITHUB_TOKEN" \
+        -H "Authorization: Bearer $TOKEN" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
         https://api.github.com/repos/LiquidVisions/LiquidVisions.PanthaRhei.Templates/dispatches \
         -d '{"event_type":"nuget-package-update","client_payload":{"unit":false,"integration":true}}'
