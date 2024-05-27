@@ -47,7 +47,7 @@ jobs:
 
     - name: Trigger Template NuGet Package Update Event
       env:
-        TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+        TOKEN: ${{ secrets.WORKFLOW_TOKEN }} 
       run: |
         curl -L \
         -X POST \
