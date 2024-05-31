@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
                 [
                     new()
                     {
-                        Name = "FakeAbstract",
+                        Name = "Tests.Mocks",
                         Order = 1,
                     }
                 ]
@@ -74,12 +74,16 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
         /// Tests that the Name property is set correctly.
         /// </summary>
         [Fact]
-        public void NameShouldBeEqualToTheExpanderNameWithoutTheExpanderKeyword()
+        public void DefaultNameOfTheExpanderShouldBeLastTwoSegmentsOfTheNamespace()
         {
             // arrange
+            string[] split = typeof(FakeAbstractExpander).Namespace.Split('.');
+            string expected = split.Length < 2 ? split[0] : string.Join(".", split[^2], split[^1]);
+
+
             // act
             // assert
-            Assert.Equal(nameof(FakeAbstractExpander).Replace("Expander", string.Empty, StringComparison.InvariantCulture), expander.Name);
+            Assert.Equal(expected, expander.Name);
         }
 
         /// <summary>

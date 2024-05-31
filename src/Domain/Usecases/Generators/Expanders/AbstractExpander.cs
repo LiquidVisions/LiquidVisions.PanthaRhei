@@ -44,10 +44,19 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
                 .Single(x => x.Name == Name);
         }
 
-        /// <inheritdoc/>
-        public virtual string Name => typeof(TExpander).Name
-            .Replace("Expander", string.Empty, StringComparison.InvariantCulture);
+        private static string GetName()
+        {
+            string[] fullName = typeof(TExpander).Namespace.Split('.');
+            if(fullName.Length < 2)
+            {
+                return fullName[0];
+            }
 
+            return string.Join(".", fullName[^2], fullName[^1]);
+        }
+
+        /// <inheritdoc/>
+        public virtual string Name => GetName();
         /// <summary>
         /// Gets the <seealso cref="ILogger"/>.
         /// </summary>
