@@ -82,7 +82,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
                 using (ILoggerFactory factory = ContextExtensions.GetLoggerFactory())
                 {
                     optionsBuilder
-                        .UseLoggerFactory(factory)
+            //            .UseLoggerFactory(factory)
                         .EnableSensitiveDataLogging()
                         .UseSqlServer(connectionString);
                 }

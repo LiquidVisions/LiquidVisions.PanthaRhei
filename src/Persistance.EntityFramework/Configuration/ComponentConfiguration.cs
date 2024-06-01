@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection.Emit;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Configuration
 {
@@ -36,7 +39,26 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Configuration
 
             builder.HasOne(x => x.Expander)
                 .WithMany(x => x.Components)
-                .IsRequired(false);
+            .IsRequired(false);
+
+            builder.HasMany(c => c.References)
+                 .WithMany(c => c.ReferencedBy)
+                 .UsingEntity<Dictionary<string, object>>(
+                     "ComponentReferences",
+                     j => j
+                         .HasOne<Component>()
+                         .WithMany()
+                         .HasForeignKey("ReferencedById")
+                         .HasConstraintName("FK_ComponentReferences_ReferencedBy"),
+                     j => j
+                         .HasOne<Component>()
+                         .WithMany()
+                         .HasForeignKey("ComponentId")
+                         .HasConstraintName("FK_ComponentReferences_Component"),
+                     j =>
+                     {
+                         j.HasKey("ComponentId", "ReferencedById");
+                     });
         }
     }
 }
