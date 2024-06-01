@@ -39,16 +39,32 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
 
             cli.Start($"dotnet new liquidvisions-expanders-{component.Name} --NAME {component.Name} --NS {app.FullName}", componentRoot);
             cli.Start($"dotnet sln {Path.Combine(solutionRoot, $"{app.FullName}.sln")} add {GetComponentConfigurationFile(component)}");
+
+            foreach(Component r in component.References)
+            {
+                cli.Start($"dotnet add {GetComponentConfigurationFile(component)} reference {GetComponentConfigurationFile(r)}");
+            }
         }
 
         public virtual string GetComponentRoot(Component component)
         {
-            return Path.Combine(options.OutputFolder, app.FullName, "src", $"{component.Name}");
+            string root = Path.Combine(
+                options.OutputFolder,
+                app.FullName,
+                "src",
+                $"{component.Name}");
+
+            return root;
         }
 
         public virtual string GetComponentConfigurationFile(Component component)
         {
-            return Path.Combine(GetComponentRoot(component), $"{component.Name}.csproj");
+            string root = GetComponentRoot(component);
+            string file = $"{component.Name}.csproj";
+
+            string path =  Path.Combine(root, file);
+
+            return path;
         }
 
         public void AddPackages(Component component)
