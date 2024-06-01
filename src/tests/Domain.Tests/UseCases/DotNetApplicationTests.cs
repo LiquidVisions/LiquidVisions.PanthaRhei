@@ -95,8 +95,14 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
         public void MaterializeComponentComponentShouldBeCreatedByDotNetCommand(bool folderExists, bool solutionFileExists, int timesToCreateFolder, int timesToCreateSolutionFile)
         {
             // arrange
+            Component referencedComponent = new()
+            {
+                Name = "ReferencedComponent"
+            };
+
             Mock<Component> mockedComponent = new();
             mockedComponent.Setup(x => x.Name).Returns("Component");
+            mockedComponent.Setup(x => x.References).Returns([referencedComponent]);
 
             string expectedSolutionFolder = Path.Combine(fakes.GenerationOptions.Object.OutputFolder, mockedApp.Object.FullName);
             string expectedComponentFolder = Path.Combine(expectedSolutionFolder, "src", mockedComponent.Object.Name);
@@ -107,6 +113,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             fakes.IDependencyFactory.Setup(x => x.Resolve<IDirectory>().Exists(expectedComponentFolder)).Returns(folderExists);
             fakes.IDependencyFactory.Setup(x => x.Resolve<IFile>().Exists(expectedSolutionConfigurationFile)).Returns(solutionFileExists);
 
+            string expectedReferenceCompentFolder = Path.Combine(expectedSolutionFolder, "src", referencedComponent.Name);
+            string expectedReferencedComponentConfigurationFile = Path.Combine(expectedReferenceCompentFolder, $"{referencedComponent.Name}.csproj");
+            
             // act
             application.MaterializeComponent(mockedComponent.Object);
 
@@ -119,6 +128,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             fakes.ICommandLine.Verify(x => x.Start($"dotnet new sln", expectedSolutionFolder), Times.Exactly(timesToCreateSolutionFile));
             fakes.ICommandLine.Verify(x => x.Start($"dotnet new liquidvisions-expanders-{mockedComponent.Object.Name} --NAME {mockedComponent.Object.Name} --NS {mockedApp.Object.FullName}", expectedComponentFolder), Times.Once);
             fakes.ICommandLine.Verify(x => x.Start($"dotnet sln {expectedSolutionConfigurationFile} add {expectedComponentConfigurationFile}"), Times.Once);
+            fakes.ICommandLine.Verify(x => x.Start($"dotnet add {expectedComponentConfigurationFile} reference {expectedReferencedComponentConfigurationFile}"), Times.Once);
+            fakes.ICommandLine.VerifyNoOtherCalls();
 
         }
     }
