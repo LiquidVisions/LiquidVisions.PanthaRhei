@@ -21,10 +21,10 @@ jobs:
         -H "Authorization: Bearer $TOKEN" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
         https://api.github.com/repos/LiquidVisions/LiquidVisions.PanthaRhei.Templates/dispatches \
-        -d '{"event_type":"nuget-package-update","client_payload":{"unit":false,"integration":true}}')
+        -d '{"event_type":"update","client_payload":{"unit":false,"integration":true}}')
     
         status_code=$(tail -c 3 response_body.txt)
-        response_body=$(response_body.txt)
+        response_body=$(cat response_body.txt)
     
         if [ "$status_code" -ne 200 ]; then
           echo "Request failed with status code $status_code"
