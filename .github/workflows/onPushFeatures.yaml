@@ -5,6 +5,7 @@ on:
   push:
     branches-ignore:
       - master
+      - gkoks-patch-1
       
 jobs:
     push:
