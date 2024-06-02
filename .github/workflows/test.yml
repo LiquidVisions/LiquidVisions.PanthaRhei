@@ -23,8 +23,8 @@ jobs:
         https://api.github.com/repos/LiquidVisions/LiquidVisions.PanthaRhei.Templates/dispatches \
         -d '{"event_type":"nuget-package-update","client_payload":{"unit":false,"integration":true}}')
     
-        status_code=$(tail -n1 response_body.txt)
-        response_body=$(cat response_body.txt)
+        status_code=$(tail -c 3 response_body.txt)
+        response_body=$(head -c -3 response_body.txt)
     
         if [ "$status_code" -ne 200 ]; then
           echo "Request failed with status code $status_code"
@@ -34,3 +34,4 @@ jobs:
           echo "Request succeeded with status code $status_code"
           echo "Response body: $response_body"
         fi
+
