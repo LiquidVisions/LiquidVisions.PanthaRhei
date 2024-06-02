@@ -13,6 +13,6 @@ jobs:
       - name: Trigger blog build
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.REPOSITORY_DISPATCH_EVENT }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: LiquidVisions/LiquidVisions.PanthaRhei.Templates
           event-type: update
