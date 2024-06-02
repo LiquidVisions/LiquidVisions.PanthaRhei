@@ -24,7 +24,7 @@ jobs:
         -d '{"event_type":"nuget-package-update","client_payload":{"unit":false,"integration":true}}')
     
         status_code=$(tail -c 3 response_body.txt)
-        response_body=$(head -c -3 response_body.txt)
+        response_body=$(response_body.txt)
     
         if [ "$status_code" -ne 200 ]; then
           echo "Request failed with status code $status_code"
