@@ -1,4 +1,4 @@
-name: Push nuget packages
+name: test
 
 on:
   workflow_dispatch:
