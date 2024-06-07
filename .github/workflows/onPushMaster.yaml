@@ -3,7 +3,7 @@ name: Push nuget packages
 on:
   workflow_dispatch:
   push:
-    branches: [ masters ]
+    branches: [ master ]
 
 env:
   PACKAGE_FOLDER: D:\a\LiquidVisions.PanthaRhei\LiquidVisions.PanthaRhei\src\package\
