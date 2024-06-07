@@ -34,7 +34,7 @@
         },
         "flux-newExpander": {
             "commandName": "Project",
-            "commandLineArgs": "new expander --path \"C:\\Dev\\PanthaRhei.Output\" --buildPath \"C:\\Dev\\PanthaRhei.Output\" --build --shortName \"Application\" --fullName \"Application.CleanArchitecture\""
+            "commandLineArgs": "new expander --path \"C:\\Dev\\LiquidVisions.PanthaRhei.Expanders\" --buildPath \"C:\\Dev\\PanthaRhei.Output\" --build --shortName \"EntityFramework\" --fullName \"CleanArchitecture.Infrastructure.EntityFramework\""
         },
         "flux-version": {
             "commandName": "Project",

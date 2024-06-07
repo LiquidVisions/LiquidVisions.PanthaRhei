@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 using LiquidVisions.PanthaRhei.Domain.Tests.Mocks;
+using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters;
@@ -55,7 +56,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             // assert
             fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
             fakes.IDependencyFactory.Verify(x => x.Resolve<ILogger>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<IApplication>(), Times.Once);
+            fakes.IDependencyFactory.VerifyNoOtherCalls();
         }
 
         /// <summary>
