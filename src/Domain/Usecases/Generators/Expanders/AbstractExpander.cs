@@ -20,6 +20,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
     {
         private readonly ILogger logger;
         private readonly IDependencyFactory dependencyFactory;
+        private readonly IApplication application;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpander{TExpander}"/> class.
@@ -38,6 +39,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
 
             this.dependencyFactory = dependencyFactory;
 
+            application = dependencyFactory.Resolve<IApplication>();
             logger = dependencyFactory.Resolve<ILogger>();
             App = dependencyFactory.Resolve<App>();
             Model = App.Expanders
@@ -53,6 +55,23 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
             }
 
             return string.Join(".", fullName[^2], fullName[^1]);
+        }
+
+        /// <summary>
+        /// Gets the <seealso cref="IApplication"/> instance.
+        /// </summary>
+        public IApplication Application => application;
+
+        /// <summary>
+        /// Gets the <seealso cref="Component"/> by the <paramref name="componentName"/>.
+        /// An expander can have multiple components.
+        /// </summary>
+        /// <param name="componentName"></param>
+        /// <returns><seealso cref="Component"/></returns>
+        public virtual Component GetComponent(string componentName)
+        {
+            return Model.Components
+                .Single(x => x.Name == Name);
         }
 
         /// <inheritdoc/>
@@ -188,8 +207,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         {
             Logger.Trace($"PreProcessing expander {Name}");
 
-            IEnumerable<IPreProcessor<TExpander>> selectedPrePocessors = GetPreProcessor();
-            foreach (IPreProcessor<TExpander> task in selectedPrePocessors.Where(x => x.Enabled))
+            IEnumerable<IPreProcessor<TExpander>> selectedPreProcessors = GetPreProcessor();
+            foreach (IPreProcessor<TExpander> task in selectedPreProcessors.Where(x => x.Enabled))
             {
                 task.Execute();
             }
