@@ -15,5 +15,12 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
         /// <param name="model"></param>
         /// <returns></returns>
         Task<Response> CreateNewExpander(NewExpanderRequestModel model);
+
+        /// <summary>
+        /// Updates the PanthaRhei.Core packages in the project.
+        /// </summary>
+        /// <param name="root">The root of where the action should search for projects to update.</param>
+        /// <returns><see cref="Task{TResult}"/></returns>
+        Task<Response> UpdateCorePackages(string root);
     }
 }

@@ -36,6 +36,10 @@
             "commandName": "Project",
             "commandLineArgs": "new expander --path \"C:\\Dev\\LiquidVisions.PanthaRhei.Expanders\" --buildPath \"C:\\Dev\\PanthaRhei.Output\" --build --shortName \"EntityFramework\" --fullName \"CleanArchitecture.Infrastructure.EntityFramework\""
         },
+        "flux-update": {
+            "commandName": "Project",
+            "commandLineArgs": "update core --root \"C:\\Dev\\LiquidVisions.PanthaRhei.Expanders\""
+        },
         "flux-version": {
             "commandName": "Project",
             "commandLineArgs": "version"

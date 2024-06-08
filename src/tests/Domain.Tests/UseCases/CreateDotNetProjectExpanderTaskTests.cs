@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.Tests.Mocks;
 using LiquidVisions.PanthaRhei.Domain.Usecases;
@@ -14,12 +9,18 @@ using Xunit;
 
 namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
 {
+    /// <summary>
+    /// Tests for <see cref="CreateDotNetProjectExpanderTask{TExpander}"/>.
+    /// </summary>
     public class CreateDotNetProjectExpanderTaskTests
     {
         private readonly Fakes fakes = new();
         private readonly CreateDotNetProjectExpanderTask<FakeExpander> task;
         private readonly Component component = new();
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public CreateDotNetProjectExpanderTaskTests()
         {
             Expander expander = new();
@@ -86,7 +87,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             // assert
             fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
             fakes.IDependencyFactory.Verify(x => x.Resolve<IApplication>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Resolve<App>(), Times.Once);
             fakes.IDependencyFactory.VerifyNoOtherCalls();
         }
 

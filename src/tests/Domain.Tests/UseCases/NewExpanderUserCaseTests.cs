@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LiquidVisions.PanthaRhei.Domain.IO;
-using LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase;
+using LiquidVisions.PanthaRhei.Domain.Usecases.CreateNewExpander;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
@@ -13,13 +13,13 @@ using Xunit;
 namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
 {
     /// <summary>
-    /// Tests for <seealso cref="NewExpanderUserCase"/>.
+    /// Tests for <seealso cref="CreateNewExpander"/>.
     /// </summary>
     public class NewExpanderUserCaseTests
     {
-        private readonly NewExpanderUserCase useCase;
+        private readonly CreateNewExpander useCase;
         private readonly Fakes fakes = new();
-        private readonly NewExpander model;
+        private readonly CreateNewExpanderRequestModel model;
 
         private string sourceTemplateFile;
         private string sourceTemplateDirectory;
@@ -29,7 +29,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
         /// </summary>
         public NewExpanderUserCaseTests()
         {
-            useCase = new NewExpanderUserCase(fakes.ICommandLine.Object, fakes.IDirectory.Object, fakes.IFile.Object, fakes.ILogger.Object);
+            useCase = new CreateNewExpander(fakes.ICommandLine.Object, fakes.IDirectory.Object, fakes.IFile.Object, fakes.ILogger.Object);
             model = new()
             {
                 Build = true,

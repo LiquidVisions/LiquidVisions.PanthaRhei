@@ -7,10 +7,12 @@ using var app = new CommandLineApplication();
 using var buildCommand = new ExpandSubCommand();
 using var newCommand = new NewCommand();
 using var versionCommand = new VersionCommand();
+using var updateCommand = new UpdateCommand();
 
 app.HelpOption();
 app.AddSubcommand(buildCommand);
 app.AddSubcommand(newCommand);
+app.AddSubcommand(updateCommand);
 app.AddSubcommand(versionCommand);
 
 app.OnExecute(() =>
