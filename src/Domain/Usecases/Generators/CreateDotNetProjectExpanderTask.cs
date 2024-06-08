@@ -14,10 +14,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         where TExpander : class, IExpander
     {
         private readonly TExpander expander;
-        private readonly IDependencyFactory dependencyFactory;
         private readonly IApplication application;
         private readonly GenerationOptions options;
-        private readonly App app;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateDotNetProjectExpanderTask{TExpander}"/> class.
@@ -31,10 +29,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
 
             options = dependencyFactory.Resolve<GenerationOptions>();
             application = dependencyFactory.Resolve<IApplication>();
-            app = dependencyFactory.Resolve<App>();
-
+            
             this.expander = expander;
-            this.dependencyFactory = dependencyFactory;
         }
 
         /// <inheritdoc/>

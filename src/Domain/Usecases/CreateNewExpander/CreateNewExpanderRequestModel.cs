@@ -1,9 +1,9 @@
-﻿namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
+﻿namespace LiquidVisions.PanthaRhei.Domain.Usecases.CreateNewExpander
 {
     /// <summary>
     /// A request model for creating a new expander.
     /// </summary>
-    public class NewExpander
+    public class CreateNewExpanderRequestModel
     {
         /// <summary>
         /// Gets or sets the name of the new expander.

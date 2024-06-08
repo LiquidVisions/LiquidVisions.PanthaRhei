@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 
-namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
+namespace LiquidVisions.PanthaRhei.Domain.Usecases.CreateNewExpander
 {
-    internal class NewExpanderUserCase(ICommandLine commandLine, IDirectory directory, IFile file, ILogger logger) : INewExpanderUseCase
+    internal class CreateNewExpander(ICommandLine commandLine, IDirectory directory, IFile file, ILogger logger) : ICreateNewExpander
     {
         private readonly ICommandLine commandLine = commandLine;
         private readonly IDirectory directory = directory;
         private readonly ILogger logger = logger;
         private readonly string templatePackage = "LiquidVisions.PanthaRhei.Templates.Expander";
 
-        public Task<Response> Execute(NewExpander model)
+        public Task<Response> Execute(CreateNewExpanderRequestModel model)
         {
             Response response = new();
 
@@ -23,20 +23,20 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
             RenameTemplateDirectory(model);
             RenameTemplateFile(model);
 
-            if(model.Build)
+            if (model.Build)
             {
                 Build(model);
             }
-            
+
             UnInstallCommand();
 
             return Task.FromResult(response);
 
         }
 
-        private void Build(NewExpander model) => commandLine.Start("dotnet build", Path.Combine(model.Path, model.FullName));
+        private void Build(CreateNewExpanderRequestModel model) => commandLine.Start("dotnet build", Path.Combine(model.Path, model.FullName));
 
-        private void RenameTemplateFile(NewExpander model)
+        private void RenameTemplateFile(CreateNewExpanderRequestModel model)
         {
             string[] searchResult = directory.GetFiles(model.Path, ".template.json", SearchOption.AllDirectories);
 
@@ -53,11 +53,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
             file.Rename(source, target);
         }
 
-        private void RenameTemplateDirectory(NewExpander model)
+        private void RenameTemplateDirectory(CreateNewExpanderRequestModel model)
         {
             string[] searchResult = directory.GetDirectories(model.Path, "_template.config", SearchOption.AllDirectories);
 
-            if(!AssertAndGetFullPath("_template.config", ".template.config", searchResult, out string source, out string target))
+            if (!AssertAndGetFullPath("_template.config", ".template.config", searchResult, out string source, out string target))
             {
                 string errorMessages = $"Expected to find one directory named _template.config but found {searchResult.Length}.";
                 logger.Fatal(errorMessages);
@@ -86,7 +86,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase
             return true;
         }
 
-        private void TemplateCommand(NewExpander model)
+        private void TemplateCommand(CreateNewExpanderRequestModel model)
         {
             string command = $"dotnet new expander -n {model.FullName} --buildPath {model.BuildPath} --shortName {model.ShortName} -d";
 

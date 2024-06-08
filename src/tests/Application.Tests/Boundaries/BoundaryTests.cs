@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using LiquidVisions.PanthaRhei.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Domain.Usecases.NewExpanderUseCase;
+using LiquidVisions.PanthaRhei.Domain.Usecases.CreateNewExpander;
 using Moq;
 using Xunit;
 
@@ -20,11 +20,11 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         /// </summary>
         public BoundaryTests()
         {
-            boundary = new(fakes.INewExpanderUseCase.Object);   
+            boundary = new(fakes.ICreateNewExpander.Object, fakes.IUpdateCorePackages.Object);   
         }
 
         /// <summary>
-        /// Unit test for <see cref="Boundary.CreateNewExpander(NewExpanderRequestModel)"/>.
+        /// Unit test for <see cref="Boundary.CreateNewExpander(Application.RequestModels.NewExpanderRequestModel)"/>.
         /// </summary>
         [Fact]
         public async Task CreateNewExpanderShouldExecuteUseCase()
@@ -42,7 +42,23 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             await boundary.CreateNewExpander(model);
 
             // assert
-            fakes.INewExpanderUseCase.Verify(x => x.Execute(It.Is<NewExpander>(m => m.Build == model.Build && m.BuildPath == model.BuildPath && m.Path == model.Path && m.FullName == model.FullName && m.ShortName == model.ShortName)), Times.Once);
+            fakes.ICreateNewExpander.Verify(x => x.Execute(It.Is<CreateNewExpanderRequestModel>(m => m.Build == model.Build && m.BuildPath == model.BuildPath && m.Path == model.Path && m.FullName == model.FullName && m.ShortName == model.ShortName)), Times.Once);
+        }
+
+        /// <summary>
+        /// Unit test for <see cref="Boundary.UpdateCorePackages(string)"/>.
+        /// </summary>
+        [Fact]
+        public void UpdateCorePackagesShouldCallUseCase()
+        {
+            // arrange
+            string path = "C:\\test";
+
+            // act
+            boundary.UpdateCorePackages(path);
+
+            // assert
+            fakes.IUpdateCorePackages.Verify(x => x.Execute(path), Times.Once);
         }
     }
 }
