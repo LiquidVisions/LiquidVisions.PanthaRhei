@@ -71,7 +71,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         public virtual Component GetComponent(string componentName)
         {
             return Model.Components
-                .Single(x => x.Name == Name);
+                .Single(x => x.Name == componentName);
         }
 
         /// <inheritdoc/>
