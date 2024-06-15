@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Harvesters
     /// <summary>
     /// An abstract implementation of the <see cref="IHarvester{TExpander}"/>.
     /// </summary>
-    /// <typeparam name="TExpander">A deriveded type of <see cref="IExpander"/>.</typeparam>
+    /// <typeparam name="TExpander">A derived type of <see cref="IExpander"/>.</typeparam>
     /// <remarks>
     /// Initializes a new instance of the <see cref="RegionHarvester{TExpander}"/> class.
     /// </remarks>

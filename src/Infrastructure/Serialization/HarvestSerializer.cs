@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Serialization
         {
             ArgumentNullException.ThrowIfNull(harvest);
 
-            bool serialize = file.Exists(fullPath);
+            bool serialize = !file.Exists(fullPath);
             serialize &= harvest.Items.Count != 0;
             if (serialize)
             {

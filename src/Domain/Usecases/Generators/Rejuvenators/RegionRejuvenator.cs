@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
             directoryService = dependencyFactory.Resolve<IDirectory>();
             harvestGateway = dependencyFactory.Resolve<IGetRepository<Harvest>>();
             writer = dependencyFactory.Resolve<IWriter>();
-            folder = Path.Combine(options.HarvestFolder, App.FullName);
+            folder = Path.Combine(options.HarvestFolder, App.FullName, string.Join('.', Expander.Name.Split('.')[1..^0]));
         }
 
         /// <inheritdoc/>
@@ -46,7 +46,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Rejuvenators
         /// <inheritdoc/>
         public override void Execute()
         {
-            string[] files = directoryService.GetFiles(folder, $"*.{Extension}", SearchOption.TopDirectoryOnly);
+            string[] files = directoryService.GetFiles(folder, $"*{Extension}", SearchOption.AllDirectories);
             foreach (string file in files)
             {
                 Harvest harvest = harvestGateway.GetById(file);
