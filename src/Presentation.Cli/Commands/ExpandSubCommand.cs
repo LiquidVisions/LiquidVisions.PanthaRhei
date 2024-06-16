@@ -16,13 +16,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
             CommandOption rootOption = Option(
                     "--root",
                     "Full path to the project root.",
-                    CommandOptionType.SingleValue)
-                    .IsRequired();
-
-            CommandOption dbOption = Option(
-                "--db",
-                "The connectionstring that will be used.",
-                CommandOptionType.SingleValue);
+                    CommandOptionType.SingleValue);
 
             CommandOption appOption = Option(
                 "--app",
@@ -59,10 +53,6 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
                     Root = rootOption.Value(),
                     Clean = cleanModeOption.HasValue(),
                     GenerationMode = runModeOption.Value(),
-                    ConnectionString = new ConfigurationBuilder()
-                        .AddUserSecrets<Program>()
-                        .Build()
-                        .GetConnectionString(dbOption.Value()),
                 };
 
                 ServiceProvider provider = new ServiceCollection()

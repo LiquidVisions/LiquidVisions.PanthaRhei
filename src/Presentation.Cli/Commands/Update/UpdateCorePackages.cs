@@ -2,13 +2,13 @@
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
+namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update
 {
     internal class UpdateCorePackages : CommandLineApplication
     {
         public UpdateCorePackages()
         {
-            base.Name = "core";
+            Name = "core";
 
             CommandOption rootOption = Option(
                 "--root",

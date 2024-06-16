@@ -3,13 +3,13 @@ using LiquidVisions.PanthaRhei.Application.RequestModels;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
+namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
 {
     internal class NewExpanderCommand : CommandLineApplication
     {
         public NewExpanderCommand()
         {
-            base.Name = "expander";
+            Name = "expander";
 
             CommandOption nameOption = Option(
                 "--shortName",
