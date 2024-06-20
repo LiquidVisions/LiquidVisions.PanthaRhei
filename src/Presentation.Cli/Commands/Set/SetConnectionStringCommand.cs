@@ -1,44 +1,33 @@
-﻿using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
-using LiquidVisions.PanthaRhei.Presentation.Cli.UseCases;
-using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Extensions.DependencyInjection;
+﻿using McMaster.Extensions.CommandLineUtils;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
 {
-    internal class SetConnectionStringCommand : CommandLineApplication
+    internal class SetConnectionStringCommand : PanthaRheiCommandLineApplication
     {
-        public SetConnectionStringCommand()
+        private readonly CommandOption name;
+        private readonly CommandOption connection;
+        private readonly IRunSettings runSettings;
+
+        public SetConnectionStringCommand(IRunSettings runSettings)
         {
+            this.runSettings = runSettings;
             Name = "database";
 
-            CommandOption name = Option(
+            name = Option(
                 "-n|--name",
                 "The name of the database",
                 CommandOptionType.SingleValue)
                 .IsRequired();
 
-            CommandOption connection = Option(
+            connection = Option(
                 "-c|--connection",
                 "The ConnectionString of the database",
                 CommandOptionType.SingleValue);
+        }
 
-            this.OnExecute(() =>
-            {
-
-                SetDatabaseCommandModel requestModel = new()
-                {
-                    Name = name.Value(),
-                    ConnectionString = connection.Value()
-                };
-
-                ServiceProvider provider = new ServiceCollection()
-                    .AddPresentationLayer()
-                    .BuildServiceProvider();
-
-                provider.GetService<ICommand<SetDatabaseCommandModel>>()
-                    .Execute(requestModel);
-
-            });
+        public override void OnExecute()
+        {
+            runSettings.Set("ConnectionStrings", name.Value(), connection.Value());
         }
     }
 }

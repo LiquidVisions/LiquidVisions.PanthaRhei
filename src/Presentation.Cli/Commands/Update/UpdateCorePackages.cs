@@ -4,27 +4,25 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update
 {
-    internal class UpdateCorePackages : CommandLineApplication
+    internal class UpdateCorePackages : PanthaRheiCommandLineApplication
     {
+        private readonly CommandOption rootOption;
+
         public UpdateCorePackages()
         {
             Name = "core";
 
-            CommandOption rootOption = Option(
+            rootOption = Option(
                 "--root",
                 "Full path to the project root.",
                 CommandOptionType.SingleValue)
                 .IsRequired();
-
-            this.OnExecute(() =>
-            {
-                ServiceProvider provider = new ServiceCollection()
-                    .AddPresentationLayer()
-                    .BuildServiceProvider();
-
-                provider.GetService<IBoundary>()
-                    .UpdateCorePackages(rootOption.Value());
-            });
         }
+
+        public override void OnExecute() => new ServiceCollection()
+            .AddPresentationLayer()
+            .BuildServiceProvider()
+            .GetService<IBoundary>()
+            .UpdateCorePackages(rootOption.Value());
     }
 }

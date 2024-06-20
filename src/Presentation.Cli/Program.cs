@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
 using LiquidVisions.PanthaRhei.Presentation.Cli.Commands;
-using LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Configure;
+using LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set;
 using LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New;
 using LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update;
 using McMaster.Extensions.CommandLineUtils;

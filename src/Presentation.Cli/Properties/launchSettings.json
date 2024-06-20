@@ -2,7 +2,7 @@
     "profiles": {
         "flux-Default": {
             "commandName": "Project",
-            "commandLineArgs": "expand --clean --mode \"Default, Rejuvenate, Run\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+            "commandLineArgs": "expand --clean --mode \"Default, Rejuvenate, Run\""
         },
         "flux-Harvest": {
             "commandName": "Project",
@@ -44,9 +44,13 @@
             "commandName": "Project",
             "commandLineArgs": "version"
         },
-        "flux-setConnection": {
+        "flux-set-connection": {
             "commandName": "Project",
             "commandLineArgs": "set database -c \"TEST\" -n \"PanthaRheiDev\""
+        },
+        "flux-set-root": {
+            "commandName": "Project",
+            "commandLineArgs": "set root -r \"C:\\Dev\\PanthaRhei.Output\""
         }
     }
 }

@@ -3,10 +3,8 @@ using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Application;
 using LiquidVisions.PanthaRhei.Application.RequestModels;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Generators;
 using LiquidVisions.PanthaRhei.Infrastructure;
 using LiquidVisions.PanthaRhei.Infrastructure.EntityFramework;
-using LiquidVisions.PanthaRhei.Presentation.Cli.UseCases;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,7 +22,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
         public static IServiceCollection AddPresentationLayer(this IServiceCollection services)
         {
-            services.AddScoped<ICommand<SetDatabaseCommandModel>, SetDatabaseUseCase>()
+            services.AddScoped<IRunSettings, RunSettings>()
                 .AddApplicationLayer()
                 .AddInfrastructureLayer()
                 .AddEntityFrameworkLayer();
@@ -60,6 +58,16 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli
                     .Value;
 
                 model.Root = root;
+            }
+
+            if(model.AppId == Guid.Empty)
+            {
+                string appId = configuration.GetSection("RunSettings")
+                    .GetSection("App")
+                    .Value;
+
+                model.AppId = Guid.Parse(appId);
+
             }
 
             model.ConnectionString = configuration.GetConnectionString(connectionStringName);

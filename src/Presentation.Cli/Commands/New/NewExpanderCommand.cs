@@ -5,59 +5,62 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
 {
-    internal class NewExpanderCommand : CommandLineApplication
+    internal class NewExpanderCommand : PanthaRheiCommandLineApplication
     {
+        private readonly CommandOption nameOption;
+        private readonly CommandOption typeOption;
+        private readonly CommandOption pathOption;
+        private readonly CommandOption buildPathOption;
+        private readonly CommandOption<bool> buildOption;
+
+
         public NewExpanderCommand()
         {
             Name = "expander";
 
-            CommandOption nameOption = Option(
+            nameOption = Option(
                 "--shortName",
                 "Name of the new expander class.",
                 CommandOptionType.SingleValue)
                 .IsRequired();
 
-            CommandOption typeOption = Option(
+            typeOption = Option(
                 "--fullName",
                 "Type of the new expander solution.",
                 CommandOptionType.SingleValue)
                 .IsRequired(false);
 
-            CommandOption pathOption = Option(
+            pathOption = Option(
                 "--path",
                 "Path where the expander will be created.",
                 CommandOptionType.SingleValue)
                 .IsRequired(false);
 
-            CommandOption buildPathOption = Option(
+            buildPathOption = Option(
                 "--buildPath",
                 "Path where the expander will outputs' its builds.",
                 CommandOptionType.SingleValue)
                 .IsRequired(true);
 
-            CommandOption<bool> buildOption = this.Option<bool>(
+            buildOption = this.Option<bool>(
                 "--build",
                 "Builds the newly created expander",
                 CommandOptionType.SingleOrNoValue);
+        }
 
-            this.OnExecute(() =>
-            {
-                NewExpanderRequestModel model = new()
-                {
+        public override void OnExecute()
+        {
+            new ServiceCollection()
+                .AddPresentationLayer()
+                .BuildServiceProvider()
+                .GetService<IBoundary>()
+                .CreateNewExpander(new NewExpanderRequestModel {
                     ShortName = nameOption.Value(),
                     FullName = typeOption.Value(),
                     Path = pathOption.Value(),
                     BuildPath = buildPathOption.Value(),
                     Build = buildOption.HasValue()
-                };
-
-                ServiceProvider provider = new ServiceCollection()
-                    .AddPresentationLayer()
-                    .BuildServiceProvider();
-
-                provider.GetService<IBoundary>()
-                    .CreateNewExpander(model);
-            });
+                });
         }
     }
 }
