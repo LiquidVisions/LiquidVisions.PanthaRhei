@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCoreUseCase;
+using LiquidVisions.PanthaRhei.Domain.Usecases.UpdatePackages;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
 using Xunit;
@@ -11,19 +11,19 @@ using Xunit;
 namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
 {
     /// <summary>
-    /// Tests for <see cref="UpdateCorePackages"/>.
+    /// Tests for <see cref="UpdatePackagesUseCase"/>.
     /// </summary>
     public class UpdateCorePackagesTests
     {
         private readonly Fakes fakes = new();
-        private readonly UpdateCorePackages useCase;
+        private readonly UpdatePackagesUseCase useCase;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
         public UpdateCorePackagesTests()
         {
-            useCase = new UpdateCorePackages(
+            useCase = new UpdatePackagesUseCase(
                 fakes.IDirectory.Object,
                 fakes.ICommandLine.Object,
                 fakes.ILogger.Object,
@@ -31,7 +31,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
         }
 
         /// <summary>
-        /// Tests the happy flow of <seealso cref="UpdateCorePackages.Execute(string)" />
+        /// Tests the happy flow of <seealso cref="UpdatePackagesUseCase.Execute(string)" />
         /// </summary>
         /// <param name="projectFile">The name of the project file</param>
         /// <param name="package">The name of the package</param>

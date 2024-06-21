@@ -20,7 +20,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         /// </summary>
         public BoundaryTests()
         {
-            boundary = new(fakes.ICreateNewExpander.Object, fakes.IUpdateCorePackages.Object);   
+            boundary = new(fakes.ICreateNewExpander.Object, fakes.IUpdatePackages.Object, fakes.IUpdateCore.Object);   
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         }
 
         /// <summary>
-        /// Unit test for <see cref="Boundary.UpdateCorePackages(string)"/>.
+        /// Unit test for <see cref="Boundary.UpdatePackages(string)"/>.
         /// </summary>
         [Fact]
         public void UpdateCorePackagesShouldCallUseCase()
@@ -55,10 +55,10 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
             string path = "C:\\test";
 
             // act
-            boundary.UpdateCorePackages(path);
+            boundary.UpdatePackages(path);
 
             // assert
-            fakes.IUpdateCorePackages.Verify(x => x.Execute(path), Times.Once);
+            fakes.IUpdatePackages.Verify(x => x.Execute(path), Times.Once);
         }
     }
 }

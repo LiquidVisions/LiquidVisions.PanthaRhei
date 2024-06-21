@@ -4,13 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update
 {
-    internal class UpdateCorePackages : PanthaRheiCommandLineApplication
+    internal class UpdatePackages : PanthaRheiCommandLineApplication
     {
         private readonly CommandOption rootOption;
 
-        public UpdateCorePackages()
+        public UpdatePackages()
         {
-            Name = "core";
+            Name = "packages";
             HelpOption("-?", true);
 
             rootOption = Option(
@@ -24,6 +24,6 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update
             .AddPresentationLayer()
             .BuildServiceProvider()
             .GetService<IBoundary>()
-            .UpdateCorePackages(rootOption.Value());
+                .UpdatePackages(rootOption.Value());
     }
 }

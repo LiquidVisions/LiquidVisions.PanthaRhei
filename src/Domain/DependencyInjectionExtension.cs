@@ -3,7 +3,8 @@ using LiquidVisions.PanthaRhei.Domain.Usecases;
 using LiquidVisions.PanthaRhei.Domain.Usecases.CreateNewExpander;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
-using LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCoreUseCase;
+using LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCore;
+using LiquidVisions.PanthaRhei.Domain.Usecases.UpdatePackages;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Domain
@@ -27,7 +28,8 @@ namespace LiquidVisions.PanthaRhei.Domain
                 .AddSingleton((IDependencyFactory)container)
                 .AddTransient<IApplication, DotNetApplication>()
                 .AddTransient<ICreateNewExpander, CreateNewExpander>()
-                .AddTransient<IUpdateCorePackages, UpdateCorePackages>()
+                .AddTransient<IUpdatePackagesUseCase, UpdatePackagesUseCase>()
+                .AddTransient<IUpdateCoreUseCase, UpdateCoreUseCase>()
                 .AddInitializers();
         }
 

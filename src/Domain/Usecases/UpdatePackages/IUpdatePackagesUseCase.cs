@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-namespace LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCoreUseCase
+namespace LiquidVisions.PanthaRhei.Domain.Usecases.UpdatePackages
 {
     /// <summary>
     /// Represents the contract for the update core packages use case.
     /// </summary>
-    public interface IUpdateCorePackages
+    public interface IUpdatePackagesUseCase
     {
         /// <summary>
         /// Executes the update core packages use case.

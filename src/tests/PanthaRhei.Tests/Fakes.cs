@@ -7,7 +7,8 @@ using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Initializers;
 using LiquidVisions.PanthaRhei.Domain.Usecases.Templates;
-using LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCoreUseCase;
+using LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCore;
+using LiquidVisions.PanthaRhei.Domain.Usecases.UpdatePackages;
 using Moq;
 
 namespace LiquidVisions.PanthaRhei.Tests
@@ -95,9 +96,14 @@ namespace LiquidVisions.PanthaRhei.Tests
         public Mock<ICreateNewExpander> ICreateNewExpander  { get;} = new ();
 
         /// <summary>
-        /// Mock for <see cref="IUpdateCorePackages"/>.
+        /// Mock for <see cref="IUpdatePackages"/>.
         /// </summary>
-        public Mock<IUpdateCorePackages> IUpdateCorePackages { get; } = new();
+        public Mock<IUpdatePackagesUseCase> IUpdatePackages { get; } = new();
+
+        /// <summary>
+        /// Mock for <see cref="IUpdateCoreUseCase"/>.
+        /// </summary>
+        public Mock<IUpdateCoreUseCase> IUpdateCore { get; } = new();
 
         /// <summary>
         /// Mock for <see cref="IApplication"/>.
@@ -136,7 +142,8 @@ namespace LiquidVisions.PanthaRhei.Tests
             IDependencyFactory.Setup(x => x.Resolve<IExpanderDependencyManager>()).Returns(IExpanderDependencyManager.Object);
             IDependencyFactory.Setup(x => x.Resolve<IApplication>()).Returns(IApplication.Object);
             IDependencyFactory.Setup(x => x.Resolve<ICreateNewExpander>()).Returns(ICreateNewExpander.Object);
-            IDependencyFactory.Setup(x => x.Resolve<IUpdateCorePackages>()).Returns(IUpdateCorePackages.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IUpdatePackagesUseCase>()).Returns(IUpdatePackages.Object);
+            IDependencyFactory.Setup(x => x.Resolve<IUpdateCoreUseCase>()).Returns(IUpdateCore.Object);
         }
     }
 }
