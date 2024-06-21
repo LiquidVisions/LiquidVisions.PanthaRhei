@@ -20,7 +20,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Boundaries
         /// </summary>
         public BoundaryTests()
         {
-            boundary = new(fakes.ICreateNewExpander.Object, fakes.IUpdatePackages.Object, fakes.IUpdateCore.Object);   
+            boundary = new(fakes.ICreateNewExpander.Object, fakes.IUpdatePackages.Object);   
         }
 
         /// <summary>
