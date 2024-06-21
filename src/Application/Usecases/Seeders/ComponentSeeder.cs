@@ -14,9 +14,6 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
     {
         private readonly ICreateRepository<Component> createGateway = dependencyFactory.Resolve<ICreateRepository<Component>>();
         private readonly IDeleteRepository<Component> deleteGateway = dependencyFactory.Resolve<IDeleteRepository<Component>>();
-        private readonly GenerationOptions options = dependencyFactory.Resolve<GenerationOptions>();
-        private readonly IDirectory directoryService = dependencyFactory.Resolve<IDirectory>();
-        private readonly IFile fileService = dependencyFactory.Resolve<IFile>();
 
         public int SeedOrder => 3;
 
@@ -26,29 +23,16 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             foreach (Expander expander in app.Expanders)
             {
-                string templatePath = Path.Combine(options.ExpandersFolder, expander.Name, Resources.TemplatesFolder);
-                if (directoryService.Exists(templatePath))
+                string[] split = expander.Name.Split('.');
+
+                Component component = new()
                 {
-                    IEnumerable<string> files = directoryService.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)
-                        .Where(x => !string.IsNullOrEmpty(x));
+                    Id = Guid.NewGuid(),
+                    Name = split.Length > 1 ? string.Join('.', split[1..^0]) : expander.Name,
+                    Expander = expander,
+                };
 
-                    ArgumentNullException.ThrowIfNull(files);
-
-                    foreach (string file in files)
-                    {
-                        string fileName = fileService.GetFileNameWithoutExtension(file);
-                        string componentName = fileName.Replace("NAME.", string.Empty, StringComparison.InvariantCulture);
-
-                        Component component = new()
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = componentName,
-                            Expander = expander,
-                        };
-
-                        createGateway.Create(component);
-                    }
-                }
+                createGateway.Create(component);
             }
         }
 

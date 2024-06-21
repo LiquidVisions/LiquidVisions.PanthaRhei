@@ -34,10 +34,12 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                 throw new InvalidProgramException("Expected harvest type.");
             }
 
+            string part = entity.Path.Split("src\\")[1];
+
             string fullPath = Path.Combine(
                 expandRequestModel.HarvestFolder,
                 app.FullName,
-                $"{file.GetFileNameWithoutExtension(entity.Path)}.{entity.HarvestType}");
+                $"{part}.{entity.HarvestType}");
 
             serializer.Serialize(entity, fullPath);
 

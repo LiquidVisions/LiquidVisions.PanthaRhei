@@ -43,10 +43,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // assert
             fakes.IDependencyFactory.Verify(x => x.Resolve<ICreateRepository<Component>>(), Times.Once);
             fakes.IDependencyFactory.Verify(x => x.Resolve<IDeleteRepository<Component>>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Resolve<GenerationOptions>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Resolve<IDirectory>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Resolve<IFile>(), Times.Once);
-            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(5));
+            fakes.IDependencyFactory.Verify(x => x.Resolve<It.IsAnyType>(), Times.Exactly(2));
             fakes.IDependencyFactory.Verify(x => x.ResolveAll<It.IsAnyType>(), Times.Never);
         }
 
@@ -90,70 +87,29 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             mockedDeleteGateway.Verify(x => x.DeleteAll(), Times.Once);
         }
 
-
-        /// <summary>
-        /// Test for <seealso cref="ComponentSeeder.Seed(App)"/> edge case scenario.
-        /// </summary>
-        [Fact]
-        public void ExecuteExpanderFolderDoesNotExistShouldNotCreate()
-        {
-            // arrange
-            Expander expander1 = new() { Name = "Expander1", Enabled = true };
-            Expander expander2 = new() { Name = "Expander2", Enabled = true };
-
-            App app = new();
-            app.Expanders.Add(expander1);
-            app.Expanders.Add(expander2);
-
-            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
-            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
-
-            fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(false);
-            fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(false);
-
-            // act
-            interactor.Seed(app);
-
-            // assert
-            fakes.IDirectory.Verify(x => x.Exists(actualTemplatePathExpander1), Times.Once);
-            fakes.IDirectory.Verify(x => x.Exists(actualTemplatePathExpander2), Times.Once);
-            fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>()), Times.Never);
-            mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Never);
-        }
-
         /// <summary>
         /// Test for <seealso cref="ComponentSeeder.Seed(App)"/> happyflow.
         /// </summary>
         [Fact]
-        public void ExecuteHappyFlowShouldVerify()
+        public void ShouldSeedComponentWithTheCorrectName()
         {
             // arrange
             Expander expander1 = new() { Name = "Expander1", Enabled = true };
-            Expander expander2 = new() { Name = "Expander2", Enabled = true };
+            Expander expander2 = new() { Name = "One.Two", Enabled = true };
+            Expander expander3 = new() { Name = "One.Two.Three", Enabled = true };
 
             App app = new();
             app.Expanders.Add(expander1);
             app.Expanders.Add(expander2);
-
-            string actualTemplatePathExpander1 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander1.Name, Resources.TemplatesFolder);
-            string actualTemplatePathExpander2 = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander2.Name, Resources.TemplatesFolder);
-
-            fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander1)).Returns(true);
-            fakes.IDirectory.Setup(x => x.Exists(actualTemplatePathExpander2)).Returns(true);
-
-            fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories)).Returns([$"{actualTemplatePathExpander1}\\NAME.Project1.csproj", string.Empty]);
-            fakes.IDirectory.Setup(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories)).Returns([$"{actualTemplatePathExpander2}\\NAME.Project2.csproj", string.Empty]);
-
-            fakes.IFile.Setup(x => x.GetFileNameWithoutExtension($"{actualTemplatePathExpander1}\\NAME.Project1.csproj")).Returns("Project1");
-            fakes.IFile.Setup(x => x.GetFileNameWithoutExtension($"{actualTemplatePathExpander2}\\NAME.Project2.csproj")).Returns("Project2");
+            app.Expanders.Add(expander3);
 
             // act
             interactor.Seed(app);
 
             // assert
-            fakes.IDirectory.Verify(x => x.GetFiles(actualTemplatePathExpander1, "*.csproj", SearchOption.AllDirectories), Times.Once);
-            fakes.IDirectory.Verify(x => x.GetFiles(actualTemplatePathExpander2, "*.csproj", SearchOption.AllDirectories), Times.Once);
-            mockedCreateGateway.Verify(x => x.Create(It.IsAny<Component>()), Times.Exactly(2));
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Component>(c => c.Name == "Expander1" && c.Expander == expander1)), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Component>(c => c.Name == "Two" && c.Expander == expander2)), Times.Once);
+            mockedCreateGateway.Verify(x => x.Create(It.Is<Component>(c => c.Name == "Two.Three" && c.Expander == expander3)), Times.Once);
         }
     }
 }

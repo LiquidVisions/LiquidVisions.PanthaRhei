@@ -1,12 +1,13 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 
-namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
+namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update
 {
     internal class UpdateCommand : CommandLineApplication
     {
         public UpdateCommand()
         {
-            base.Name = "update";
+            Name = "update";
+            HelpOption("-?", true);
 
             using var updatePackagesCommand = new UpdateCorePackages();
             AddSubcommand(updatePackagesCommand);

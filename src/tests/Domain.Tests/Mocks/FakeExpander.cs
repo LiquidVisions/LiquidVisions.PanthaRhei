@@ -33,7 +33,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Mocks
 
         public bool Enabled => throw new NotImplementedException();
 
-        public string Name => throw new NotImplementedException();
+        public string Name => nameof(FakeExpander);
 
         public int Order => throw new NotImplementedException();
 

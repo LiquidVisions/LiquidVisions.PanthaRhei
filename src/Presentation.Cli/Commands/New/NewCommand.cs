@@ -1,12 +1,13 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 
-namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
+namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
 {
-    internal class NewCommand : CommandLineApplication
+    internal class NewCommand : PanthaRheiCommandLineApplication
     {
         public NewCommand()
         {
-            base.Name = "new";
+            Name = "new";
+            HelpOption("-?", true);
 
             using var newExpanderCommand = new NewExpanderCommand();
             AddSubcommand(newExpanderCommand);

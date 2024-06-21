@@ -51,7 +51,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
             // arrange
             string folderPath = "C:\\Some\\Full\\Path\\To\\";
             string filePath = $"{folderPath}File{Resources.RegionHarvesterExtensionFile}";
-            fakes.IFile.Setup(x => x.Exists(filePath)).Returns(true);
+            fakes.IFile.Setup(x => x.Exists(filePath)).Returns(false);
             fakes.IFile.Setup(x => x.GetDirectory(filePath)).Returns(folderPath);
             fakes.IDirectory.Setup(x => x.Exists(folderPath)).Returns(folderExists);
             Harvest entity = new(Resources.RegionHarvesterExtensionFile)

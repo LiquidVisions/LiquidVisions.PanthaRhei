@@ -57,7 +57,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
         {
             // arrange
             string extension = Resources.RegionHarvesterExtensionFile;
-            string pathWithoutExtension = $"C:\\Full\\Path\\To\\Harvest\\File";
+            string pathWithoutExtension = $"C:\\Full\\Path\\To\\src\\Harvest\\File";
             string path = $"{pathWithoutExtension}.cs";
             fakes.IFile.Setup(x => x.GetFileNameWithoutExtension(path)).Returns(pathWithoutExtension);
             Harvest entity = new(extension)
@@ -65,7 +65,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests
                 Path = path,
             };
 
-            string fullSavePath = Path.Combine(fakes.GenerationOptions.Object.HarvestFolder, app.FullName, $"{pathWithoutExtension}.{extension}");
+            string fullSavePath = Path.Combine(fakes.GenerationOptions.Object.HarvestFolder, app.FullName, "Harvest\\File.cs.region.harvest");
 
             // act
             bool result = repository.Create(entity);

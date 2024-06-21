@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Repositories;
@@ -21,6 +22,9 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
     {
         private readonly Fakes fakes = new();
         private readonly RegionRejuvenator<FakeExpander> rejuvenator;
+        private readonly FakeExpander fakeExpander = new();
+
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionRejuvenatorTests"/> class.
@@ -34,6 +38,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
 
 
             fakes.IDependencyFactory.Setup(x => x.Resolve<App>()).Returns(app);
+            fakes.IDependencyFactory.Setup(x => x.Resolve<FakeExpander>()).Returns(fakeExpander);
             rejuvenator = new RegionRejuvenator<FakeExpander>(fakes.IDependencyFactory.Object);
         }
 
@@ -120,7 +125,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
                 Path = harvestFile1,
                 Items = [new HarvestItem { Tag = "tag", Content = "content" }]
             };
-            fakes.IDirectory.Setup(x => x.GetFiles(It.IsAny<string>(), $"*.{Resources.RegionHarvesterExtensionFile}", SearchOption.TopDirectoryOnly)).Returns([harvestFile1]);
+            fakes.IDirectory.Setup(x => x.GetFiles(It.IsAny<string>(), $"*{Resources.RegionHarvesterExtensionFile}", SearchOption.AllDirectories)).Returns([harvestFile1]);
             Mock<IGetRepository<Harvest>> mockedIGetRepository = new();
             mockedIGetRepository.Setup(x => x.GetById(harvestFile1)).Returns(harvest);
             fakes.IDependencyFactory.Setup(x => x.Resolve<IGetRepository<Harvest>>()).Returns(mockedIGetRepository.Object);
@@ -130,7 +135,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases.Generators
             rejuvenator.Execute();
 
             // assert
-            fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), $"*.{Resources.RegionHarvesterExtensionFile}", SearchOption.TopDirectoryOnly), Times.Once);
+            fakes.IDirectory.Verify(x => x.GetFiles(It.IsAny<string>(), $"*{Resources.RegionHarvesterExtensionFile}", SearchOption.AllDirectories), Times.Once);
             mockedIGetRepository.Verify(x => x.GetById(harvestFile1), Times.Once);
             fakes.IWriter.Verify(x => x.Load(harvestFile1), Times.Once);
             fakes.IWriter.Verify(x => x.AddBetween($"#region ns-custom-{harvest.Items.Single().Tag}", $"#endregion ns-custom-{harvest.Items.Single().Tag}", $"{harvest.Items.Single().Content}"), Times.Once);
