@@ -21,6 +21,12 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
         /// </summary>
         /// <param name="root">The root of where the action should search for projects to update.</param>
         /// <returns><see cref="Task{TResult}"/></returns>
-        Task<Response> UpdateCorePackages(string root);
+        Task<Response> UpdatePackages(string root);
+
+        /// <summary>
+        /// Updates the PanthaRhei Cli to latest version
+        /// </summary>
+        /// <returns></returns>
+        Task<Response> UpdateCore();
     }
 }

@@ -2,7 +2,8 @@
 using LiquidVisions.PanthaRhei.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Usecases.CreateNewExpander;
-using LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCoreUseCase;
+using LiquidVisions.PanthaRhei.Domain.Usecases.UpdatePackages;
+using LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCore;
 
 namespace LiquidVisions.PanthaRhei.Application.Boundaries
 {
@@ -10,10 +11,11 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
     /// Represents the boundary of the application.
     /// </summary>
     /// <param name="newExpander"><seealso cref="NewExpanderRequestModel"/></param>
-    /// <param name="updateCorePackages"></param>
-    internal class Boundary(ICreateNewExpander newExpander, IUpdateCorePackages updateCorePackages) : IBoundary
+    /// <param name="updateCorePackages"><seealso cref="IUpdateCoreUseCase"/></param>
+    /// <param name="updateCore"><seealso cref="IUpdateCoreUseCase"/></param>
+    internal class Boundary(ICreateNewExpander newExpander, IUpdatePackagesUseCase updateCorePackages, IUpdateCoreUseCase updateCore) : IBoundary
     {
-        public async Task<Response> CreateNewExpander(RequestModels.NewExpanderRequestModel model)
+        public async Task<Response> CreateNewExpander(NewExpanderRequestModel model)
         {
             CreateNewExpanderRequestModel dto = new()
             {
@@ -30,7 +32,10 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
             return response;
         }
 
-        public Task<Response> UpdateCorePackages(string root)
+        public Task<Response> UpdateCore()
+            => updateCore.Update();
+
+        public Task<Response> UpdatePackages(string root)
             => updateCorePackages.Execute(root);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using LiquidVisions.PanthaRhei.Domain.IO;
 using LiquidVisions.PanthaRhei.Domain.Logging;
 
-namespace LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCoreUseCase
+namespace LiquidVisions.PanthaRhei.Domain.Usecases.UpdatePackages
 {
     /// <summary>
     /// Updates the PanthaRhei.Core packages in the csproj files.
@@ -16,7 +16,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCoreUseCase
     /// <param name="commandLine"><seealso cref="ICommandLine"/></param>
     /// <param name="logger"><seealso cref="ILogger"/></param>
     /// <param name="file"><seealso cref="IFile"/></param>
-    public class UpdateCorePackages(IDirectory directory, ICommandLine commandLine, ILogger logger, IFile file) : IUpdateCorePackages
+    public class UpdatePackagesUseCase(IDirectory directory, ICommandLine commandLine, ILogger logger, IFile file) : IUpdatePackagesUseCase
     {
         private readonly Dictionary<string, string> packages = new()
         {

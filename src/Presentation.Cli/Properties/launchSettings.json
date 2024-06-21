@@ -38,7 +38,7 @@
         },
         "flux-update": {
             "commandName": "Project",
-            "commandLineArgs": "update core --root \"C:\\Dev\\LiquidVisions.PanthaRhei.Expanders\""
+            "commandLineArgs": "update packages --root \"C:\\Dev\\LiquidVisions.PanthaRhei.Expanders\""
         },
         "flux-version": {
             "commandName": "Project",
@@ -55,6 +55,11 @@
         "flux-help": {
             "commandName": "Project",
             "commandLineArgs": "expand -?"
+        },
+        "flux-update-core": {
+            "commandName": "Project",
+            "commandLineArgs": "update core"
         }
+
     }
 }
