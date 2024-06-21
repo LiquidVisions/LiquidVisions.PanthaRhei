@@ -5,6 +5,7 @@ using LiquidVisions.PanthaRhei.Application;
 using LiquidVisions.PanthaRhei.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Infrastructure;
 using LiquidVisions.PanthaRhei.Infrastructure.EntityFramework;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -40,8 +41,11 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli
         {
             ArgumentNullException.ThrowIfNull(model);
 
+            string full = typeof(Program).Assembly.Location;
+            string path = Path.GetDirectoryName(full);
+
             IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(path)
                 .AddJsonFile("appsettings.json")
                 .AddUserSecrets<Program>()
                 .Build();
