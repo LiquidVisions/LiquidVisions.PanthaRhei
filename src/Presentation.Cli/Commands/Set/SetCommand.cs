@@ -6,7 +6,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
 {
     internal class SetCommand : CommandLineApplication
     {
-        private static readonly string path = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
+        private static readonly string path = Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location), "appsettings.json");
 
         public SetCommand()
         {

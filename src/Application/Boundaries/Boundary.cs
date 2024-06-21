@@ -3,7 +3,6 @@ using LiquidVisions.PanthaRhei.Application.RequestModels;
 using LiquidVisions.PanthaRhei.Domain;
 using LiquidVisions.PanthaRhei.Domain.Usecases.CreateNewExpander;
 using LiquidVisions.PanthaRhei.Domain.Usecases.UpdatePackages;
-using LiquidVisions.PanthaRhei.Domain.Usecases.UpdateCore;
 
 namespace LiquidVisions.PanthaRhei.Application.Boundaries
 {
@@ -11,9 +10,8 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
     /// Represents the boundary of the application.
     /// </summary>
     /// <param name="newExpander"><seealso cref="NewExpanderRequestModel"/></param>
-    /// <param name="updateCorePackages"><seealso cref="IUpdateCoreUseCase"/></param>
-    /// <param name="updateCore"><seealso cref="IUpdateCoreUseCase"/></param>
-    internal class Boundary(ICreateNewExpander newExpander, IUpdatePackagesUseCase updateCorePackages, IUpdateCoreUseCase updateCore) : IBoundary
+    /// <param name="updateCorePackages"><seealso cref="IUpdatePackagesUseCase"/></param>
+    internal class Boundary(ICreateNewExpander newExpander, IUpdatePackagesUseCase updateCorePackages) : IBoundary
     {
         public async Task<Response> CreateNewExpander(NewExpanderRequestModel model)
         {
@@ -31,9 +29,6 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
 
             return response;
         }
-
-        public Task<Response> UpdateCore()
-            => updateCore.Update();
 
         public Task<Response> UpdatePackages(string root)
             => updateCorePackages.Execute(root);

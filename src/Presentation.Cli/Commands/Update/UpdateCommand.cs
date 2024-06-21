@@ -10,10 +10,8 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update
             HelpOption("-?", true);
 
             using var updatePackagesCommand = new UpdatePackages();
-            using var updateCoreCommand = new UpdateCoreCommand();
 
             AddSubcommand(updatePackagesCommand);
-            AddSubcommand(updateCoreCommand);
         }
     }
 }
