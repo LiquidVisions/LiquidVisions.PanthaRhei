@@ -17,6 +17,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
         public NewExpanderCommand()
         {
             Name = "expander";
+            HelpOption("-?", true);
 
             nameOption = Option(
                 "--shortName",

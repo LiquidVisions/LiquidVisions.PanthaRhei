@@ -9,6 +9,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
         public VersionCommand()
         {
             Name = "version";
+            HelpOption("-?", true);
         }
 
         public override void OnExecute()

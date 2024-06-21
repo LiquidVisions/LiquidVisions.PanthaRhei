@@ -13,7 +13,7 @@ using var versionCommand = new VersionCommand();
 using var updateCommand = new UpdateCommand();
 using var setCommand = new SetCommand();
 
-app.HelpOption();
+app.HelpOption("-?");
 app.AddSubcommand(buildCommand);
 app.AddSubcommand(newCommand);
 app.AddSubcommand(updateCommand);

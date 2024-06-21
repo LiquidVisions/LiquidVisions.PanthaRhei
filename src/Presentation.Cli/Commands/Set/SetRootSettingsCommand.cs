@@ -11,6 +11,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
         {
             this.settings = settings;
             Name = "root";
+            HelpOption("-?", true);
 
             root = Option(
                 "-r|--root",

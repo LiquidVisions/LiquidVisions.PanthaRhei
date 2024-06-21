@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using McMaster.Extensions.CommandLineUtils;
+﻿using McMaster.Extensions.CommandLineUtils;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
 {
@@ -12,6 +7,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
         public HarvestCommand()
         {
             base.Name = "harvest";
+            HelpOption("-?", true);
 
         }
     }

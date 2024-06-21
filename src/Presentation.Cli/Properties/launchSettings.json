@@ -6,31 +6,31 @@
         },
         "flux-Harvest": {
             "commandName": "Project",
-            "commandLineArgs": "expand --mode \"Harvest\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+            "commandLineArgs": "expand --mode \"Harvest\""
         },
         "flux-Deploy": {
             "commandName": "Project",
-            "commandLineArgs": "expand --model --mode \"Deploy\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+            "commandLineArgs": "expand --model --mode \"Deploy\""
         },
         "flux-Migrate": {
             "commandName": "Project",
-            "commandLineArgs": "expand --mode \"Migrate\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+            "commandLineArgs": "expand --mode \"Migrate\""
         },
         "flux-Extend": {
             "commandName": "Project",
-            "commandLineArgs": "expand --mode \"Extend, Rejuvenate\" --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+            "commandLineArgs": "expand --mode \"Extend, Rejuvenate\""
         },
         "flux-Seed": {
             "commandName": "Project",
-            "commandLineArgs": "expand --seed --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+            "commandLineArgs": "expand --seed"
         },
         "flux-migrate": {
             "commandName": "Project",
-            "commandLineArgs": "expand --migrate --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+            "commandLineArgs": "expand --migrate"
         },
         "flux-migrateAndSeed": {
             "commandName": "Project",
-            "commandLineArgs": "expand --seed --migrate --app \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
+            "commandLineArgs": "expand --seed --migrate"
         },
         "flux-newExpander": {
             "commandName": "Project",
@@ -51,6 +51,10 @@
         "flux-set-root": {
             "commandName": "Project",
             "commandLineArgs": "set root -r \"C:\\Dev\\PanthaRhei.Output\""
+        },
+        "flux-help": {
+            "commandName": "Project",
+            "commandLineArgs": "expand -?"
         }
     }
 }

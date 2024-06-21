@@ -12,6 +12,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
         {
             this.runSettings = runSettings;
             Name = "database";
+            HelpOption("-?", true);
 
             name = Option(
                 "-n|--name",

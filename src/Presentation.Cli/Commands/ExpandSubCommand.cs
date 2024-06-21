@@ -19,15 +19,15 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
         public ExpandSubCommand()
         {
             base.Name = "expand";
-
+            base.HelpOption("-?");
             rootOption = Option(
                     "--root",
-                    "Full path to the project root.",
+                    "Full path to the project root.This option is optional. Use the command flux set -r <PATH> to set the default output folder in the run settings.",
                     CommandOptionType.SingleValue);
 
             appOption = Option(
                 "--app",
-                "The id of the app.",
+                "The identifier of the App. This option is optional. Use the command flux set app -a <APPID> to set the default in the run settings.",
                 CommandOptionType.SingleValue);
 
             runModeOption = Option(

@@ -11,6 +11,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
         {
             this.settings = settings;
             Name = "app";
+            HelpOption("-?", true);
 
             app = Option(
                 "-a|--app",

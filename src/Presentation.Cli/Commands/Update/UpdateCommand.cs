@@ -7,6 +7,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update
         public UpdateCommand()
         {
             Name = "update";
+            HelpOption("-?", true);
 
             using var updatePackagesCommand = new UpdateCorePackages();
             AddSubcommand(updatePackagesCommand);

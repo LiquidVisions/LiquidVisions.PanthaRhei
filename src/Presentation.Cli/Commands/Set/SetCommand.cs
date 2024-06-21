@@ -11,6 +11,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
         public SetCommand()
         {
             Name = "set";
+            HelpOption("-?", true);
 
             IRunSettings runSettings = new ServiceCollection()
                 .AddPresentationLayer()

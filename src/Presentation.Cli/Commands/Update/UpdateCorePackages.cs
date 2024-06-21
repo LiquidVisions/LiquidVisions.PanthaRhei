@@ -11,6 +11,7 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Update
         public UpdateCorePackages()
         {
             Name = "core";
+            HelpOption("-?", true);
 
             rootOption = Option(
                 "--root",

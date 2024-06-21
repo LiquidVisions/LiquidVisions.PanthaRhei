@@ -7,7 +7,8 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
         public NewCommand()
         {
             Name = "new";
-            
+            HelpOption("-?", true);
+
             using var newExpanderCommand = new NewExpanderCommand();
             AddSubcommand(newExpanderCommand);
         }
