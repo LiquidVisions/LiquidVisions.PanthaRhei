@@ -13,6 +13,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Mocks
     {
         public FakeAbstractExpander()
         {
+            Order = 12;
         }
 
         public FakeAbstractExpander(IDependencyFactory dependencyFactory)
@@ -22,7 +23,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.Mocks
 
 
         public override void Clean() => throw new NotImplementedException();
-        protected override int GetOrder() => 12;
     }
 
     public class FakeExpander : IExpander

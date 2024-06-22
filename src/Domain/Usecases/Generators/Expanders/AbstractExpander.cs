@@ -21,6 +21,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         private readonly ILogger logger;
         private readonly IDependencyFactory dependencyFactory;
         private readonly IApplication application;
+        private int order = int.MinValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractExpander{TExpander}"/> class.
@@ -40,10 +41,15 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
             this.dependencyFactory = dependencyFactory;
 
             application = dependencyFactory.Resolve<IApplication>();
+
             logger = dependencyFactory.Resolve<ILogger>();
+
             App = dependencyFactory.Resolve<App>();
+
             Model = App.Expanders
                 .Single(x => x.Name == Name);
+
+            order = Model.Order;
         }
 
         private static string GetName()
@@ -94,9 +100,11 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// <summary>
         /// Gets the order of the <seealso cref="AbstractExpander{TExpander}"/>.
         /// </summary>
-#pragma warning disable CA1721 // Property names should not match get methods
-        public virtual int Order => Model == null ? GetOrder() : Model.Order;
-#pragma warning restore CA1721 // Property names should not match get methods
+        public int Order
+        {
+            get { return order; }
+            set { order = value; }
+        }
 
         /// <summary>
         /// Gets the <seealso cref="IEnumerable{IHandler}">collection</seealso> of <seealso cref="IExpanderTask{TExpander}"/>.
@@ -216,11 +224,5 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
 
         /// <inheritdoc/>
         public abstract void Clean();
-
-        /// <summary>
-        /// Gets the order of the expander.
-        /// </summary>
-        /// <returns>The order of the expander.</returns>
-        protected abstract int GetOrder();
     }
 }
