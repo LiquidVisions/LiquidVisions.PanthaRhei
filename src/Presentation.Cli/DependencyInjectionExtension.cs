@@ -55,27 +55,22 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli
                 .GetChildren()
                 .Single().Key;
 
-            if(string.IsNullOrEmpty(model.Root))
-            {
-                string root = configuration.GetSection("RunSettings")
-                    .GetSection("Root")
-                    .Value;
-
-                model.Root = root;
-            }
-
-            if(model.AppId == Guid.Empty)
-            {
-                string appId = configuration.GetSection("RunSettings")
-                    .GetSection("App")
-                    .Value;
-
-                model.AppId = Guid.Parse(appId);
-
-            }
-
             model.ConnectionString = configuration.GetConnectionString(connectionStringName);
 
+            model.Root = string.IsNullOrEmpty(model.Root)
+                ? configuration.GetSection("RunSettings")
+                    .GetSection("Root")
+                    .Value
+                : model.Root;
+
+
+            model.AppId = model.AppId == Guid.Empty
+                ? Guid.Parse(configuration
+                    .GetSection("RunSettings")
+                    .GetSection("App")
+                    .Value)
+                : model.AppId;
+            
             services.AddApplicationLayer(model)
                 .AddInfrastructureLayer()
                 .AddEntityFrameworkLayer();

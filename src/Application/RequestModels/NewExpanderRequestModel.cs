@@ -1,4 +1,6 @@
-﻿namespace LiquidVisions.PanthaRhei.Application.RequestModels
+﻿using System;
+
+namespace LiquidVisions.PanthaRhei.Application.RequestModels
 {
     /// <summary>
     /// A request model for creating a new expander.
@@ -29,5 +31,10 @@
         /// Gets or sets a value indicating whether the expander should be built.
         /// </summary>
         public bool Build { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application ID of the expander.
+        /// </summary>
+        public Guid AppId { get; set; }
     }
 }

@@ -132,6 +132,9 @@
   <data name="DefaultOutputFolder" xml:space="preserve">
     <value>Output</value>
   </data>
+  <data name="ExpanderCreatedSuccessfully" xml:space="preserve">
+    <value>Expaner Created successfully!</value>
+  </data>
   <data name="MigrationsFolder" xml:space="preserve">
     <value>Migrations</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="RegionHarvesterExtensionFile" xml:space="preserve">
     <value>region.harvest</value>
+  </data>
+  <data name="TemplatePackageName" xml:space="preserve">
+    <value>LiquidVisions.PanthaRhei.Templates.Expander</value>
   </data>
   <data name="TemplatesFolder" xml:space="preserve">
     <value>.Templates</value>

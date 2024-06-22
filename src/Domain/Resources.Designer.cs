@@ -106,6 +106,15 @@ namespace LiquidVisions.PanthaRhei.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expaner Created successfully!.
+        /// </summary>
+        public static string ExpanderCreatedSuccessfully {
+            get {
+                return ResourceManager.GetString("ExpanderCreatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Migrations.
         /// </summary>
         public static string MigrationsFolder {
@@ -138,6 +147,15 @@ namespace LiquidVisions.PanthaRhei.Domain {
         public static string RegionHarvesterExtensionFile {
             get {
                 return ResourceManager.GetString("RegionHarvesterExtensionFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LiquidVisions.PanthaRhei.Templates.Expander.
+        /// </summary>
+        public static string TemplatePackageName {
+            get {
+                return ResourceManager.GetString("TemplatePackageName", resourceCulture);
             }
         }
         
