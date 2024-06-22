@@ -22,6 +22,7 @@ namespace LiquidVisions.PanthaRhei.Application.Boundaries
                 Path = model.Path,
                 BuildPath = model.BuildPath,
                 Build = model.Build,
+                AppId = model.AppId
             };
 
             Response response = await newExpander.Execute(dto)

@@ -34,7 +34,7 @@
         },
         "flux-newExpander": {
             "commandName": "Project",
-            "commandLineArgs": "new expander --path \"C:\\Dev\\LiquidVisions.PanthaRhei.Expanders\" --buildPath \"C:\\Dev\\PanthaRhei.Output\" --build --shortName \"EntityFramework\" --fullName \"CleanArchitecture.Infrastructure.EntityFramework\""
+            "commandLineArgs": "new expander --path \"C:\\Dev\\LiquidVisions.PanthaRhei.Expanders\" --buildPath \"C:\\Dev\\PanthaRhei.Output\" --build --shortName \"Koks\" --fullName \"Gerco.Koks\" -a \"6c6984a1-c87a-429b-b91f-2a976adb3c0e\""
         },
         "flux-update": {
             "commandName": "Project",

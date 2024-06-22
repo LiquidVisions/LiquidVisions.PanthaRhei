@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LiquidVisions.PanthaRhei.Domain.Entities;
 using LiquidVisions.PanthaRhei.Domain.IO;
+using LiquidVisions.PanthaRhei.Domain.Repositories;
 using LiquidVisions.PanthaRhei.Domain.Usecases.CreateNewExpander;
 using LiquidVisions.PanthaRhei.Tests;
 using Moq;
@@ -20,6 +22,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
         private readonly CreateNewExpander useCase;
         private readonly Fakes fakes = new();
         private readonly CreateNewExpanderRequestModel model;
+        private readonly App app;
+        private readonly Mock<ICreateRepository<Expander>> mockedCreateExpanderRepository = new();
+        private readonly Mock<IGetRepository<App>> mockedGetAppRepository = new();
+        private readonly Mock<IUpdateRepository<App>> mockedUpdateAppRepository = new();
 
         private string sourceTemplateFile;
         private string sourceTemplateDirectory;
@@ -29,18 +35,43 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
         /// </summary>
         public NewExpanderUserCaseTests()
         {
-            useCase = new CreateNewExpander(fakes.ICommandLine.Object, fakes.IDirectory.Object, fakes.IFile.Object, fakes.ILogger.Object);
-            model = new()
+            app = PrepareApp();
+            model = PrepareModel();
+
+            mockedGetAppRepository
+                .Setup(x => x.GetById(model.AppId))
+                .Returns(app);
+
+            useCase = new CreateNewExpander(
+                fakes.ICommandLine.Object,
+                fakes.IDirectory.Object,
+                fakes.IFile.Object,
+                fakes.ILogger.Object,
+                mockedCreateExpanderRepository.Object,
+                mockedGetAppRepository.Object,
+                mockedUpdateAppRepository.Object);
+
+
+        }
+
+        private static CreateNewExpanderRequestModel PrepareModel()
+        {
+            return new CreateNewExpanderRequestModel()
             {
                 Build = true,
                 ShortName = "ShortName",
                 FullName = "FullName.ShortName",
                 Path = "C:\\Path",
-                BuildPath = "C:\\BuildPath"
+                BuildPath = "C:\\BuildPath",
+                AppId = Guid.NewGuid()
             };
-
-            
         }
+
+        private static App PrepareApp() => new()
+        {
+            Id = Guid.NewGuid(),
+            Expanders = []
+        };
 
         private void MockIOOperations(int numberOfReturnedFiles = 1, int numberOfReturnedDirectories = 1)
         {
@@ -132,6 +163,25 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             // assert
             InvalidOperationException exception = Assert.Throws<InvalidOperationException>(action);
             Assert.Equal(errorMessage, exception.Message);
+        }
+
+        /// <summary>
+        /// Tests the fault message when the operation fails
+        /// </summary>
+        [Fact]
+        public async Task OperationFailedTest()
+        {
+            // arrange
+            app.Expanders.Add(new Expander { Name = model.FullName });
+
+            // act
+            Response response = await useCase.Execute(model);
+
+            // assert
+            Assert.False(response.IsValid);
+            Assert.Equal($"Expander with name {model.FullName} already exists.", response.Errors.Single().FaultMessage);
+            Assert.Single(response.Errors);
+            Assert.Equal(FaultCodes.BadRequest, response.Errors.Single().FaultCode);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using McMaster.Extensions.CommandLineUtils;
+﻿using LiquidVisions.PanthaRhei.Application.Boundaries;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
+using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
 {
@@ -9,7 +12,13 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
             Name = "new";
             HelpOption("-?", true);
 
-            using var newExpanderCommand = new NewExpanderCommand();
+            IDependencyFactory factory = new ServiceCollection()
+            .AddPresentationLayer()
+            .BuildServiceProvider()
+                .GetService<IDependencyFactory>();
+
+
+            using var newExpanderCommand = new NewExpanderCommand(factory);
             AddSubcommand(newExpanderCommand);
         }
     }
