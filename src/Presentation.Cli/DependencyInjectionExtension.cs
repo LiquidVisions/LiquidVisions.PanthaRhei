@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LiquidVisions.PanthaRhei.Application;
@@ -47,7 +48,6 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(path)
                 .AddJsonFile("appsettings.json")
-                .AddUserSecrets<Program>()
                 .Build();
 
             string connectionStringName = configuration
@@ -62,7 +62,6 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli
                     .GetSection("Root")
                     .Value
                 : model.Root;
-
 
             model.AppId = model.AppId == Guid.Empty
                 ? Guid.Parse(configuration
