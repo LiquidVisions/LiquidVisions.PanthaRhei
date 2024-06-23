@@ -31,16 +31,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         public virtual ICollection<Package> Packages { get; set; } = [];
 
         /// <summary>
-        /// gets or sets the <seealso cref="Component">Components</seealso> that are referenced by the <see cref="Component"/>.
-        /// </summary>
-        public virtual ICollection<Component> ReferencedBy { get; set; } = [];
-
-        /// <summary>
-        /// Gets or sets the <seealso cref="Component">Components</seealso> that are referenced by the <see cref="Component"/>.
-        /// </summary>
-        public virtual ICollection<Component> References { get; set; } = [];
-
-        /// <summary>
         /// Gets or sets the <seealso cref="Expander">Expanders</seealso> of the <see cref="Component"/>.
         /// </summary>
         public virtual Expander Expander { get; set; }

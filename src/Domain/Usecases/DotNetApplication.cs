@@ -39,11 +39,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
 
             cli.Start($"dotnet new liquidvisions-expanders-{component.Name} --NAME {component.Name} --NS {app.FullName}", componentRoot);
             cli.Start($"dotnet sln {Path.Combine(solutionRoot, $"{app.FullName}.sln")} add {GetComponentConfigurationFile(component)}");
-
-            foreach(Component r in component.References)
-            {
-                cli.Start($"dotnet add {GetComponentConfigurationFile(component)} reference {GetComponentConfigurationFile(r)}");
-            }
         }
 
         public virtual string GetComponentRoot(Component component)
@@ -80,5 +75,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
                 cli.Start($"mkdir {root}");
             }
         }
+
+        public void AddReference(Component component, Component reference)
+            => cli.Start($"dotnet add {GetComponentConfigurationFile(component)} reference {GetComponentConfigurationFile(reference)}");
     }
 }
