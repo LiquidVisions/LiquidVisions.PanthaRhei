@@ -46,7 +46,7 @@
         },
         "flux-set-connection": {
             "commandName": "Project",
-            "commandLineArgs": "set database -c \"Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;\", -n \"PanthaRheiDev\""
+            "commandLineArgs": "set database -c \"Server=(localdb)\\MSSQLLocalDB;Initial Catalog=PantaRhei.Dev;Integrated Security=true;\" -n \"PanthaRheiDev\""
         },
         "flux-set-root": {
             "commandName": "Project",

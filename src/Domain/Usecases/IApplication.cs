@@ -34,6 +34,13 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases
         void MaterializeComponent(Component component);
 
         /// <summary>
+        /// Adds the <see cref="Component">reference</see> to the <see cref="Component">component</see>.
+        /// </summary>
+        /// <param name="component">The source component.</param>
+        /// <param name="reference">The referenced component.</param>
+        void AddReference(Component component, Component reference);
+
+        /// <summary>
         /// Materializes the project.
         /// </summary>
         void MaterializeProject();

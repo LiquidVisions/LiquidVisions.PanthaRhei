@@ -40,25 +40,6 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Configuration
             builder.HasOne(x => x.Expander)
                 .WithMany(x => x.Components)
             .IsRequired(false);
-
-            builder.HasMany(c => c.References)
-                 .WithMany(c => c.ReferencedBy)
-                 .UsingEntity<Dictionary<string, object>>(
-                     "ComponentReferences",
-                     j => j
-                         .HasOne<Component>()
-                         .WithMany()
-                         .HasForeignKey("ReferencedById")
-                         .HasConstraintName("FK_ComponentReferences_ReferencedBy"),
-                     j => j
-                         .HasOne<Component>()
-                         .WithMany()
-                         .HasForeignKey("ComponentId")
-                         .HasConstraintName("FK_ComponentReferences_Component"),
-                     j =>
-                     {
-                         j.HasKey("ComponentId", "ReferencedById");
-                     });
         }
     }
 }

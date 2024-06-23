@@ -102,7 +102,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
 
             Mock<Component> mockedComponent = new();
             mockedComponent.Setup(x => x.Name).Returns("Component");
-            mockedComponent.Setup(x => x.References).Returns([referencedComponent]);
 
             string expectedSolutionFolder = Path.Combine(fakes.GenerationOptions.Object.OutputFolder, mockedApp.Object.FullName);
             string expectedComponentFolder = Path.Combine(expectedSolutionFolder, "src", mockedComponent.Object.Name);
@@ -128,7 +127,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
             fakes.ICommandLine.Verify(x => x.Start($"dotnet new sln", expectedSolutionFolder), Times.Exactly(timesToCreateSolutionFile));
             fakes.ICommandLine.Verify(x => x.Start($"dotnet new liquidvisions-expanders-{mockedComponent.Object.Name} --NAME {mockedComponent.Object.Name} --NS {mockedApp.Object.FullName}", expectedComponentFolder), Times.Once);
             fakes.ICommandLine.Verify(x => x.Start($"dotnet sln {expectedSolutionConfigurationFile} add {expectedComponentConfigurationFile}"), Times.Once);
-            fakes.ICommandLine.Verify(x => x.Start($"dotnet add {expectedComponentConfigurationFile} reference {expectedReferencedComponentConfigurationFile}"), Times.Once);
+            //fakes.ICommandLine.Verify(x => x.Start($"dotnet add {expectedComponentConfigurationFile} reference {expectedReferencedComponentConfigurationFile}"), Times.Once);
             fakes.ICommandLine.VerifyNoOtherCalls();
 
         }
