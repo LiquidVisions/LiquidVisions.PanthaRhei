@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
 {
-    internal class VersionCommand : PanthaRheiCommandLineApplication
+    internal class VersionCommand : CommandLineApplicationBase
     {
         public VersionCommand()
         {

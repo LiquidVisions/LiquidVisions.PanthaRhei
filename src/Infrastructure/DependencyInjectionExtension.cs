@@ -23,9 +23,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
         /// </summary>
         /// <param name="services"><seealso cref="IServiceCollection"/></param>
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
-        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, string logPath)
         {
-            return services.AddLogging()
+            return services.AddLogging(logPath)
                 .AddSingleton<IFile>(new FileService())
                 .AddSingleton<IDirectory>(new DirectoryService())
                 .AddTransient<ICommandLine, CommandLine>()
@@ -37,10 +37,9 @@ namespace LiquidVisions.PanthaRhei.Infrastructure
                 .AddTransient<ICreateRepository<Harvest>, HarvestRepository>();
         }
 
-        private static IServiceCollection AddLogging(this IServiceCollection services)
+        private static IServiceCollection AddLogging(this IServiceCollection services, string logPath)
         {
-            GenerationOptions requestModel = services.BuildServiceProvider().GetService<GenerationOptions>();
-            var logManager = new LogManager(requestModel);
+            LogManager logManager = new(logPath);
 
             services.AddSingleton<ILogManager>(logManager);
             services.AddSingleton<ILogger>(logManager.Logger);

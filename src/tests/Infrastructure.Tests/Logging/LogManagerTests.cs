@@ -11,7 +11,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.Tests.Logging
     /// </summary>
     public class LogManagerTests
     {
-        private readonly LogManager logManager = new(new GenerationOptions { Root = "C:\\Some\\Root\\Path" });
+        private readonly LogManager logManager = new("C:\\Some\\Root\\Path");
 
         /// <summary>
         /// Test for <see cref="LogManager.Logger"/>.

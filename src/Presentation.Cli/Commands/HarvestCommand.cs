@@ -8,7 +8,6 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
         {
             base.Name = "harvest";
             HelpOption("-?", true);
-
         }
     }
 }

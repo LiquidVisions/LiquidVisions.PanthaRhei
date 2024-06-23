@@ -1,24 +1,15 @@
-﻿using LiquidVisions.PanthaRhei.Application.Boundaries;
-using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
-using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Extensions.DependencyInjection;
+﻿using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
 {
-    internal class NewCommand : PanthaRheiCommandLineApplication
+    internal class NewCommand : CommandLineApplicationBase
     {
-        public NewCommand()
+        public NewCommand(IDependencyFactory dependencyFactory)
         {
             Name = "new";
             HelpOption("-?", true);
 
-            IDependencyFactory factory = new ServiceCollection()
-            .AddPresentationLayer()
-            .BuildServiceProvider()
-                .GetService<IDependencyFactory>();
-
-
-            using var newExpanderCommand = new NewExpanderCommand(factory);
+            using var newExpanderCommand = new NewExpanderCommand(dependencyFactory);
             AddSubcommand(newExpanderCommand);
         }
     }

@@ -1,12 +1,16 @@
 ﻿using System;
 using LiquidVisions.PanthaRhei.Application.Boundaries;
 using LiquidVisions.PanthaRhei.Application.RequestModels;
+using LiquidVisions.PanthaRhei.Domain;
+using LiquidVisions.PanthaRhei.Domain.Entities;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
 {
-    internal class ExpandSubCommand : PanthaRheiCommandLineApplication
+    internal class ExpandSubCommand : CommandLineApplicationBase
     {
         private readonly CommandOption rootOption;
         private readonly CommandOption appOption;
@@ -14,9 +18,9 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
         private readonly CommandOption<bool> cleanModeOption;
         private readonly CommandOption<bool> seed;
         private readonly CommandOption<bool> migrate;
+        private readonly IDependencyFactory dependencyFactory;
 
-
-        public ExpandSubCommand()
+        public ExpandSubCommand(IDependencyFactory dependencyFactory)
         {
             base.Name = "expand";
             base.HelpOption("-?");
@@ -49,20 +53,23 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
                 "--migrate",
                 "Sets a value indicating whether the database schema should be attempted to update.",
                 CommandOptionType.SingleOrNoValue);
+            this.dependencyFactory = dependencyFactory;
         }
 
-        public override void OnExecute() => new ServiceCollection()
-            .AddPresentationLayer(new ExpandOptionsRequestModel
-            {
-                AppId = string.IsNullOrEmpty(appOption.Value()) ? Guid.Empty : Guid.Parse(appOption.Value()),
-                Migrate = migrate.HasValue(),
-                Seed = seed.HasValue(),
-                Root = rootOption.Value(),
-                Clean = cleanModeOption.HasValue(),
-                GenerationMode = runModeOption.Value(),
-            })
-            .BuildServiceProvider()
-            .GetService<IExpandBoundary>()
-            .Execute();
+        public override void OnExecute()
+        {
+            GenerationOptions model = dependencyFactory
+                .Resolve<GenerationOptions>();
+
+            model.AppId = string.IsNullOrEmpty(appOption.Value()) ? model.AppId : Guid.Parse(appOption.Value());
+            model.Migrate = migrate.HasValue();
+            model.Seed = seed.HasValue();
+            model.Root = rootOption.Value() != null ? rootOption.Value() : model.Root;
+            model.Clean = cleanModeOption.HasValue();
+            model.Modes = runModeOption.Value() != null ? Enum.Parse<GenerationModes>(runModeOption.Value()) : GenerationModes.None;
+
+            dependencyFactory.Resolve<IExpandBoundary>()
+                .Execute();
+        }
     }
 }

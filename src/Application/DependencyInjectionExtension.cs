@@ -39,34 +39,6 @@ namespace LiquidVisions.PanthaRhei.Application
                 .AddUseCases();
         }
 
-        /// <summary>
-        /// Adds the dependencies of the project to the dependency inversion object.
-        /// </summary>
-        /// <param name="services"><seealso cref="IServiceCollection"/></param>
-        /// <param name="requestModel"><seealso cref="ExpandOptionsRequestModel"/></param>
-        /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
-        public static IServiceCollection AddApplicationLayer(this IServiceCollection services, ExpandOptionsRequestModel requestModel)
-        {
-            ArgumentNullException.ThrowIfNull(requestModel);
-
-            GenerationOptions options = new()
-            {
-                AppId = requestModel.AppId,
-                Clean = requestModel.Clean,
-                ConnectionString = requestModel.ConnectionString,
-                ExpandersFolder = requestModel.ExpandersFolder,
-                Modes = requestModel.GenerationMode != null ? Enum.Parse<GenerationModes>(requestModel.GenerationMode) : GenerationModes.None,
-                HarvestFolder = requestModel.HarvestFolder,
-                OutputFolder = requestModel.OutputFolder,
-                Seed = requestModel.Seed,
-                Migrate = requestModel.Migrate,
-                Root = requestModel.Root,
-            };
-
-            return services.AddDomainLayer(options)
-                .AddApplicationLayer();
-        }
-
         private static IServiceCollection AddUseCases(this IServiceCollection services)
         {
             services.AddTransient<IAssemblyContext, AssemblyContext>();

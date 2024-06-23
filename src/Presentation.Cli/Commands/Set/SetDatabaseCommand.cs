@@ -2,13 +2,13 @@
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
 {
-    internal class SetConnectionStringCommand : PanthaRheiCommandLineApplication
+    internal class SetDatabaseCommand : CommandLineApplicationBase
     {
         private readonly CommandOption name;
         private readonly CommandOption connection;
         private readonly IRunSettings runSettings;
 
-        public SetConnectionStringCommand(IRunSettings runSettings)
+        public SetDatabaseCommand(IRunSettings runSettings)
         {
             this.runSettings = runSettings;
             Name = "database";

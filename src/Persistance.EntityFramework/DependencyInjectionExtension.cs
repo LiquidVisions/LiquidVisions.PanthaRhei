@@ -23,15 +23,14 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework
         /// Adds the dependencies of the project to the dependency inversion object.
         /// </summary>
         /// <param name="services"><seealso cref="IServiceCollection"/></param>
+        /// <param name="connectionString">the connectionstring to the data store.</param>
         /// <returns>An instance of <seealso cref="IServiceCollection"/>.</returns>
-        public static IServiceCollection AddEntityFrameworkLayer(this IServiceCollection services)
+        public static IServiceCollection AddEntityFrameworkLayer(this IServiceCollection services, string connectionString)
         {
-            GenerationOptions options = services.BuildServiceProvider().GetService<GenerationOptions>();
-
             services.AddScoped<DbContext, Context>();
             services.AddDbContext<Context>(x =>
             {
-                x.UseSqlServer(options.ConnectionString);
+                x.UseSqlServer(connectionString);
                 x.UseLazyLoadingProxies();
 #if DEBUG
                 x.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));

@@ -1,12 +1,11 @@
 ﻿using System;
 using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Identity.Client;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands
 {
-    internal abstract class PanthaRheiCommandLineApplication : CommandLineApplication
+    internal abstract class CommandLineApplicationBase : CommandLineApplication
     {
-        public PanthaRheiCommandLineApplication()
+        public CommandLineApplicationBase()
         {
             this.OnExecute(() => OnExecute());
 

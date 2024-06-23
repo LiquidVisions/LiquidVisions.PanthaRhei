@@ -11,7 +11,7 @@ using McMaster.Extensions.CommandLineUtils;
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.New
 {
-    internal class NewExpanderCommand : PanthaRheiCommandLineApplication
+    internal class NewExpanderCommand : CommandLineApplicationBase
     {
         private readonly CommandOption appId;
         private readonly CommandOption nameOption;

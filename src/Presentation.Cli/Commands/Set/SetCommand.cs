@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using LiquidVisions.PanthaRhei.Domain.Usecases.Dependencies;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,19 +9,17 @@ namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
     {
         private static readonly string path = Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location), "appsettings.json");
 
-        public SetCommand()
+        public SetCommand(IDependencyFactory dependencyFactory)
         {
             Name = "set";
             HelpOption("-?", true);
 
-            IRunSettings runSettings = new ServiceCollection()
-                .AddPresentationLayer()
-                .BuildServiceProvider()
-                .GetService<IRunSettings>();
+            IRunSettings runSettings = dependencyFactory
+                .Resolve<IRunSettings>();
 
             runSettings.Path = path;
 
-            using var setConnectionStringCommand = new SetConnectionStringCommand(runSettings);
+            using var setConnectionStringCommand = new SetDatabaseCommand(runSettings);
             using var setRootCommand = new SetRootSettingsCommand(runSettings);
             using var setAppCommand = new SetAppCommand(runSettings);
 

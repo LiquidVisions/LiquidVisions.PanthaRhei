@@ -2,7 +2,7 @@
 
 namespace LiquidVisions.PanthaRhei.Presentation.Cli.Commands.Set
 {
-    internal class SetAppCommand : PanthaRheiCommandLineApplication
+    internal class SetAppCommand : CommandLineApplicationBase
     {
         private readonly IRunSettings settings;
         private readonly CommandOption app;
