@@ -30,6 +30,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
                     Id = Guid.NewGuid(),
                     Name = split.Length > 1 ? string.Join('.', split[1..^0]) : expander.Name,
                     Expander = expander,
+                    App = app
                 };
 
                 createGateway.Create(component);

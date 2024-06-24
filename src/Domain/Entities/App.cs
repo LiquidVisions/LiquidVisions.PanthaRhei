@@ -39,5 +39,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// Gets or sets a collection of <seealso cref="ConnectionString" /> that are applicable for the <seealso cref="App"/>.
         /// </summary>
         public virtual ICollection<ConnectionString> ConnectionStrings { get; set; } = [];
+
+        /// <summary>
+        /// Gets or sets a collection of <seealso cref="Component"/>.
+        /// </summary>
+        public virtual ICollection<Component> Components { get; set; } = [];
     }
 }

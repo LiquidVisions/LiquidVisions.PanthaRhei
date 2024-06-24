@@ -34,5 +34,10 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         /// Gets or sets the <seealso cref="Expander">Expanders</seealso> of the <see cref="Component"/>.
         /// </summary>
         public virtual Expander Expander { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <seealso cref="Expander">Expanders</seealso> of the <see cref="Component"/>.
+        /// </summary>
+        public virtual App App { get; set; }
     }
 }
