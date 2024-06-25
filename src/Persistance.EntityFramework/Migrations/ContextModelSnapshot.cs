@@ -34,7 +34,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasIndex("ExpandersId");
 
-                    b.ToTable("AppExpander");
+                    b.ToTable("AppExpander", (string)null);
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.App", b =>
@@ -55,7 +55,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Apps");
+                    b.ToTable("Apps", (string)null);
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Component", b =>
@@ -85,7 +85,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasIndex("ExpanderId");
 
-                    b.ToTable("Components");
+                    b.ToTable("Components", (string)null);
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.ConnectionString", b =>
@@ -111,7 +111,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasIndex("AppId");
 
-                    b.ToTable("ConnectionStrings");
+                    b.ToTable("ConnectionStrings", (string)null);
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Entity", b =>
@@ -155,7 +155,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasIndex("AppId");
 
-                    b.ToTable("Entities");
+                    b.ToTable("Entities", (string)null);
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Expander", b =>
@@ -175,7 +175,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Expanders");
+                    b.ToTable("Expanders", (string)null);
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Field", b =>
@@ -245,7 +245,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasIndex("ReferenceId");
 
-                    b.ToTable("Fields");
+                    b.ToTable("Fields", (string)null);
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Package", b =>
@@ -269,7 +269,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasIndex("ComponentId");
 
-                    b.ToTable("Packages");
+                    b.ToTable("Packages", (string)null);
                 });
 
             modelBuilder.Entity("LiquidVisions.PanthaRhei.Domain.Entities.Relationship", b =>
@@ -313,7 +313,7 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Migrations
 
                     b.HasIndex("WithForeignEntityKeyId");
 
-                    b.ToTable("Relationships");
+                    b.ToTable("Relationships", (string)null);
                 });
 
             modelBuilder.Entity("AppExpander", b =>

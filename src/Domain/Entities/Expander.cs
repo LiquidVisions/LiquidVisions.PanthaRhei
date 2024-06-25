@@ -36,8 +36,8 @@ namespace LiquidVisions.PanthaRhei.Domain.Entities
         public virtual ICollection<App> Apps { get; set; } = [];
 
         /// <summary>
-        /// Gets or sets a collection of <seealso cref="Component">Handlers</seealso> that are applicable for the <seealso cref="Expander"/>.
+        /// Gets or sets the <seealso cref="Entities.Component"/>.
         /// </summary>
-        public virtual ICollection<Component> Components { get; set; } = [];
+        public virtual Component Component { get; set; }
     }
 }

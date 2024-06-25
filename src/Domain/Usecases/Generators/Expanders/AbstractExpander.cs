@@ -68,18 +68,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators.Expanders
         /// </summary>
         public IApplication Application => application;
 
-        /// <summary>
-        /// Gets the <seealso cref="Component"/> by the <paramref name="componentName"/>.
-        /// An expander can have multiple components.
-        /// </summary>
-        /// <param name="componentName"></param>
-        /// <returns><seealso cref="Component"/></returns>
-        public virtual Component GetComponent(string componentName)
-        {
-            return Model.Components
-                .Single(x => x.Name == componentName);
-        }
-
         /// <inheritdoc/>
         public virtual string Name => GetName();
         /// <summary>

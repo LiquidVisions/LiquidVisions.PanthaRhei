@@ -13,7 +13,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
 
         public int SeedOrder => 1;
 
-        public int ResetOrder => 1;
+        public int ResetOrder => 12;
 
         public void Seed(App app)
         {
