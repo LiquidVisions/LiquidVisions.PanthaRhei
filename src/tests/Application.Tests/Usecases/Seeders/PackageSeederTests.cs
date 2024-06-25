@@ -127,17 +127,16 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
                 Name = "TestExpander"
             };
 
-            Component component = new()
+            expander.Component = new Component()
             {
                 Expander = expander
             };
-            expander.Components.Add(component);
 
             App app = new();
             app.Expanders.Add(expander);
 
             string file = "test.csproj";
-            string templatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, component.Expander.Name, Resources.TemplatesFolder);
+            string templatePath = Path.Combine(fakes.GenerationOptions.Object.ExpandersFolder, expander.Name, Resources.TemplatesFolder);
             fakes.IDirectory.Setup(x => x.Exists(templatePath)).Returns(true);
             fakes.IDirectory.Setup(x => x.GetFiles(templatePath, "*.csproj", SearchOption.AllDirectories)).Returns([file]);
 

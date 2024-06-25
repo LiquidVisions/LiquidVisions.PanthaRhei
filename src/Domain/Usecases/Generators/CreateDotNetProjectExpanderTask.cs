@@ -43,13 +43,6 @@ namespace LiquidVisions.PanthaRhei.Domain.Usecases.Generators
         public bool Enabled => options.Clean;
 
         /// <inheritdoc/>
-        public void Execute()
-        {
-            Component component = expander.Model
-                .Components
-                .Single();
-
-            application.MaterializeComponent(component);
-        }
+        public void Execute() => application.MaterializeComponent(expander.Model.Component);
     }
 }

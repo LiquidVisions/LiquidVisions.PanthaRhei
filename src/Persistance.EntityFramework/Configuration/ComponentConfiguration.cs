@@ -38,8 +38,8 @@ namespace LiquidVisions.PanthaRhei.Infrastructure.EntityFramework.Configuration
                 .HasMaxLength(2056);
 
             builder.HasOne(x => x.Expander)
-                .WithMany(x => x.Components)
-            .IsRequired(false);
+                .WithOne(x => x.Component)
+                .HasForeignKey<Expander>(x => x.Id);
         }
     }
 }

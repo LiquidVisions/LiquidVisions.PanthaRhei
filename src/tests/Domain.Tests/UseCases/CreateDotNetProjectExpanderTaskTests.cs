@@ -24,7 +24,7 @@ namespace LiquidVisions.PanthaRhei.Domain.Tests.UseCases
         public CreateDotNetProjectExpanderTaskTests()
         {
             Expander expander = new();
-            expander.Components.Add(component);
+            expander.Component = component;
 
             FakeExpander fakeExpander = new();
             fakeExpander.SetModel(expander);

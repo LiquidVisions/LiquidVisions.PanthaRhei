@@ -54,7 +54,7 @@ namespace LiquidVisions.PanthaRhei.Application.Usecases.Seeders
         {
             ArgumentNullException.ThrowIfNull(entity);
 
-            foreach (Component component in entity.Expanders.SelectMany(x => x.Components))
+            foreach (Component component in entity.Expanders.Select(x => x.Component))
             {
                 string templatePath = Path.Combine(options.ExpandersFolder, component.Expander.Name, Resources.TemplatesFolder);
                 if (directoryService.Exists(templatePath))

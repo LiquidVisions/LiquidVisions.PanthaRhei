@@ -67,7 +67,7 @@ namespace LiquidVisions.PanthaRhei.Application.Tests.Usecases.Seeders
             // arrange
             // act
             // assert
-            Assert.Equal(1, interactor.ResetOrder);
+            Assert.Equal(12, interactor.ResetOrder);
         }
 
         /// <summary>
